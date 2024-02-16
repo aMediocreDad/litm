@@ -1,0 +1,20 @@
+{
+	"Actor": {
+		"types": [
+			"character"
+		],
+		"htmlFields": [
+			"note"
+		],
+		"character": {}
+	},
+	"Item": {
+		"types": [
+			"theme"
+		],
+		"htmlFields": [
+			"note"
+		],
+		"theme": {}
+	}
+}

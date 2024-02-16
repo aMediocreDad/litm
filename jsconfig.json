@@ -1,0 +1,6 @@
+{
+	"compilerOptions": {
+		"strict": true
+	},
+	"include": ["litm.js", "scripts", "foundry.js"],
+}

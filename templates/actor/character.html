@@ -1,0 +1,49 @@
+<form class="{{cssClass}}" autocomplete="off">
+	<img class="avatar" src="{{data.img}}" data-edit="img" alt="{{title}}">
+	<label class="sro" for="name">{{localize "Name"}}</label>
+	<input type="text" id="name" name="name" value="{{title}}" required>
+	<div class="nav">
+		<div>
+			<span id="dice-roll-button--{{data._id}}">{{localize "Litm.ui.roll-title"}}</span>
+			<button type="button" data-click="open" data-id="roll" data-tooltip="{{localize 'Litm.ui.roll'}}"
+				aria-labelledby="dice-roll-button--{{data._id}}"><img src="systems/litm/assets/media/dice.webp" alt="Dice"
+					width="100px"></button>
+		</div>
+		<div>
+			<span id="note-button--{{data._id}}">{{localize "Notes"}}</span>
+			<button type=" button" data-click="open" data-id="note" data-tooltip="{{localize 'Notes'}}"
+				aria-labelledby="note-button--{{data._id}}"><img src="systems/litm/assets/media/note.webp" alt="Note"
+					width="80px"></button>
+		</div>
+	</div>
+	<div id="note">
+		<div class="handle draggable">
+			<span>{{localize 'Notes'}}</span>
+			<button type="button" data-click="close" data-id="note" data-tooltip="{{localize 'Litm.ui.close'}}"><i
+					class="far fa-xmark"></i></button>
+		</div>
+		<label class="sro">{{localize "Notes"}}</label>
+		{{editor data.system.note target="system.note" owner=owner button=true editable=true}}
+	</div>
+	<div class="backpack">
+		<img width="300px" class="backpack--img" src="systems/litm/assets/media/backpack.webp" />
+		<div class="backpack--bg">
+			<div class="meta">{{localize 'Litm.tags.item-tags'}}</div>
+			<div class="title">{{localize 'Litm.other.backpack'}}</div>
+			<ul class="taglist">
+				{{#each data.system.backpack as |tag|}}
+					{{> systems/litm/templates/partials/tag.html tag=tag path="system.backpack" readonly=false remove=true}}
+				{{/each}}
+			</ul>
+			<button type="button" data-click="add-tag">{{localize "Litm.ui.add-tag"}}</button>
+		</div>
+	</div>
+	<div class="themes item-list">
+		{{#each data.items as |item|}}
+			<div class="theme item" data-dblclick="edit" data-context="delete" data-id="{{item._id}}"
+				data-item-id="{{item._id}}">
+				{{> systems/litm/templates/item/theme-ro.html data=item}}
+			</div>
+		{{/each}}
+	</div>
+</form>

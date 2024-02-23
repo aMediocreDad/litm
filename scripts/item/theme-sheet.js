@@ -1,4 +1,4 @@
-import { confirmDelete, getTagData } from "../util.js";
+import { confirmDelete } from "../utils.js";
 
 export class ThemeSheet extends ItemSheet {
 	static defaultOptions = mergeObject(ItemSheet.defaultOptions, {
@@ -16,21 +16,18 @@ export class ThemeSheet extends ItemSheet {
 	}
 
 	get powerTags() {
-		return this.system.powerTags.map(getTagData);
+		return this.system.powerTags;
 	}
 
 	get weaknessTags() {
-		return this.system.weaknessTags.map(getTagData);
+		return this.system.weaknessTags;
 	}
 
 	getData() {
 		const { data, ...rest } = super.getData();
 
-		// Add slug to tags
-		data.system.powerTags = data.system.powerTags.map(getTagData);
-
 		// Filter out weaknesses
-		data.system.weakness = data.system.weaknessTags[0]
+		data.system.weakness = data.system.weaknessTags[0];
 
 		return { data, ...rest };
 	}
@@ -41,9 +38,10 @@ export class ThemeSheet extends ItemSheet {
 		html.find("[data-click]").click(this.#handleClicks.bind(this));
 		html.find("[data-context").contextmenu(this.#handleContextmenu.bind(this));
 
-		html.find("[data-input")
-			.on('input', (event) => this.#handleInput(event))
-			.on('blur', () => this._onSubmit(new Event('submit')));
+		html
+			.find("[data-input")
+			.on("input", (event) => this.#handleInput(event))
+			.on("blur", () => this._onSubmit(new Event("submit")));
 	}
 
 	#handleClicks(event) {
@@ -83,18 +81,12 @@ export class ThemeSheet extends ItemSheet {
 	}
 
 	async #addTag() {
-		const tags = this.system.powerTags;
-
-		tags.push({ name: game.i18n.localize("Litm.tags.unnamed"), equipped: false, burned: false });
-
-		this.item.update({ "system.powerTags": tags });
+		throw new Error("Not implemented");
 	}
 
-	async #removeTag(slug) {
-		await confirmDelete();
-		const tags = this.system.powerTags;
-		tags.splice(slug, 1);
-		await this.item.update({ "system.powerTags": tags });
+	async #removeTag(_) {
+		if (!await confirmDelete()) return;
+		throw new Error("Not implemented");
 	}
 
 	async #increase(field) {

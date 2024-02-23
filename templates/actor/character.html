@@ -1,7 +1,7 @@
 <form class="{{cssClass}}" autocomplete="off">
 	<img class="avatar" src="{{data.img}}" data-edit="img" alt="{{title}}">
 	<label class="sro" for="name">{{localize "Name"}}</label>
-	<input type="text" id="name" name="name" value="{{title}}" required>
+	<input type="text" id="name" name="name" value="{{data.name}}" required>
 	<div class="nav">
 		<div>
 			<span id="dice-roll-button--{{data._id}}">{{localize "Litm.ui.roll-title"}}</span>
@@ -19,7 +19,7 @@
 	<div id="note">
 		<div class="handle draggable">
 			<span>{{localize 'Notes'}}</span>
-			<button type="button" data-click="close" data-id="note" data-tooltip="{{localize 'Litm.ui.close'}}"><i
+			<button type="button" data-click="close" data-id="note" data-tooltip="{{localize 'Close'}}"><i
 					class="far fa-xmark"></i></button>
 		</div>
 		<label class="sro">{{localize "Notes"}}</label>
@@ -32,7 +32,7 @@
 			<div class="title">{{localize 'Litm.other.backpack'}}</div>
 			<ul class="taglist">
 				{{#each data.system.backpack as |tag|}}
-					{{> systems/litm/templates/partials/tag.html tag=tag path="system.backpack" readonly=false remove=true}}
+					{{> systems/litm/templates/partials/tag.html tag=tag key=@key path="system.backpack" readonly=false remove=true}}
 				{{/each}}
 			</ul>
 			<button type="button" data-click="add-tag">{{localize "Litm.ui.add-tag"}}</button>

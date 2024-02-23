@@ -1,19 +1,19 @@
 @layer litm.base;
 @layer litm.components;
 @layer litm.apps;
-@layer litm.actor;
 @layer litm.item;
+@layer litm.actor;
 
 @layer litm {
 	@layer base {
 		:root {
 			--litm-color-bg: hsl(40, 85%, 87%);
 			--litm-color: hsl(41, 23%, 24%);
-			--litm-color-alt-bg: hsl(34 9.9% 73.69%);
+			--litm-color-alt-bg: hsl(34, 34%, 82%);
 			--litm-color-dark-bg: hsl(0 0.88% 44.51%);
 			--litm-color-accent-bg: hsl(225.94 10.66% 41.72%);
 			--litm-color-accent: hsl(46.61 81.44% 92.99%);
-			--litm-color-accent-2: hsl(24 30.38% 58.43%);
+			--litm-color-accent-2: hsl(24deg 20.72% 43.81%);
 			--litm-color-primary-bg: color-mix(in hsl, var(--litm-color-accent) 75%, hsl(0 0% 100%));
 			--litm-color-primary: color-mix(in hsl, var(--litm-color) 75%, hsl(0 0% 0%));
 			--litm-color-row-odd: rgb(0, 0, 0, 0.1);
@@ -35,19 +35,46 @@
 			--litm-space-5: 4rem;
 
 			/* Foundry Overrides */
-			/* --font-primary: 'LibreCaslonText' 'Palatino Linotype', 'Book Antiqua', Palatino, serif; */
-			--color-shadow-primary: var(--litm-color-bg);
+			--font-primary: 'PackardAntique' 'Palatino Linotype', 'Book Antiqua', Palatino, serif;
+			--color-text-light-1: var(--litm-color-accent);
+			--color-shadow-primary: var(--litm-color-primary);
+			--color-shadow-highlight: var(--litm-color-accent-bg);
+			--color-border-highlight: var(--litm-color-accent-bg);
 		}
 
-		.litm {
+		.app.litm {
 			-webkit-font-smoothing: antialiased;
 
 			/* > Overrides */
 
+			background: url('./assets/media/background.webp') 0% 0% / cover;
+			overflow: hidden;
+			box-shadow: none;
+			filter: drop-shadow(black 2px 4px 6px);
+
+			&:not(.minimized) {
+				outline: 2px solid var(--litm-color-primary);
+				outline-offset: -10px;
+				padding: 10px;
+
+				.window-title {
+					display: none;
+				}
+			}
+
+			.window-header {
+				border-bottom: none;
+				font-family: var(--litm-font-primary);
+				justify-content: end;
+
+				.document-id-link {
+					margin-inline: 0 auto;
+				}
+			}
+
 			.window-content {
 				padding: 0px;
-				background-color: var(--litm-color-bg);
-				background-blend-mode: luminosity;
+				background: none;
 
 				form {
 					display: flex;
@@ -59,9 +86,25 @@
 				min-height: 100px;
 				height: 100%;
 			}
-
-			/* ~ Overrides */
 		}
+
+		/* DANGER AREA */
+		/* TODO: Find a better way */
+
+		.chat-message {
+			background-color: var(--litm-color-weakness);
+			background-blend-mode: color-burn;
+			color: var(--litm-color-primary-bg);
+			font-family: var(--litm-font-text);
+			font-size: var(--font-size-12);
+
+			.message-header {
+				color: color-mix(in hsl, var(--litm-color-accent) 70%, transparent);
+			}
+		}
+
+
+		/* ~ Overrides */
 	}
 
 	@layer components {
@@ -139,9 +182,44 @@
 	}
 
 	@layer apps {
+		#litm-roll {
+			width: var(--players-width);
+			margin: 0px 5px 10px 15px;
+			border: none;
+			background: none;
+			padding: 0 50px 0;
+			border: none;
+			pointer-events: all;
+
+			img {
+				border: none;
+				filter: drop-shadow(0 0 6px var(--litm-color-primary));
+			}
+
+			&:hover,
+			&:active,
+			&:focus {
+				box-shadow: none;
+
+				img {
+					filter: drop-shadow(0 0 6px var(--litm-color-primary-bg));
+				}
+			}
+		}
+
 		/* > Apps - Roll Styles */
 
 		.litm.roll {
+			background: url(./assets/media/bg-alt.webp);
+			background-size: cover;
+			background-blend-mode: luminosity;
+			background-color: var(--litm-color);
+
+			.window-header {
+				color: var(--litm-color-primary)
+			}
+
+
 			form {
 				display: grid;
 				grid-template-columns: 1fr 1fr;
@@ -231,6 +309,7 @@
 						display: flex;
 						align-items: center;
 						font-family: var(--litm-font-text);
+						font-weight: 600;
 						font-size: var(--font-size-12);
 						gap: var(--litm-space-3);
 						color: var(--litm-color);
@@ -371,6 +450,7 @@
 					background: none;
 					color: var(--litm-color-primary);
 					font-family: var(--litm-font-heading);
+					font-weight: bold;
 					font-size: var(--font-size-20);
 					cursor: pointer;
 					transition: color 0.2s;
@@ -407,26 +487,96 @@
 				}
 			}
 		}
+
+		/* ~ Apps - Roll Styles */
+
+		/* > Apps - Chat Roll Styles */
+
+		.litm.dice-roll {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			justify-content: center;
+			gap: var(--litm-space-1);
+			padding: var(--litm-space-3);
+			background: url(/ui/parchment.jpg) repeat;
+			background-color: var(--litm-color-accent-bg);
+			background-blend-mode: color-burn;
+			border: 1px solid color-mix(in hsl, var(--litm-color-accent) 70%, transparent);
+			border-radius: 6px;
+			transition: all 0.15s;
+
+			&:hover {
+				box-shadow: 0 0 3px var(--litm-color-primary-bg);
+
+			}
+
+			.dice-flavor {
+				font-family: var(--litm-font-heading);
+				font-size: var(--font-size-24);
+				color: var(--litm-color-bg);
+				text-align: center;
+			}
+
+			.dice-effect {
+				p:first-of-type {
+					color: var(--litm-color-alt-bg);
+					font-family: var(--litm-font-primary);
+					font-size: var(--font-size-16);
+					text-align: center;
+				}
+			}
+
+			.dice-result {
+				width: 100%;
+				margin: var(--litm-space-3) auto 0px;
+
+				.tooltip-part {
+					margin-block: var(--litm-space-1);
+				}
+
+				.part-flavor {
+					color: color-mix(in hsl, var(--litm-color-weakness) 60%, var(--litm-color-accent));
+				}
+			}
+
+			.dice-total {
+				background-color: var(--litm-color-alt-bg);
+				color: var(--litm-color-primary);
+				font-family: var(--litm-font-heading);
+				font-size: var(--font-size-20);
+				text-align: center;
+				padding: var(--litm-space-1);
+				text-shadow: 0 0 2px rgb(0, 0, 0, 0.3);
+
+				&.success {
+					color: var(--color-level-success);
+				}
+
+				&.failure {
+					color: var(--color-level-error);
+				}
+			}
+		}
+
+		/* ~ Apps - Chat Roll Styles */
+
 	}
+
 
 	@layer actor {
 
 		/* > Actor - Character Styles */
 
 		.litm.character {
-			background: url("/ui/parchment.jpg") repeat;
-			background-color: var(--litm-color-dark-bg);
+			background: url('./assets/media/bg.webp');
 			background-size: cover;
-			background-blend-mode: color-burn;
-			box-shadow: -5px 7px 10px var(--litm-color-primary);
+			background-position: center;
+			overflow: visible;
 			z-index: unset;
-			outline: 3px solid var(--litm-color);
-			border-radius: 1px;
 
 			&:not(.minimized) {
 				.window-header {
-					padding: var(--litm-space-1) var(--litm-space-3) 0px var(--litm-space-1);
-
 					&>* {
 						transition: scale 0.15s;
 
@@ -452,8 +602,8 @@
 			}
 
 			.window-content {
-				overflow: visible;
 				background: transparent;
+				overflow: visible;
 			}
 
 			form {
@@ -495,7 +645,7 @@
 				max-width: 220px;
 				display: flex;
 				justify-content: center;
-				margin-block: var(--litm-space-3);
+				margin-block: var(--litm-space-3) var(--litm-space-2);
 				gap: var(--litm-space-3);
 
 				&>div {
@@ -548,24 +698,33 @@
 				position: absolute;
 				top: 50px;
 				left: 70px;
-				background-color: var(--litm-color-alt-bg);
-				border: 3px solid var(--litm-color-primary);
-				border-radius: 4px;
-				box-shadow: 0 0 12px var(--litm-color-primary);
+				background: url('./assets/media/bg.webp');
+				background-size: cover;
+				background-position: top;
+				outline: 2px solid var(--litm-color-primary);
+				color: var(--litm-color-primary-bg);
+				outline-offset: -10px;
+				filter: drop-shadow(0 0 6px var(--litm-color-primary));
+				padding: var(--litm-space-3);
 				display: none;
+				flex-direction: column;
 				height: 400px;
 				width: 600px;
 				max-width: unset;
 				font-family: var(--litm-font-text);
+				overflow: hidden;
+				overflow: clip;
 				z-index: 2;
 
+				&[style*='display: block'] {
+					display: flex !important;
+				}
+
 				.handle {
-					background-color: var(--litm-color-dark-bg);
 					margin-block-end: var(--litm-space-2);
 					display: flex;
 					justify-content: space-between;
 					align-items: center;
-					color: var(--litm-color-primary-bg);
 					padding-inline: var(--litm-space-2) var(--litm-space-1);
 
 					button {
@@ -588,7 +747,7 @@
 				}
 
 				[role="application"] {
-					height: 100% !important
+					height: 100% !important;
 				}
 			}
 
@@ -612,17 +771,21 @@
 
 				.backpack--bg {
 					position: relative;
-					top: -20px;
-					right: -20px;
-					background: var(--litm-color-bg) url("/ui/parchment.jpg") repeat;
-					background-blend-mode: luminosity;
-					border: 4px solid color-mix(in hsl, var(--litm-color-accent-2) 80%, black);
-					border-radius: 4px;
-					box-shadow: 0 0 10px var(--litm-color-primary);
+					top: -40px;
+					right: 10px;
+					background: url('./assets/media/background.webp') 0% 0% / cover;
+					outline: 2px solid var(--litm-color);
+					outline-offset: -10px;
+					padding: 10px;
+					overflow: hidden;
+					box-shadow: none;
+					filter: drop-shadow(black 2px 4px 6px);
+					color: var(--litm-color);
 					height: 350px;
+					width: 280px;
 					display: flex;
 					flex-direction: column;
-					scale: 0.9;
+					scale: 0.8;
 					rotate: 7deg;
 
 					.meta {
@@ -723,18 +886,30 @@
 
 			.theme {
 				position: absolute;
-				top: -10px;
-				left: -105px;
+				top: 0px;
+				left: -225px;
 				width: 300px;
-				border: 4px solid var(--litm-color-primary);
-				outline: 1px solid var(--litm-color-primary);
 				outline-offset: -2px;
 				border-radius: 2px;
-				box-shadow: 0 0 6px var(--litm-color-primary);
 				translate: -20% -18%;
 				rotate: 1deg;
 				scale: 0.7;
 				transition: all 0.15s;
+
+				.background {
+					background: url('./assets/media/background.webp') 0% 0% / cover;
+					outline: 2px solid var(--litm-color);
+					outline-offset: -10px;
+					padding: 10px;
+					overflow: hidden;
+					box-shadow: none;
+					filter: drop-shadow(black 2px 4px 6px);
+					color: var(--litm-color);
+				}
+
+				.meta {
+					padding-block-start: 8px;
+				}
 
 				&:hover {
 					scale: 0.8;
@@ -742,20 +917,20 @@
 				}
 
 				&:nth-child(2) {
-					top: 0px;
-					left: 100px;
+					top: 20px;
+					left: -20px;
 					rotate: -1deg;
 				}
 
 				&:nth-child(3) {
-					top: 15px;
-					left: 300px;
+					top: 60px;
+					left: 190px;
 					rotate: 0deg;
 				}
 
 				&:nth-child(4) {
-					top: 10px;
-					left: 505px;
+					top: 50px;
+					left: 400px;
 					rotate: -2deg;
 				}
 			}
@@ -767,19 +942,26 @@
 	@layer item {
 		/* > Item - Theme Styles */
 
-		.litm.theme,
 		/* Themes displayed in the character sheet */
-		.litm.character .theme {
-			form {
-				overflow: hidden;
-				overflow: clip;
+		.litm.character .theme,
+		.litm.theme {
+
+			.window-header {
+				background: url(/ui/parchment.jpg) repeat;
+				background-color: var(--litm-color-accent-bg);
+				background-blend-mode: color-burn;
+				color: var(--litm-color-accent);
+			}
+
+			.window-content {
+				overflow: visible;
 			}
 
 			.meta {
 				display: flex;
 				align-items: center;
 				justify-content: space-between;
-				padding: var(--litm-space-2) var(--litm-space-3);
+				padding: 0px var(--litm-space-2) var(--litm-space-2);
 				font-family: var(--litm-font-primary);
 				font-size: var(--font-size-12);
 
@@ -794,6 +976,7 @@
 					font-family: var(--litm-font-primary);
 					font-size: var(--font-size-12);
 					height: var(--font-size-14);
+					text-transform: uppercase;
 					display: flex;
 					align-items: center;
 					min-width: 10px;
@@ -838,7 +1021,7 @@
 				display: flex;
 				justify-content: space-between;
 				align-items: center;
-				gap: var(--litm-space-3);
+				gap: var(--litm-space-2);
 				color: var(--litm-color);
 
 				span {
@@ -976,10 +1159,13 @@
 			}
 
 			.progression {
-				padding: var(--litm-space-2) var(--litm-space-3);
+				padding: var(--litm-space-4) var(--litm-space-3) var(--litm-space-2);
 				display: flex;
 				justify-content: space-between;
-				background-color: var(--litm-color-muted-bg);
+				background: url(./assets/media/progress-bg.webp);
+				background-position: center;
+				background-size: cover;
+				margin-inline: -7px;
 				--checkbox-size: 12px;
 
 				&>div {
@@ -1057,13 +1243,6 @@
 						height: 100% !important
 					}
 				}
-			}
-
-			.background {
-				background: url("/ui/parchment.jpg") repeat;
-				background-color: var(--litm-color-bg);
-				background-blend-mode: luminosity;
-				color: var(--litm-color);
 			}
 
 			.accent {

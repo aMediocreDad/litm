@@ -1,11 +1,11 @@
-<li {{#if remove}}data-context="remove-tag" data-id="{{tag.index}}" {{/if}}>
+<li {{#if remove}}data-context="remove-tag" data-id="{{key}}" {{/if}}>
 	<!-- isActive checkbox -->
 	<label class="litm-checkbox {{ifThen tag.isActive 'checked' ''}}" data-tooltip="{{localize "Litm.tags.isActive"}}"
 		aria-label="{{localize "Litm.tags.isActive"}}">
-		<input class="sro" type="checkbox" name="{{path}}.{{tag.index}}.isActive" {{checked tag.isActive}}>
+		<input class="sro" type="checkbox" name="{{path}}.{{key}}.isActive" {{checked tag.isActive}}>
 	</label>
 	<!-- Name input -->
-	<input class="tag--name" type="text" name="{{path}}.{{tag.index}}.name" value="{{tag.name}}">
+	<input class="tag--name" type="text" name="{{path}}.{{key}}.name" value="{{tag.name}}">
 	<!-- isBurnt checkbox -->
 	<label class="burn" data-tooltip="{{localize "Litm.tags.isBurnt"}}" aria-label="{{localize "Litm.tags.isBurnt"}}"><svg
 			xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 68 86" width="16px" height="16px">
@@ -18,8 +18,10 @@
 			<path stroke="{{ifThen tag.isBurnt '#fff' '#000' }}"
 				d="M44.4008 11c-.8 6.1.7 9.7 7.4 17.2 8.1 9.1 10.1 13 10.1 19.6 0 7.2-3.1 14.2-8.9 19.9-4.4 4.4-15.3 10.2-20.8 11.1-3.1.5-3.3.4-3.3-2.3-.1-5.3-3.6-10.9-10.8-17.3-8.79997-8-12.59997-14.5-11.89997-20.7.5-4.8 5.48897-13.7055 7.29997-12.8 1 .5 1.1 2 1.5 4.1.9 4.1 4.3 9.3 6.5 9.3.9 0 1.1-1.4.7-5.4-.4-4.3-.1-6.3 1.6-10 4-8.2 14-17.2 19.4-17.5 1.7-.1 1.8.4 1.2 4.8Z" />
 		</svg>
-		<input class="sro" type="checkbox" name="{{path}}.{{tag.index}}.isBurnt" {{checked tag.isBurnt}}>
+		<input class="sro" type="checkbox" name="{{path}}.{{key}}.isBurnt" {{checked tag.isBurnt}}>
 	</label>
+	<input type="hidden" name="{{path}}.{{key}}.type" value="{{tag.type}}">
+	<input type="hidden" name="{{path}}.{{key}}.id" value="{{tag.id}}">
 	<!-- Remove button -->
 	<!-- Might Reimplement this later -->
 	<!-- <button type="button" data-click="remove-tag" data-id="{{tag.index}}"

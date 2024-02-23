@@ -11,12 +11,8 @@
 			"email": "hello@amediocre.dev"
 		}
 	],
-	"esmodules": [
-		"litm.js"
-	],
-	"styles": [
-		"litm.css"
-	],
+	"esmodules": ["litm.js"],
+	"styles": ["litm.css"],
 	"languages": [
 		{
 			"lang": "en",
@@ -26,20 +22,8 @@
 	],
 	"flags": {
 		"hotReload": {
-			"extensions": [
-				"css",
-				"html",
-				"js",
-				"json"
-			],
-			"paths": [
-				"litm.css",
-				"litm.js",
-				"scripts",
-				"styles",
-				"templates",
-				"lang"
-			]
+			"extensions": ["css", "html", "js", "json"],
+			"paths": ["litm.css", "litm.js", "scripts", "styles", "templates", "lang"]
 		},
 		"allowBugReporter": true
 	}

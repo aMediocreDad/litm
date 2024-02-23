@@ -1,0 +1,45 @@
+{{#*inline "section" name value flavor}}
+	<section class="tooltip-part">
+		<header class="part-header flexrow">
+			<span class="part-formula">{{name}}</span>
+			{{#if flavor}}<span class="part-flavor">{{flavor}}</span>{{/if}}
+			<span class="part-total">{{value}}</span>
+		</header>
+	</section>
+{{/inline}}
+
+{{#if parts.length}}
+	<div class="dice-tooltip">
+		{{#each parts}}
+			<section class="tooltip-part">
+				<div class="dice">
+					<header class="part-header flexrow">
+						<span class="part-formula">{{this.formula}}</span>
+						{{#if this.flavor}}<span class="part-flavor">{{this.flavor}}</span>{{/if}}
+						<span class="part-total">{{this.total}}</span>
+					</header>
+					<ol class="dice-rolls">
+						{{#each this.rolls}}
+							<li class="roll {{this.classes}}">{{{this.result}}}</li>
+						{{/each}}
+					</ol>
+				</div>
+			</section>
+		{{/each}}
+		{{#if data.burnedTag}}
+			{{> section name=data.burnedTag.name value=3 flavor=(localize 'Litm.tags.isBurnt')}}
+		{{/if}}
+		{{#each data.powerTags as |tag|}}
+			{{> section name=tag.name value=1}}
+		{{/each}}
+		{{#if data.mitigate}}
+			{{> section name=(localize 'Litm.effects.mitigate.key') value=1}}
+		{{/if}}
+		{{#each data.weaknessTags as |tag|}}
+			{{> section name=tag.name value=-1}}
+		{{/each}}
+		{{#if data.status}}
+			{{> section name=(localize 'Litm.ui.status') value=data.status}}
+		{{/if}}
+	</div>
+{{/if}}

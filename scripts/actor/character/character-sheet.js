@@ -1,12 +1,12 @@
-import { confirmDelete, getTagData } from "../../util.js";
+import { confirmDelete } from "../../utils.js";
 
 export class CharacterSheet extends ActorSheet {
 	static defaultOptions = mergeObject(ActorSheet.defaultOptions, {
 		classes: ["litm", "character"],
 		width: 250,
 		height: 350,
-		left: window.innerWidth / 2 - 100,
-		top: window.innerHeight / 2 - 100,
+		left: window.innerWidth / 2 - 250,
+		top: window.innerHeight / 2 - 250,
 		resizable: false,
 	});
 
@@ -24,43 +24,28 @@ export class CharacterSheet extends ActorSheet {
 
 	get powerTags() {
 		const backpack = this.system.backpack
-			.filter((tag) => tag.isActive && !tag.isBurnt)
-			.map(getTagData);
 
 		const powerTags = this.items
-			.filter((item) => item.type === 'theme')
-			.map((item) => item.system.powerTags.filter((tag) => tag.isActive && !tag.isBurnt).map(getTagData));
+			.filter((item) => item.type === "theme")
+			.flatMap((item) => item.system.powerTags);
 
-		return [...backpack, ...powerTags.flat()];
+		return [...backpack, ...powerTags];
+	}
+
+	get activePowerTags() {
+		return this.powerTags.filter((tag) => tag.isActive && !tag.isBurnt)
 	}
 
 	get weaknessTags() {
 		const weaknessTags = this.items
-			.filter((item) => item.type === 'theme')
-			.map((item) => item.system.weaknessTags.map(getTagData));
+			.filter((item) => item.type === "theme")
+			.map((item) => item.system.weaknessTags);
+
 		return weaknessTags.flat();
 	}
 
 	getData() {
 		const { data, ...rest } = super.getData();
-
-		// TODO: Abstract away to item class
-		data.items = data.items.map((item, index) => {
-			const sluggedTags = item.system.powerTags?.map(getTagData);
-			const weakness = item.system.weaknessTags[0];
-
-			return {
-				...item,
-				index,
-				system: {
-					...item.system,
-					powerTags: sluggedTags,
-					weakness
-				},
-			}
-		});
-
-		data.system.backpack = data.system.backpack.map(getTagData);
 
 		return { data, ...rest };
 	}
@@ -148,35 +133,40 @@ export class CharacterSheet extends ActorSheet {
 				left: event.clientX - x,
 				top: event.clientY - y,
 			});
-		}
+		};
 
 		$(document).on("mousemove", handleDrag);
 		$(document).on("mouseup", () => {
 			$(document).off("mousemove", handleDrag);
-		})
+		});
 	}
 
 	async #addTag() {
-		const backpack = this.system.backpack;
 		const item = {
 			name: "New Item",
 			isActive: false,
 			isBurnt: false,
+			type: "backpack",
+			id: randomID(),
 		};
+
+		const backpack = this.actor.system.backpack;
 		backpack.push(item);
+
 		return this.actor.update({ "system.backpack": backpack });
 	}
 
 	async #removeTag(index) {
-		await confirmDelete();
+		if (!await confirmDelete()) return;
 
 		const backpack = this.system.backpack;
 		backpack.splice(index, 1);
+
 		return this.actor.update({ "system.backpack": backpack });
 	}
 
 	async #removeItem(id) {
-		await confirmDelete();
+		if (!await confirmDelete()) return;
 
 		const item = this.actor.items.get(id);
 		return item.delete();
@@ -210,7 +200,6 @@ export class CharacterSheet extends ActorSheet {
 			case "roll":
 				this.#roll();
 				break;
-
 		}
 	}
 
@@ -222,15 +211,14 @@ export class CharacterSheet extends ActorSheet {
 	}
 
 	#roll() {
-		const powerTags = this.powerTags;
+		const powerTags = this.activePowerTags;
 		const weaknessTags = this.weaknessTags;
 
-		const rc = game.litm.LitmRollDialog
+		const rc = game.litm.LitmRollDialog;
 		rc.create(this.actor.id, powerTags, weaknessTags);
 	}
 
-	// Hack to allow updating the embedded items
-	async _updateObject(event, formData) {
+	async #handleUpdateEmbeddedItems(formData) {
 		const updateMap = {};
 		for (const [key, value] of Object.entries(formData)) {
 			if (!key.startsWith("items.")) continue;
@@ -239,20 +227,23 @@ export class CharacterSheet extends ActorSheet {
 			const [_, _id, subkey, ...rest] = key.split(".");
 			updateMap[_id] ??= {};
 			updateMap[_id][subkey] ??= {};
-			if (rest.length === 0)
-				updateMap[_id][subkey] = value;
+			if (rest.length === 0) updateMap[_id][subkey] = value;
 			else updateMap[_id][subkey][rest.join(".")] = value;
 		}
 
 		const toUpdate = Object.entries(updateMap).reduce((acc, [id, data]) => {
 			acc.push({ _id: id, ...data });
 			return acc;
-		}, [])
+		}, []);
 
-		if (toUpdate.length)
-			await this.actor.updateEmbeddedDocuments("Item", toUpdate);
+		if (toUpdate.length) this.actor.updateEmbeddedDocuments("Item", toUpdate);
+		return formData;
+	}
 
-		return super._updateObject(event, formData);
+	// Hack to allow updating the embedded items
+	async _updateObject(event, formData) {
+		const cleaned = await this.#handleUpdateEmbeddedItems(formData);
+		return super._updateObject(event, cleaned);
 	}
 
 	// Prevent dropping more than 4 themes on the character sheet
@@ -261,7 +252,10 @@ export class CharacterSheet extends ActorSheet {
 		if (this.actor.items.get(item.id)) return this._onSortItem(event, item);
 
 		const numThemes = this.actor.items.filter((i) => i.type === "theme").length;
-		if (item.type === "theme" && numThemes >= 4) return ui.notifications.warn(game.i18n.localize("Litm.ui.warn-theme-limit"));
+		if (item.type === "theme" && numThemes >= 4)
+			return ui.notifications.warn(
+				game.i18n.localize("Litm.ui.warn-theme-limit"),
+			);
 
 		return super._onDropItem(event, data);
 	}

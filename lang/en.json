@@ -109,14 +109,22 @@
 			"cancel": "Cancel",
 			"confirm-delete-content": "Are you sure you want to delete this?",
 			"confirm-delete-title": "Confirm Delete",
+			"error-burning-tag": "There was an error trying to burn your tag. Please see the console for more information.",
+			"error-validating-actor": "There was an error validating the actor. Please see the console for more information.",
+			"import-actor": "Import Actor from JSON",
 			"remove-tag": "Remove Tag",
 			"roll": "Roll!",
+			"roll-quick": "Quick Outcome",
 			"roll-title": "Roll Dice",
 			"roll-tracked": "Tracked Outcome",
 			"status": "Final Status Modifiers",
 			"warn-no-effect-found": "The game is misconfigured. The selected effect was not found.",
+			"warn-no-character": "Please assign a character to your user in the player configuration, below.",
 			"warn-theme-limit": "You have reached the maximum number of themes. Please remove a theme before adding another."
 		}
 	},
+	"failure": "Failure",
+	"consequence": "Consequence",
+	"success": "Success",
 	"theme": "Theme"
 }

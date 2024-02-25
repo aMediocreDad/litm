@@ -1,12 +1,18 @@
-{{log this}}
-<div class="dice-roll">
-	{{title}}
-	{{#if flavor}}
-		<div class="dice-flavor">{{flavor}}</div>
+<div class="litm dice-roll">
+	<div class="dice-flavor">{{flavor}}</div>
+	{{#if effect}}
+		<div class="dice-effect">
+			<p><em>{{localize effect.description}}</em></p>
+			<p>{{localize effect.action}}</p>
+			<p><strong>Cost: </strong>{{localize effect.cost}}</p>
+		</div>
 	{{/if}}
 	<div class="dice-result">
-		<div class="dice-formula">{{formula}}</div>
+		<div class="dice-formula dice-total">
+			{{#unless effect}}{{total}}{{/unless}}
+			{{#if effect}}{{power}} {{localize 'Litm.tags.power'}}{{/if}}
+		</div>
 		{{{tooltip}}}
-		<h4 class="dice-total">{{total}}</h4>
+		<h4 class="dice-total {{outcome}}">{{localize outcome}}</h4>
 	</div>
 </div>

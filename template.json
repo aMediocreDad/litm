@@ -1,20 +1,12 @@
 {
 	"Actor": {
-		"types": [
-			"character"
-		],
-		"htmlFields": [
-			"note"
-		],
+		"types": ["character"],
+		"htmlFields": ["note"],
 		"character": {}
 	},
 	"Item": {
-		"types": [
-			"theme"
-		],
-		"htmlFields": [
-			"note"
-		],
+		"types": ["theme"],
+		"htmlFields": ["note"],
 		"theme": {}
 	}
 }

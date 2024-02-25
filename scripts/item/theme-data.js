@@ -1,7 +1,7 @@
-
 export class ThemeData extends foundry.abstract.DataModel {
 	static defineSchema() {
 		const fields = foundry.data.fields;
+		const abstract = game.litm.data;
 		return {
 			themebook: new fields.StringField({
 				initial: "THEMEBOOK",
@@ -13,18 +13,48 @@ export class ThemeData extends foundry.abstract.DataModel {
 				initial: true,
 			}),
 			isBurnt: new fields.BooleanField(),
-			powerTags: new fields.ArrayField(new fields.SchemaField({
-				name: new fields.StringField(),
-				isActive: new fields.BooleanField(),
-				isBurnt: new fields.BooleanField(),
-			}), {
-				initial: Array(5).fill().map((_, i) => ({ name: "Name your Power", isActive: i < 2 ? true : false, isBurnt: false }))
+			powerTags: new fields.ArrayField(
+				new fields.EmbeddedDataField(abstract.TagData),
+				{
+					initial: Array(5)
+						.fill()
+						.map((_, i) => ({
+							name: "Name your tag",
+							type: "powerTag",
+							isActive: i < 2,
+							id: randomID(),
+						}),
+						),
+					validate: (tags) => Object.keys(tags).length === 5,
+				}
+			),
+			weaknessTags: new fields.ArrayField(
+				new fields.EmbeddedDataField(abstract.TagData),
+				{
+					initial: [
+						{
+							name: "Name your Weakness",
+							type: "weaknessTag",
+							isActive: true,
+							isBurnt: false,
+							id: randomID()
+						}
+					],
+					validate: (tags) => Object.keys(tags).length === 1,
+				},
+			),
+			experience: new fields.NumberField({
+				integer: true,
+				min: 0,
+				initial: 0,
+				max: 3,
 			}),
-			weaknessTags: new fields.ArrayField(new fields.StringField(), {
-				initial: ["Name your Weakness"]
+			decay: new fields.NumberField({
+				integer: true,
+				min: 0,
+				initial: 0,
+				max: 3,
 			}),
-			experience: new fields.NumberField({ integer: true, min: 0, initial: 0, max: 3 }),
-			decay: new fields.NumberField({ integer: true, min: 0, initial: 0, max: 3 }),
 			motivation: new fields.StringField({
 				initial: "Write down your Motivation.",
 			}),

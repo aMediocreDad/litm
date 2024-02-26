@@ -1,6 +1,6 @@
 <form class="{{cssClass}}" autocomplete="off">
 	<img class="avatar" src="{{data.img}}" data-edit="img" alt="{{title}}">
-	<label class="sro" for="name">{{localize "Name"}}</label>
+	<label class="litm--sro" for="name">{{localize "Name"}}</label>
 	<input type="text" id="name" name="name" value="{{data.name}}" required>
 	<div class="nav">
 		<div>
@@ -22,7 +22,7 @@
 			<button type="button" data-click="close" data-id="note" data-tooltip="{{localize 'Close'}}"><i
 					class="far fa-xmark"></i></button>
 		</div>
-		<label class="sro">{{localize "Notes"}}</label>
+		<label class="litm--sro">{{localize "Notes"}}</label>
 		{{editor data.system.note target="system.note" owner=owner button=true editable=true}}
 	</div>
 	<div class="backpack">
@@ -38,11 +38,11 @@
 			<button type="button" data-click="add-tag">{{localize "Litm.ui.add-tag"}}</button>
 		</div>
 	</div>
-	<div class="themes item-list">
-		{{#each data.items as |item|}}
-			<div class="theme item" data-dblclick="edit" data-context="delete" data-id="{{item._id}}"
-				data-item-id="{{item._id}}">
-				{{> systems/litm/templates/item/theme-ro.html data=item}}
+	<div class="litm--character-themes item-list">
+		{{#each items as |item|}}
+			<div class="litm--character-theme item" data-dblclick="edit" data-context="delete" data-id="{{item.data._id}}"
+				data-item-id="{{item.data._id}}">
+				{{> systems/litm/templates/item/theme-ro.html data=item.data}}
 			</div>
 		{{/each}}
 	</div>

@@ -1,0 +1,31 @@
+.litm.litm--challenge {
+	background: none;
+	outline: none;
+	padding: 0px;
+
+	.window-header {
+		flex: 0 0 24px;
+
+		a {
+			text-shadow: 0 0 10px white, 0 0 10px black;
+		}
+	}
+
+	form {
+		position: relative;
+		overflow: hidden;
+		overflow: clip;
+
+		min-height: 200px;
+		place-content: center;
+
+		img {
+			color: var(--litm-color-accent);
+		}
+	}
+}
+
+/* Popout dialog */
+.litm--rename-dialog {
+	margin-block: 0px 1rem;
+}

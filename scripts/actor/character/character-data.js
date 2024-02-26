@@ -9,4 +9,34 @@ export class CharacterData extends foundry.abstract.DataModel {
 			),
 		};
 	}
+
+	get allTags() {
+		const backpack = this.backpack;
+		const themeTags = this.parent.items
+			.filter((item) => item.type === "theme")
+			.flatMap((item) => item.system.allTags);
+		return [...backpack, ...themeTags];
+	}
+
+	get powerTags() {
+		return this.allTags.filter(
+			(tag) => tag.type === "powerTag" || tag.type === "themeTag",
+		);
+	}
+
+	get weaknessTags() {
+		return this.parent.items
+			.filter((item) => item.type === "theme")
+			.flatMap((item) => item.system.weakness);
+	}
+
+	get availablePowerTags() {
+		const backpack = this.backpack.filter(
+			(tag) => tag.isActive && !tag.isBurnt,
+		);
+		const themeTags = this.parent.items
+			.filter((item) => item.type === "theme")
+			.flatMap((item) => item.system.availablePowerTags);
+		return [...backpack, ...themeTags];
+	}
 }

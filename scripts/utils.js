@@ -1,8 +1,31 @@
+export function sleep(ms) {
+	return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
 export function localize(key) {
 	return game.i18n.localize(key);
 }
 
-const t = localize;
+export function sortByName(a, b) {
+	return a.name.toLowerCase().localeCompare(b.name.toLowerCase());
+}
+
+export function sortTags(tags) {
+	return tags.sort(sortByName);
+}
+
+export function titleCase(str) {
+	return (
+		str.charAt(0).toUpperCase() +
+		str
+			.toLowerCase()
+			.replace(/\b\w+/g, (l) => {
+				if (["and", "the", "of", "or", "a", "an"].includes(l)) return l;
+				return l.charAt(0).toUpperCase() + l.substr(1);
+			})
+			.slice(1)
+	);
+}
 
 export function getConfiggedEffect(effect) {
 	const config = Object.values(CONFIG.litm.effects).find((e) => !!e[effect]);
@@ -10,21 +33,10 @@ export function getConfiggedEffect(effect) {
 }
 
 export async function confirmDelete() {
+	const t = localize;
 	return Dialog.confirm({
 		title: t("Litm.ui.confirm-delete-title"),
 		content: t("Litm.ui.confirm-delete-content"),
 		defaultYes: false,
 	});
-}
-
-
-export function nukeFoundryStyles() {
-	const foundryStyles = $('link[rel=stylesheet][href*="css/style.css"]');
-	const style = Object.assign(document.createElement("style"), {
-		textContent: `@layer foundry { ${Array.from(foundryStyles[0].sheet.cssRules)
-			.map((rule) => rule.cssText)
-			.join("\n")} }`,
-	});
-	foundryStyles[0].before(style);
-	foundryStyles.remove();
 }

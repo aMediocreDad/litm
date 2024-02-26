@@ -1,8 +1,9 @@
 {
 	"Actor": {
-		"types": ["character"],
+		"types": ["character", "challenge"],
 		"htmlFields": ["note"],
-		"character": {}
+		"character": {},
+		"challenge": {}
 	},
 	"Item": {
 		"types": ["theme"],

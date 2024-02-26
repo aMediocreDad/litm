@@ -1,0 +1,68 @@
+<form class="{{cssClass}}" autocomplete="off">
+	<input type="hidden" name="actorId" value="{{actorId}}">
+	<input class="title" type="text" name="title" value="{{title}}" />
+
+	<!-- Power Tags -->
+	<div class="powerTags">
+		<span>{{localize 'Litm.tags.power'}} {{localize 'Litm.other.tags'}}</span>
+		<ul>
+			{{#each powerTags as |tag|}}
+				<li>
+					<!-- Use Tag -->
+					<label for="roll-power-{{tag.id}}"
+						class="{{ifThen (eq tag.type 'themeTag') 'litm--tag-emphasis' ''}}">{{tag.name}}</label>
+					<input class="litm--checkbox" type="checkbox" id="roll-power-{{tag.id}}" name="power.{{tag.id}}">
+					<!-- Burn Tag -->
+					<label><span class="litm--sro">{{localize "Litm.tags.isBurnt"}}</span>
+						<input class="litm--burn transparent" type="radio" name="burn" value="burn.{{tag.id}}" />
+					</label>
+				</li>
+			{{/each}}
+		</ul>
+	</div>
+
+	<!-- Weakness Tags -->
+	<div class="weaknessTags">
+		<span>{{localize 'Litm.tags.weakness'}} {{localize 'Litm.other.tags'}}</span>
+		<ul>
+			{{#each weaknessTags as |tag|}}
+				<li>
+					<label for="roll-weakness-{{tag.id}}">{{tag.name}}</label>
+					<input class="litm--checkbox" type="checkbox" id="roll-weakness-{{tag.id}}" name="weakness.{{tag.id}}">
+				</li>
+			{{/each}}
+		</ul>
+	</div>
+	<div class="status">
+		<label for="roll-status">{{localize "Litm.ui.status"}}</label>
+		<div class="input">
+			<button data-click="decrease" data-id="roll-status" type="button" aria-label="{{localize 'Litm.ui.decrease'}}"><i
+					class="far fa-minus"></i></button>
+			<input type="number" id="roll-status" name="status" value="0" />
+			<button data-click="increase" data-id="roll-status" type="button" aria-label="{{localize 'Litm.ui.increase'}}"><i
+					class="far fa-plus"></i></button>
+		</div>
+	</div>
+	<div class="tracked">
+		<label for="roll-tracked">{{localize "Litm.ui.roll-tracked"}}</label>
+		<input class="litm--checkbox" type="checkbox" id="roll-tracked" name="tracked" />
+	</div>
+	<div class="effect">
+		<label for="roll-effect">{{localize "Litm.effects.effect"}}</label>
+		<select name="effect" id="roll-effect">
+			{{#each effects as |group|}}
+				<optgroup label="{{localize @key}}">
+					{{#each group as |effect|}}
+						<option value="{{@key}}">{{localize (concat 'Litm.effects.' @key '.key')}}</option>
+					{{/each}}
+				</optgroup>
+			{{/each}}
+		</select>
+	</div>
+	<div class="buttons">
+		<button type="submit">
+			{{localize "Litm.ui.roll"}}
+		</button>
+		<button type="button" data-click="cancel">{{localize "Litm.ui.cancel"}}</button>
+	</div>
+</form>

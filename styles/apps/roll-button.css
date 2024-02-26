@@ -1,0 +1,22 @@
+#litm--roll-button {
+	width: var(--players-width);
+	margin: 0px 5px 10px 15px;
+	border: none;
+	background: none;
+	padding: 0 50px 0;
+	border: none;
+	pointer-events: all;
+	transition: scale 0.15s;
+
+	img {
+		border: none;
+		filter: drop-shadow(0 0 8px rgb(0, 0, 0));
+	}
+
+	&:hover,
+	&:active,
+	&:focus {
+		box-shadow: none;
+		scale: 1.1;
+	}
+}

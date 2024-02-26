@@ -1,6 +1,6 @@
 export class LitmRoll extends Roll {
-	static CHAT_TEMPLATE = "systems/litm/templates/chat/roll.html";
-	static TOOLTIP_TEMPLATE = "systems/litm/templates/chat/roll-tooltip.html";
+	static CHAT_TEMPLATE = "systems/litm/templates/chat/message.html";
+	static TOOLTIP_TEMPLATE = "systems/litm/templates/chat/message-tooltip.html";
 
 	get litm() {
 		return this.options;
@@ -32,23 +32,25 @@ export class LitmRoll extends Roll {
 
 	get powerTags() {
 		const tags = this.litm.powerTags
-			.map((tag) => this.actor.sheet.powerTags.find((t) => t.id === tag)?.toObject())
+			.map((tag) =>
+				this.actor.system.powerTags.find((t) => t.id === tag)?.toObject(),
+			)
 			.filter(Boolean);
 		return tags;
 	}
 
 	get weaknessTags() {
 		const tags = this.litm.weaknessTags
-			.map((tag) => this.actor.sheet.weaknessTags.find((t) => t.id === tag)?.toObject())
+			.map((tag) =>
+				this.actor.system.weaknessTags.find((t) => t.id === tag)?.toObject(),
+			)
 			.filter(Boolean);
 		return tags;
 	}
 
 	get burnedTag() {
 		if (!this.litm.burnedTag) return null;
-		return this.actor.sheet.powerTags.find(
-			(tag) => tag.id === this.litm.burnedTag,
-		)?.toObject();
+		return this.powerTags.find((tag) => tag.id === this.litm.burnedTag);
 	}
 
 	get outcome() {

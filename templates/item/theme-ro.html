@@ -1,80 +1,70 @@
 <!-- Readonly version of the Theme template -->
 <!-- Intended for use embedded on a character sheet -->
-<input type="hidden" name="items.{{_id}}.type" value="{{data.type}}" />
-<div class="background">
-	<div class="meta accent">
-		<span class="meta--part">{{data.system.themebook}}</span>
-		<span class="meta--part">{{data.system.level}} THEME</span>
+<input type="hidden" name="items.{{data._id}}.type" value="{{data.type}}" />
+<div class="litm--theme-background">
+	<div class="litm--theme-meta litm--accent-bg">
+		<span class="litm--theme-meta-part">{{data.system.themebook}}</span>
+		<span class="litm--theme-meta-part">{{data.system.level}} THEME</span>
 	</div>
-	<div class="legend">
+	<div class="litm--theme-legend">
 		<span>{{localize "Litm.tags.power"}}
 			{{localize "Litm.other.tags"}}</span><span>・</span><span>{{localize "Litm.tags.weakness"}}
 			{{localize "Litm.other.tag"}}</span>
 	</div>
-	<div class="title">
+	<div class="litm--theme-title">
 		<!-- isActive checkbox -->
-		<label class="litm-checkbox {{ifThen data.system.isActive 'checked' ''}}"
-			data-tooltip="{{localize "Litm.tags.isActive"}}" aria-label="{{localize "Litm.tags.isActive"}}">
-			<input class="sro" type="checkbox" name="items.{{_id}}.system.isActive" {{checked data.system.isActive}}>
+		<label><span class="litm--sro">{{localize "Litm.tags.isActive"}}</span>
+			<input class="litm--checkbox litm--checkbox-with-bg" type="checkbox" name="items.{{data._id}}.system.isActive"
+				data-tooltip="{{localize 'Litm.tags.isActive'}}" {{checked data.system.isActive}}>
 		</label>
 		<!-- Name input -->
 		<span>{{data.name}}</span>
-		<input type="hidden" name="items.{{_id}}.name" value="{{data.name}}" />
+		<input type="hidden" name="items.{{data._id}}.name" value="{{data.name}}" />
 		<!-- isBurnt checkbox -->
-		<label class="burn" data-tooltip="{{localize 'Litm.tags.isBurnt'}}"
-			aria-label="{{localize "Litm.tags.isBurnt"}}"><svg xmlns="http://www.w3.org/2000/svg" fill="none"
-				viewBox="0 0 68 86" width="20px" height="20px">
-				<path fill="{{ifThen data.system.isBurnt '#fff' '#000' }}"
-					d="M36.3008 3c-4.3013 1.9398-8.9582 5.729-12.591 10.2278-1.3382 1.6571-2.2744 3.5931-3.1773 5.5223-3.0556 6.5289-3.0157 1.2666-5.2093.1476-.5058-.258-1.1066-.2677-1.6726-.2215-3.3287.2714-7.22043 4.681-10.34977 11.1238-5.6 11.4-3.099996 19.6 10.19997 32.7 7.2017 7.1105 8.7524 9.2349 9.4248 14.4033.1376 1.0575.3438 2.1087.6733 3.123.6214 1.9121 1.1015 3.2735 1.9019 3.6737 1.4907.7454 3.5 1.7 9.6 0 12.4-3.4 23.6-11.4 27.8-19.7 3.3-6.4 4.6-15.1 3.1-22-1.4-6.8-3-9.6-11-19l-3.4998-4.0089c-1.2663-1.4505-1.8167-3.3918-1.5002-5.2911l.3-2.7c.6-5 .4-6.1-1.4-7.9-2.5-2.5-7.2-2.6-12.6-.1Zm8.1 8c-.8 6.1.7 9.7 7.4 17.2 8.1 9.1 10.1 13 10.1 19.6 0 7.2-3.1 14.2-8.9 19.9-4.4 4.4-15.3 10.2-20.8 11.1-3.1.5-3.3.4-3.3-2.3-.1-5.3-3.6-10.9-10.8-17.3-8.79997-8-12.59997-14.5-11.89997-20.7.5-4.8 5.48897-13.7055 7.29997-12.8 1 .5 1.1 2 1.5 4.1.9 4.1 4.3 9.3 6.5 9.3.9 0 1.1-1.4.7-5.4-.4-4.3-.1-6.3 1.6-10 4-8.2 14-17.2 19.4-17.5 1.7-.1 1.8.4 1.2 4.8Z" />
-				<path fill="{{ifThen data.system.isBurnt '#000' '#fff' }}"
-					d="M44.4008 11c-.8 6.1.7 9.7 7.4 17.2 8.1 9.1 10.1 13 10.1 19.6 0 7.2-3.1 14.2-8.9 19.9-4.4 4.4-15.3 10.2-20.8 11.1-3.1.5-3.3.4-3.3-2.3-.1-5.3-3.6-10.9-10.8-17.3-8.79997-8-12.59997-14.5-11.89997-20.7.5-4.8 5.48897-13.7055 7.29997-12.8 1 .5 1.1 2 1.5 4.1.9 4.1 4.3 9.3 6.5 9.3.9 0 1.1-1.4.7-5.4-.4-4.3-.1-6.3 1.6-10 4-8.2 14-17.2 19.4-17.5 1.7-.1 1.8.4 1.2 4.8Z" />
-				<path stroke="{{ifThen data.system.isBurnt '#fff' '#000' }}"
-					d="M36.3008 3c-4.3013 1.9398-8.9582 5.729-12.591 10.2278-1.3382 1.6571-2.2744 3.5931-3.1773 5.5223-3.0556 6.5289-3.0157 1.2666-5.2093.1476-.5058-.258-1.1066-.2677-1.6726-.2215-3.3287.2714-7.22043 4.681-10.34977 11.1238-5.6 11.4-3.099996 19.6 10.19997 32.7 7.2017 7.1105 8.7524 9.2349 9.4248 14.4033.1376 1.0575.3438 2.1087.6733 3.123.6214 1.9121 1.1015 3.2735 1.9019 3.6737 1.4907.7454 3.5 1.7 9.6 0 12.4-3.4 23.6-11.4 27.8-19.7 3.3-6.4 4.6-15.1 3.1-22-1.4-6.8-3-9.6-11-19l-3.4998-4.0089c-1.2663-1.4505-1.8167-3.3918-1.5002-5.2911l.3-2.7c.6-5 .4-6.1-1.4-7.9-2.5-2.5-7.2-2.6-12.6-.1Zm8.1 8c-.8 6.1.7 9.7 7.4 17.2 8.1 9.1 10.1 13 10.1 19.6 0 7.2-3.1 14.2-8.9 19.9-4.4 4.4-15.3 10.2-20.8 11.1-3.1.5-3.3.4-3.3-2.3-.1-5.3-3.6-10.9-10.8-17.3-8.79997-8-12.59997-14.5-11.89997-20.7.5-4.8 5.48897-13.7055 7.29997-12.8 1 .5 1.1 2 1.5 4.1.9 4.1 4.3 9.3 6.5 9.3.9 0 1.1-1.4.7-5.4-.4-4.3-.1-6.3 1.6-10 4-8.2 14-17.2 19.4-17.5 1.7-.1 1.8.4 1.2 4.8Z" />
-				<path stroke="{{ifThen data.system.isBurnt '#fff' '#000' }}"
-					d="M44.4008 11c-.8 6.1.7 9.7 7.4 17.2 8.1 9.1 10.1 13 10.1 19.6 0 7.2-3.1 14.2-8.9 19.9-4.4 4.4-15.3 10.2-20.8 11.1-3.1.5-3.3.4-3.3-2.3-.1-5.3-3.6-10.9-10.8-17.3-8.79997-8-12.59997-14.5-11.89997-20.7.5-4.8 5.48897-13.7055 7.29997-12.8 1 .5 1.1 2 1.5 4.1.9 4.1 4.3 9.3 6.5 9.3.9 0 1.1-1.4.7-5.4-.4-4.3-.1-6.3 1.6-10 4-8.2 14-17.2 19.4-17.5 1.7-.1 1.8.4 1.2 4.8Z" />
-			</svg>
-			<input class="sro" type="checkbox" name="items.{{_id}}.system.isBurnt" {{checked data.system.isBurnt}}>
+		<label><span class="litm--sro">{{localize "Litm.tags.isBurnt"}}</span>
+			<input class="litm--burn" type="checkbox" name="items.{{data._id}}.system.isBurnt"
+				data-tooltip="{{localize 'Litm.tags.isBurnt'}}" {{checked data.system.isBurnt}} />
 		</label>
 	</div>
-	<ul class="tags">
+	<ul class="litm--tags">
 		{{#each data.system.powerTags as |tag|}}
-			{{> systems/litm/templates/partials/tag.html tag=tag key=@key path=(concat 'items.' ../_id '.system.powerTags') readonly=true}}
+			{{> systems/litm/templates/partials/tag.html tag=tag key=@key path=(concat 'items.' ../data._id '.system.powerTags') readonly=true}}
 		{{/each}}
 	</ul>
 	{{#with data.system.weakness as |tag|}}
-		<div class="weakness">
+		<div class="litm--weakness">
 			<!-- Name -->
-			<span class="weakness--part">{{tag}}</span>
+			<span class="litm--weakness-part">{{tag.name}}</span>
 		</div>
 	{{/with}}
-	<div class="progression">
+	<div class="litm--theme-progression">
 		<!-- Experience buttons -->
 		<div data-click="increase" data-context="decrease" data-id="system.experience">
 			{{#progress-buttons data.system.experience 3}}
-				<span class="litm-checkbox {{ifThen @checked 'checked' ''}}"></span>
+				<span class="litm--checkbox litm--checkbox-with-bg {{ifThen @checked 'checked' ''}}"></span>
 			{{/progress-buttons}}
 			<label>{{localize "Litm.other.experience"}}
-				<input type="hidden" name="items.{{_id}}.system.experience" value="{{data.system.experience}}" />
+				<input type="hidden" name="items.{{data._id}}.system.experience" value="{{data.system.experience}}" />
 			</label>
 		</div>
 		<!-- Decay buttons -->
 		<div data-click="increase" data-context="decrease" data-id="system.decay">
 			{{#progress-buttons data.system.decay 3}}
-				<span class="litm-checkbox {{ifThen @checked 'checked' ''}}"></span>
+				<span class="litm--checkbox litm--checkbox-with-bg {{ifThen @checked 'checked' ''}}"></span>
 			{{/progress-buttons}}
 			<label>{{localize "Litm.tags.decay"}}
-				<input type="hidden" name="items.{{_id}}.system.decay" value="{{data.system.decay}}" />
+				<input type="hidden" name="items.{{data._id}}.system.decay" value="{{data.system.decay}}" />
 			</label>
 		</div>
 	</div>
-	<div class="accent bottom">
+	<div class="litm--accent-bg litm--theme-bottom">
 		<div class="motivation">
 			<span role="textbox">{{data.system.motivation}}</span>
-			<input type="hidden" name="items.{{_id}}.system.motivation" value="{{data.system.motivation}}" />
+			<input type="hidden" name="items.{{data._id}}.system.motivation" value="{{data.system.motivation}}" />
 		</div>
 		<div class="note">
-			{{editor data.system.note target='items.{{_id}}.system.note' owner=owner editable=false}}
-			<input type="hidden" name="items.{{_id}}.system.note" value="{{data.system.note}}">
+			{{editor data.system.note target='items.{{data._id}}.system.note' owner=owner editable=false}}
+			<input type="hidden" name="items.{{data._id}}.system.note" value="{{data.system.note}}">
 		</div>
 	</div>
 </div>

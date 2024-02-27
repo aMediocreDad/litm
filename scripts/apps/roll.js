@@ -50,7 +50,7 @@ export class LitmRoll extends Roll {
 
 	get burnedTag() {
 		if (!this.litm.burnedTag) return null;
-		return this.powerTags.find((tag) => tag.id === this.litm.burnedTag);
+		return this.actor.system.allTags.find((tag) => tag.id === this.litm.burnedTag);
 	}
 
 	get outcome() {

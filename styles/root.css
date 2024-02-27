@@ -1,0 +1,118 @@
+:root {
+	--litm-color-bg: hsl(40, 85%, 87%);
+	--litm-color: hsl(41, 23%, 24%);
+	--litm-color-alt-bg: hsl(34, 34%, 82%);
+	--litm-color-dark-bg: hsl(0 0.88% 44.51%);
+	--litm-color-accent-bg: hsl(225.94 10.66% 41.72%);
+	--litm-color-accent: hsl(46.61 81.44% 92.99%);
+	--litm-color-accent-2: hsl(24deg 20.72% 43.81%);
+	--litm-color-primary-bg: color-mix(in hsl, var(--litm-color-accent) 75%, hsl(0 0% 100%));
+	--litm-color-primary: color-mix(in hsl, var(--litm-color) 75%, hsl(0 0% 0%));
+	--litm-color-row-odd: rgb(0, 0, 0, 0.1);
+	--litm-color-weakness: hsl(10 41.04% 26.41%);
+	--litm-color-weakness-bg: hsl(6.5 42.05% 41.08% / 20%);
+	--litm-color-muted-bg: hsl(0 0% 45.42% / 20%);
+
+	/* Fonts */
+	--litm-font-heading: PackardAntique, CaslonAntique, 'Palatino Linotype', 'Book Antiqua', Palatino, serif;
+	--litm-font-primary: CaslonAntique, LibreCaslonText, 'Palatino Linotype', 'Book Antiqua', Palatino, serif;
+	--litm-font-accent: AlchemyItalic, 'Brush Script MT', 'Bradley Hand ITC', 'Lucida Calligraphy', 'Lucida Handwriting', 'Apple Chancery', cursive;
+	--litm-font-text: LibreCaslonText, 'Palatino Linotype', 'Book Antiqua', Palatino, serif;
+
+	/* Vertical spacing */
+	--litm-space-1: 0.25rem;
+	--litm-space-2: 0.5rem;
+	--litm-space-3: 1rem;
+	--litm-space-4: 2rem;
+	--litm-space-5: 4rem;
+
+	/* Foundry Overrides */
+	--font-size-26: 1.625rem;
+	--font-primary: 'PackardAntique' 'Palatino Linotype', 'Book Antiqua', Palatino, serif;
+	--color-text-light-1: var(--litm-color-accent);
+	--color-shadow-primary: var(--litm-color-primary);
+	--color-shadow-highlight: var(--litm-color-accent-bg);
+	--color-border-highlight: var(--litm-color-accent-bg);
+}
+
+#logo {
+	object-fit: contain;
+	object-position: top;
+	filter: drop-shadow(0px 0px 3px color-mix(in hsl, var(--litm-color-bg) 60%, transparent));
+	margin-inline: 16px;
+	image-rendering: -webkit-optimize-contrast;
+}
+
+.app.litm {
+	-webkit-font-smoothing: antialiased;
+
+	/* > Overrides */
+
+	background: url('../assets/media/background.webp') 0% 0% / cover;
+	overflow: hidden;
+	box-shadow: none;
+	filter: drop-shadow(black 2px 4px 6px);
+
+	&:where(:not(.minimized)) {
+		outline: 2px solid var(--litm-color-primary);
+		outline-offset: -10px;
+		padding: 10px;
+
+		.window-title {
+			display: none;
+		}
+	}
+
+	img {
+		max-width: 100%;
+		height: auto;
+		vertical-align: middle;
+		font-style: italic;
+		background-repeat: no-repeat;
+		background-size: cover;
+		shape-margin: 1rem;
+		border: none;
+		border-radius: 0;
+	}
+
+	.window-header {
+		border-bottom: none;
+		font-family: var(--litm-font-primary);
+		justify-content: end;
+		flex: 0 0 24px;
+
+		.document-id-link {
+			margin-inline: 0 auto;
+		}
+	}
+
+	.window-content {
+		padding: 0px;
+		background: none;
+
+		form {
+			display: flex;
+			flex-direction: column;
+		}
+	}
+
+	.editor {
+		min-height: 100px;
+		height: 100%;
+	}
+}
+
+/* DANGER AREA */
+/* TODO: Find a better way */
+
+.chat-message {
+	background-color: var(--litm-color-weakness);
+	background-blend-mode: color-burn;
+	color: var(--litm-color-primary-bg);
+	font-family: var(--litm-font-text);
+	font-size: var(--font-size-12);
+
+	.message-header {
+		color: color-mix(in hsl, var(--litm-color-accent) 70%, transparent);
+	}
+}

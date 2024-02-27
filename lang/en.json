@@ -107,12 +107,15 @@
 		"ui": {
 			"add-tag": "Add Tag",
 			"cancel": "Cancel",
+			"challenge-prompt": "Click to add an image of a challenge card (as found in the tinderbox), right-click to rename.",
 			"confirm-delete-content": "Are you sure you want to delete this?",
 			"confirm-delete-title": "Confirm Delete",
 			"error-burning-tag": "There was an error trying to burn your tag. Please see the console for more information.",
 			"error-validating-actor": "There was an error validating the actor. Please see the console for more information.",
 			"import-actor": "Import Actor from JSON",
 			"remove-tag": "Remove Tag",
+			"rename": "Rename",
+			"rename-challenge": "Rename Challenge",
 			"roll": "Roll!",
 			"roll-quick": "Quick Outcome",
 			"roll-title": "Roll Dice",
@@ -123,8 +126,10 @@
 			"warn-theme-limit": "You have reached the maximum number of themes. Please remove a theme before adding another."
 		}
 	},
+	"TYPES.Actor.challenge": "Challenge",
+	"TYPES.Actor.character": "Character",
+	"Types.Item.theme": "Theme",
 	"failure": "Failure",
 	"consequence": "Consequence",
-	"success": "Success",
-	"theme": "Theme"
+	"success": "Success"
 }

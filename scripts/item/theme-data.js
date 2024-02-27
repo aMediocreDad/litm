@@ -1,3 +1,5 @@
+import { titleCase } from "../utils.js";
+
 export class ThemeData extends foundry.abstract.DataModel {
 	static defineSchema() {
 		const fields = foundry.data.fields;
@@ -23,10 +25,9 @@ export class ThemeData extends foundry.abstract.DataModel {
 							type: "powerTag",
 							isActive: i < 2,
 							id: randomID(),
-						}),
-						),
+						})),
 					validate: (tags) => Object.keys(tags).length === 5,
-				}
+				},
 			),
 			weaknessTags: new fields.ArrayField(
 				new fields.EmbeddedDataField(abstract.TagData),
@@ -37,8 +38,8 @@ export class ThemeData extends foundry.abstract.DataModel {
 							type: "weaknessTag",
 							isActive: true,
 							isBurnt: false,
-							id: randomID()
-						}
+							id: randomID(),
+						},
 					],
 					validate: (tags) => Object.keys(tags).length === 1,
 				},
@@ -62,5 +63,38 @@ export class ThemeData extends foundry.abstract.DataModel {
 				initial: "Give your Theme a description.",
 			}),
 		};
+	}
+
+	get themeTag() {
+		const item = {
+			id: this.parent._id,
+			name: titleCase(this.parent.name),
+			isActive: this.isActive,
+			isBurnt: this.isBurnt,
+			type: "themeTag",
+		};
+		return game.litm.data.TagData.fromSource(item);
+	}
+
+	get activatedPowerTags() {
+		const powerTags = this.powerTags;
+		const themeTag = this.themeTag;
+		return [...powerTags, themeTag].filter((tag) => tag.isActive);
+	}
+
+	get availablePowerTags() {
+		return this.activatedPowerTags.filter((tag) => !tag.isBurnt);
+	}
+
+	get powerTagRatio() {
+		return this.availablePowerTags.length / this.activatedPowerTags.length;
+	}
+
+	get weakness() {
+		return this.weaknessTags[0];
+	}
+
+	get allTags() {
+		return [...this.weaknessTags, ...this.powerTags, this.themeTag];
 	}
 }

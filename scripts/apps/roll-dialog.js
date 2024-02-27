@@ -1,4 +1,4 @@
-import { getConfiggedEffect } from "../utils.js";
+import { getConfiggedEffect, sortTags } from "../utils.js";
 
 export class LitmRollDialog extends FormApplication {
 	#radioSelected = null;
@@ -8,10 +8,10 @@ export class LitmRollDialog extends FormApplication {
 
 	static get defaultOptions() {
 		return mergeObject(super.defaultOptions, {
-			template: "systems/litm/templates/apps/roll.html",
-			classes: ["litm", "roll"],
-			width: 450,
-			height: 450,
+			template: "systems/litm/templates/apps/roll-dialog.html",
+			classes: ["litm", "litm--roll"],
+			width: 500,
+			height: 540,
 			resizable: true,
 			title: game.i18n.localize("Litm.ui.roll-title"),
 		});
@@ -40,8 +40,8 @@ export class LitmRollDialog extends FormApplication {
 		return {
 			actorId: this.actorId,
 			effects: CONFIG.litm.effects,
-			powerTags: this.powerTags,
-			weaknessTags: this.weaknessTags,
+			powerTags: sortTags(this.powerTags),
+			weaknessTags: sortTags(this.weaknessTags),
 			...data,
 		};
 	}
@@ -156,24 +156,34 @@ export class LitmRollDialog extends FormApplication {
 	#burnActorTag(actorId, tagId) {
 		try {
 			const actor = game.actors.get(actorId);
-			const tag = actor.sheet.powerTags.find((tag) => tag.id === tagId);
+			const tag = actor.system.powerTags.find((tag) => tag.id === tagId);
 
 			if (!tag) throw new Error(`Tag: ${tagId} not found in ${actorId}.`);
 
 			if (tag.type === "powerTag") {
-				const theme = actor.items.find((theme) =>
-					theme.sheet.powerTags.find((t) => t.id === tag.id),
-				)?.toObject();
+				const theme = actor.items
+					.find((theme) => theme.sheet.powerTags.find((t) => t.id === tag.id))
+					?.toObject();
 				const { powerTags } = theme.system;
 				powerTags.find((t) => t.id === tag.id).isBurnt = true;
-				return actor.updateEmbeddedDocuments("Item", [{ _id: theme._id, "system.powerTags": powerTags }]);
+				return actor.updateEmbeddedDocuments("Item", [
+					{ _id: theme._id, "system.powerTags": powerTags },
+				]);
+			}
+
+			if (tag.type === "themeTag") {
+				const theme = actor.items.find((theme) =>
+					theme.system.allTags.find((t) => t.id === tag.id),
+				);
+				return actor.updateEmbeddedDocuments("Item", [
+					{ _id: theme._id, "system.isBurnt": true },
+				]);
 			}
 
 			// We assume it's a backpack tag a this point
 			const backpack = actor.system.backpack;
 			backpack.find((t) => t.id === tag.id).isBurnt = true;
 			return actor.update({ "system.backpack": backpack });
-
 		} catch (error) {
 			console.error(error);
 			ui.notifications.error(game.i18n.localize("Litm.ui.error-burning-tag"));

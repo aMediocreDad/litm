@@ -1,0 +1,66 @@
+.litm.dice-roll {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	gap: var(--litm-space-1);
+	padding: var(--litm-space-3);
+	background: url(/ui/parchment.jpg) repeat;
+	background-color: var(--litm-color-accent-bg);
+	background-blend-mode: color-burn;
+	border: 1px solid color-mix(in hsl, var(--litm-color-accent) 70%, transparent);
+	border-radius: 6px;
+	transition: all 0.15s;
+
+	&:hover {
+		box-shadow: 0 0 3px var(--litm-color-primary-bg);
+
+	}
+
+	.dice-flavor {
+		font-family: var(--litm-font-heading);
+		font-size: var(--font-size-24);
+		color: var(--litm-color-bg);
+		text-align: center;
+	}
+
+	.dice-effect {
+		p:first-of-type {
+			color: var(--litm-color-alt-bg);
+			font-family: var(--litm-font-primary);
+			font-size: var(--font-size-16);
+			text-align: center;
+		}
+	}
+
+	.dice-result {
+		width: 100%;
+		margin: var(--litm-space-3) auto 0px;
+
+		.tooltip-part {
+			margin-block: var(--litm-space-1);
+		}
+
+		.part-flavor {
+			color: color-mix(in hsl, var(--litm-color-weakness) 60%, var(--litm-color-accent));
+		}
+	}
+
+	.dice-total {
+		background-color: var(--litm-color-alt-bg);
+		color: var(--litm-color-primary);
+		font-family: var(--litm-font-heading);
+		font-size: var(--font-size-20);
+		text-align: center;
+		padding: var(--litm-space-1);
+		text-shadow: 0 0 2px rgb(0, 0, 0, 0.3);
+
+		&.success {
+			color: var(--color-level-success);
+		}
+
+		&.failure {
+			color: var(--color-level-error);
+		}
+	}
+}

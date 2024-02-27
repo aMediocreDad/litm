@@ -2,9 +2,9 @@ import { confirmDelete } from "../utils.js";
 
 export class ThemeSheet extends ItemSheet {
 	static defaultOptions = mergeObject(ItemSheet.defaultOptions, {
-		classes: ["litm", "theme"],
-		width: 300,
-		height: 600,
+		classes: ["litm", "litm--theme"],
+		width: 330,
+		height: 620,
 	});
 
 	get system() {
@@ -15,20 +15,10 @@ export class ThemeSheet extends ItemSheet {
 		return "systems/litm/templates/item/theme.html";
 	}
 
-	get powerTags() {
-		return this.system.powerTags;
-	}
-
-	get weaknessTags() {
-		return this.system.weaknessTags;
-	}
-
 	getData() {
 		const { data, ...rest } = super.getData();
 
-		// Filter out weaknesses
-		data.system.weakness = data.system.weaknessTags[0];
-
+		data.system.weakness = this.system.weakness;
 		return { data, ...rest };
 	}
 
@@ -85,7 +75,7 @@ export class ThemeSheet extends ItemSheet {
 	}
 
 	async #removeTag(_) {
-		if (!await confirmDelete()) return;
+		if (!(await confirmDelete())) return;
 		throw new Error("Not implemented");
 	}
 

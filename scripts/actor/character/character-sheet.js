@@ -2,7 +2,7 @@ import { confirmDelete } from "../../utils.js";
 
 export class CharacterSheet extends ActorSheet {
 	static defaultOptions = mergeObject(ActorSheet.defaultOptions, {
-		classes: ["litm", "character"],
+		classes: ["litm", "litm--character"],
 		width: 250,
 		height: 350,
 		left: window.innerWidth / 2 - 250,
@@ -22,32 +22,10 @@ export class CharacterSheet extends ActorSheet {
 		return this.actor.system;
 	}
 
-	get powerTags() {
-		const backpack = this.system.backpack
-
-		const powerTags = this.items
-			.filter((item) => item.type === "theme")
-			.flatMap((item) => item.system.powerTags);
-
-		return [...backpack, ...powerTags];
-	}
-
-	get activePowerTags() {
-		return this.powerTags.filter((tag) => tag.isActive && !tag.isBurnt)
-	}
-
-	get weaknessTags() {
-		const weaknessTags = this.items
-			.filter((item) => item.type === "theme")
-			.map((item) => item.system.weaknessTags);
-
-		return weaknessTags.flat();
-	}
-
 	getData() {
 		const { data, ...rest } = super.getData();
-
-		return { data, ...rest };
+		const items = this.items.map((i) => i.sheet.getData());
+		return { ...rest, data, items };
 	}
 
 	activateListeners(html) {
@@ -150,14 +128,14 @@ export class CharacterSheet extends ActorSheet {
 			id: randomID(),
 		};
 
-		const backpack = this.actor.system.backpack;
+		const backpack = this.system.backpack;
 		backpack.push(item);
 
 		return this.actor.update({ "system.backpack": backpack });
 	}
 
 	async #removeTag(index) {
-		if (!await confirmDelete()) return;
+		if (!(await confirmDelete())) return;
 
 		const backpack = this.system.backpack;
 		backpack.splice(index, 1);
@@ -166,9 +144,9 @@ export class CharacterSheet extends ActorSheet {
 	}
 
 	async #removeItem(id) {
-		if (!await confirmDelete()) return;
+		if (!(await confirmDelete())) return;
 
-		const item = this.actor.items.get(id);
+		const item = this.items.get(id);
 		return item.delete();
 	}
 
@@ -186,7 +164,7 @@ export class CharacterSheet extends ActorSheet {
 		const t = event.currentTarget;
 		const attrib = t.dataset.id;
 		const id = $(t).parents(".item").data("id");
-		const item = this.actor.items.get(id);
+		const item = this.items.get(id);
 		const value = foundry.utils.getProperty(item, attrib);
 
 		return item.update({ [attrib]: Math.max(value - 1, 0) });
@@ -211,8 +189,8 @@ export class CharacterSheet extends ActorSheet {
 	}
 
 	#roll() {
-		const powerTags = this.activePowerTags;
-		const weaknessTags = this.weaknessTags;
+		const powerTags = this.system.availablePowerTags;
+		const weaknessTags = this.system.weaknessTags;
 
 		const rc = game.litm.LitmRollDialog;
 		rc.create(this.actor.id, powerTags, weaknessTags);
@@ -249,9 +227,9 @@ export class CharacterSheet extends ActorSheet {
 	// Prevent dropping more than 4 themes on the character sheet
 	async _onDropItem(event, data) {
 		const item = await Item.implementation.fromDropData(data);
-		if (this.actor.items.get(item.id)) return this._onSortItem(event, item);
+		if (this.items.get(item.id)) return this._onSortItem(event, item);
 
-		const numThemes = this.actor.items.filter((i) => i.type === "theme").length;
+		const numThemes = this.items.filter((i) => i.type === "theme").length;
 		if (item.type === "theme" && numThemes >= 4)
 			return ui.notifications.warn(
 				game.i18n.localize("Litm.ui.warn-theme-limit"),

@@ -1,5 +1,9 @@
+import { info } from "../logger.js";
+
 export class HandlebarsHelpers {
 	static register() {
+		info("Registering Handlebars Helpers...");
+
 		Handlebars.registerHelper(
 			"progress-buttons",
 			function (current, max, block) {
@@ -12,6 +16,7 @@ export class HandlebarsHelpers {
 				return acc;
 			},
 		);
+
 		Handlebars.registerHelper(
 			"titlecase",
 			(string) => string.charAt(0).toUpperCase() + string.slice(1),
@@ -22,13 +27,14 @@ export class HandlebarsHelpers {
 export class HandlebarsPartials {
 	static partials = [
 		"systems/litm/templates/apps/roll.html",
-		"systems/litm/templates/chat/roll.html",
-		"systems/litm/templates/chat/roll-tooltip.html",
+		"systems/litm/templates/chat/message.html",
+		"systems/litm/templates/chat/message-tooltip.html",
 		"systems/litm/templates/item/theme-ro.html",
 		"systems/litm/templates/partials/tag.html",
 	];
 
 	static register() {
+		info("Registering Handlebars Partials...");
 		loadTemplates(HandlebarsPartials.partials);
 	}
 }

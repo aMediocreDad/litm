@@ -1,5 +1,8 @@
+import { info } from "../logger.js";
+
 export class Fonts {
 	static register() {
+		info("Registering Fonts...");
 		FontConfig.loadFont("CaslonAntique", {
 			editor: true,
 			fonts: [

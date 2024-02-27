@@ -23,7 +23,7 @@ export class TagData extends foundry.abstract.DataModel {
 				required: true,
 				nullable: false,
 				initial: "backpack",
-				choices: ["weaknessTag", "powerTag", "backpack"],
+				choices: ["weaknessTag", "powerTag", "backpack", "themeTag"],
 			}),
 		};
 	}

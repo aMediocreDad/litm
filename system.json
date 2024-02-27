@@ -3,7 +3,7 @@
 	"id": "litm",
 	"title": "Legend in the Mist",
 	"description": "A Rustic Fantasy Game for Foundry VTT",
-	"version": "0.1.0",
+	"version": 0,
 	"authors": [
 		{
 			"name": "Filip",
@@ -20,11 +20,24 @@
 			"path": "lang/en.json"
 		}
 	],
+	"compatibility": {
+		"minimum": 11,
+		"verified": 11,
+		"maximum": 11
+	},
 	"flags": {
 		"hotReload": {
 			"extensions": ["css", "html", "js", "json"],
-			"paths": ["litm.css", "litm.js", "scripts", "styles", "templates", "lang"]
-		},
-		"allowBugReporter": true
-	}
+			"paths": ["styles", "templates", "lang", "litm.css", "litm.js"]
+		}
+	},
+	"relationships": {
+		"recommends": [
+			{
+				"id": "dice-so-nice",
+				"manifest": "https://gitlab.com/riccisi/foundryvtt-dice-so-nice/-/raw/master/module/module.json"
+			}
+		]
+	},
+	"background": "systems/litm/assets/media/litm_splash.webp"
 }

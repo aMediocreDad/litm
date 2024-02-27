@@ -13,6 +13,10 @@
 			{{#if effect}}{{power}} {{localize 'Litm.tags.power'}}{{/if}}
 		</div>
 		{{{tooltip}}}
-		<h4 class="dice-total {{outcome}}">{{localize outcome}}</h4>
+		<h4 class="dice-total {{outcome.label}}">{{localize outcome.label}}</h4>
+		<p>{{localize outcome.description}}</p>
+		{{#if (and effect (eq outcome.label 'success'))}}
+			<p><small><em>{{localize 'Litm.ui.roll-tracked-success'}}</em></small></p>
+		{{/if}}
 	</div>
 </div>

@@ -237,4 +237,23 @@ export class CharacterSheet extends ActorSheet {
 
 		return super._onDropItem(event, data);
 	}
+
+	/** @override - This method needs to be overriden to accommodate readonly input fields */
+	_getSubmitData(updateData) {
+		if (!this.form)
+			throw new Error(
+				"The FormApplication subclass has no registered form element",
+			);
+		const fd = new FormDataExtended(this.form, {
+			editors: this.editors,
+			readonly: true,
+			disabled: true,
+		});
+		let data = fd.object;
+		if (updateData)
+			data = foundry.utils.flattenObject(
+				foundry.utils.mergeObject(data, updateData),
+			);
+		return data;
+	}
 }

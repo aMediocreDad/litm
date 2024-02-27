@@ -40,9 +40,16 @@
 /* DANGER AREA */
 /* TODO: Find a better way */
 
+
+/* Background-colors not implemented using a token  */
 button,
 .directory .directory-header .header-search input {
 	background-color: var(--litm-color-alt-bg);
+}
+
+/* A border-color that was not implemented using a token  */
+#navigation #scene-list .scene.gm {
+	border-color: var(--litm-color-accent-bg);
 }
 
 .chat-message {

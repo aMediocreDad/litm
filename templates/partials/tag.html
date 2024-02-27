@@ -1,21 +1,18 @@
 <li {{#if remove}}data-context="remove-tag" data-id="{{key}}" {{/if}}>
 	<!-- isActive checkbox -->
-	<label data-tooltip="{{localize "Litm.tags.isActive"}}" aria-label="{{localize "Litm.tags.isActive"}}">
-		<input class="litm--checkbox litm--checkbox-with-bg" type="checkbox" name="{{path}}.{{key}}.isActive"
-			{{checked tag.isActive}}>
+	<label data-tooltip="{{localize (tagActiveString tag readonly)}}" aria-label="{{localize "Litm.tags.isActive"}}">
+		<input {{ifThen readonly 'readonly' ''}} class="litm--checkbox litm--checkbox-with-bg" type="checkbox"
+			name="{{path}}.{{key}}.isActive" {{ifThen readonly 'disabled' ''}} {{checked tag.isActive}} />
 	</label>
 	<!-- Name input -->
-	<input class="tag--name" type="text" name="{{path}}.{{key}}.name" value="{{tag.name}}">
+	<input class="tag--name" type="text" name="{{path}}.{{key}}.name" {{ifThen readonly 'readonly' ''}}
+		value="{{tag.name}}">
 	<!-- isBurnt checkbox -->
-	<label><span class="litm--sro">{{localize "Litm.tags.isBurnt"}}</span>
+	<label>
+		<span class="litm--sro">{{localize (ifThen tag.isBurnt 'Litm.tags.isBurnt' 'Litm.tags.burn')}}</span>
 		<input class="litm--burn" type="checkbox" name="{{path}}.{{key}}.isBurnt"
-			data-tooltip="{{localize 'Litm.tags.isBurnt'}}" {{checked tag.isBurnt}}>
+			data-tooltip="{{localize (ifThen tag.isBurnt 'Litm.tags.isBurnt' 'Litm.tags.burn')}}" {{checked tag.isBurnt}} />
 	</label>
 	<input type="hidden" name="{{path}}.{{key}}.type" value="{{tag.type}}">
 	<input type="hidden" name="{{path}}.{{key}}.id" value="{{tag.id}}">
-	<!-- Remove button -->
-	<!-- Might Reimplement this later -->
-	<!-- <button type="button" data-click="remove-tag" data-id="{{tag.index}}"
-			data-tooltip="{{localize 'Litm.ui.remove-tag'}}" aria-label="{{localize "Litm.ui.remove-tag"}}"><i
-				class="fas fa-xmark"></i></button> -->
 </li>

@@ -54,12 +54,17 @@
 		rotate: 0deg;
 		position: relative;
 
+		&.checked,
 		&:checked {
 			background-image: url('../assets/media/checkbox-c.svg');
 		}
 
 		&::after {
 			display: none;
+		}
+
+		&:disabled {
+			cursor: auto;
 		}
 	}
 

@@ -55,9 +55,11 @@ export class LitmRoll extends Roll {
 
 	get outcome() {
 		const total = this.total;
-		if (total >= 10) return "success";
-		if (total >= 7) return "consequence";
-		return "failure";
+		if (total >= 10)
+			return { label: "success", description: "Litm.ui.roll-success" };
+		if (total >= 7)
+			return { label: "consequence", description: "Litm.ui.roll-consequence" };
+		return { label: "failure", description: "Litm.ui.roll-failure" };
 	}
 
 	get effect() {

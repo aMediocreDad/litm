@@ -33,6 +33,28 @@
 	--color-shadow-primary: var(--litm-color-primary);
 	--color-shadow-highlight: var(--litm-color-accent-bg);
 	--color-border-highlight: var(--litm-color-accent-bg);
+	--color-border-highlight-alt: var(--litm-color-accent-2);
+}
+
+
+/* DANGER AREA */
+/* TODO: Find a better way */
+
+button,
+.directory .directory-header .header-search input {
+	background-color: var(--litm-color-alt-bg);
+}
+
+.chat-message {
+	background-color: var(--litm-color-weakness);
+	background-blend-mode: color-burn;
+	color: var(--litm-color-primary-bg);
+	font-family: var(--litm-font-text);
+	font-size: var(--font-size-12);
+
+	& .message-header {
+		color: color-mix(in hsl, var(--litm-color-accent) 70%, transparent);
+	}
 }
 
 #logo {
@@ -43,10 +65,11 @@
 	image-rendering: -webkit-optimize-contrast;
 }
 
+
+/* App core style overrides */
+
 .app.litm {
 	-webkit-font-smoothing: antialiased;
-
-	/* > Overrides */
 
 	background: url('../assets/media/background.webp') 0% 0% / cover;
 	overflow: hidden;
@@ -63,7 +86,7 @@
 		}
 	}
 
-	img {
+	& img {
 		max-width: 100%;
 		height: auto;
 		vertical-align: middle;
@@ -75,7 +98,7 @@
 		border-radius: 0;
 	}
 
-	.window-header {
+	& .window-header {
 		border-bottom: none;
 		font-family: var(--litm-font-primary);
 		justify-content: end;
@@ -86,7 +109,7 @@
 		}
 	}
 
-	.window-content {
+	& .window-content {
 		padding: 0px;
 		background: none;
 
@@ -96,23 +119,8 @@
 		}
 	}
 
-	.editor {
+	& .editor {
 		min-height: 100px;
 		height: 100%;
-	}
-}
-
-/* DANGER AREA */
-/* TODO: Find a better way */
-
-.chat-message {
-	background-color: var(--litm-color-weakness);
-	background-blend-mode: color-burn;
-	color: var(--litm-color-primary-bg);
-	font-family: var(--litm-font-text);
-	font-size: var(--font-size-12);
-
-	.message-header {
-		color: color-mix(in hsl, var(--litm-color-accent) 70%, transparent);
 	}
 }

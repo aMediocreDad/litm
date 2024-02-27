@@ -1,5 +1,5 @@
 .app.litm.litm {
-	.litm--sro {
+	& .litm--sro {
 		position: absolute;
 		width: 1px;
 		height: 1px;
@@ -11,7 +11,7 @@
 		border-width: 0;
 	}
 
-	:where(.litm--checkbox) {
+	& :where(.litm--checkbox) {
 		-webkit-appearance: none;
 		flex: none;
 		appearance: none;
@@ -44,7 +44,7 @@
 		}
 	}
 
-	:where(.litm--checkbox-with-bg) {
+	& :where(.litm--checkbox-with-bg) {
 		background: url('../assets/media/checkbox.svg') no-repeat;
 		height: 1.1em;
 		width: 1.1em;
@@ -63,7 +63,7 @@
 		}
 	}
 
-	:where(.litm--burn) {
+	& :where(.litm--burn) {
 		-webkit-appearance: none;
 		flex: none;
 		appearance: none;
@@ -89,14 +89,14 @@
 		}
 	}
 
-	.litm--accent-bg {
+	& .litm--accent-bg {
 		background: url("/ui/parchment.jpg") repeat;
 		background-color: var(--litm-color-accent-bg);
 		background-blend-mode: color-burn;
 		color: var(--litm-color-accent);
 	}
 
-	button[data-click="add-tag"] {
+	& button[data-click="add-tag"] {
 		margin-inline: 2rem;
 		padding-bottom: var(--litm-space-2);
 		width: auto;

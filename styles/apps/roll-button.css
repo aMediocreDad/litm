@@ -8,7 +8,7 @@
 	pointer-events: all;
 	transition: scale 0.15s;
 
-	img {
+	& img {
 		border: none;
 		filter: drop-shadow(0 0 8px rgb(0, 0, 0));
 	}

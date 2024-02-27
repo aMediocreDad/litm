@@ -17,14 +17,14 @@
 
 	}
 
-	.dice-flavor {
+	& .dice-flavor {
 		font-family: var(--litm-font-heading);
 		font-size: var(--font-size-24);
 		color: var(--litm-color-bg);
 		text-align: center;
 	}
 
-	.dice-effect {
+	& .dice-effect {
 		p:first-of-type {
 			color: var(--litm-color-alt-bg);
 			font-family: var(--litm-font-primary);
@@ -33,11 +33,11 @@
 		}
 	}
 
-	.dice-result {
+	& .dice-result {
 		width: 100%;
 		margin: var(--litm-space-3) auto 0px;
 
-		.tooltip-part {
+		& .tooltip-part {
 			margin-block: var(--litm-space-1);
 		}
 
@@ -46,7 +46,7 @@
 		}
 	}
 
-	.dice-total {
+	& .dice-total {
 		background-color: var(--litm-color-alt-bg);
 		color: var(--litm-color-primary);
 		font-family: var(--litm-font-heading);

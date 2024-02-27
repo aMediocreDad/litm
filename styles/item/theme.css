@@ -1,18 +1,18 @@
 .litm.litm--character .litm--character-theme,
 .litm.litm--theme {
 
-	.window-header {
+	& .window-header {
 		background: url(/ui/parchment.jpg) repeat;
 		background-color: var(--litm-color-accent-bg);
 		background-blend-mode: color-burn;
 		color: var(--litm-color-accent);
 	}
 
-	.window-content {
+	& .window-content {
 		overflow: visible;
 	}
 
-	.litm--theme-meta {
+	& .litm--theme-meta {
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
@@ -28,7 +28,7 @@
 			padding-block: 3px;
 		}
 
-		.litm--theme-meta-part {
+		& .litm--theme-meta-part {
 			border: none;
 			background-color: transparent;
 			color: color-mix(in hsl, var(--litm-color-primary-bg) 75%, transparent);
@@ -46,18 +46,18 @@
 			}
 		}
 
-		.litm--theme-meta-part:last-of-type {
+		& .litm--theme-meta-part:last-of-type {
 			margin-inline: auto 0;
 			text-align: right;
 		}
 
 
-		span {
+		& span {
 			color: color-mix(in hsl, var(--litm-color-primary-bg) 75%, transparent);
 		}
 	}
 
-	.litm--theme-legend {
+	& .litm--theme-legend {
 		margin-block-start: var(--litm-space-1);
 		padding: var(--litm-space-1) var(--litm-space-3);
 		display: flex;
@@ -67,7 +67,7 @@
 		font-family: var(--litm-font-primary);
 		font-size: var(--font-size-11);
 
-		span {
+		& span {
 
 			&:last-of-type {
 				color: var(--litm-color-weakness)
@@ -75,7 +75,7 @@
 		}
 	}
 
-	.litm--theme-title {
+	& .litm--theme-title {
 		margin: var(--litm-space-1) var(--litm-space-3);
 		display: flex;
 		justify-content: space-between;
@@ -84,7 +84,7 @@
 		color: var(--litm-color);
 		font-size: var(--font-size-16);
 
-		span {
+		& span {
 			font-family: var(--litm-font-primary);
 			font-size: var(--font-size-26);
 			border: none;
@@ -99,20 +99,20 @@
 			}
 		}
 
-		label {
+		& label {
 			display: flex;
 			cursor: pointer;
 		}
 	}
 
-	.litm--tags {
+	& .litm--tags {
 		display: flex;
 		flex-direction: column;
 		list-style: none;
 		margin: var(--litm-space-3) var(--litm-space-3) 0px;
 		padding: 0px;
 
-		li {
+		& li {
 			display: flex;
 			align-items: center;
 			gap: var(--litm-space-3);
@@ -121,7 +121,7 @@
 			&:nth-child(odd) {
 				background-image: linear-gradient(to right, transparent, rgba(69, 59, 29, 0.1), transparent);
 
-				.tag--name {
+				& .tag--name {
 					border-top: 1.5px solid rgb(0, 0, 0, 0.2);
 					border-bottom: 1.5px solid rgb(0, 0, 0, 0.2);
 				}
@@ -133,7 +133,7 @@
 				}
 			}
 
-			.tag--name {
+			& .tag--name {
 				text-align: center;
 				border: none;
 				border-radius: 0px;
@@ -151,13 +151,13 @@
 				}
 			}
 
-			label {
+			& label {
 				display: flex;
 				--checkbox-size: 10px;
 				cursor: pointer;
 			}
 
-			button {
+			& button {
 				background-color: transparent;
 				border: none;
 				color: var(--litm-color-contrast);
@@ -176,13 +176,13 @@
 		}
 	}
 
-	.litm--weakness {
+	& .litm--weakness {
 		padding: 0px var(--litm-space-3) 0px;
 		display: flex;
 		align-items: baseline;
 		background-image: radial-gradient(ellipse at top, var(--litm-color-weakness-bg) 30%, transparent 70%);
 
-		.litm--weakness-part {
+		& .litm--weakness-part {
 			width: 100%;
 			height: auto;
 			min-height: var(--font-size-14);
@@ -200,7 +200,7 @@
 			}
 		}
 
-		button {
+		& button {
 			background-color: transparent;
 			border: none;
 			color: var(--litm-color);
@@ -218,7 +218,7 @@
 		}
 	}
 
-	.litm--theme-progression {
+	& .litm--theme-progression {
 		padding: var(--litm-space-4) var(--litm-space-3) var(--litm-space-2);
 		display: flex;
 		justify-content: space-between;
@@ -236,7 +236,7 @@
 			font-size: var(--font-size-16);
 		}
 
-		label {
+		& label {
 			margin-top: 5px;
 			text-transform: uppercase;
 			font-family: var(--litm-font-primary);
@@ -245,20 +245,20 @@
 		}
 	}
 
-	.litm--theme-bottom {
+	& .litm--theme-bottom {
 		flex: 1;
 		display: flex;
 		flex-direction: column;
 		margin: 0px -8.5px -10px;
 
-		.motivation {
+		& .motivation {
 			margin: var(--litm-space-1) var(--litm-space-3);
 			display: flex;
 			color: var(--litm-color-accent);
 			font-family: var(--litm-font-accent);
 			font-size: var(--font-size-20);
 
-			[role="textbox"] {
+			& [role="textbox"] {
 				background: transparent;
 				color: var(--litm-color-accent);
 				font-family: var(--litm-font-accent);
@@ -290,7 +290,7 @@
 			}
 		}
 
-		.note {
+		& .note {
 			flex: 1;
 			margin: 0px 1.55rem 1rem;
 			background-image: radial-gradient(#999 -150%, transparent 70%);
@@ -306,10 +306,5 @@
 				height: 100% !important
 			}
 		}
-	}
-
-	.burn {
-		filter: drop-shadow(0 0 1px var(--litm-color-primary));
-		cursor: pointer;
 	}
 }

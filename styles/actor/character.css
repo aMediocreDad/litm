@@ -6,7 +6,7 @@
 	z-index: unset;
 
 	&:not(.minimized) {
-		.window-header {
+		& .window-header {
 			&>* {
 				transition: scale 0.15s;
 
@@ -20,27 +20,27 @@
 			}
 		}
 
-		.window-title {
+		& .window-title {
 			display: none;
 		}
 	}
 
-	.window-header {
+	& .window-header {
 		border: none;
 		font-family: var(--litm-font-text);
 		justify-content: space-between;
 	}
 
-	.window-content {
+	& .window-content {
 		background: transparent;
 		overflow: visible;
 	}
 
-	form {
+	& form {
 		-webkit-font-smoothing: antialiased;
 	}
 
-	.avatar {
+	& .avatar {
 		position: absolute;
 		filter: drop-shadow(2px 4px 6px var(--litm-color));
 		left: -255px;
@@ -49,7 +49,7 @@
 		border: none;
 	}
 
-	#name {
+	& #name {
 		position: absolute;
 		top: -65px;
 		left: -10px;
@@ -70,7 +70,7 @@
 		}
 	}
 
-	.nav {
+	& .nav {
 		height: 120px;
 		max-width: 220px;
 		display: flex;
@@ -84,13 +84,13 @@
 			align-items: center;
 			gap: var(--litm-space-2);
 
-			span {
+			& span {
 				font-family: var(--litm-font-accent);
 				color: var(--litm-color-primary-bg);
 				font-size: var(--font-size-20);
 			}
 
-			button {
+			& button {
 				border: none;
 				width: auto;
 				height: 60px;
@@ -106,7 +106,7 @@
 					box-shadow: none;
 				}
 
-				img {
+				& img {
 					border: none;
 					width: 60px;
 					filter: drop-shadow(0 0 6px rgb(0, 0, 0, 1));
@@ -124,7 +124,7 @@
 		}
 	}
 
-	#note {
+	& #note {
 		position: absolute;
 		top: 50px;
 		left: 70px;
@@ -150,14 +150,14 @@
 			display: flex !important;
 		}
 
-		.handle {
+		& .handle {
 			margin-block-end: var(--litm-space-2);
 			display: flex;
 			justify-content: space-between;
 			align-items: center;
 			padding-inline: var(--litm-space-2) var(--litm-space-1);
 
-			button {
+			& button {
 				border: none;
 				background: none;
 				width: auto;
@@ -172,22 +172,22 @@
 			}
 		}
 
-		.editor {
+		& .editor {
 			padding-inline: var(--litm-space-2);
 		}
 
-		[role="application"] {
+		& [role="application"] {
 			height: 100% !important;
 		}
 	}
 
-	.backpack {
+	& .backpack {
 		position: absolute;
 		right: -260px;
 		top: -20px;
 		isolation: isolate;
 
-		.backpack--img {
+		& .backpack--img {
 			position: absolute;
 			max-width: unset;
 			right: 10px;
@@ -199,7 +199,7 @@
 			pointer-events: none;
 		}
 
-		.backpack--bg {
+		& .backpack--bg {
 			position: relative;
 			top: -40px;
 			right: 20px;
@@ -218,7 +218,7 @@
 			scale: 0.8;
 			rotate: 7deg;
 
-			.meta {
+			& .meta {
 				background: var(--litm-color-accent-2) url("/ui/parchment.jpg") repeat;
 				background-blend-mode: color-burn;
 				color: var(--litm-color-accent);
@@ -228,14 +228,14 @@
 				padding: var(--litm-space-1) var(--litm-space-3);
 			}
 
-			.title {
+			& .title {
 				color: var(--litm-color);
 				font-size: var(--font-size-32);
 				font-family: var(--litm-font-accent);
 				text-align: center;
 			}
 
-			.taglist {
+			& .taglist {
 				display: flex;
 				flex-direction: column;
 				list-style: none;
@@ -244,7 +244,7 @@
 				max-height: 200px;
 				overflow: auto;
 
-				li {
+				& li {
 					display: flex;
 					align-items: center;
 					gap: var(--litm-space-3);
@@ -256,7 +256,7 @@
 								rgba(69, 59, 29, 0.1),
 								transparent);
 
-						.tag--name {
+						& .tag--name {
 							border-top: 1.5px solid rgb(0, 0, 0, 0.2);
 							border-bottom: 1.5px solid rgb(0, 0, 0, 0.2);
 						}
@@ -268,7 +268,7 @@
 						}
 					}
 
-					.tag--name {
+					& .tag--name {
 						text-align: center;
 						border: none;
 						border-radius: 0px;
@@ -286,13 +286,13 @@
 						}
 					}
 
-					label {
+					& label {
 						display: flex;
 						cursor: pointer;
 						--checkbox-size: 10px;
 					}
 
-					button {
+					& button {
 						background-color: transparent;
 						border: none;
 						color: var(--litm-color-contrast);
@@ -313,11 +313,11 @@
 		}
 	}
 
-	.litm--character-themes {
+	& .litm--character-themes {
 		position: relative;
 	}
 
-	.litm--character-theme {
+	& .litm--character-theme {
 		position: absolute;
 		top: 0px;
 		left: -225px;
@@ -329,7 +329,7 @@
 		scale: 0.7;
 		transition: all 0.15s;
 
-		.litm--theme-background {
+		& .litm--theme-background {
 			background: url("../../assets/media/background.webp") 0% 0% / cover;
 			outline: 2px solid var(--litm-color);
 			outline-offset: -10px;
@@ -340,7 +340,7 @@
 			color: var(--litm-color);
 		}
 
-		.meta {
+		& .meta {
 			padding-block-start: 8px;
 		}
 

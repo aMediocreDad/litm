@@ -42,8 +42,7 @@
 
 	& .avatar {
 		position: absolute;
-		filter: drop-shadow(2px 4px 6px var(--litm-color));
-		left: -255px;
+		left: -250px;
 		top: -45px;
 		z-index: -1;
 		border: none;
@@ -51,7 +50,7 @@
 
 	& #name {
 		position: absolute;
-		top: -65px;
+		top: -60px;
 		left: -10px;
 		font-family: var(--litm-font-heading);
 		font-weight: 800;
@@ -184,7 +183,7 @@
 	& .backpack {
 		position: absolute;
 		right: -260px;
-		top: -20px;
+		top: 0px;
 		isolation: isolate;
 
 		& .backpack--img {
@@ -211,7 +210,7 @@
 			box-shadow: none;
 			filter: drop-shadow(black 2px 4px 6px);
 			color: var(--litm-color);
-			height: 350px;
+			height: 310px;
 			width: 280px;
 			display: flex;
 			flex-direction: column;

@@ -97,8 +97,11 @@
 			"tags": "Tags"
 		},
 		"tags": {
+			"activate": "Activate",
+			"burn": "Burn",
 			"decay": "Decay",
 			"isActive": "Active",
+			"isInactive": "Not active",
 			"isBurnt": "Burned",
 			"item-tags": "Item Tags",
 			"power": "Power",
@@ -117,7 +120,11 @@
 			"rename": "Rename",
 			"rename-challenge": "Rename Challenge",
 			"roll": "Roll!",
+			"roll-consequence": "The action succeeds, but there are Consequences.",
+			"roll-failure": "The action fails. There are Consequences.",
 			"roll-quick": "Quick Outcome",
+			"roll-success": "The action succeeds. There are no Consequences.",
+			"roll-tracked-success": "You can push your roll by accepting Consequences to get 1 more Power to spend on Effects.",
 			"roll-title": "Roll Dice",
 			"roll-tracked": "Tracked Outcome",
 			"status": "Final Status Modifiers",
@@ -129,7 +136,7 @@
 	"TYPES.Actor.challenge": "Challenge",
 	"TYPES.Actor.character": "Character",
 	"Types.Item.theme": "Theme",
-	"failure": "Failure",
-	"consequence": "Consequence",
-	"success": "Success"
+	"failure": "Miss",
+	"consequence": "Mixed Hit",
+	"success": "Strong Hit"
 }

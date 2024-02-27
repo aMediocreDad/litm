@@ -11,14 +11,33 @@ export class LitmHooks {
 		LitmHooks.#safeUpdateItemSheet();
 		LitmHooks.#replaceLoadSpinner();
 		LitmHooks.#renderChallengeCardFixes();
+		LitmHooks.#prepareCharacterOnCreate();
+		LitmHooks.#prepareThemeOnCreate();
 		LitmHooks.#rendeWelcomeScreen();
 	}
 
 	static #iconOnlyHeaderButtons() {
-		const constructHeaderButton = (icon, label, action) =>
-			`<a class="header-button control ${action}" aria-label="${label}" data-tooltip="${label}">
-				<i class="${icon}"></i>
-			</a>`;
+		// Abstracted function to replace header buttons
+		const replaceHeaderButton = (html, action, icon, label) =>
+			html.find(`.${action}`)?.replaceWith(`
+				<a class="header-button control ${action}" aria-label="${label}" data-tooltip="${label}">
+				<i class="${icon}"></i></a>
+				`);
+
+		const buttons = [
+			{ action: "configure-sheet", icon: "fas fa-cog", label: t("Configure") },
+			{
+				action: "configure-token",
+				icon: "fas fa-user-circle",
+				label: t("TOKEN.Title"),
+			},
+			{
+				action: "share-image",
+				icon: "fas fa-eye",
+				label: t("JOURNAL.ActionShow"),
+			},
+			{ action: "close", icon: "fas fa-times", label: t("Close") },
+		];
 
 		for (const hook of [
 			"renderItemSheet",
@@ -27,38 +46,8 @@ export class LitmHooks {
 			"renderApplication",
 		]) {
 			Hooks.on(hook, (_app, html) => {
-				html
-					.find(".configure-sheet")
-					?.replaceWith(
-						constructHeaderButton(
-							"fas fa-cog",
-							t("Configure"),
-							"configure-sheet",
-						),
-					);
-				html
-					.find(".configure-token")
-					?.replaceWith(
-						constructHeaderButton(
-							"fas fa-user-circle",
-							t("TOKEN.Title"),
-							"configure-token",
-						),
-					);
-				html
-					.find(".share-image")
-					?.replaceWith(
-						constructHeaderButton(
-							"fas fa-eye",
-							t("JOURNAL.ActionShow"),
-							"share-image",
-						),
-					);
-				html
-					.find(".close")
-					?.replaceWith(
-						constructHeaderButton("fas fa-times", t("Close"), "close"),
-					);
+				for (const { action, icon, label } of buttons)
+					replaceHeaderButton(html, action, icon, label);
 
 				// Add the document ID link to the header if it's not already there
 				if (hook === "renderActorSheet" || hook === "renderItemSheet") {
@@ -200,6 +189,44 @@ export class LitmHooks {
 		});
 	}
 
+	static #prepareCharacterOnCreate() {
+		Hooks.on("preCreateActor", (actor, data) => {
+			if (data.type !== "character") return;
+
+			const prototypeToken = {
+				sight: { enabled: true },
+				actorLink: true,
+				disposition: CONST.TOKEN_DISPOSITIONS.FRIENDLY,
+				texture: { src: "/icons/svg/target.svg" },
+			};
+			const img = "icons/svg/target.svg";
+			actor.updateSource({ prototypeToken, img });
+		});
+
+		Hooks.on("createActor", async (actor) => {
+			if (actor.type !== "character") return;
+
+			await Item.createDocuments(
+				Array(4)
+					.fill()
+					.map(() => ({
+						name: "New Theme",
+						type: "theme",
+					})),
+				{ parent: actor },
+			);
+		});
+	}
+
+	static #prepareThemeOnCreate() {
+		Hooks.on("preCreateItem", (item, data) => {
+			if (data.type !== "theme") return;
+
+			const img = "systems/litm/assets/media/note.webp";
+			item.updateSource({ img });
+		});
+	}
+
 	static #rendeWelcomeScreen() {
 		Hooks.once("ready", async () => {
 			let scene = game.scenes.getName("Legend in the Mist");
@@ -232,25 +259,94 @@ export class LitmHooks {
 
 			const { thumb } = await scene.createThumbnail();
 			await scene.update({ thumb });
-			scene.activate();
 
 			const entry = await JournalEntry.create({
-				name: "Welcome to Legend in the Mist!",
+				name: "Legend in the Mist",
 				permission: { default: 2 },
 				content: `
-					<h1>Welcome to Legend in the Mist!</h1>
-					<p>
-						Thank you for choosing Legend in the Mist! This system is designed to provide a simple and flexible way to play your favorite tabletop roleplaying game.
-					</p>
-					<p>
-						To get started, create a new character by clicking the "Create Character" button in the sidebar. Once you have a character, you can create new challenges and themes to use in your game.
-					</p>
-					<p>
-						To learn more about how to use Legend in the Mist, check out the documentation by clicking the "Documentation" button in the sidebar.
-					</p>
+					<h1 style="text-align: center;"><span style="font-family: PackardAntique">Welcome!</span></h1>
+					<p></p>
+					<p style="text-align: center;"><span style="font-family: AlchemyItalic"><em><strong>I am thrilled to have you try out
+													this system!</strong></em></span></p>
+					<blockquote style="padding: 0.5em 10px;background: var(--litm-color-primary-bg);color: var(--litm-color-weakness);">
+							<p><span style="font-family: CaslonAntique"><strong>Please be aware that both the system—and game—is under heavy
+													development. And that there might be breaking bugs or major changes down the road.</strong></span></p>
+							<p><br><span style="font-family: PackardAntique">PLEASE MAKE FREQUENT BACKUPS</span></p>
+					</blockquote>
+					<p></p>
+					<h2>What to expect</h2>
+					<p>At the moment only <strong>Themes</strong> and <strong>Characters</strong> are implemented, there is also a
+							rudimentary sheet that you can use to display the <strong>Challenge</strong> illustrations found in the <a
+									href="https://drive.google.com/drive/folders/1jS1dO4rz2uLxOZfdsShOTLjzsJeJqJ6H"
+									title="Legend in the Mist demo playkit">Tinderbox Demo</a>.</p>
+					<p></p>
+					<h3>To-be implemented</h3>
+					<p>The system is under active development and you can expect frequent updates as the year progresses. Following is a
+							list of coming feature improvements in no particular order:</p>
+					<ul>
+							<li>
+									<p><strong>Situational Tags & Statuses: </strong>Tags and Statuses not part of a backpack or theme will likely
+											be implemented as Active Effects with their own interface and tracking.</p>
+							</li>
+							<li>
+									<p><strong>Challenges:</strong> The current <strong>Challenge</strong> actors will be replaced with a full sheet
+											of the same style as their printed counterparts.</p>
+							</li>
+							<li>
+									<p><strong>Threats & Consequences:</strong> To go with <strong>Challenges</strong>, <strong>Threats &
+													Consequences</strong> will be implemented as items that can be premade and dragged onto a
+											<strong>Challenge</strong> actor.</p>
+							</li>
+							<li>
+									<p><strong>Backpacks:</strong> At the moment the backpack is hardcoded into the actor data. In the future
+											Backpacks will become their own items which can be moved between players, and added from premade backpacks
+											in the Item sidebar.</p>
+							</li>
+							<li>
+									<p><strong>Crew Theme </strong>and<strong> Theme Improvements:</strong> The Crew theme and theme improvements
+											are yet to be revealed by <a href="https://cityofmist.co/blogs/news/son-of-oaks-new-game-engine">Son of
+													Oak</a>. When the details on these are released work will commence on implementing them in the system.
+									</p>
+							</li>
+					</ul>
+					<h2>How play</h2>
+					<p>Beyond the <em>Tinderbox demo</em> linked above, there are few ins-and-outs of the system, yet. Some interactions to
+							be aware of:</p>
+					<ul>
+							<li>
+									<p><span style="font-family: Modesto Condensed"><strong>Right-clicking</strong></span> a <strong>Tag </strong>in
+											the <strong>Bacpack</strong> will prompt you for deleting the tag. The same goes for <strong>Themes</strong>
+											in a <strong>Character</strong>-sheet.</p>
+							</li>
+							<li>
+									<p>If your <strong>Character</strong><em><strong> </strong></em>is missing <strong>Theme</strong>s you can
+											create an empty one in the <em>Item Sidebar</em> <em>(or ask the one with GM permissions to do it)</em>, and
+											<span style="font-family: Modesto Condensed"><strong>drag</strong></span> it onto the sheet.</p>
+							</li>
+							<li>
+									<p><strong>Theme</strong>s can be <span
+													style="font-family: Modesto Condensed"><strong>rearranged</strong></span> on a sheet.
+											<strong>Tag</strong>s in the Backpack and on <strong>Theme</strong>s cannot.</p>
+							</li>
+							<li>
+									<p><span style="font-family: Modesto Condensed"><strong>Double-clicking </strong></span>a <strong>Theme</strong>
+											on the <strong>Character</strong>-sheet will open the <strong>Theme</strong>'s sheet allowing you to make
+											edits to it that you are not able to directly from the <strong>Character</strong>-sheet.</p>
+							</li>
+							<li>
+									<p><span style="font-family: Modesto Condensed"><strong>Right-clicking</strong></span> a
+											<strong>Challenge</strong>-sheet will pop open a small dialog that lets you change the name.</p>
+							</li>
+							<li>
+									<p>If you see a title, it may be editable. This goes for the title on the
+											<strong>Character</strong>-sheet<strong>, Theme</strong>-sheet, and <strong>Roll</strong>-dialog.</p>
+							</li>
+					</ul>
 				`,
 			});
 
+			await sleep(300);
+			await scene.activate();
 			await sleep(300);
 			entry.sheet.render(true, {
 				collapsed: true,

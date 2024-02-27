@@ -13,17 +13,18 @@
 	</div>
 	<div class="litm--theme-title">
 		<!-- isActive checkbox -->
-		<label><span class="litm--sro">{{localize "Litm.tags.isActive"}}</span>
+		<label><span class="litm--sro">{{localize (tagActiveString data.system true)}}</span>
 			<input class="litm--checkbox litm--checkbox-with-bg" type="checkbox" name="items.{{data._id}}.system.isActive"
-				data-tooltip="{{localize 'Litm.tags.isActive'}}" {{checked data.system.isActive}}>
+				data-tooltip="{{localize (tagActiveString data.system true)}}" disabled {{checked data.system.isActive}}>
 		</label>
 		<!-- Name input -->
 		<span>{{data.name}}</span>
 		<input type="hidden" name="items.{{data._id}}.name" value="{{data.name}}" />
 		<!-- isBurnt checkbox -->
-		<label><span class="litm--sro">{{localize "Litm.tags.isBurnt"}}</span>
+		<label><span class="litm--sro">{{localize (ifThen data.system.isBurnt 'Litm.tags.isBurnt' 'Litm.tags.burn')}}</span>
 			<input class="litm--burn" type="checkbox" name="items.{{data._id}}.system.isBurnt"
-				data-tooltip="{{localize 'Litm.tags.isBurnt'}}" {{checked data.system.isBurnt}} />
+				data-tooltip="{{localize (ifThen data.system.isBurnt 'Litm.tags.isBurnt' 'Litm.tags.burn')}}"
+				{{checked data.system.isBurnt}} />
 		</label>
 	</div>
 	<ul class="litm--tags">

@@ -1,8 +1,8 @@
 <form class="{{cssClass}}" autocomplete="off">
 	<div class="litm--theme-meta litm--accent-bg">
 		<input class="litm--theme-meta-part" type="text" name="system.themebook" value="{{data.system.themebook}}" />
-		<input class="litm--theme-meta-part" type="text" name="system.level" value="{{data.system.level}}" /><span>
-			THEME</span>
+		<input class="litm--theme-meta-part" type="text" name="system.level" value="{{data.system.level}}" />
+		<span>THEME</span>
 	</div>
 	<div class="litm--theme-legend">
 		<span>{{localize "Litm.tags.power"}}
@@ -11,16 +11,17 @@
 	</div>
 	<div class="litm--theme-title">
 		<!-- isActive checkbox -->
-		<label class="litm--sro" for="name--isActive" aria-label="{{localize "Litm.tags.isActive"}}"></label>
+		<label class="litm--sro" for="name--isActive" aria-label="{{localize (tagActiveString data.system false)}}"></label>
 		<input class="litm--checkbox litm--checkbox-with-bg" type="checkbox" id="name--isActive" name="system.isActive"
-			data-tooltip="{{localize 'Litm.tags.isActive'}}" {{checked data.system.isActive}}>
+			data-tooltip="{{localize (tagActiveString data.system false)}}" {{checked data.system.isActive}}>
 		<!-- Name input -->
 		<input type="hidden" name="name" id="name" value="{{title}}" required />
 		<span role="textbox" contenteditable data-input="name">{{title}}</span>
 		<!-- isBurnt checkbox -->
 		<label>
-			<span class="litm--sro">{{localize "Litm.tags.isBurnt"}}</span>
-			<input class="litm--burn" type="checkbox" name="system.isBurnt" data-tooltip="{{localize 'Litm.tags.isBurnt'}}"
+			<span class="litm--sro">{{localize (ifThen data.system.isBurnt "Litm.tags.isBurnt" "Litm.tags.burn")}}</span>
+			<input class="litm--burn" type="checkbox" name="system.isBurnt"
+				data-tooltip="{{localize (ifThen data.system.isBurnt 'Litm.tags.isBurnt' 'Litm.tags.burn')}}"
 				{{checked data.system.isBurnt}}>
 		</label>
 	</div>

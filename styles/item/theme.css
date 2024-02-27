@@ -149,6 +149,10 @@
 				&:active {
 					box-shadow: none;
 				}
+
+				&:read-only {
+					cursor: default;
+				}
 			}
 
 			& label {

@@ -25,7 +25,7 @@
 	}
 
 	& .dice-effect {
-		p:first-of-type {
+		& p:first-of-type {
 			color: var(--litm-color-alt-bg);
 			font-family: var(--litm-font-primary);
 			font-size: var(--font-size-16);
@@ -35,7 +35,7 @@
 
 	& .dice-result {
 		width: 100%;
-		margin: var(--litm-space-3) auto 0px;
+		margin: 0px auto;
 
 		& .tooltip-part {
 			margin-block: var(--litm-space-1);

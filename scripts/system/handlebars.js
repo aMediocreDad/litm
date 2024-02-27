@@ -21,12 +21,20 @@ export class HandlebarsHelpers {
 			"titlecase",
 			(string) => string.charAt(0).toUpperCase() + string.slice(1),
 		);
+
+		Handlebars.registerHelper("tagActiveString", (tag, readonly) =>
+			tag.isActive
+				? "Litm.tags.isActive"
+				: readonly
+				  ? "Litm.tags.isInactive"
+				  : "Litm.tags.activate",
+		);
 	}
 }
 
 export class HandlebarsPartials {
 	static partials = [
-		"systems/litm/templates/apps/roll.html",
+		"systems/litm/templates/apps/roll-dialog.html",
 		"systems/litm/templates/chat/message.html",
 		"systems/litm/templates/chat/message-tooltip.html",
 		"systems/litm/templates/item/theme-ro.html",

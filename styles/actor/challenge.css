@@ -3,15 +3,15 @@
 	outline: none;
 	padding: 0px;
 
-	.window-header {
+	& .window-header {
 		flex: 0 0 24px;
 
-		a {
+		& a {
 			text-shadow: 0 0 10px white, 0 0 10px black;
 		}
 	}
 
-	form {
+	& form {
 		position: relative;
 		overflow: hidden;
 		overflow: clip;
@@ -19,7 +19,7 @@
 		min-height: 200px;
 		place-content: center;
 
-		img {
+		& img {
 			color: var(--litm-color-accent);
 		}
 	}

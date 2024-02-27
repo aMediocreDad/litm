@@ -4,12 +4,12 @@
 	background-blend-mode: luminosity;
 	background-color: var(--litm-color);
 
-	.window-header {
+	& .window-header {
 		color: var(--litm-color-primary)
 	}
 
 
-	.window-content form {
+	& .window-content form {
 		display: grid;
 		grid-template-columns: 1fr 1fr;
 		grid-template-areas:
@@ -26,7 +26,7 @@
 		font-family: var(--litm-font-text);
 	}
 
-	.title {
+	& .title {
 		grid-area: title;
 		font-family: var(--litm-font-accent);
 		font-size: var(--font-size-32);
@@ -44,8 +44,8 @@
 		}
 	}
 
-	.powerTags,
-	.weaknessTags {
+	& .powerTags,
+	& .weaknessTags {
 		overflow: auto;
 
 		&>span {
@@ -56,14 +56,14 @@
 			text-align: center;
 		}
 
-		ul {
+		& ul {
 			list-style: none;
 			padding: 0px;
 			margin: var(--litm-space-1) var(--litm-space-2);
 			display: flex;
 			flex-direction: column;
 
-			li {
+			& li {
 				display: flex;
 				align-items: center;
 				font-family: var(--litm-font-text);
@@ -83,7 +83,7 @@
 					border-bottom: 1.5px solid rgba(88, 9, 9, 0.2);
 				}
 
-				label {
+				& label {
 					cursor: pointer;
 
 					&:first-of-type {
@@ -91,35 +91,35 @@
 					}
 				}
 
-				input {
+				& input {
 					font-size: var(--font-size-18);
 				}
 			}
 		}
 	}
 
-	.powerTags {
+	& .powerTags {
 		grid-area: powerTags;
 
-		.litm--tag-emphasis {
+		& .litm--tag-emphasis {
 			color: color-mix(in hsl, var(--litm-color-accent-bg) 70%, darkgreen);
 		}
 	}
 
-	.weaknessTags {
+	& .weaknessTags {
 		grid-area: weaknessTags;
 
 		&>span,
-		ul li {
+		& ul li {
 			color: var(--litm-color-weakness);
 			border-color: var(--litm-color-weakness-bg);
 		}
 
-		input {
+		& input {
 			color: var(--litm-color-weakness);
 		}
 
-		ul li {
+		& ul li {
 			padding-block: var(--litm-space-2);
 
 			&:nth-child(odd) {
@@ -129,7 +129,7 @@
 
 	}
 
-	.status {
+	& .status {
 		margin: 0;
 		grid-area: status;
 		display: flex;
@@ -141,24 +141,24 @@
 		border-bottom: 2px solid var(--litm-color-muted-bg);
 		border-top: 2px solid var(--litm-color-muted-bg);
 
-		label {
+		& label {
 			font-family: var(--litm-font-primary);
 			font-size: var(--font-size-20);
 			color: var(--litm-color-primary);
 		}
 
-		.input {
+		& .input {
 			display: flex;
 			align-items: center;
 			max-width: min-content;
 
-			input {
+			& input {
 				text-align: center;
 				min-width: 30px;
 				flex: 0;
 			}
 
-			button {
+			& button {
 				border: none;
 				background: none;
 				color: var(--litm-color-primary);
@@ -177,7 +177,7 @@
 		}
 	}
 
-	.tracked {
+	& .tracked {
 		grid-area: tracked;
 		display: flex;
 		justify-content: center;
@@ -187,8 +187,8 @@
 		padding-block-end: var(--litm-space-1);
 		border-block-end: 2px solid var(--litm-color-muted-bg);
 
-		label,
-		input {
+		& label,
+		& input {
 			cursor: pointer;
 			font-family: var(--litm-font-primary);
 			font-size: var(--font-size-20);
@@ -196,7 +196,7 @@
 		}
 	}
 
-	.effect {
+	& .effect {
 		grid-area: effect;
 		display: flex;
 		align-items: center;
@@ -206,14 +206,14 @@
 		margin-block: var(--litm-space-3);
 
 
-		label {
+		& label {
 			font-family: var(--litm-font-primary);
 			font-size: var(--font-size-20);
 			color: var(--litm-color-primary);
 		}
 	}
 
-	.buttons {
+	& .buttons {
 		grid-area: buttons;
 		margin-block: var(--litm-space-3);
 		display: flex;
@@ -221,7 +221,7 @@
 		justify-content: center;
 		gap: var(--litm-space-4);
 
-		button {
+		& button {
 			padding-inline: var(--litm-space-5);
 			border: none;
 			background: none;
@@ -248,19 +248,8 @@
 		}
 	}
 
-	div:has(#roll-tracked:checked)~.effect {
+	& div:has(#roll-tracked:checked)~.effect {
 		pointer-events: auto;
 		opacity: 1;
-	}
-
-	.burn {
-		cursor: pointer;
-		--bg-color: transparent;
-		--fg-color: currentColor;
-
-		&:has(input:checked) {
-			--bg-color: currentColor;
-			--fg-color: transparent;
-		}
 	}
 }

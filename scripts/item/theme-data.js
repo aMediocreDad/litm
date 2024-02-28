@@ -1,4 +1,4 @@
-import { titleCase } from "../utils.js";
+import { titleCase, localize as t } from "../utils.js";
 
 export class ThemeData extends foundry.abstract.DataModel {
 	static defineSchema() {
@@ -6,10 +6,10 @@ export class ThemeData extends foundry.abstract.DataModel {
 		const abstract = game.litm.data;
 		return {
 			themebook: new fields.StringField({
-				initial: "THEMEBOOK",
+				initial: t("Litm.other.themebook"),
 			}),
 			level: new fields.StringField({
-				initial: "LEVEL",
+				initial: t("Litm.other.level"),
 			}),
 			isActive: new fields.BooleanField({
 				initial: true,
@@ -17,9 +17,30 @@ export class ThemeData extends foundry.abstract.DataModel {
 			isBurnt: new fields.BooleanField(),
 			powerTags: new fields.ArrayField(
 				new fields.EmbeddedDataField(abstract.TagData),
+				{
+					initial: () => Array(5)
+						.fill()
+						.map((_, i) => ({
+							id: randomID(),
+							name: `${t("Litm.ui.name-power")} ${i + 1}`,
+							type: "powerTag",
+							isActive: i < 2,
+							isBurnt: false,
+						})),
+					validate: (tags) => tags.length === 5,
+				}
 			),
 			weaknessTags: new fields.ArrayField(
-				new fields.EmbeddedDataField(abstract.TagData)
+				new fields.EmbeddedDataField(abstract.TagData), {
+				initial: () => [{
+					id: randomID(),
+					name: t("Litm.ui.name-weakness"),
+					isActive: true,
+					isBurnt: false,
+					type: "weaknessTag",
+				}],
+				validate: (tags) => tags.length === 1,
+			}
 			),
 			experience: new fields.NumberField({
 				integer: true,
@@ -34,10 +55,10 @@ export class ThemeData extends foundry.abstract.DataModel {
 				max: 3,
 			}),
 			motivation: new fields.StringField({
-				initial: "Write down your Motivation.",
+				initial: t("Litm.ui.name-motivation"),
 			}),
 			note: new fields.HTMLField({
-				initial: "Give your Theme a description.",
+				initial: t("Litm.ui.name-note"),
 			}),
 		};
 	}

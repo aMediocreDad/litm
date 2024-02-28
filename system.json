@@ -1,13 +1,13 @@
 {
 	"$schema": "https://json.schemastore.org/foundryvtt-system-manifest.json",
 	"id": "litm",
-	"version": 1,
+	"version": 2,
 	"license": "LICENSE",
 	"title": "Legend in the Mist",
 	"description": "A Rustic Fantasy Game for Foundry VTT",
 	"authors": [
 		{
-			"name": "Filip",
+			"name": "Filip Ambrosius",
 			"discord": "aMediocreDad#2483",
 			"email": "hello@amediocre.dev"
 		}

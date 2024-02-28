@@ -4,86 +4,88 @@
 			"category-target": "Against an Opponent or a Target",
 			"category-ally": "For Yourself or for an Ally",
 			"category-process": "On a Process",
-			"category-other": "Other Effects",
+			"category-other": "Other Effect",
 			"category-consequence": "Against a Consequence",
 			"effect": "Effect",
 			"attack": {
 				"key": "Attack",
-				"description": "Slash, punch, lay a curse, shoot",
-				"action": "Give your target a harmful status",
-				"cost": "1 Power per tier"
+				"description": "Slash, punch, lay a curse, shoot.",
+				"action": "Give your target a harmful status.",
+				"cost": "1 Power per tier."
 			},
 			"disrupt": {
 				"key": "Disrupt",
-				"description": "Blind, confuse, shock, trip, interrupt",
-				"action": "Give your target a hindering tag or status",
-				"cost": "1 Power per tier, 2 Power per tag"
+				"description": "Blind, confuse, shock, trip, interrupt.",
+				"action": "Give your target a hindering tag or status.",
+				"cost": "1 Power per tier, 2 Power per tag."
 			},
 			"influence": {
 				"key": "Influence",
-				"description": "Convince, threaten, provoke, mind control",
-				"action": "Give your target a compelling status",
-				"cost": "1 Power per tier"
+				"description": "Convince, threaten, provoke, mind control.",
+				"action": "Give your target a compelling status.",
+				"cost": "1 Power per tier."
 			},
 			"weaken": {
 				"key": "Weaken",
-				"description": "Break, sunder, neutralize, silence",
-				"action": "Remove a target’s useful tag or status",
-				"cost": "1 Power per tier 2 Power per tag"
+				"description": "Break, sunder, neutralize, silence.",
+				"action": "Remove a target’s useful tag or status.",
+				"cost": "1 Power per tier 2 Power per tag."
 			},
 			"bestow": {
 				"key": "Bestow",
-				"description": "Teach, empower, enchant, equip",
-				"action": "Give yourself or an ally new abilities using tags",
-				"cost": "2 Power per tag"
+				"description": "Teach, empower, enchant, equip.",
+				"action": "Give yourself or an ally new abilities using tags.",
+				"cost": "2 Power per tag."
 			},
 			"enhance": {
 				"key": "Enhance",
-				"description": "Assist, aim, boost, take cover",
-				"action": "Give yourself or an ally a helpful status",
-				"cost": "1 Power per tier"
+				"description": "Assist, aim, boost, take cover.",
+				"action": "Give yourself or an ally a helpful status.",
+				"cost": "1 Power per tier."
 			},
 			"create": {
 				"key": "Create",
-				"description": "Craft, find, purchase, summon, rally",
-				"action": "Create a new object or being using tags",
-				"cost": "2 Power per tag"
+				"description": "Craft, find, purchase, summon, rally.",
+				"action": "Create a new object or being using tags.",
+				"cost": "2 Power per tag."
 			},
 			"restore": {
 				"key": "Restore",
-				"description": "Heal, repair, rejuvenate, undo",
-				"action": "Reduce a harmful status or recover a burnt power tag",
-				"cost": "1 Power per tier 2 Power per tag"
+				"description": "Heal, repair, rejuvenate, undo.",
+				"action": "Reduce a harmful status or recover a burnt power tag.",
+				"cost": "1 Power per tier 2 Power per tag."
 			},
 			"advance": {
 				"key": "Advance",
-				"description": "Make progress, get closer, push forward",
-				"action": "Increase a progress status 1 Power per tier",
-				"cost": "1 Power per tier"
+				"description": "Make progress, get closer, push forward.",
+				"action": "Increase a progress status 1 Power per tier.",
+				"cost": "1 Power per tier."
 			},
 			"set_back": {
 				"key": "Set Back",
-				"description": "Delay, ruin, sabotage, reverse",
-				"action": "Decrease a progress status",
-				"cost": "1 Power per tier"
-			},
-			"discover": {
-				"key": "Discover",
-				"description": "Sense, recall, research, converse",
-				"action": "Discover a valuable detail",
-				"cost": "1 Power per detail"
-			},
-			"extra_feat": {
-				"key": "Extra Feat",
-				"description": "Add a feature or minor achievement to an action",
-				"action": "Any action",
-				"cost": "1 Power per additional feature or minor achievement included in the action"
+				"description": "Delay, ruin, sabotage, reverse.",
+				"action": "Decrease a progress status.",
+				"cost": "1 Power per tier."
 			},
 			"mitigate": {
 				"key": "Mitigate",
-				"description": "Block, dodge, shield, absorb",
-				"action": "Reduce or cancel incoming Effects",
-				"cost": "1 Power per tier; 2 Power per tag"
+				"description": "Block, dodge, shield, absorb.",
+				"action": "Reduce or cancel incoming Effects.",
+				"cost": "1 Power per tier; 2 Power per tag."
+			}
+		},
+		"additionalEffects": {
+			"discover": {
+				"key": "Discover",
+				"description": "Sense, recall, research, converse.",
+				"action": "Discover a valuable detail.",
+				"cost": "1 Power per detail."
+			},
+			"extra_feat": {
+				"key": "Extra Feat",
+				"description": "Add a feature or minor achievement to an action.",
+				"action": "",
+				"cost": "1 Power per additional feature or minor achievement included in the action."
 			}
 		},
 		"name": "Legend in the Mist",
@@ -93,8 +95,10 @@
 			"cost": "Cost",
 			"description": "Description",
 			"experience": "Experience",
+			"level": "Level",
 			"tag": "Tag",
-			"tags": "Tags"
+			"tags": "Tags",
+			"themebook": "Themebook"
 		},
 		"tags": {
 			"activate": "Activate",
@@ -117,6 +121,10 @@
 			"error-burning-tag": "There was an error trying to burn your tag. Please see the console for more information.",
 			"error-validating-actor": "There was an error validating the actor. Please see the console for more information.",
 			"import-actor": "Import Actor from JSON",
+			"name-motivation": "Write down your Motivation.",
+			"name-note": "Give your Theme a description.",
+			"name-power": "Name your Power",
+			"name-weakness": "Name your Weakness",
 			"remove-tag": "Remove Tag",
 			"rename": "Rename",
 			"rename-challenge": "Rename Challenge",

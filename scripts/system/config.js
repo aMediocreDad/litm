@@ -56,18 +56,6 @@ export class LitmConfig {
 				cost: "Litm.effects.set_back.cost",
 			},
 		},
-		"Litm.effects.category-other": {
-			discover: {
-				description: "Litm.effects.discover.description",
-				action: "Litm.effects.discover.action",
-				cost: "Litm.effects.discover.cost",
-			},
-			extra_feat: {
-				description: "Litm.effects.extra_feat.description",
-				action: "Litm.effects.extra_feat.action",
-				cost: "Litm.effects.extra_feat.cost",
-			},
-		},
 		"Litm.effects.category-consequence": {
 			mitigate: {
 				description: "Litm.effects.mitigate.description",
@@ -76,6 +64,20 @@ export class LitmConfig {
 			},
 		},
 	};
+
+	additionalEffects = {
+		discover: {
+			description: "Litm.additionalEffects.discover.description",
+			action: "Litm.additionalEffects.discover.action",
+			cost: "Litm.additionalEffects.discover.cost",
+		},
+		extra_feat: {
+			description: "Litm.additionalEffects.extra_feat.description",
+			action: "Litm.additionalEffects.extra_feat.action",
+			cost: "Litm.additionalEffects.extra_feat.cost",
+		},
+	}
+
 	static createConfig() {
 		return new LitmConfig();
 	}

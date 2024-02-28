@@ -4,13 +4,14 @@ import { sleep, localize as t } from "../utils.js";
 export class LitmHooks {
 	static register() {
 		info("Registering Hooks...");
-		LitmHooks.#addRollButtonAbovePlayerConfig();
 		LitmHooks.#addImportToActorSidebar();
+		LitmHooks.#addRollButtonAbovePlayerConfig();
 		LitmHooks.#iconOnlyHeaderButtons();
 		LitmHooks.#safeUpdateActorSheet();
 		LitmHooks.#safeUpdateItemSheet();
 		LitmHooks.#replaceLoadSpinner();
 		LitmHooks.#renderChallengeCardFixes();
+		LitmHooks.#attachContextMenuToRollMessage();
 		LitmHooks.#prepareCharacterOnCreate();
 		LitmHooks.#prepareThemeOnCreate();
 		LitmHooks.#rendeWelcomeScreen();
@@ -189,6 +190,48 @@ export class LitmHooks {
 		});
 	}
 
+	static #attachContextMenuToRollMessage() {
+		Hooks.on("getChatLogEntryContext", (_, options) => {
+			const { discover, extra_feat } = CONFIG.litm.additionalEffects;
+			const isEffectRoll = (li) => li.find(".dice-effect").length;
+			options.unshift({
+				name: `${t("Litm.effects.category-other")}: ${t("Litm.additionalEffects.discover.key")}`,
+				icon: '<i class="fas fa-magnifying-glass"></i>',
+				condition: isEffectRoll,
+				callback: () => {
+					ChatMessage.create({
+						content: `<div class="litm dice-roll">
+							<div class="dice-flavor">${t("Litm.additionalEffects.discover.key")}</div>
+							<div class="dice-effect">
+								<p><em>${t(discover.description)}</em></p>
+								<p>${t(discover.action)}</p>
+								<p><strong>${t("Litm.other.cost")}:</strong> ${t(discover.cost)}</p>
+							</div>
+					</div>
+						`
+					})
+				}
+			}, {
+				name: `${t("Litm.effects.category-other")}: ${t("Litm.additionalEffects.extra_feat.key")}`,
+				icon: '<i class="fas fa-plus"></i>',
+				condition: isEffectRoll,
+				callback: () => {
+					ChatMessage.create({
+						content: `
+						<div class="litm dice-roll">
+							<div class="dice-flavor">${t("Litm.additionalEffects.extra_feat.key")}</div>
+							<div class="dice-effect">
+								<p><em>${t(extra_feat.description)}</em></p>
+								<p><strong>${t("Litm.other.cost")}:</strong> ${t(extra_feat.cost)}</p>
+							</div>
+						</div>
+						`
+					})
+				}
+			});
+		});
+	}
+
 	static #prepareCharacterOnCreate() {
 		Hooks.on("preCreateActor", (actor, data) => {
 			if (data.type !== "character") return;
@@ -206,15 +249,14 @@ export class LitmHooks {
 		Hooks.on("createActor", async (actor) => {
 			if (actor.type !== "character") return;
 
-			for (const item of Array(4).fill()) {
-				console.log("Creating theme", item)
+			await Promise.all(Array(4).fill().map(async (_, i) => {
 				await actor.createEmbeddedDocuments("Item", [
 					{
-						name: "New Theme",
+						name: `${t("Types.Item.theme")} ${i + 1}`,
 						type: "theme",
 					},
 				]);
-			}
+			}));
 		});
 	}
 
@@ -223,25 +265,7 @@ export class LitmHooks {
 			if (data.type !== "theme") return;
 
 			const img = "systems/litm/assets/media/note.webp";
-			const powerTags = Array(5)
-				.fill()
-				.map((_, i) => ({
-					name: "Name your tag",
-					type: "powerTag",
-					isActive: i < 2,
-					isBurnt: false,
-					id: randomID(),
-				}));
-			const weaknessTags = [
-				{
-					name: "Name your Weakness",
-					type: "weaknessTag",
-					isActive: true,
-					isBurnt: false,
-					id: randomID(),
-				}
-			];
-			item.updateSource({ img, system: { powerTags, weaknessTags } });
+			item.updateSource({ img });
 		});
 	}
 
@@ -359,6 +383,9 @@ export class LitmHooks {
 							<li>
 									<p>If you see a title, it may be editable. This goes for the title on the
 											<strong>Character</strong>-sheet<strong>, Theme</strong>-sheet, and <strong>Roll</strong>-dialog.</p>
+							</li>
+							<li>
+								<p><span style="font-family: Modesto Condensed"><strong>Right-clicking</strong></span> the <em>Chat Card</em> of an <strong>Effect roll</strong> opens a context menu that lets you post extra effects to chat for reference.</p>
 							</li>
 					</ul>
 				`,

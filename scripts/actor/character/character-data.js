@@ -1,3 +1,4 @@
+import { error } from "../../logger.js";
 export class CharacterData extends foundry.abstract.DataModel {
 	static defineSchema() {
 		const fields = foundry.data.fields;
@@ -38,5 +39,24 @@ export class CharacterData extends foundry.abstract.DataModel {
 			.filter((item) => item.type === "theme")
 			.flatMap((item) => item.system.availablePowerTags);
 		return [...backpack, ...themeTags];
+	}
+
+	async prepareDerivedData() {
+		// Validate unique data ids
+		// Get duplicates
+		const duplicates = this.allTags
+			.map((tag) => tag.id)
+			.filter((id, index, arr) => arr.indexOf(id) !== index);
+		if (!duplicates.length) return;
+		error("Duplicate tag IDs found, attempting to resolve...");
+		console.error(`Duplicate tag IDs found for: ${this.parent._id}`, duplicates)
+
+		// try to fix duplicates
+		const tags = this.allTags;
+		for (const tag of tags) {
+			if (duplicates.includes(tag.id)) {
+				tag.id = randomID();
+			}
+		}
 	}
 }

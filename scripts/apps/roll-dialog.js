@@ -162,7 +162,7 @@ export class LitmRollDialog extends FormApplication {
 
 			if (tag.type === "powerTag") {
 				const theme = actor.items
-					.find((theme) => theme.sheet.powerTags.find((t) => t.id === tag.id))
+					.find((theme) => theme.system.powerTags.find((t) => t.id === tag.id))
 					?.toObject();
 				const { powerTags } = theme.system;
 				powerTags.find((t) => t.id === tag.id).isBurnt = true;

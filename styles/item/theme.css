@@ -261,6 +261,7 @@
 			color: var(--litm-color-accent);
 			font-family: var(--litm-font-accent);
 			font-size: var(--font-size-20);
+			text-align: center;
 
 			& [role="textbox"] {
 				background: transparent;

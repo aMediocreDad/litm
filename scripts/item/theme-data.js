@@ -17,32 +17,9 @@ export class ThemeData extends foundry.abstract.DataModel {
 			isBurnt: new fields.BooleanField(),
 			powerTags: new fields.ArrayField(
 				new fields.EmbeddedDataField(abstract.TagData),
-				{
-					initial: Array(5)
-						.fill()
-						.map((_, i) => ({
-							name: "Name your tag",
-							type: "powerTag",
-							isActive: i < 2,
-							id: randomID(),
-						})),
-					validate: (tags) => Object.keys(tags).length === 5,
-				},
 			),
 			weaknessTags: new fields.ArrayField(
-				new fields.EmbeddedDataField(abstract.TagData),
-				{
-					initial: [
-						{
-							name: "Name your Weakness",
-							type: "weaknessTag",
-							isActive: true,
-							isBurnt: false,
-							id: randomID(),
-						},
-					],
-					validate: (tags) => Object.keys(tags).length === 1,
-				},
+				new fields.EmbeddedDataField(abstract.TagData)
 			),
 			experience: new fields.NumberField({
 				integer: true,

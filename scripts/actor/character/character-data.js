@@ -20,7 +20,7 @@ export class CharacterData extends foundry.abstract.DataModel {
 
 	get powerTags() {
 		return this.allTags.filter(
-			(tag) => tag.type === "powerTag" || tag.type === "themeTag",
+			(tag) => tag.type === "powerTag" || tag.type === "themeTag" || tag.type === "backpack",
 		);
 	}
 

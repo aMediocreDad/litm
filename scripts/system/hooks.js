@@ -206,15 +206,15 @@ export class LitmHooks {
 		Hooks.on("createActor", async (actor) => {
 			if (actor.type !== "character") return;
 
-			await Item.createDocuments(
-				Array(4)
-					.fill()
-					.map(() => ({
+			for (const item of Array(4).fill()) {
+				console.log("Creating theme", item)
+				await actor.createEmbeddedDocuments("Item", [
+					{
 						name: "New Theme",
 						type: "theme",
-					})),
-				{ parent: actor },
-			);
+					},
+				]);
+			}
 		});
 	}
 
@@ -223,7 +223,25 @@ export class LitmHooks {
 			if (data.type !== "theme") return;
 
 			const img = "systems/litm/assets/media/note.webp";
-			item.updateSource({ img });
+			const powerTags = Array(5)
+				.fill()
+				.map((_, i) => ({
+					name: "Name your tag",
+					type: "powerTag",
+					isActive: i < 2,
+					isBurnt: false,
+					id: randomID(),
+				}));
+			const weaknessTags = [
+				{
+					name: "Name your Weakness",
+					type: "weaknessTag",
+					isActive: true,
+					isBurnt: false,
+					id: randomID(),
+				}
+			];
+			item.updateSource({ img, system: { powerTags, weaknessTags } });
 		});
 	}
 
@@ -264,11 +282,11 @@ export class LitmHooks {
 				name: "Legend in the Mist",
 				permission: { default: 2 },
 				content: `
-					<h1 style="text-align: center;"><span style="font-family: PackardAntique">Welcome!</span></h1>
+					<h1 style="text-align:center"><span style="font-family: PackardAntique">Welcome!</span></h1>
 					<p></p>
-					<p style="text-align: center;"><span style="font-family: AlchemyItalic"><em><strong>I am thrilled to have you try out
+					<p style="text-align: center"><span style="font-family: AlchemyItalic"><em><strong>I am thrilled to have you try out
 													this system!</strong></em></span></p>
-					<blockquote style="padding: 0.5em 10px;background: var(--litm-color-primary-bg);color: var(--litm-color-weakness);">
+					<blockquote style="padding:0.5em 10px;background:var(--litm-color-primary-bg);color:var(--litm-color-weakness)">
 							<p><span style="font-family: CaslonAntique"><strong>Please be aware that both the system—and game—is under heavy
 													development. And that there might be breaking bugs or major changes down the road.</strong></span></p>
 							<p><br><span style="font-family: PackardAntique">PLEASE MAKE FREQUENT BACKUPS</span></p>
@@ -315,8 +333,9 @@ export class LitmHooks {
 					<ul>
 							<li>
 									<p><span style="font-family: Modesto Condensed"><strong>Right-clicking</strong></span> a <strong>Tag </strong>in
-											the <strong>Bacpack</strong> will prompt you for deleting the tag. The same goes for <strong>Themes</strong>
-											in a <strong>Character</strong>-sheet.</p>
+											the <strong>Backpack</strong> will prompt you for deleting the tag. The same goes for
+											<strong>Themes</strong> in a <strong>Character</strong>-sheet. <strong>Right-clicking </strong>a tag in the
+											<strong>Backpack</strong>, will delete it.</p>
 							</li>
 							<li>
 									<p>If your <strong>Character</strong><em><strong> </strong></em>is missing <strong>Theme</strong>s you can
@@ -326,7 +345,7 @@ export class LitmHooks {
 							<li>
 									<p><strong>Theme</strong>s can be <span
 													style="font-family: Modesto Condensed"><strong>rearranged</strong></span> on a sheet.
-											<strong>Tag</strong>s in the Backpack and on <strong>Theme</strong>s cannot.</p>
+											<strong>Tag</strong>s in the <strong>Backpack</strong> and on <strong>Theme</strong>s cannot.</p>
 							</li>
 							<li>
 									<p><span style="font-family: Modesto Condensed"><strong>Double-clicking </strong></span>a <strong>Theme</strong>
@@ -343,6 +362,15 @@ export class LitmHooks {
 							</li>
 					</ul>
 				`,
+			});
+
+			ChatMessage.create({
+				title: "Welcome to Legend in the Mist",
+				content: `
+				<p><strong>Welcome to Legend in the Mist</strong></p>
+				<p>Before you start playing, you might want to read the <a class="content-link" draggable="true" data-uuid="JournalEntry.QVA4cPjUWlDPMR8F.JournalEntryPage.5AWCygW0BCFdk4sd" data-id="5AWCygW0BCFdk4sd" data-type="JournalEntryPage" data-tooltip="Text Page"><i class="fas fa-file-lines"></i>Legend in the Mist</a> journal entry. It contains some important information about the system and what to expect.</p>
+				<p>Good luck and have fun!</p>
+			`,
 			});
 
 			await sleep(300);

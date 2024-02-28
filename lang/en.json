@@ -113,6 +113,7 @@
 			"challenge-prompt": "Click to add an image of a challenge card (as found in the tinderbox), right-click to rename.",
 			"confirm-delete-content": "Are you sure you want to delete this?",
 			"confirm-delete-title": "Confirm Delete",
+			"dblclick-open": "Double-click to edit",
 			"error-burning-tag": "There was an error trying to burn your tag. Please see the console for more information.",
 			"error-validating-actor": "There was an error validating the actor. Please see the console for more information.",
 			"import-actor": "Import Actor from JSON",

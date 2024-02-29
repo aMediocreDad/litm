@@ -3,22 +3,43 @@ import { info } from "../logger.js";
 export class Fonts {
 	static register() {
 		info("Registering Fonts...");
+		FontConfig.loadFont("BespokeSans", {
+			editor: true,
+			fonts: [
+				{
+					name: "BespokeSans",
+					urls: ["systems/litm/assets/fonts/bespoke.woff2"],
+					sizeAdjust: "90%",
+					weight: "300 800"
+				},
+				{
+					name: "BespokeSans",
+					urls: ["systems/litm/assets/fonts/bespoke-i.woff2"],
+					style: "italic",
+					sizeAdjust: "90%",
+					weight: "300 800"
+				},
+			]
+		});
 		FontConfig.loadFont("CaslonAntique", {
 			editor: true,
 			fonts: [
 				{
 					name: "CaslonAntique",
 					urls: ["systems/litm/assets/fonts/caslon.ttf"],
+					sizeAdjust: "110%"
 				},
 				{
 					name: "CaslonAntique",
 					urls: ["systems/litm/assets/fonts/caslon-b.ttf"],
 					weight: "bold",
+					sizeAdjust: "110%"
 				},
 				{
 					name: "CaslonAntique",
 					urls: ["systems/litm/assets/fonts/caslon-i.ttf"],
 					style: "italic",
+					sizeAdjust: "110%"
 				},
 			],
 		});

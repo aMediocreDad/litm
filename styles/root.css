@@ -28,7 +28,7 @@
 
 	/* Foundry Overrides */
 	--font-size-26: 1.625rem;
-	--font-primary: 'PackardAntique' 'Palatino Linotype', 'Book Antiqua', Palatino, serif;
+	--font-primary: BespokeSans, Lato, 'PackardAntique', 'Open Sans', sans-serif;
 	--color-text-light-1: var(--litm-color-accent);
 	--color-shadow-primary: var(--litm-color-primary);
 	--color-shadow-highlight: var(--litm-color-accent-bg);
@@ -38,20 +38,21 @@
 
 
 /* DANGER AREA */
-/* TODO: Find a better way */
+/* TODO: Find a better way to override styles like this */
 
 
-/* Background-colors not implemented using a token  */
+/* Background-colors not implemented using css variables  */
 button,
 .directory .directory-header .header-search input {
 	background-color: var(--litm-color-alt-bg);
 }
 
-/* A border-color that was not implemented using a token  */
+/* A border-color that was not implemented using css variables */
 #navigation #scene-list .scene.gm {
 	border-color: var(--litm-color-accent-bg);
 }
 
+/* Custom dice roll chat messages */
 .chat-message:has(.litm.dice-roll) {
 	background-color: var(--litm-color-weakness);
 	background-blend-mode: color-burn;
@@ -64,6 +65,13 @@ button,
 	}
 }
 
+.window-app .window-content,
+.sheet.journal-entry .journal-entry-content {
+	background-color: var(--litm-color-alt-bg);
+	background-blend-mode: luminosity;
+}
+
+/* Fix the logo */
 #logo {
 	object-fit: contain;
 	object-position: top;
@@ -72,6 +80,12 @@ button,
 	image-rendering: -webkit-optimize-contrast;
 }
 
+/* Fix the pause button */
+#pause {
+	font-family: var(--litm-font-heading);
+}
+
+/* END DANGER AREA */
 
 /* App core style overrides */
 
@@ -129,5 +143,9 @@ button,
 	& .editor {
 		min-height: 100px;
 		height: 100%;
+
+		.tox.tox-tinymce .tox-edit-area__iframe {
+			background-color: #fff;
+		}
 	}
 }

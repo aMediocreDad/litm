@@ -14,6 +14,7 @@ export class LitmHooks {
 		LitmHooks.#attachContextMenuToRollMessage();
 		LitmHooks.#prepareCharacterOnCreate();
 		LitmHooks.#prepareThemeOnCreate();
+		LitmHooks.#renderStoryTagApp();
 		LitmHooks.#rendeWelcomeScreen();
 	}
 
@@ -249,7 +250,7 @@ export class LitmHooks {
 		Hooks.on("createActor", async (actor) => {
 			if (actor.type !== "character") return;
 
-			const missingThemes = 4 - actor.items.filter(it => it.type == "theme").length;
+			const missingThemes = 4 - actor.items.filter(it => it.type === "theme").length;
 
 			await Promise.all(Array(missingThemes).fill().map(async (_, i) => {
 				await actor.createEmbeddedDocuments("Item", [
@@ -269,6 +270,13 @@ export class LitmHooks {
 			const img = "systems/litm/assets/media/note.webp";
 			item.updateSource({ img });
 		});
+	}
+
+	static #renderStoryTagApp() {
+		// Hooks.once("ready", () => {
+		// 	const app = new game.litm.StoryTagApp();
+		// 	app.render(true);
+		// });
 	}
 
 	static #rendeWelcomeScreen() {
@@ -392,14 +400,11 @@ export class LitmHooks {
 					</ul>
 				`,
 			});
-
-			const pageCreated = entry.pages.contents[0];
-
 			ChatMessage.create({
 				title: "Welcome to Legend in the Mist",
 				content: `
 				<p><strong>Welcome to Legend in the Mist</strong></p>
-				<p>Before you start playing, you might want to read the <a class="content-link" draggable="true" data-uuid="${pageCreated.uuid}" data-id="${pageCreated._id}" data-type="JournalEntryPage" data-tooltip="Text Page"><i class="fas fa-file-lines"></i>Legend in the Mist</a> journal entry. It contains some important information about the system and what to expect.</p>
+				<p>Before you start playing, you might want to read the <a class="content-link" draggable="true" data-uuid="${entry.uuid}" data-id="5AWCygW0BCFdk4sd" data-type="JournalEntryPage" data-tooltip="Text Page"><i class="fas fa-file-lines"></i>Legend in the Mist</a> journal entry. It contains some important information about the system and what to expect.</p>
 				<p>Good luck and have fun!</p>
 			`,
 			});

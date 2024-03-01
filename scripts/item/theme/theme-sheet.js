@@ -1,4 +1,4 @@
-import { confirmDelete } from "../utils.js";
+import { confirmDelete } from "../../utils.js";
 
 export class ThemeSheet extends ItemSheet {
 	static defaultOptions = mergeObject(ItemSheet.defaultOptions, {

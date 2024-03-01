@@ -326,7 +326,7 @@
 		translate: -20% -18%;
 		rotate: 1deg;
 		scale: 0.7;
-		transition: all 0.15s;
+		transition: scale 0.15s;
 
 		& .litm--theme-background {
 			background: url("../../assets/media/background.webp") 0% 0% / cover;
@@ -335,7 +335,7 @@
 			padding: 10px;
 			overflow: hidden;
 			box-shadow: none;
-			filter: drop-shadow(black 2px 4px 6px);
+			filter: drop-shadow(rgb(0, 0, 0, 0.2) -4px -2px 6px);
 			color: var(--litm-color);
 		}
 

@@ -101,6 +101,25 @@
 		color: var(--litm-color-accent);
 	}
 
+	& :where(.litm--tag),
+	& :where(.litm--status) {
+		padding: 0.1em 0.4em;
+		border-radius: 0.2em;
+		-webkit-box-decoration-break: clone;
+		box-decoration-break: clone;
+		color: var(--litm-color-primary);
+		font-style: italic;
+		box-shadow: 1px 1px 1px var(--litm-color-weakness-bg);
+
+		&.litm--tag {
+			background: var(--litm-color-tag-bg);
+		}
+
+		&.litm--status {
+			background: var(--litm-color-status-bg);
+		}
+	}
+
 	& button[data-click="add-tag"] {
 		margin-inline: 2rem;
 		padding-bottom: var(--litm-space-2);

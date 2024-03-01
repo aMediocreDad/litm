@@ -26,8 +26,8 @@ export class HandlebarsHelpers {
 			tag.isActive
 				? "Litm.tags.isActive"
 				: readonly
-				  ? "Litm.tags.isInactive"
-				  : "Litm.tags.activate",
+					? "Litm.tags.isInactive"
+					: "Litm.tags.activate",
 		);
 	}
 }
@@ -35,6 +35,7 @@ export class HandlebarsHelpers {
 export class HandlebarsPartials {
 	static partials = [
 		"systems/litm/templates/apps/roll-dialog.html",
+		"systems/litm/templates/apps/story-tags.html",
 		"systems/litm/templates/chat/message.html",
 		"systems/litm/templates/chat/message-tooltip.html",
 		"systems/litm/templates/item/theme-ro.html",

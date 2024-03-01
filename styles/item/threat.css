@@ -1,0 +1,61 @@
+.litm.litm--threat {
+	background-color: var(--litm-color-primary);
+	background-blend-mode: luminosity;
+	font-family: var(--litm-font-text);
+	font-size: var(--font-size-16);
+
+	header {
+		color: var(--litm-color-primary);
+	}
+
+	form {
+		color: var(--litm-color-primary);
+		padding: 0px var(--litm-space-2);
+	}
+
+	h2 {
+		text-align: center;
+		border: none;
+		font-family: var(--litm-font-accent);
+	}
+
+	.litm--threat-box {
+		display: flex;
+		align-items: center;
+		gap: var(--litm-space-1);
+	}
+
+	& [contenteditable] {
+		background-color: transparent;
+		padding: var(--litm-space-1);
+		border: none;
+		border-radius: 4px;
+		width: 100%;
+
+		&:focus {
+			background-color: rgb(0, 0, 0, 0.2);
+			outline: none;
+		}
+	}
+
+	& [contenteditable]:has(+#threat) {
+		font-style: italic;
+	}
+
+	#consequence {
+		font-weight: bold;
+	}
+
+	& [contenteditable]:has(+#consequence) {
+		min-height: 20px;
+		cursor: pointer;
+
+		span& {
+			cursor: text;
+		}
+
+		&:empty {
+			background-color: rgb(0, 0, 0, 0.2);
+		}
+	}
+}

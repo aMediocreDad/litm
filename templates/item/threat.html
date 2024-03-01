@@ -1,0 +1,18 @@
+<form class="{{cssClass}}" autocomplete="off">
+	<h2 id="threat-label">{{localize "Litm.other.threat"}}</h2>
+	<div class="litm--threat-box">> <span role="textbox" aria-labelledby="threat-label" contenteditable
+			data-input="threat">{{title}}</span><input type="hidden" name="name" id="threat" value="{{data.name}}" required />
+	</div>
+	<label class="litm--sro" for="consequence" id="consequence-label">{{localize 'Litm.other.consequence'}}</label>
+	<div class="litm--threat-box">>>
+		{{#if isEditing}}
+			<span role="textbox" contenteditable data-input="consequence" aria-labelledby="consequence-label"
+				data-blur="submit">{{data.system.consequence}}</span><input type="hidden" id="consequence"
+				name="system.consequence" value="{{data.system.consequence}}" required />
+		{{else}}
+			<div id="consequence" data-click="toggle-edit">
+				{{{data.system.renderedConsequence}}}
+			</div>
+		{{/if}}
+	</div>
+</form>

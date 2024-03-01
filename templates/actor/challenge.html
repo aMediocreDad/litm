@@ -1,3 +1,80 @@
+{{#*inline 'divider' title add}}
+	<div class="litm--challenge-divider {{ifThen add 'grid-4' ''}}">
+		<img src="systems/litm/assets/media/left-div.webp" aria-hidden="true" />
+		<label for="limits">{{localize title}}</label>
+		<img src="systems/litm/assets/media/right-div.webp" aria-hidden="true" />
+		{{#if add}}
+			<button class="litm--challenge-add" type="button" data-click="add-{{add}}" aria-label="{{localize "Litm.ui.add"}}"
+				data-tooltip="{{localize (concat 'Litm.ui.add-' add) }}">
+				<i class="far fa-plus"></i>
+			</button>
+		{{/if}}
+	</div>
+{{/inline}}
+
+<img class="litm--challenge-border" src="systems/litm/assets/media/challenge-border.webp" aria-hidden="true">
 <form class="{{cssClass}}" autocomplete="off">
-	<img src="{{data.img}}" data-edit="img" alt="{{data.name}}">
+	<div class="litm--challenge-meta">
+		<label class="litm--sro" for="category">{{localize "Litm.other.category"}}</label>
+		<input data-size-input type="text" id="category" name="system.category" value="{{data.system.category}}" />
+		<img src="systems/litm/assets/media/separator.webp" alt="">
+		<label class="litm--sro" for="rating">{{localize "Litm.other.rating"}}</label>
+		<div role="button" class="litm--challenge-rating" data-click="increase" data-context="decrease"
+			data-name="system.rating">
+			{{#progress-buttons data.system.rating 5}}
+				<span aria-hidden="true" class="{{ifThen @checked 'checked' ''}}"><img
+						src="systems/litm/assets/media/skull.webp" /></span>
+			{{/progress-buttons}}
+		</div>
+		<input type="hidden" id="rating" name="system.rating" value="{{data.system.rating}}" />
+	</div>
+	<img class="litm--challenge-avatar" src="{{data.img}}" data-edit="img" alt="{{data.name}}">
+	<div class="litm--challenge-bg"></div>
+	<div class="litm--challenge-wrapper">
+		<label for="name" class="litm--sro">{{localize "Name"}}</label>
+		<input type="hidden" name="name" id="name" value="{{data.name}}" required />
+		<span class="litm--challenge-name" role="textbox" contenteditable data-input="name">{{data.name}}</span>
+		<label class="litm--sro" for="note">{{localize "Notes"}}</label>
+		{{editor data.system.note target="system.note" owner=owner button=true editable=true}}
+		{{> divider title="Litm.other.limits" add="limit"}}
+		<ul class="litm--challenge-limits">
+			{{#each data.system.limits as |limit|}}
+				<li class="litm--challenge-limit" data-context="remove-limit" data-id="{{@key}}">
+					<label class="litm--sro" for="limit-{{limit.name}}-name">{{localize "Name"}}</label>
+					<input class="litm--limit-label" type="text" data-size-input id="limit-{{limit.name}}-name"
+						name="system.limits.{{@key}}.name" value="{{limit.name}}" />
+					<label class="litm--sro" for="limit-{{limit.name}}-value">{{localize "Value"}}</label>
+					<input class="litm--limit-value" type="number" id="limit-{{limit.name}}-value"
+						name="system.limits.{{@key}}.value" placeholder="-" value="{{limit.value}}" />
+				</li>
+			{{/each}}
+		</ul>
+		{{> divider title="Litm.ui.tags-statuses"}}
+		<label class="litm--sro" for="tags" id="tags-label">{{localize 'Litm.other.tags'}}</label>
+		<div class="litm--challenge-tags">
+			{{#if isEditing}}
+				<span role="textbox" contenteditable data-input="tags"
+					aria-labelledby="tags-label">{{data.system.tags}}</span><input type="hidden" id="tags" name="system.tags"
+					value="{{data.system.tags}}" required />
+			{{else}}
+				<div id="tags" data-click="toggle-edit">
+					{{{data.system.renderedTags}}}
+				</div>
+			{{/if}}
+		</div>
+		{{> divider title="Litm.ui.special-features"}}
+		{{editor data.system.special target="system.special" owner=owner button=true editable=true}}
+		{{> divider title="Litm.ui.threats-consequences" add="threat"}}
+		<ul class="litm--challenge-threats item-list">
+			{{#each data.items as |item|}}
+				<li class="item" data-item-id="{{item.data._id}}" data-dblclick="edit-item" data-context="remove-threat"
+					data-id="{{item.data._id}}" data-tooltip="{{localize 'Litm.ui.dblclick-open'}}">
+					<div>> {{item.data.name}}</div>
+					{{#each item.data.system.consequences as |consequence|}}
+						<div>>> {{{consequence}}}</div>
+					{{/each}}
+				</li>
+			{{/each}}
+		</ul>
+	</div>
 </form>

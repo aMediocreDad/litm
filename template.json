@@ -5,7 +5,8 @@
 			"challenge"
 		],
 		"htmlFields": [
-			"note"
+			"note",
+			"special"
 		],
 		"character": {},
 		"challenge": {}

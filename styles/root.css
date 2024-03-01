@@ -12,14 +12,15 @@
 	--litm-color-weakness: hsl(10 41.04% 26.41%);
 	--litm-color-weakness-bg: hsl(6.5 42.05% 41.08% / 20%);
 	--litm-color-muted-bg: hsl(0 0% 45.42% / 20%);
-	--litm-color-tag-bg: hsl(44 84% 62% / 50%);
-	--litm-color-status-bg: hsl(118 34% 33% / 50%);
+	--litm-color-tag-bg: hsl(45 98% 46% / 70%);
+	--litm-color-status-bg: hsl(75.88 48.31% 42.3% / 70%);
 
 	/* Fonts */
 	--litm-font-heading: PackardAntique, CaslonAntique, 'Palatino Linotype', 'Book Antiqua', Palatino, serif;
 	--litm-font-primary: CaslonAntique, LibreCaslonText, 'Palatino Linotype', 'Book Antiqua', Palatino, serif;
 	--litm-font-accent: AlchemyItalic, 'Brush Script MT', 'Bradley Hand ITC', 'Lucida Calligraphy', 'Lucida Handwriting', 'Apple Chancery', cursive;
-	--litm-font-text: LibreCaslonText, 'Palatino Linotype', 'Book Antiqua', Palatino, serif;
+	--litm-font-text: Fraunces, LibreCaslonText, 'Book Antiqua', Palatino, serif;
+	--litm-font-sc: PowellAntique, PackardAntique, Palatino, serif;
 
 	/* Vertical spacing */
 	--litm-space-1: 0.25rem;
@@ -30,7 +31,7 @@
 
 	/* Foundry Overrides */
 	--font-size-26: 1.625rem;
-	--font-primary: BespokeSans, Lato, 'PackardAntique', 'Open Sans', sans-serif;
+	--font-primary: Fraunces, BespokeSans, Lato, 'PackardAntique', 'Open Sans', sans-serif;
 	--color-text-light-1: var(--litm-color-accent);
 	--color-shadow-primary: var(--litm-color-primary);
 	--color-shadow-highlight: var(--litm-color-accent-bg);

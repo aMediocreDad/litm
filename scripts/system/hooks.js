@@ -249,7 +249,9 @@ export class LitmHooks {
 		Hooks.on("createActor", async (actor) => {
 			if (actor.type !== "character") return;
 
-			await Promise.all(Array(4).fill().map(async (_, i) => {
+			const missingThemes = 4 - actor.items.filter(it => it.type == "theme").length;
+
+			await Promise.all(Array(missingThemes).fill().map(async (_, i) => {
 				await actor.createEmbeddedDocuments("Item", [
 					{
 						name: `${t("Types.Item.theme")} ${i + 1}`,

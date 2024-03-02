@@ -393,11 +393,13 @@ export class LitmHooks {
 				`,
 			});
 
+			const pageCreated = entry.pages.contents[0];
+
 			ChatMessage.create({
 				title: "Welcome to Legend in the Mist",
 				content: `
 				<p><strong>Welcome to Legend in the Mist</strong></p>
-				<p>Before you start playing, you might want to read the <a class="content-link" draggable="true" data-uuid="JournalEntry.QVA4cPjUWlDPMR8F.JournalEntryPage.5AWCygW0BCFdk4sd" data-id="5AWCygW0BCFdk4sd" data-type="JournalEntryPage" data-tooltip="Text Page"><i class="fas fa-file-lines"></i>Legend in the Mist</a> journal entry. It contains some important information about the system and what to expect.</p>
+				<p>Before you start playing, you might want to read the <a class="content-link" draggable="true" data-uuid="${pageCreated.uuid}" data-id="${pageCreated._id}" data-type="JournalEntryPage" data-tooltip="Text Page"><i class="fas fa-file-lines"></i>Legend in the Mist</a> journal entry. It contains some important information about the system and what to expect.</p>
 				<p>Good luck and have fun!</p>
 			`,
 			});

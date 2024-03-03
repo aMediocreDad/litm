@@ -1,13 +1,24 @@
 {
 	"Actor": {
-		"types": ["character", "challenge"],
-		"htmlFields": ["note"],
+		"types": [
+			"character",
+			"challenge"
+		],
+		"htmlFields": [
+			"note"
+		],
 		"character": {},
 		"challenge": {}
 	},
 	"Item": {
-		"types": ["theme"],
-		"htmlFields": ["note"],
-		"theme": {}
+		"types": [
+			"theme",
+			"threat"
+		],
+		"htmlFields": [
+			"note"
+		],
+		"theme": {},
+		"threat": {}
 	}
 }

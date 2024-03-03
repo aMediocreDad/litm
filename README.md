@@ -1,5 +1,5 @@
 <div align="center"><img src="./assets/media/litm_splash.webp" /></div>
-<h1 align="center">⚜️ <a href="https://www.kickstarter.com/projects/sonofoak/legend-in-the-mist-rpg" rel="noreferrer" target="_blank">Legend in the Mist</a> ⚜</h1>
+<h1 align="center">⚜️<a href="https://www.kickstarter.com/projects/sonofoak/legend-in-the-mist-rpg" rel="noreferrer" target="_blank">Legend in the Mist Demo</a>⚜</h1>
 <div align="center"><strong><em>For Foundry Virtual Tabletop</em></strong></div>
 <div align="center"><img width="30px" src="https://foundryvtt.com/static/assets/icons/fvtt.png" /></div>
 
@@ -25,4 +25,4 @@ https://raw.githubusercontent.com/aMediocreDad/litm/main/system.json
 > [!NOTE]
 > If you like the game consider backing it at [Kickstarter](https://www.kickstarter.com/projects/sonofoak/legend-in-the-mist-rpg)
 
-\**This system is published with express permission from __Son of Oak__*
+\*_This system is published with express permission from **Son of Oak**_

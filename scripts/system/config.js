@@ -78,6 +78,8 @@ export class LitmConfig {
 		},
 	}
 
+	tagStringRe = /\[([^\d\]]+)(?:[\s-](\d+))?\]/gi
+
 	static createConfig() {
 		return new LitmConfig();
 	}

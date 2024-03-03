@@ -98,7 +98,9 @@
 			"level": "Level",
 			"tag": "Tag",
 			"tags": "Tags",
-			"themebook": "Themebook"
+			"themebook": "Themebook",
+			"threat": "Threat",
+			"consequence": "Consequence"
 		},
 		"tags": {
 			"activate": "Activate",
@@ -109,6 +111,7 @@
 			"isBurnt": "Burned",
 			"item-tags": "Item Tags",
 			"power": "Power",
+			"story": "Story",
 			"weakness": "Weakness"
 		},
 		"ui": {
@@ -125,6 +128,7 @@
 			"name-note": "Give your Theme a description.",
 			"name-power": "Name your Power",
 			"name-weakness": "Name your Weakness",
+			"name-consequence": "Name your Consequence using [tag] to indicate tags, and [tag 0] to indicate statuses.",
 			"remove-tag": "Remove Tag",
 			"rename": "Rename",
 			"rename-challenge": "Rename Challenge",
@@ -144,7 +148,8 @@
 	},
 	"TYPES.Actor.challenge": "Challenge",
 	"TYPES.Actor.character": "Character",
-	"Types.Item.theme": "Theme",
+	"TYPES.Item.theme": "Theme",
+	"TYPES.Item.threat": "Threat",
 	"failure": "Miss",
 	"consequence": "Mixed Hit",
 	"success": "Strong Hit"

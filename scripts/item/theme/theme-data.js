@@ -1,4 +1,4 @@
-import { titleCase, localize as t } from "../utils.js";
+import { titleCase, localize as t } from "../../utils.js";
 
 export class ThemeData extends foundry.abstract.DataModel {
 	static defineSchema() {

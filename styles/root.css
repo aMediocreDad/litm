@@ -12,6 +12,8 @@
 	--litm-color-weakness: hsl(10 41.04% 26.41%);
 	--litm-color-weakness-bg: hsl(6.5 42.05% 41.08% / 20%);
 	--litm-color-muted-bg: hsl(0 0% 45.42% / 20%);
+	--litm-color-tag-bg: hsl(44 84% 62% / 50%);
+	--litm-color-status-bg: hsl(118 34% 33% / 50%);
 
 	/* Fonts */
 	--litm-font-heading: PackardAntique, CaslonAntique, 'Palatino Linotype', 'Book Antiqua', Palatino, serif;
@@ -60,9 +62,22 @@ button,
 	font-family: var(--litm-font-text);
 	font-size: var(--font-size-12);
 
+	&.whisper {
+		background-color: var(--color-border-dark-primary);
+	}
+
+	&.blind {
+		border-color: var(--color-level-warning);
+	}
+
+	&.self {
+		border-color: var(--color-level-error);
+	}
+
 	& .message-header {
 		color: color-mix(in hsl, var(--litm-color-accent) 70%, transparent);
 	}
+
 }
 
 .window-app .window-content,
@@ -82,7 +97,12 @@ button,
 
 /* Fix the pause button */
 #pause {
+	background: none;
 	font-family: var(--litm-font-heading);
+
+	& figcaption {
+		text-shadow: 2px 1px 8px var(--color-shadow-dark), 1px 1px 10px var(--color-shadow-dark)
+	}
 }
 
 /* END DANGER AREA */
@@ -95,7 +115,7 @@ button,
 	background: url('../assets/media/background.webp') 0% 0% / cover;
 	overflow: hidden;
 	box-shadow: none;
-	filter: drop-shadow(black 2px 4px 6px);
+	filter: drop-shadow(rgb(0, 0, 0, 0.6) 2px 4px 8px);
 
 	&:where(:not(.minimized)) {
 		outline: 2px solid var(--litm-color-primary);

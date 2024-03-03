@@ -227,6 +227,8 @@ export class CharacterSheet extends ActorSheet {
 	// Prevent dropping more than 4 themes on the character sheet
 	async _onDropItem(event, data) {
 		const item = await Item.implementation.fromDropData(data);
+		if (item.type !== "theme") return;
+
 		if (this.items.get(item.id)) return this._onSortItem(event, item);
 
 		const numThemes = this.items.filter((i) => i.type === "theme").length;

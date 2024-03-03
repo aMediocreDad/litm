@@ -3,24 +3,6 @@ import { info } from "../logger.js";
 export class Fonts {
 	static register() {
 		info("Registering Fonts...");
-		FontConfig.loadFont("BespokeSans", {
-			editor: true,
-			fonts: [
-				{
-					name: "BespokeSans",
-					urls: ["systems/litm/assets/fonts/bespoke.woff2"],
-					sizeAdjust: "90%",
-					weight: "300 800"
-				},
-				{
-					name: "BespokeSans",
-					urls: ["systems/litm/assets/fonts/bespoke-i.woff2"],
-					style: "italic",
-					sizeAdjust: "90%",
-					weight: "300 800"
-				},
-			]
-		});
 		FontConfig.loadFont("CaslonAntique", {
 			editor: true,
 			fonts: [
@@ -43,22 +25,19 @@ export class Fonts {
 				},
 			],
 		});
-		FontConfig.loadFont("LibreCaslonText", {
+		FontConfig.loadFont("Fraunces", {
 			editor: true,
 			fonts: [
 				{
-					name: "LibreCaslonText",
-					urls: ["systems/litm/assets/fonts/libre-caslon.ttf"],
+					name: "Fraunces",
+					urls: ["systems/litm/assets/fonts/fraunces.ttf"],
+					weight: "300 800",
 				},
 				{
-					name: "LibreCaslonText",
-					urls: ["systems/litm/assets/fonts/libre-caslon-i.ttf"],
+					name: "Fraunces",
+					urls: ["systems/litm/assets/fonts/fraunces-i.ttf"],
 					style: "italic",
-				},
-				{
-					name: "LibreCaslonText",
-					urls: ["systems/litm/assets/fonts/libre-caslon-b.ttf"],
-					weight: "bold",
+					weight: "300 800",
 				},
 			],
 		});
@@ -85,5 +64,19 @@ export class Fonts {
 				},
 			],
 		});
+		FontConfig.loadFont("PowellAntique", {
+			editor: true,
+			fonts: [
+				{
+					name: "PowellAntique",
+					urls: ["systems/litm/assets/fonts/powell.ttf"],
+				},
+				{
+					name: "PowellAntique",
+					urls: ["systems/litm/assets/fonts/powell-b.ttf"],
+					weight: "bold",
+				},
+			],
+		})
 	}
 }

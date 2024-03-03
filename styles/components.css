@@ -103,12 +103,14 @@
 
 	& :where(.litm--tag),
 	& :where(.litm--status) {
-		padding: 0.1em 0.4em;
+		padding: 0px 0.4em;
 		border-radius: 0.2em;
+		white-space: nowrap;
 		-webkit-box-decoration-break: clone;
 		box-decoration-break: clone;
 		color: var(--litm-color-primary);
 		font-style: italic;
+		font-weight: 400;
 		box-shadow: 1px 1px 1px var(--litm-color-weakness-bg);
 
 		&.litm--tag {

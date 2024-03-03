@@ -1,4 +1,7 @@
-export class ThreatSheet extends ItemSheet {
+import { SheetMixin } from "../../mixins/sheet-mixin.js";
+import { confirmDelete, localize as t } from "../../utils.js";
+
+export class ThreatSheet extends SheetMixin(ItemSheet) {
 	isEditing = false;
 
 	/** @override */
@@ -13,10 +16,17 @@ export class ThreatSheet extends ItemSheet {
 		});
 	}
 
+	get system() {
+		return this.item.system;
+	}
+
 	/** @override */
 	async getData() {
 		const { data, ...rest } = super.getData();
-		data.system.renderedConsequence = await TextEditor.enrichHTML(data.system.consequence);
+
+		if (!this.isEditing)
+			data.system.consequences = await Promise.all(data.system.consequences.map(c => TextEditor.enrichHTML(c)));
+
 		return {
 			...rest,
 			data,
@@ -27,26 +37,21 @@ export class ThreatSheet extends ItemSheet {
 	activateListeners(html) {
 		super.activateListeners(html);
 
-		html.find("[data-click]").click(this.#handleClick.bind(this));
-		html
-			.find("[data-input")
-			.on("input", (event) => this.#handleInput(event))
-			.on("blur", () => this._onSubmit(new Event("submit"), { shouldRerender: true }));
+		html.find("[data-click]").on("click", this.#handleClick.bind(this));
+		html.find("[data-context]").on("contextmenu", this.#handleContextMenu.bind(this));
+
 		if (this.isEditing)
 			html.find("[contenteditable]:has(+#consequence)").focus();
-
 	}
 
 	async _onSubmit(formData, options = {}) {
 		const res = await super._onSubmit(formData, options);
-		if (!res['system.consequence']) return res;
-
-		this.isEditing = false;
-
-		const matches = res['system.consequence'].matchAll(CONFIG.litm.tagStringRe);
+		if (!res['system.consequences']) return res;
 
 		// Delete existing tags and statuses
 		await this.item.deleteEmbeddedDocuments("ActiveEffect", this.item.effects.map((e) => e._id));
+
+		const matches = res['system.consequences'].flatMap(string => string.matchAll(CONFIG.litm.tagStringRe));
 
 		// Create new tags and statuses
 		await this.item.createEmbeddedDocuments("ActiveEffect", Array.from(matches.map(([_, tag, status]) => {
@@ -68,34 +73,39 @@ export class ThreatSheet extends ItemSheet {
 				],
 			}
 		})));
-
-		// Handle rerendering of sheet
-		if (options.shouldRerender)
-			return this.render();
-		return res;
 	}
 
-
 	#handleClick(event) {
-		event.preventDefault();
-		const action = event.currentTarget.dataset.click;
-		switch (action) {
-			case "toggle-edit": {
-				this.#toggleEdit();
-			}
+		const { click } = event.currentTarget.dataset;
+		switch (click) {
+			case "add-consequence":
+				this.#addConsequence();
+				break;
 		}
 	}
 
-	#handleInput(event) {
-		const t = event.currentTarget;
-		const targetId = t.dataset.input;
-		const value = t.innerText || t.value;
-		const target = $(t).siblings(`input#${targetId}`);
-		target.val(value);
+	#handleContextMenu(event) {
+		event.preventDefault();
+		const { context } = event.currentTarget.dataset;
+		switch (context) {
+			case "remove-consequence":
+				this.#removeConsequence(event);
+				break;
+		}
 	}
 
-	#toggleEdit() {
-		this.isEditing = !this.isEditing;
-		return this.render();
+	#addConsequence() {
+		const consequences = this.system.consequences;
+		consequences.push(t("Litm.ui.name-consequence"));
+		this.item.update({ "system.consequences": consequences });
+	}
+
+	async #removeConsequence(event) {
+		if (!(await confirmDelete())) return;
+
+		const index = event.currentTarget.dataset.index;
+		this.system.consequences.splice(index, 1);
+
+		this.item.update({ "system.consequences": this.system.consequences });
 	}
 }

@@ -17,7 +17,6 @@ export class StoryTagApp extends FormApplication {
 	}
 
 	async _updateObject(event, formData) {
-		debugger
 		await game.settings.set("litm", "storytags", formData);
 	}
 }

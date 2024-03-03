@@ -10,7 +10,6 @@ export class LitmHooks {
 		LitmHooks.#safeUpdateActorSheet();
 		LitmHooks.#safeUpdateItemSheet();
 		LitmHooks.#replaceLoadSpinner();
-		LitmHooks.#renderChallengeCardFixes();
 		LitmHooks.#attachContextMenuToRollMessage();
 		LitmHooks.#prepareCharacterOnCreate();
 		LitmHooks.#prepareThemeOnCreate();
@@ -154,39 +153,6 @@ export class LitmHooks {
 		Hooks.on("renderPause", (_, html) => {
 			html.find("img").attr("src", "systems/litm/assets/media/disk.webp").css({
 				opacity: 0.3,
-			});
-		});
-	}
-
-	static #renderChallengeCardFixes() {
-		Hooks.on("renderActorSheet", (app, html) => {
-			if (!app.actor || app.actor.type !== "challenge") return;
-
-			// Fix the height of the challenge sheet
-			app._element[0].style.height = "auto";
-
-			// Replace default image
-			const img = html.find("img");
-			if (img.attr("src") === "icons/svg/mystery-man.svg")
-				img.attr("src", "systems/litm/assets/media/challenge-placeholder.webp");
-
-			// Add a context menu to the avatar
-			html.find("form").contextmenu(async (event) => {
-				event.preventDefault();
-				const name = await Dialog.prompt({
-					title: t("Litm.ui.rename-challenge"),
-					content: `
-						<div class="litm--rename-dialog">
-							<label for="name">${t("Name")}</label>
-							<input type="text" id="name" value="${app.actor.name}" required>
-						</div>
-					`,
-					label: t("Litm.ui.rename"),
-					callback: (html) => html.find("input").val(),
-					options: { width: 200 },
-				});
-				if (!name) return;
-				app.actor.update({ name });
 			});
 		});
 	}

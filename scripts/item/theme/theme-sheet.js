@@ -1,6 +1,7 @@
+import { SheetMixin } from "../../mixins/sheet-mixin.js";
 import { confirmDelete } from "../../utils.js";
 
-export class ThemeSheet extends ItemSheet {
+export class ThemeSheet extends SheetMixin(ItemSheet) {
 	static defaultOptions = mergeObject(ItemSheet.defaultOptions, {
 		classes: ["litm", "litm--theme"],
 		width: 330,
@@ -27,11 +28,6 @@ export class ThemeSheet extends ItemSheet {
 
 		html.find("[data-click]").click(this.#handleClicks.bind(this));
 		html.find("[data-context").contextmenu(this.#handleContextmenu.bind(this));
-
-		html
-			.find("[data-input")
-			.on("input", (event) => this.#handleInput(event))
-			.on("blur", () => this._onSubmit(new Event("submit")));
 	}
 
 	#handleClicks(event) {
@@ -60,14 +56,6 @@ export class ThemeSheet extends ItemSheet {
 				this.#decrease(id);
 				break;
 		}
-	}
-
-	#handleInput(event) {
-		const t = event.currentTarget;
-		const targetId = t.dataset.input;
-		const value = t.innerText || t.value;
-		const target = $(t).siblings(`input#${targetId}`);
-		target.val(value);
 	}
 
 	async #addTag() {

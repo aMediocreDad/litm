@@ -23,6 +23,6 @@ https://raw.githubusercontent.com/aMediocreDad/litm/main/system.json
 2. Create a new world using the "Legend in the Mist" system.
 
 > [!NOTE]
-> If you like the game consider backing it at [Kickstarter](https://www.kickstarter.com/projects/sonofoak/legend-in-the-mist-rpg)
+> If you like the game consider backing it on [Kickstarter](https://www.kickstarter.com/projects/sonofoak/legend-in-the-mist-rpg)
 
 \*_This system is published with express permission from **Son of Oak**_

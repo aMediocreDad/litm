@@ -6,6 +6,7 @@
 	--litm-color-accent-bg: hsl(225.94 10.66% 41.72%);
 	--litm-color-accent: hsl(46.61 81.44% 92.99%);
 	--litm-color-accent-2: hsl(24deg 20.72% 43.81%);
+	--litm-color-accent-3: hsl(32.06deg 89.89% 30.41%);
 	--litm-color-primary-bg: color-mix(in hsl, var(--litm-color-accent) 75%, hsl(0 0% 100%));
 	--litm-color-primary: color-mix(in hsl, var(--litm-color) 75%, hsl(0 0% 0%));
 	--litm-color-row-odd: rgb(0, 0, 0, 0.1);
@@ -14,6 +15,7 @@
 	--litm-color-muted-bg: hsl(0 0% 45.42% / 20%);
 	--litm-color-tag-bg: hsl(45 98% 46% / 70%);
 	--litm-color-status-bg: hsl(75.88 48.31% 42.3% / 70%);
+	--litm-color-limit-bg: hsl(0 67.35% 63.41% / 70%);
 
 	/* Fonts */
 	--litm-font-heading: PackardAntique, CaslonAntique, 'Palatino Linotype', 'Book Antiqua', Palatino, serif;
@@ -37,6 +39,7 @@
 	--color-shadow-highlight: var(--litm-color-accent-bg);
 	--color-border-highlight: var(--litm-color-accent-bg);
 	--color-border-highlight-alt: var(--litm-color-accent-2);
+	--color-text-hyperlink: var(--litm-color-accent-3);
 }
 
 
@@ -81,6 +84,20 @@ button,
 
 }
 
+a.content-link {
+	border: none;
+	border-radius: 0px;
+	background: none;
+	color: var(--litm-color-weakness);
+	outline: 1px solid;
+	outline-offset: -1px;
+	outline-style: dashed;
+
+	& i {
+		color: var(--litm-color-weakness);
+	}
+}
+
 .window-app .window-content,
 .sheet.journal-entry .journal-entry-content {
 	background-color: var(--litm-color-alt-bg);
@@ -111,8 +128,6 @@ button,
 /* App core style overrides */
 
 .app.litm {
-	-webkit-font-smoothing: antialiased;
-
 	background: url('../assets/media/background.webp') 0% 0% / cover;
 	overflow: hidden;
 	box-shadow: none;
@@ -123,7 +138,7 @@ button,
 		outline-offset: -10px;
 		padding: 10px;
 
-		.window-title {
+		& .window-title {
 			display: none;
 		}
 	}
@@ -146,7 +161,7 @@ button,
 		justify-content: end;
 		flex: 0 0 24px;
 
-		.document-id-link {
+		& .document-id-link {
 			margin-inline: 0 auto;
 		}
 	}
@@ -155,7 +170,7 @@ button,
 		padding: 0px;
 		background: none;
 
-		form {
+		& form {
 			display: flex;
 			flex-direction: column;
 		}
@@ -165,7 +180,7 @@ button,
 		min-height: 100px;
 		height: 100%;
 
-		.tox.tox-tinymce .tox-edit-area__iframe {
+		& .tox.tox-tinymce .tox-edit-area__iframe {
 			background-color: #fff;
 		}
 	}

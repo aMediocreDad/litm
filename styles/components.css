@@ -1,127 +1,135 @@
+.litm--sro {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	padding: 0;
+	margin: -1px;
+	overflow: hidden;
+	clip: rect(0, 0, 0, 0);
+	white-space: nowrap;
+	border-width: 0;
+}
+
+:where(.litm--checkbox),
+.app.litm.litm :where(.litm--checkbox) {
+	-webkit-appearance: none;
+	flex: none;
+	appearance: none;
+	background-color: transparent;
+	margin: 0;
+	font: inherit;
+	color: currentColor;
+	height: 0.8em;
+	width: 0.8em;
+	border: 0.1em solid currentColor;
+	border-radius: 0.1em;
+	transform: translateY(0.025em);
+	display: grid;
+	place-content: center;
+	rotate: 45deg;
+	cursor: pointer;
+
+	&::after {
+		content: "";
+		width: 0.36em;
+		height: 0.36em;
+		scale: 0;
+		transition: scale 120ms ease-in-out;
+		box-shadow: inset 1em 1em currentColor;
+	}
+
+	&.checked::after,
+	&:checked::after {
+		scale: 1;
+	}
+}
+
+:where(.litm--checkbox-with-bg),
+.app.litm.litm :where(.litm--checkbox-with-bg) {
+	background: url('../assets/media/checkbox.svg') no-repeat;
+	height: 1.1em;
+	width: 1.1em;
+	background-size: contain;
+	background-position: center;
+	border: none;
+	rotate: 0deg;
+	position: relative;
+
+	&.checked,
+	&:checked {
+		background-image: url('../assets/media/checkbox-c.svg');
+	}
+
+	&::after {
+		display: none;
+	}
+
+	&:disabled {
+		cursor: auto;
+	}
+}
+
+:where(.litm--burn) {
+	-webkit-appearance: none;
+	flex: none;
+	appearance: none;
+	background-color: inherit;
+	margin: 0;
+	font: inherit;
+	color: currentColor;
+	height: 1.1em;
+	width: 1.1em;
+	filter: drop-shadow(0px 0px 2px color-mix(in hsl, var(--litm-color), transparent));
+	background: url('../assets/media/burn.svg') no-repeat;
+	background-size: contain;
+	background-position: center;
+	cursor: pointer;
+
+	&.transparent {
+		background-image: url('../assets/media/burn-t.svg');
+		filter: none;
+	}
+
+	&:checked {
+		background-image: url('../assets/media/burn-c.svg');
+	}
+}
+
+.litm--accent-bg {
+	background: url("/ui/parchment.jpg") repeat;
+	background-color: var(--litm-color-accent-bg);
+	background-blend-mode: color-burn;
+	color: var(--litm-color-accent);
+}
+
+:where(.litm--tag),
+:where(.litm--status),
+:where(.litm--limit) {
+	padding: 0px 0.4em;
+	border-radius: 0.2em;
+	white-space: nowrap;
+	-webkit-box-decoration-break: clone;
+	box-decoration-break: clone;
+	color: var(--litm-color-primary);
+	font-style: italic;
+	font-weight: 400;
+	box-shadow: 1px 1px 1px var(--litm-color-weakness-bg);
+
+	&.litm--tag {
+		background: var(--litm-color-tag-bg);
+	}
+
+	&.litm--status {
+		background: var(--litm-color-status-bg);
+	}
+
+	&.litm--limit {
+		background: var(--litm-color-limit-bg);
+	}
+}
+
+
 .app.litm.litm {
-	& .litm--sro {
-		position: absolute;
-		width: 1px;
-		height: 1px;
-		padding: 0;
-		margin: -1px;
-		overflow: hidden;
-		clip: rect(0, 0, 0, 0);
-		white-space: nowrap;
-		border-width: 0;
-	}
-
-	& :where(.litm--checkbox) {
-		-webkit-appearance: none;
-		flex: none;
-		appearance: none;
-		background-color: transparent;
-		margin: 0;
-		font: inherit;
-		color: currentColor;
-		height: 0.8em;
-		width: 0.8em;
-		border: 0.1em solid currentColor;
-		border-radius: 0.1em;
-		transform: translateY(0.025em);
-		display: grid;
-		place-content: center;
-		rotate: 45deg;
-		cursor: pointer;
-
-		&::after {
-			content: "";
-			width: 0.36em;
-			height: 0.36em;
-			scale: 0;
-			transition: scale 120ms ease-in-out;
-			box-shadow: inset 1em 1em currentColor;
-		}
-
-		&.checked::after,
-		&:checked::after {
-			scale: 1;
-		}
-	}
-
-	& :where(.litm--checkbox-with-bg) {
-		background: url('../assets/media/checkbox.svg') no-repeat;
-		height: 1.1em;
-		width: 1.1em;
-		background-size: contain;
-		background-position: center;
-		border: none;
-		rotate: 0deg;
-		position: relative;
-
-		&.checked,
-		&:checked {
-			background-image: url('../assets/media/checkbox-c.svg');
-		}
-
-		&::after {
-			display: none;
-		}
-
-		&:disabled {
-			cursor: auto;
-		}
-	}
-
-	& :where(.litm--burn) {
-		-webkit-appearance: none;
-		flex: none;
-		appearance: none;
-		background-color: inherit;
-		margin: 0;
-		font: inherit;
-		color: currentColor;
-		height: 1.1em;
-		width: 1.1em;
-		filter: drop-shadow(0px 0px 2px color-mix(in hsl, var(--litm-color), transparent));
-		background: url('../assets/media/burn.svg') no-repeat;
-		background-size: contain;
-		background-position: center;
-		cursor: pointer;
-
-		&.transparent {
-			background-image: url('../assets/media/burn-t.svg');
-			filter: none;
-		}
-
-		&:checked {
-			background-image: url('../assets/media/burn-c.svg');
-		}
-	}
-
-	& .litm--accent-bg {
-		background: url("/ui/parchment.jpg") repeat;
-		background-color: var(--litm-color-accent-bg);
-		background-blend-mode: color-burn;
-		color: var(--litm-color-accent);
-	}
-
-	& :where(.litm--tag),
-	& :where(.litm--status) {
-		padding: 0px 0.4em;
-		border-radius: 0.2em;
-		white-space: nowrap;
-		-webkit-box-decoration-break: clone;
-		box-decoration-break: clone;
-		color: var(--litm-color-primary);
-		font-style: italic;
-		font-weight: 400;
-		box-shadow: 1px 1px 1px var(--litm-color-weakness-bg);
-
-		&.litm--tag {
-			background: var(--litm-color-tag-bg);
-		}
-
-		&.litm--status {
-			background: var(--litm-color-status-bg);
-		}
-	}
-
 	& button[data-click="add-tag"] {
 		margin-inline: 2rem;
 		padding-bottom: var(--litm-space-2);

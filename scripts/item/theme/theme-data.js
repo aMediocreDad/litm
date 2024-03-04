@@ -22,7 +22,7 @@ export class ThemeData extends foundry.abstract.DataModel {
 						.fill()
 						.map((_, i) => ({
 							id: randomID(),
-							name: `${t("Litm.ui.name-power")} ${i + 1}`,
+							name: `${i < 2 ? `${t("Litm.ui.name-power")}` : ""}`,
 							type: "powerTag",
 							isActive: i < 2,
 							isBurnt: false,

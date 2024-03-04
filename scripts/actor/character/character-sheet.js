@@ -22,9 +22,10 @@ export class CharacterSheet extends ActorSheet {
 		return this.actor.system;
 	}
 
-	getData() {
+	async getData() {
 		const { data, ...rest } = super.getData();
-		const items = this.items.map((i) => i.sheet.getData());
+		const items = await Promise.all(this.items.map((i) => i.sheet.getData()));
+		data.system.note = await TextEditor.enrichHTML(data.system.note);
 		return { ...rest, data, items };
 	}
 
@@ -35,6 +36,47 @@ export class CharacterSheet extends ActorSheet {
 		html.find("[data-dblclick").dblclick(this.#handleDblclick.bind(this));
 		html.find("[data-context").contextmenu(this.#handleContextmenu.bind(this));
 		html.find(".draggable").mousedown(this.#onDragHandleMouseDown.bind(this));
+	}
+
+	// Hack to allow updating the embedded items
+	async _updateObject(event, formData) {
+		const cleaned = await this.#handleUpdateEmbeddedItems(formData);
+		return super._updateObject(event, cleaned);
+	}
+
+	// Prevent dropping more than 4 themes on the character sheet
+	async _onDropItem(event, data) {
+		const item = await Item.implementation.fromDropData(data);
+		if (item.type !== "theme") return;
+
+		if (this.items.get(item.id)) return this._onSortItem(event, item);
+
+		const numThemes = this.items.filter((i) => i.type === "theme").length;
+		if (item.type === "theme" && numThemes >= 4)
+			return ui.notifications.warn(
+				game.i18n.localize("Litm.ui.warn-theme-limit"),
+			);
+
+		return super._onDropItem(event, data);
+	}
+
+	/** @override - This method needs to be overriden to accommodate readonly input fields */
+	_getSubmitData(updateData) {
+		if (!this.form)
+			throw new Error(
+				"The FormApplication subclass has no registered form element",
+			);
+		const fd = new FormDataExtended(this.form, {
+			editors: this.editors,
+			readonly: true,
+			disabled: true,
+		});
+		let data = fd.object;
+		if (updateData)
+			data = foundry.utils.flattenObject(
+				foundry.utils.mergeObject(data, updateData),
+			);
+		return data;
 	}
 
 	#handleClicks(event) {
@@ -216,46 +258,5 @@ export class CharacterSheet extends ActorSheet {
 
 		if (toUpdate.length) this.actor.updateEmbeddedDocuments("Item", toUpdate);
 		return formData;
-	}
-
-	// Hack to allow updating the embedded items
-	async _updateObject(event, formData) {
-		const cleaned = await this.#handleUpdateEmbeddedItems(formData);
-		return super._updateObject(event, cleaned);
-	}
-
-	// Prevent dropping more than 4 themes on the character sheet
-	async _onDropItem(event, data) {
-		const item = await Item.implementation.fromDropData(data);
-		if (item.type !== "theme") return;
-
-		if (this.items.get(item.id)) return this._onSortItem(event, item);
-
-		const numThemes = this.items.filter((i) => i.type === "theme").length;
-		if (item.type === "theme" && numThemes >= 4)
-			return ui.notifications.warn(
-				game.i18n.localize("Litm.ui.warn-theme-limit"),
-			);
-
-		return super._onDropItem(event, data);
-	}
-
-	/** @override - This method needs to be overriden to accommodate readonly input fields */
-	_getSubmitData(updateData) {
-		if (!this.form)
-			throw new Error(
-				"The FormApplication subclass has no registered form element",
-			);
-		const fd = new FormDataExtended(this.form, {
-			editors: this.editors,
-			readonly: true,
-			disabled: true,
-		});
-		let data = fd.object;
-		if (updateData)
-			data = foundry.utils.flattenObject(
-				foundry.utils.mergeObject(data, updateData),
-			);
-		return data;
 	}
 }

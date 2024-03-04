@@ -8,7 +8,7 @@ export const SheetMixin = (Base) => class extends Base {
 
 		html.find("[data-size-input]")
 			.attr('size', function () {
-				return Math.max(this.value.length * 1.4 + 1, 6);
+				return Math.max(this.value.length * 1.45 + 1, 6);
 			})
 			.on('input', this.#sizeInput.bind(this));
 
@@ -49,7 +49,7 @@ export const SheetMixin = (Base) => class extends Base {
 	#sizeInput(event) {
 		const input = event.currentTarget;
 		const size = input.value.length;
-		input.size = Math.max(size * 1.4 + 1, 6);
+		input.size = Math.max(size * 1.45 + 1, 6);
 	}
 
 	#toggleEdit() {

@@ -23,6 +23,7 @@ export class ChallengeSheet extends SheetMixin(ActorSheet) {
 	async getData() {
 		const { data, rest } = super.getData();
 		data.system.special = await TextEditor.enrichHTML(data.system.special);
+		data.system.note = await TextEditor.enrichHTML(data.system.note);
 		data.system.renderedTags = await TextEditor.enrichHTML(data.system.tags);
 		data.items = await Promise.all(this.items.map((i) => i.sheet.getData()));
 

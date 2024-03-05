@@ -5,7 +5,7 @@ export class ThemeSheet extends SheetMixin(ItemSheet) {
 	static defaultOptions = mergeObject(ItemSheet.defaultOptions, {
 		classes: ["litm", "litm--theme"],
 		width: 330,
-		height: 620,
+		height: 660,
 	});
 
 	get system() {

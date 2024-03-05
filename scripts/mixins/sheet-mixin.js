@@ -31,7 +31,7 @@ export const SheetMixin = (Base) => class extends Base {
 	#handleInput(event) {
 		const t = event.currentTarget;
 		const targetId = t.dataset.input;
-		const value = t.innerText || t.value;
+		const value = t.textContent || t.value;
 		const target = $(t).siblings(`input#${targetId}`);
 		target.val(value);
 	}

@@ -300,14 +300,14 @@
 			margin: 0px 1.55rem 1rem;
 			background-image: radial-gradient(#999 -150%, transparent 70%);
 			color: var(--litm-color-primary-bg);
-			-webkit-font-smoothing: none;
+			-webkit-font-smoothing: antialiased;
 			font-family: var(--litm-font-text);
-			font-size: var(--font-size-12);
+			font-size: var(--font-size-14);
 			letter-spacing: 1px;
 			text-align: center;
 			line-height: 1.45;
 
-			[role="application"] {
+			& [role="application"] {
 				height: 100% !important
 			}
 		}

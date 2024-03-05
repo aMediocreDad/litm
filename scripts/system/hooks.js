@@ -14,6 +14,7 @@ export class LitmHooks {
 		LitmHooks.#prepareCharacterOnCreate();
 		LitmHooks.#prepareThemeOnCreate();
 		LitmHooks.#listenToContentLinks();
+		LitmHooks.#customizeDiceSoNice();
 		LitmHooks.#renderStoryTagApp();
 		LitmHooks.#rendeWelcomeScreen();
 	}
@@ -209,7 +210,7 @@ export class LitmHooks {
 				actorLink: true,
 				disposition: CONST.TOKEN_DISPOSITIONS.FRIENDLY,
 			};
-			actor.updateSource({ prototypeToken, img });
+			actor.updateSource({ prototypeToken });
 		});
 
 		Hooks.on("createActor", async (actor) => {
@@ -238,10 +239,10 @@ export class LitmHooks {
 	}
 
 	static #renderStoryTagApp() {
-		// Hooks.once("ready", () => {
-		// 	const app = new game.litm.StoryTagApp();
-		// 	app.render(true);
-		// });
+		Hooks.once("ready", () => {
+			const app = new game.litm.StoryTagApp();
+			//	app.render(true);
+		});
 	}
 
 	static #listenToContentLinks() {
@@ -260,6 +261,31 @@ export class LitmHooks {
 		});
 	}
 
+	static #customizeDiceSoNice() {
+		Hooks.on("diceSoNiceReady", (dice3d) => {
+			dice3d.addSystem({ id: "litm", name: "Legend in the Mist" }, "preferred");
+			dice3d.addDicePreset({
+				type: "d6",
+				labels: ["1", "2", "3", "4", "5", "6", "1", "2", "3", "4", "5", "6"],
+				font: "LitM Dice",
+				system: "litm",
+			}, "d12");
+
+
+			dice3d.addColorset({
+				name: 'litm',
+				description: "Legend in the Mist Default",
+				category: "Legend in the Mist",
+				foreground: '#ffffff',
+				background: "#708768",
+				texture: 'stone',
+				material: 'stone',
+				font: 'Georgia',
+				visibility: 'visible'
+			}, "preferred");
+
+		});
+	}
 	static #rendeWelcomeScreen() {
 		Hooks.once("ready", async () => {
 			let scene = game.scenes.getName("Legend in the Mist");

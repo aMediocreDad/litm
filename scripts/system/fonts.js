@@ -3,6 +3,14 @@ import { info } from "../logger.js";
 export class Fonts {
 	static register() {
 		info("Registering Fonts...");
+		FontConfig.loadFont("LitM Dice", {
+			fonts: [
+				{
+					name: "LitM Dice",
+					urls: ["systems/litm/assets/fonts/litm-dice.otf"],
+				}
+			]
+		})
 		FontConfig.loadFont("CaslonAntique", {
 			editor: true,
 			fonts: [

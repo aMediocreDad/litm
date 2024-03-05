@@ -208,9 +208,7 @@ export class LitmHooks {
 				sight: { enabled: true },
 				actorLink: true,
 				disposition: CONST.TOKEN_DISPOSITIONS.FRIENDLY,
-				texture: { src: "/icons/svg/target.svg" },
 			};
-			const img = "icons/svg/target.svg";
 			actor.updateSource({ prototypeToken, img });
 		});
 
@@ -390,6 +388,7 @@ export class LitmHooks {
 					})
 			);
 			await Scene.updateDocuments(updates);
+			game.journal.getName("Tinderbox Demo Rules").sheet.render(true);
 		});
 	}
 }

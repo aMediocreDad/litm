@@ -29,6 +29,20 @@
 		border: none;
 		font-family: var(--litm-font-text);
 		justify-content: space-between;
+
+		&::before {
+			content: "";
+			position: absolute;
+			background: url(../../assets/media/top-frame-branches.webp) no-repeat center / contain;
+			height: 55%;
+			width: 167%;
+			z-index: 1;
+			pointer-events: none;
+			top: 20px;
+			left: -50px;
+			rotate: 15deg;
+			z-index: -1;
+		}
 	}
 
 	& .window-content {
@@ -37,15 +51,39 @@
 	}
 
 	& form {
-		-webkit-font-smoothing: antialiased;
+		&::before {
+			content: "";
+			position: absolute;
+			background: url(../../assets/media/single-flower.webp) no-repeat center / contain;
+			height: 40%;
+			width: 40%;
+			z-index: 1;
+			pointer-events: none;
+			bottom: 90px;
+			right: -9px;
+			rotate: 40deg;
+			z-index: -1;
+		}
+
+		&::after {
+			content: "";
+			position: absolute;
+			background: url(../../assets/media/necklace.webp) no-repeat center / contain;
+			height: 55%;
+			width: 55%;
+			z-index: 1;
+			pointer-events: none;
+			top: -70px;
+			left: 370px;
+		}
 	}
 
 	& .avatar {
 		position: absolute;
-		left: -250px;
-		top: -45px;
-		z-index: -1;
+		left: -225px;
+		top: -64px;
 		border: none;
+		z-index: 0;
 	}
 
 	& #name {
@@ -141,9 +179,31 @@
 		width: 450px;
 		max-width: unset;
 		font-family: var(--litm-font-text);
-		overflow: hidden;
-		overflow: clip;
 		z-index: 2;
+
+		&::before {
+			content: "";
+			position: absolute;
+			background: url(../../assets/media/bottom-branch.webp) no-repeat center / contain;
+			height: 45%;
+			width: 65%;
+			z-index: 1;
+			pointer-events: none;
+			bottom: -80px;
+			right: -90px;
+		}
+
+		&::after {
+			content: "";
+			position: absolute;
+			background: url(../../assets/media/feather.webp) no-repeat center / contain;
+			height: 45%;
+			width: 45%;
+			z-index: 1;
+			pointer-events: none;
+			top: -100px;
+			left: 50px;
+		}
 
 		&[style*="display: block"] {
 			display: flex !important;
@@ -189,8 +249,8 @@
 		& .backpack--img {
 			position: absolute;
 			max-width: unset;
-			right: 10px;
-			top: -20px;
+			right: -50px;
+			top: -46px;
 			border: none;
 			rotate: -2deg;
 			filter: drop-shadow(0 0 4px var(--litm-color-primary));
@@ -201,7 +261,7 @@
 		& .backpack--bg {
 			position: relative;
 			top: -40px;
-			right: 20px;
+			right: 35px;
 			background: url("../../assets/media/background.webp") 0% 0% / cover;
 			outline: 2px solid var(--litm-color);
 			outline-offset: -10px;
@@ -288,7 +348,6 @@
 					& label {
 						display: flex;
 						cursor: pointer;
-						--checkbox-size: 10px;
 					}
 
 					& button {
@@ -348,6 +407,19 @@
 			z-index: 1;
 		}
 
+		&:first-child::before {
+			content: "";
+			position: absolute;
+			background: url(../../assets/media/middle-branches.webp) no-repeat center / contain;
+			height: 55%;
+			width: 55%;
+			z-index: 1;
+			pointer-events: none;
+			bottom: -80px;
+			left: -63px;
+			rotate: 115deg;
+		}
+
 		&:nth-child(2) {
 			top: 20px;
 			left: -20px;
@@ -358,12 +430,38 @@
 			top: 65px;
 			left: 180px;
 			rotate: 0deg;
+
+			&::before {
+				content: "";
+				position: absolute;
+				background: url(../../assets/media/flowers-top.webp) no-repeat center / contain;
+				height: 55%;
+				width: 55%;
+				z-index: 1;
+				pointer-events: none;
+				top: 280px;
+				left: -90px;
+				rotate: 10deg;
+			}
 		}
 
 		&:nth-child(4) {
 			top: 50px;
 			left: 380px;
 			rotate: -2deg;
+
+			&::before {
+				content: "";
+				position: absolute;
+				background: url(../../assets/media/bottom-frame-branches.webp) no-repeat center / contain;
+				height: 55%;
+				width: 120%;
+				z-index: 0;
+				pointer-events: none;
+				top: -140px;
+				left: -10px;
+				rotate: -10deg;
+			}
 		}
 	}
 }

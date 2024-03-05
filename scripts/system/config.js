@@ -78,7 +78,8 @@ export class LitmConfig {
 		},
 	}
 
-	tagStringRe = /\[([^\d\]]+)(?:[\s-](\d+))?\]/gi
+	tagStringRe = /\[([^\d\]]+)(?:[\s-\:](\d+))?\]/gi;
+	sceneLinkRe = /@ActivateScene\[([^\]]+)\](?:\{([^\}]+)\})?/gi;
 
 	static createConfig() {
 		return new LitmConfig();

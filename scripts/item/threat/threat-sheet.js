@@ -94,7 +94,10 @@ export class ThreatSheet extends SheetMixin(ItemSheet) {
 		}
 	}
 
-	#addConsequence() {
+	async #addConsequence() {
+		this.isEditing = false;
+		await this.submit(new Event("submit"));
+
 		const consequences = this.system.consequences;
 		consequences.push(t("Litm.ui.name-consequence"));
 		this.item.update({ "system.consequences": consequences });
@@ -103,8 +106,8 @@ export class ThreatSheet extends SheetMixin(ItemSheet) {
 	async #removeConsequence(event) {
 		if (!(await confirmDelete())) return;
 
-		const index = event.currentTarget.dataset.index;
-		this.system.consequences.splice(index, 1);
+		const { id } = event.currentTarget.dataset;
+		this.system.consequences.splice(id, 1);
 
 		this.item.update({ "system.consequences": this.system.consequences });
 	}

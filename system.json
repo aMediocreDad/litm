@@ -30,6 +30,20 @@
 		"verified": 11,
 		"maximum": 11
 	},
+	"packs": [
+		{
+			"label": "Tinderbox Demo",
+			"type": "Adventure",
+			"name": "tinderbox-demo",
+			"path": "packs/tinderbox-demo",
+			"system": "litm",
+			"ownership": {
+				"PLAYER": "NONE",
+				"ASSISTANT": "OWNER"
+			},
+			"flags": {}
+		}
+	],
 	"flags": {
 		"hotReload": {
 			"extensions": [

@@ -9,11 +9,15 @@ export class ThreatSheet extends SheetMixin(ItemSheet) {
 		return mergeObject(super.defaultOptions, {
 			classes: ["litm", "litm--threat"],
 			template: "systems/litm/templates/item/threat.html",
-			width: 500,
+			width: 400,
 			height: 200,
 			resizable: true,
 			submitOnChange: true,
 		});
+	}
+
+	get effects() {
+		return this.item.effects;
 	}
 
 	get system() {
@@ -44,17 +48,18 @@ export class ThreatSheet extends SheetMixin(ItemSheet) {
 			html.find("[contenteditable]:has(+#consequence)").focus();
 	}
 
-	async _onSubmit(formData, options = {}) {
-		const res = await super._onSubmit(formData, options);
-		if (!res['system.consequences']) return res;
+	async _updateObject(event, formData) {
+		const res = await super._updateObject(event, formData);
+
+		if (!formData['system.consequences.0']) return res;
 
 		// Delete existing tags and statuses
-		await this.item.deleteEmbeddedDocuments("ActiveEffect", this.item.effects.map((e) => e._id));
+		await this.item.deleteEmbeddedDocuments("ActiveEffect", this.effects.map((e) => e._id));
 
-		const matches = res['system.consequences'].flatMap(string => string.matchAll(CONFIG.litm.tagStringRe));
+		const matches = this.system.consequences.flatMap(string => Array.from(string.matchAll(CONFIG.litm.tagStringRe)));
 
 		// Create new tags and statuses
-		await this.item.createEmbeddedDocuments("ActiveEffect", Array.from(matches.map(([_, tag, status]) => {
+		await this.item.createEmbeddedDocuments("ActiveEffect", matches.map(([_, tag, status]) => {
 			const type = status !== undefined ? "status" : "tag";
 			return {
 				name: tag,
@@ -72,7 +77,7 @@ export class ThreatSheet extends SheetMixin(ItemSheet) {
 					},
 				],
 			}
-		})));
+		}));
 	}
 
 	#handleClick(event) {

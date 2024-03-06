@@ -139,7 +139,6 @@
 		border-top: 1.5px solid rgb(0, 0, 0, 0.4);
 		background-color: transparent;
 		color: var(--litm-color);
-		-webkit-font-smoothing: auto;
 		font-size: var(--font-size-20);
 		font-family: var(--litm-font-accent);
 		transition: all 0.15s;

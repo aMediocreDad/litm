@@ -4,29 +4,29 @@
 	font-family: var(--litm-font-text);
 	font-size: var(--font-size-16);
 
-	header {
+	& header {
 		color: var(--litm-color-primary);
 	}
 
-	form {
+	& form {
 		color: var(--litm-color-primary);
 		padding: 0px var(--litm-space-2);
 	}
 
-	h2 {
+	& h2 {
 		text-align: center;
 		border: none;
 		font-family: var(--litm-font-accent);
 	}
 
-	.litm--threat-wrapper {
+	& .litm--threat-wrapper {
 		display: flex;
 		flex-direction: column;
 		gap: var(--litm-space-2);
 		padding-inline-start: var(--litm-space-3);
 		list-style: none;
 
-		li {
+		& li {
 			display: flex;
 			gap: var(--litm-space-1);
 		}
@@ -49,7 +49,7 @@
 		font-style: italic;
 	}
 
-	[id^=consequence-] {
+	& [id^=consequence-] {
 		font-weight: 500;
 		min-width: 50px;
 

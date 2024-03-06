@@ -21,6 +21,7 @@ import { LitmRollDialog } from "./scripts/apps/roll-dialog.js";
 import { LitmConfig } from "./scripts/system/config.js";
 import { LitmSettings } from "./scripts/system/settings.js";
 import { Enrichers } from "./scripts/system/enrichers.js";
+import { DENOMINATION, DoubleSix } from "./scripts/apps/dice.js";
 
 // Set the logo to the LitM logo
 $("#logo")[0].src = "systems/litm/assets/media/logo.webp";
@@ -41,6 +42,7 @@ Hooks.once("init", () => {
 	info("Initializing Config...");
 	CONFIG.Actor.dataModels.character = CharacterData;
 	CONFIG.Actor.dataModels.challenge = ChallengeData;
+	CONFIG.Dice.terms[DENOMINATION] = DoubleSix;
 	CONFIG.Dice.rolls.push(LitmRoll);
 	CONFIG.Item.dataModels.theme = ThemeData;
 	CONFIG.Item.dataModels.threat = ThreatData;

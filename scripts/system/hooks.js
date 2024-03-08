@@ -5,7 +5,6 @@ export class LitmHooks {
 	static register() {
 		info("Registering Hooks...");
 		LitmHooks.#addImportToActorSidebar();
-		LitmHooks.#addRollButtonAbovePlayerConfig();
 		LitmHooks.#iconOnlyHeaderButtons();
 		LitmHooks.#safeUpdateActorSheet();
 		LitmHooks.#safeUpdateItemSheet();
@@ -54,9 +53,7 @@ export class LitmHooks {
 
 				// Add the document ID link to the header if it's not already there
 				if (hook === "renderActorSheet" || hook === "renderItemSheet") {
-					html
-						.find(".window-title>.document-id-link")
-						.prependTo(html.find(".window-header"));
+					html.find(".window-title>.document-id-link").prependTo(html.find(".window-header"));
 				}
 			});
 		}
@@ -70,9 +67,7 @@ export class LitmHooks {
 
 			const { backpack } = system;
 			const validationErrors = backpack
-				.map((item) =>
-					tagSchema.validate(item, { strict: true, partial: false }),
-				)
+				.map((item) => tagSchema.validate(item, { strict: true, partial: false }))
 				.filter(Boolean);
 
 			if (validationErrors.length) {
@@ -92,9 +87,7 @@ export class LitmHooks {
 
 			const { powerTags = [], weaknessTags = [] } = system;
 			const validationErrors = [...powerTags, ...weaknessTags]
-				.map((item) =>
-					tagSchema.validate(item, { strict: true, partial: false }),
-				)
+				.map((item) => tagSchema.validate(item, { strict: true, partial: false }))
 				.filter(Boolean);
 
 			if (validationErrors.length) {
@@ -106,34 +99,13 @@ export class LitmHooks {
 		});
 	}
 
-	static #addRollButtonAbovePlayerConfig() {
-		const app = $(`
-		<button id="litm--roll-button" aria-label="${t(
-			"Litm.ui.roll-title",
-		)}" data-tooltip="${t("Litm.ui.roll-title")}">
-			<img src="systems/litm/assets/media/dice.webp" alt="Two Acorns" />
-		</button>`).click(() => {
-			if (!game.user.character)
-				return ui.notifications.warn(t("Litm.ui.warn-no-character"));
-			const actor = game.user.character;
-			game.litm.LitmRollDialog.create(
-				actor._id,
-				actor.system.availablePowerTags,
-				actor.system.weaknessTags,
-			);
-		});
-		$("#players").before(app);
-	}
-
 	static #addImportToActorSidebar() {
 		Hooks.on("renderSidebarTab", (app, html) => {
 			if (app.id !== "actors") return;
 			const button = $(
 				`<button class="litm--import-actor" data-tooltip="${t(
-					"Litm.ui.import-actor",
-				)}" aria-label="${t(
-					"Litm.ui.import-actor",
-				)}"><i class="fas fa-file-import"></i></button>`,
+					"Litm.ui.import-actor"
+				)}" aria-label="${t("Litm.ui.import-actor")}"><i class="fas fa-file-import"></i></button>`
 			);
 			button.on("click", () => {
 				const input = document.createElement("input");
@@ -163,13 +135,14 @@ export class LitmHooks {
 		Hooks.on("getChatLogEntryContext", (_, options) => {
 			const { discover, extra_feat } = CONFIG.litm.additionalEffects;
 			const isEffectRoll = (li) => li.find(".dice-effect").length;
-			options.unshift({
-				name: `${t("Litm.effects.category-other")}: ${t("Litm.additionalEffects.discover.key")}`,
-				icon: '<i class="fas fa-magnifying-glass"></i>',
-				condition: isEffectRoll,
-				callback: () => {
-					ChatMessage.create({
-						content: `<div class="litm dice-roll">
+			options.unshift(
+				{
+					name: `${t("Litm.effects.category-other")}: ${t("Litm.additionalEffects.discover.key")}`,
+					icon: '<i class="fas fa-magnifying-glass"></i>',
+					condition: isEffectRoll,
+					callback: () => {
+						ChatMessage.create({
+							content: `<div class="litm dice-roll">
 							<div class="dice-flavor">${t("Litm.additionalEffects.discover.key")}</div>
 							<div class="dice-effect">
 								<p><em>${t(discover.description)}</em></p>
@@ -177,16 +150,19 @@ export class LitmHooks {
 								<p><strong>${t("Litm.other.cost")}:</strong> ${t(discover.cost)}</p>
 							</div>
 					</div>
-						`
-					})
-				}
-			}, {
-				name: `${t("Litm.effects.category-other")}: ${t("Litm.additionalEffects.extra_feat.key")}`,
-				icon: '<i class="fas fa-plus"></i>',
-				condition: isEffectRoll,
-				callback: () => {
-					ChatMessage.create({
-						content: `
+						`,
+						});
+					},
+				},
+				{
+					name: `${t("Litm.effects.category-other")}: ${t(
+						"Litm.additionalEffects.extra_feat.key"
+					)}`,
+					icon: '<i class="fas fa-plus"></i>',
+					condition: isEffectRoll,
+					callback: () => {
+						ChatMessage.create({
+							content: `
 						<div class="litm dice-roll">
 							<div class="dice-flavor">${t("Litm.additionalEffects.extra_feat.key")}</div>
 							<div class="dice-effect">
@@ -194,10 +170,11 @@ export class LitmHooks {
 								<p><strong>${t("Litm.other.cost")}:</strong> ${t(extra_feat.cost)}</p>
 							</div>
 						</div>
-						`
-					})
+						`,
+						});
+					},
 				}
-			});
+			);
 		});
 	}
 
@@ -216,16 +193,20 @@ export class LitmHooks {
 		Hooks.on("createActor", async (actor) => {
 			if (actor.type !== "character") return;
 
-			const missingThemes = 4 - actor.items.filter(it => it.type === "theme").length;
+			const missingThemes = 4 - actor.items.filter((it) => it.type === "theme").length;
 
-			await Promise.all(Array(missingThemes).fill().map(async (_, i) => {
-				await actor.createEmbeddedDocuments("Item", [
-					{
-						name: `${t("TYPES.Item.theme")} ${i + 1}`,
-						type: "theme",
-					},
-				]);
-			}));
+			await Promise.all(
+				Array(missingThemes)
+					.fill()
+					.map(async (_, i) => {
+						await actor.createEmbeddedDocuments("Item", [
+							{
+								name: `${t("TYPES.Item.theme")} ${i + 1}`,
+								type: "theme",
+							},
+						]);
+					})
+			);
 		});
 	}
 
@@ -239,9 +220,44 @@ export class LitmHooks {
 	}
 
 	static #renderStoryTagApp() {
-		Hooks.once("ready", () => {
-			const app = new game.litm.StoryTagApp();
-			//	app.render(true);
+		const app = new game.litm.StoryTagApp();
+		game.litm.storyTags = app;
+
+		Hooks.once("renderSidebar", async (_app, html) => {
+			const container = $(`<div class="litm--sidebar-buttons-container"></div>`);
+
+			const rollButton = $(`
+		<button aria-label="${t("Litm.ui.roll-title")}" data-tooltip="${t("Litm.ui.roll-title")}">
+			<i class="fas fa-dice"></i>
+		</button>`).on("click", () => {
+				if (!game.user.character) return ui.notifications.warn(t("Litm.ui.warn-no-character"));
+				const actor = game.user.character;
+				game.litm.LitmRollDialog.create(
+					actor._id,
+					actor.system.availablePowerTags,
+					actor.system.weaknessTags
+				);
+			});
+
+			const storyTagsButton = $(`
+			<button type="button" data-tooltip="${t("Litm.tags.story", "Litm.other.tags")}" aria-label="${t(
+				"Litm.tags.story",
+				"Litm.other.tags"
+			)}">
+			<i class="fas fa-tags"></i>
+			</button>`).on("click", () => {
+				if (!app.rendered) {
+					app.render(true);
+					setTimeout(() => container.addClass("active"));
+				}
+				app.element.toggle(130, () => container.toggleClass("active", app.element.is(":visible")));
+			});
+
+			app.render(true);
+			setTimeout(() => container.addClass("active"));
+
+			container.append(storyTagsButton, rollButton);
+			html.before(container);
 		});
 	}
 
@@ -257,33 +273,38 @@ export class LitmHooks {
 				const scene = game.scenes.get(id);
 				if (!scene) return;
 				scene.view();
-			})
+			});
 		});
 	}
 
 	static #customizeDiceSoNice() {
 		Hooks.on("diceSoNiceReady", (dice3d) => {
 			dice3d.addSystem({ id: "litm", name: "Legend in the Mist" }, "preferred");
-			dice3d.addDicePreset({
-				type: "d6",
-				labels: ["1", "2", "3", "4", "5", "6", "1", "2", "3", "4", "5", "6"],
-				font: "LitM Dice",
-				system: "litm",
-			}, "d12");
+			dice3d.addDicePreset(
+				{
+					type: "d6",
+					labels: ["1", "2", "3", "4", "5", "6", "1", "2", "3", "4", "5", "6"],
+					font: "LitM Dice",
+					system: "litm",
+				},
+				"d12"
+			);
 
-
-			dice3d.addColorset({
-				name: 'litm',
-				description: "Legend in the Mist Default",
-				category: "Legend in the Mist",
-				foreground: '#ffffff',
-				background: "#708768",
-				texture: 'stone',
-				material: 'stone',
-				font: 'Georgia',
-				visibility: 'visible'
-			}, "preferred");
-
+			dice3d.addColorset(
+				{
+					name: "litm",
+					description: "Legend in the Mist Default",
+					category: "Legend in the Mist",
+					foreground: ["#433a28", "#c9c9c9", "#433a28", "#433a28"],
+					background: ["#708768", "#446674", "#A8A7A3", "#ac9e77"],
+					outline: [undefined, "#433a28", undefined, undefined],
+					texture: "stone",
+					material: "stone",
+					font: "Georgia",
+					visibility: "visible",
+				},
+				"preferred"
+			);
 		});
 	}
 	static #rendeWelcomeScreen() {
@@ -322,7 +343,7 @@ export class LitmHooks {
 			const entry = await JournalEntry.create({
 				name: "Legend in the Mist",
 				permission: { default: 2 },
-				content: `
+				content: /*html */ `
 				<h1 style="text-align:center"><span style="font-family: PackardAntique">Welcome!</span></h1>
 				<p style="text-align: center"><em>I am thrilled to have you try out this system</em></p>
 				<p></p>
@@ -337,10 +358,13 @@ export class LitmHooks {
 				<p>The system is under active development and you can expect frequent updates as the year progresses. Following is a list of coming feature improvements in no particular order:</p>
 				<ul>
 						<li>
-								<p><strong>Story Tags & Statuses: </strong>Tags and Statuses not part of a backpack or theme will likely be implemented as Active Effects with their own interface and tracking.</p>
+								<p><strong>Backpacks:</strong> At the moment the backpack is hardcoded into the actor data. In the future Backpacks will become their own items which can be moved between players, and added from pre-made backpacks in the Item sidebar.</p>
 						</li>
 						<li>
-								<p><strong>Backpacks:</strong> At the moment the backpack is hardcoded into the actor data. In the future Backpacks will become their own items which can be moved between players, and added from premade backpacks in the Item sidebar.</p>
+								<p><strong>Improved Dice Rolling Experience:</strong> The idea is to allow the players to select tags they want to roll with directly from the character sheet. The roll dialog will also be improved.</p>
+						</li>
+						<li>
+								<p><strong>Improved handling of Statuses/Tags:</strong> Many small improvements to the tag/status systems, like dragging an actor onto the canvas, or hiding select actors/tags/statuses until relevant, or allowing players greater freedom in creating, editing and removing tags.</p>
 						</li>
 						<li>
 								<p><strong>Crew Theme </strong>and<strong> Theme Improvements:</strong> The Crew theme and theme improvements are yet to be revealed by <a href="https://cityofmist.co/blogs/news/son-of-oaks-new-game-engine">Son of Oak</a>. When the details on these are released work will commence on implementing them in the system.</p>
@@ -371,18 +395,45 @@ export class LitmHooks {
 								<p><span style="font-family: Modesto Condensed"><strong>Right-clicking</strong></span> the <em>Chat Card</em> of an <strong>Effect roll</strong> opens a context menu that lets you post extra effects to chat for reference.</p>
 						</li>
 				</ul>
+				<h2>Special Thanks</h2>
+				<p>This project already has some contributors, help and good vibes!</p>
+				<ul>
+						<li>
+								<p>Thanks to <strong>@Daegony</strong> <em>(Discord)</em> / <strong>@Roapon</strong> <em>(Github)</em> for contributing graphics, designs, UX advice and help with rules and the game in general.</p>
+						</li>
+						<li>
+								<p>Thanks to <strong>@CussaMitre</strong> for contributing code and squashing bugs.</p>
+						</li>
+						<li>
+								<p>Thanks to <strong>@Metamancer</strong> for being a rubber duck, and giving advice on both the game and development.</p>
+						</li>
+						<li>
+								<p>Thanks to <strong>@Altervayne </strong>for creating the online character creator and setting up a Discord community for us.</p>
+						</li>
+						<li>
+								<p>Thanks to the <em><strong>City of Mist </strong>Discord </em>for contributing feedback, bug reports and generally being awesome about me barging in the door like I did.</p>
+						</li>
+				</ul>
+				<p><em>If you feel like you could contribute something don't hesitate with contacting me <strong>@aMediocreDad</strong>.</em></p>
+				<p></p>
+				<blockquote>
+						<p><strong>See you in the mist…</strong></p>
+				</blockquote>
 				`,
 			});
 
-			// Create a welcome chat message
-
+			// Create a "welcome" chat message
 			ChatMessage.create({
 				title: "Welcome to Legend in the Mist!",
 				content: /* html */ `
 				<p><strong>Welcome to Legend in the Mist</strong></p>
-				<p>Before you start playing, you should want to read the <a class="content-link" draggable="true" data-uuid="${entry.uuid}" data-id="5AWCygW0BCFdk4sd" data-type="JournalEntryPage" data-tooltip="Text Page"><i class="fas fa-file-lines"></i>Legend in the Mist</a> journal entry. It contains some important information about the system, and what to expect.</p>
+				<p>Before you start playing, you should want to read the <a class="content-link" draggable="true" data-uuid="${entry.uuid
+					}" data-id="${entry._id
+					}" data-type="JournalEntryPage" data-tooltip="Text Page"><i class="fas fa-file-lines"></i>Legend in the Mist</a> journal entry. It contains some important information about the system, and what to expect.</p>
 				<p>Once you've read the journal entry, you can click the button below to import all the rules and content required to play the Tinderbox Demo.</p>
-				<button type="button" id="litm--import-adventure" style="background: var(--litm-color-status-bg);"><strong>${t("Litm.ui.import-adventure")}</strong></button>
+				<button type="button" id="litm--import-adventure" style="background: var(--litm-color-status-bg);"><strong>${t(
+						"Litm.ui.import-adventure"
+					)}</strong></button>
 				<p style="text-align:center;">Good luck, and have fun!</p>
 			`,
 			});

@@ -47,8 +47,8 @@
 		grid-template-columns: auto 1fr 70px;
 		align-items: center;
 		gap: var(--litm-space-1);
-		padding: var(--litm-space-1) 16px;
-		background-image: linear-gradient(to bottom, rgb(16 34 44 / 80%) 70%, transparent);
+		padding: var(--litm-space-1) 16px var(--litm-space-3);
+		background-image: linear-gradient(to bottom, rgb(16 34 44 / 80%) 30%, transparent 100%);
 
 		& input {
 			margin-inline: -4px 6px;

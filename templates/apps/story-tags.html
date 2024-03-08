@@ -1,18 +1,75 @@
+{{#*inline 'tagItem' tag source editable}}
+	{{log tag.name editable}}
+	<li class="litm--tag-item litm--{{ifThen (eq tag.type 'status') 'status' 'tag'}}" data-context="remove-tag"
+		data-id="{{tag._id}}" data-type="{{source}}">
+		<label class="litm--burn-label"><span class="litm--sro">{{localize "Litm.ui.burn-tag"}}</span>
+			<input class="litm--burn" type="checkbox" name="{{source}}.{{tag._id}}.isBurnt"
+				data-tooltip="{{localize (ifThen tag.isBurnt 'Litm.tags.isBurnt' 'Litm.tags.burn')}}"
+				{{ifThen editable "" "disabled"}} {{checked tag.isBurnt}} />
+		</label>
+		<input class="litm--tag-item-name" name="{{source}}.{{tag._id}}.name" value="{{tag.name}}"
+			{{ifThen editable "" "readonly"}} />
+		<div class="litm--tag-item-status" data-tooltip="{{tag.name}}{{ifThen tag.value (concat '-' tag.value) ''}}">
+			{{#each tag.values as |status|}}
+				<input name="{{../source}}.{{../tag._id}}.values" type="checkbox" value="{{add @index 1}}"
+					{{ifThen ../editable "" "disabled"}} {{checked status}} />
+			{{/each}}
+		</div>
+	</li>
+{{/inline}}
+
+{{#*inline 'add-button' id}}
+	<button type="button" data-click="add-tag" data-id="{{id}}" data-tooltip="{{localize 'Litm.ui.add-tag'}}">
+		<span class="litm--sro">{{localize "Litm.ui.add-tag"}}</span>
+		<i class="far fa-add"></i>
+	</button>
+{{/inline}}
+
 <form class="{{cssClass}}" autocomplete="off">
-	<h2>{{concat (localize "Litm.tags.story") " " (localize "Litm.other.tags")}}</h2>
-	<div class="form-group">
-		<label for="story-tags">Tags</label>
-		<input type="text" class="form-control" id="story-tags" name="name" placeholder="Tags" value="{{name}}">
-	</div>
-	<hr>
-	<fieldset>
-
-	</fieldset>
-	<hr>
-	<fieldset class="actors">
-
-	</fieldset>
-	<hr>
-	<button type="submit" class="btn btn-primary">Save</button>
-	<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+	<h2>{{localize "Litm.ui.manage-tags"}}</h2>
+	<section>
+		<div class="litm--story-tags-main">
+			<fieldset style="display: contents;">
+				<div class="litm--story-tags-section-header">
+					<legend>
+						{{concat (localize "Litm.tags.story") " " (localize "Litm.other.tags")}}
+					</legend>
+					{{> add-button id="story"}}
+				</div>
+				<ul>
+					{{#each tags as |tag|}}
+						{{> tagItem tag=tag source="story" editable=true}}
+					{{/each}}
+				</ul>
+			</fieldset>
+		</div>
+	</section>
+	<hr />
+	<section>
+		{{#each actors as |actor|}}
+			<div data-id="{{actor.id}}" class="litm--story-tags-actor">
+				<fieldset style="display: contents;">
+					<div class="litm--story-tags-section-header">
+						<legend aria-label="{{actor.name}} tags" data-context="remove-actor" data-id="{{actor.id}}">
+							<!-- <img src="{{actor.img}}" alt="" aria-hidden="true"> -->
+							{{actor.name}}
+						</legend>
+						{{#if actor.isOwner}}
+							{{> add-button id=actor.id}}
+						{{/if}}
+					</div>
+					<ul>
+						{{#each actor.tags as |tag|}}
+							{{> tagItem tag=tag source=../id editable=actor.isOwner}}
+						{{/each}}
+					</ul>
+				</fieldset>
+			</div>
+		{{else}}
+			<div class="litm--story-tags-no-actors">
+				<p>{{localize "Litm.ui.drop-actors"}}</p>
+				<img src="systems/litm/assets/media/birb.webp" width="75" aria-hidden="true">
+			</div>
+		{{/each}}
+	</section>
 </form>

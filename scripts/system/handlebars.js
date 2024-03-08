@@ -5,6 +5,14 @@ export class HandlebarsHelpers {
 		info("Registering Handlebars Helpers...");
 
 		Handlebars.registerHelper(
+			"add",
+			(...args) => {
+				args.pop();
+				return args.reduce((acc, val) => acc + val, 0);
+			}
+		);
+
+		Handlebars.registerHelper(
 			"progress-buttons",
 			function (current, max, block) {
 				let acc = "";
@@ -39,6 +47,7 @@ export class HandlebarsPartials {
 		"systems/litm/templates/chat/message.html",
 		"systems/litm/templates/chat/message-tooltip.html",
 		"systems/litm/templates/item/theme-ro.html",
+		"systems/litm/templates/partials/new-tag.html",
 		"systems/litm/templates/partials/tag.html",
 	];
 

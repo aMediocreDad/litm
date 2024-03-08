@@ -368,6 +368,25 @@
 					}
 				}
 			}
+
+			& button[data-click="add-tag"] {
+				margin-inline: 2rem;
+				padding-bottom: var(--litm-space-2);
+				width: auto;
+				border: none;
+				border-radius: 0px;
+				border-top: 1.5px solid rgb(0, 0, 0, 0.4);
+				background-color: transparent;
+				color: var(--litm-color);
+				font-size: var(--font-size-20);
+				font-family: var(--litm-font-accent);
+				transition: all 0.15s;
+
+				&:hover {
+					box-shadow: none;
+					text-shadow: 0 0 4px rgb(0, 0, 0, 0.5);
+				}
+			}
 		}
 	}
 

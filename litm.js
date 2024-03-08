@@ -1,5 +1,8 @@
+import { DENOMINATION, DoubleSix } from "./scripts/apps/dice.js";
 import { importCharacter } from "./scripts/apps/import-character.js";
+import { LitmRollDialog } from "./scripts/apps/roll-dialog.js";
 import { StoryTagApp } from "./scripts/apps/story-tags.js";
+import { ToggledInput } from "./scripts/components/toggled-input.js";
 import { TagData } from "./scripts/data/abstract.js";
 import { CharacterData } from "./scripts/actor/character/character-data.js";
 import { CharacterSheet } from "./scripts/actor/character/character-sheet.js";
@@ -13,19 +16,21 @@ import {
 	HandlebarsHelpers,
 	HandlebarsPartials,
 } from "./scripts/system/handlebars.js";
-import { info, success } from "./scripts/logger.js";
 import { Fonts } from "./scripts/system/fonts.js";
 import { LitmHooks } from "./scripts/system/hooks.js";
 import { LitmRoll } from "./scripts/apps/roll.js";
-import { LitmRollDialog } from "./scripts/apps/roll-dialog.js";
 import { LitmConfig } from "./scripts/system/config.js";
 import { LitmSettings } from "./scripts/system/settings.js";
 import { Enrichers } from "./scripts/system/enrichers.js";
-import { DENOMINATION, DoubleSix } from "./scripts/apps/dice.js";
+import { info, success } from "./scripts/logger.js";
 
 // Set the logo to the LitM logo
 $("#logo")[0].src = "systems/litm/assets/media/logo.webp";
 
+// Register Custom Elements
+ToggledInput.Register();
+
+// Init Hook
 Hooks.once("init", () => {
 	info("Initializing Legend in the Mist...");
 	game.litm = {

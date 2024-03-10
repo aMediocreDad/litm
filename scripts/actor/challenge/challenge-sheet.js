@@ -42,7 +42,7 @@ export class ChallengeSheet extends SheetMixin(ActorSheet) {
 	}
 
 	async _updateObject(event, formData) {
-		const sanitizedFormData = this.#sanitizeTags(formData);
+		const sanitizedFormData = await this.#sanitizeTags(formData);
 
 		return super._updateObject(event, sanitizedFormData);
 	}
@@ -158,12 +158,12 @@ export class ChallengeSheet extends SheetMixin(ActorSheet) {
 		item.sheet.render(true);
 	}
 
-	#sanitizeTags(formData) {
+	async #sanitizeTags(formData) {
 		if (!formData['system.tags']) return formData;
 		const re = CONFIG.litm.tagStringRe;
-		const tags = formData['system.tags'].match(re);
 		formData['system.tags'] = tags ? tags.join(" ") : "";
 
+		const tags = formData['system.tags'].match(re);
 		return formData;
 	}
 }

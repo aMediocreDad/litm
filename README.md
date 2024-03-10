@@ -27,3 +27,19 @@ Thank you for wanting to try out this system! The game is still under developmen
 2. Create a new world using the "Legend in the Mist" system.
 
 \*_This system is published with express permission from **Son of Oak**_
+
+# Special Thanks
+
+This project already has some contributors, help and good vibes!
+
+- Thanks to **@Daegony** _(Discord)_ / **@Roapon** _(Github)_ for contributing graphics, designs, UX advice and help with rules and the game in general.
+
+- Thanks to **@CussaMitre** for contributing code and squashing bugs.
+
+- Thanks to **@Metamancer** for being a rubber duck, and giving advice on both the game and development.
+
+- Thanks to **@Altervayne** for creating the online character creator and setting up a Discord community for us.
+
+- Thanks to the _**City of Mist**_ Discord for contributing feedback, bug reports and generally being awesome about me barging in the door like I did.
+
+_If you feel like you could contribute something don't hesitate with contacting me @aMediocreDad._

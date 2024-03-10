@@ -25,6 +25,7 @@
 			"path": "lang/en.json"
 		}
 	],
+	"socket": true,
 	"compatibility": {
 		"minimum": 11,
 		"verified": 11,
@@ -37,10 +38,6 @@
 			"name": "tinderbox-demo",
 			"path": "packs/tinderbox-demo",
 			"system": "litm",
-			"ownership": {
-				"PLAYER": "NONE",
-				"ASSISTANT": "OWNER"
-			},
 			"flags": {}
 		}
 	],
@@ -70,8 +67,8 @@
 		]
 	},
 	"background": "systems/litm/assets/media/litm_splash.webp",
-	"bugs": "https://github.com/aMediocreDad/litm/issues?q=is:issue+is:open+sort:updated-desc",
 	"url": "https://github.com/aMediocreDad/litm",
+	"bugs": "https://github.com/aMediocreDad/litm/issues?q=is:issue+is:open+sort:updated-desc",
 	"manifest": "https://raw.githubusercontent.com/aMediocreDad/litm/main/system.json",
 	"download": "https://github.com/aMediocreDad/litm/archive/refs/tags/v6.zip",
 	"readme": "https://github.com/aMediocreDad/litm/blob/main/README.md"

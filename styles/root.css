@@ -58,6 +58,11 @@ button,
 	border-color: var(--litm-color-accent-bg);
 }
 
+/* Add more color to sidebar */
+#sidebar {
+	border: 2px solid var(--litm-color);
+}
+
 /* Custom dice roll chat messages */
 .chat-message:has(.litm.dice-roll) {
 	background-color: var(--litm-color-weakness);

@@ -5,5 +5,6 @@
 @import "./styles/actor/challenge.css";
 @import "./styles/actor/character.css";
 @import "./styles/apps/roll-dialog.css";
-@import "./styles/apps/roll-button.css";
+@import "./styles/apps/sidebar-buttons.css";
+@import "./styles/apps/story-tags.css";
 @import "./styles/chat/message.css";

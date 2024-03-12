@@ -63,7 +63,7 @@ export class ThemeSheet extends SheetMixin(ItemSheet) {
 	}
 
 	async #removeTag(_) {
-		if (!(await confirmDelete())) return;
+		if (!(await confirmDelete("Litm.other.tag"))) return;
 		throw new Error("Not implemented");
 	}
 

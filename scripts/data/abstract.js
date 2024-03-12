@@ -6,7 +6,7 @@ export class TagData extends foundry.abstract.DataModel {
 				required: true,
 				nullable: false,
 				validate: (id) => foundry.data.validators.isValidId(id),
-				initial: () => randomID()
+				initial: () => randomID(),
 			}),
 			name: new fields.StringField({
 				required: true,

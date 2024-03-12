@@ -32,7 +32,7 @@ Thank you for wanting to try out this system! The game is still under developmen
 
 This project already has some contributors, help and good vibes!
 
-- Thanks to **@Daegony** _(Discord)_ / **@Roapon** _(Github)_ for contributing graphics, designs, UX advice and help with rules and the game in general.
+- Thanks to **@Daegony** for contributing graphics, designs, UX advice and help with rules and the game in general.
 
 - Thanks to **@CussaMitre** for contributing code and squashing bugs.
 

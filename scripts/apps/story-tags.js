@@ -10,7 +10,7 @@ export class StoryTagApp extends SheetMixin(FormApplication) {
 			top: 80,
 			width: 300,
 			height: 500,
-			resizable: false,
+			resizable: true,
 			submitOnChange: true,
 			submitOnClose: true,
 			closeOnSubmit: false,
@@ -25,21 +25,28 @@ export class StoryTagApp extends SheetMixin(FormApplication) {
 	}
 
 	get actors() {
-		return this.config.actors?.map((id) => game.actors.get(id)).filter(Boolean).map((actor) => ({
-			name: actor.name,
-			type: actor.type,
-			img: actor.prototypeToken.texture.src || actor.img,
-			id: actor._id,
-			isOwner: actor.isOwner,
-			tags: actor.effects.filter(e => !!e.flags.litm?.type).map(e => ({
-				_id: e._id,
-				name: e.name,
-				values: e.flags.litm.values,
-				isBurnt: e.flags.litm.isBurnt,
-				value: e.flags.litm.values.filter(v => v !== null).at(-1),
-				type: e.flags.litm.type,
-			})),
-		})) || [];
+		return (
+			this.config.actors
+				?.map((id) => game.actors.get(id))
+				.filter(Boolean)
+				.map((actor) => ({
+					name: actor.name,
+					type: actor.type,
+					img: actor.prototypeToken.texture.src || actor.img,
+					id: actor._id,
+					isOwner: actor.isOwner,
+					tags: actor.effects
+						.filter((e) => !!e.flags.litm?.type)
+						.map((e) => ({
+							_id: e._id,
+							name: e.name,
+							values: e.flags.litm.values,
+							isBurnt: e.flags.litm.isBurnt,
+							value: e.flags.litm.values.filter((v) => v !== null).at(-1),
+							type: e.flags.litm.type,
+						})),
+				})) || []
+		);
 	}
 
 	get tags() {
@@ -58,8 +65,9 @@ export class StoryTagApp extends SheetMixin(FormApplication) {
 
 	async getData() {
 		return {
-			isGM: game.user.isGM,
-			actors: this.actors.sort((a, _b) => a.type === "challenge" ? 1 : -1).sort((a, b) => a.name.localeCompare(b.name)),
+			actors: this.actors
+				.sort((a, b) => a.name.localeCompare(b.name))
+				.sort((_a, b) => (b.type === "challenge" ? 1 : -1)),
 			tags: this.tags || [],
 		};
 	}
@@ -68,6 +76,9 @@ export class StoryTagApp extends SheetMixin(FormApplication) {
 		super.activateListeners(html);
 		html.find("[data-click]").on("click", this.#onClick.bind(this));
 		html.find("[data-context]").on("contextmenu", this.#onContext.bind(this));
+		html
+			.find("[data-focus")
+			.on("focus", (event) => event.currentTarget.select());
 
 		window.addEventListener("resize", () => {
 			this.setPosition({ left: window.innerWidth - 605 });
@@ -92,27 +103,36 @@ export class StoryTagApp extends SheetMixin(FormApplication) {
 
 		const { story, ...actors } = data;
 
-		await Promise.all(Object.entries(actors).map(([id, tags]) => this.#updateTagsOnActor({
-			id, tags: Object.entries(tags).map(([tagId, data]) => ({
-				_id: tagId,
-				name: data.name,
-				flags: { litm: { type: data.values.some(v => v !== null) ? "status" : "tag", values: data.values, isBurnt: data.isBurnt } }
-			}))
-		})));
+		await Promise.all(
+			Object.entries(actors).map(([id, tags]) =>
+				this.#updateTagsOnActor({
+					id,
+					tags: Object.entries(tags).map(([tagId, data]) => ({
+						_id: tagId,
+						name: data.name,
+						flags: {
+							litm: {
+								type: data.values.some((v) => v !== null) ? "status" : "tag",
+								values: data.values,
+								isBurnt: data.isBurnt,
+							},
+						},
+					})),
+				}),
+			),
+		);
 
 		const storyTags = Object.entries(story || {}).map(([tagId, data]) => ({
 			_id: tagId,
 			name: data.name,
 			values: data.values,
 			isBurnt: data.isBurnt,
-			type: data.values.some(v => v !== null) ? "status" : "tag",
-			value: data.values.filter(v => v !== null).at(-1)
+			type: data.values.some((v) => v !== null) ? "status" : "tag",
+			value: data.values.filter((v) => v !== null).at(-1),
 		}));
 
-		if (game.user.isGM)
-			await this.setTags(storyTags);
-		else
-			this.#broadcastUpdate("tags", storyTags);
+		if (game.user.isGM) await this.setTags(storyTags);
+		else this.#broadcastUpdate("tags", storyTags);
 	}
 
 	async _onDrop(dragEvent) {
@@ -126,12 +146,29 @@ export class StoryTagApp extends SheetMixin(FormApplication) {
 
 		// Add current tags and statuses from a challenge
 		const actor = game.actors.get(id);
-		if (actor.type === "challenge" && actor.effects.size === 0 && actor.system.tags.length) {
+		if (
+			actor.type === "challenge" &&
+			actor.effects.size === 0 &&
+			actor.system.tags.length
+		) {
 			const tags = actor.system.tags.matchAll(CONFIG.litm.tagStringRe);
-			await actor.createEmbeddedDocuments("ActiveEffect", Array.from(tags).map(([_, name, value]) => ({
-				name,
-				flags: { litm: { type: value ? "status" : "tag", values: Array(6).fill().map((_, i) => parseInt(value) === i + 1 ? value : null), isBurnt: false } },
-			})));
+			await actor.createEmbeddedDocuments(
+				"ActiveEffect",
+				Array.from(tags).map(([_, name, value]) => ({
+					name,
+					flags: {
+						litm: {
+							type: value ? "status" : "tag",
+							values: Array(6)
+								.fill()
+								.map((_, i) =>
+									Number.parseInt(value) === i + 1 ? value : null,
+								),
+							isBurnt: false,
+						},
+					},
+				})),
+			);
 		}
 
 		await this.setActors([...this.config.actors, id]);
@@ -139,7 +176,7 @@ export class StoryTagApp extends SheetMixin(FormApplication) {
 
 	// Only GM can drop actors onto the board
 	_canDragDrop() {
-		return game.user.isGM
+		return game.user.isGM;
 	}
 
 	#onClick(event) {
@@ -172,15 +209,16 @@ export class StoryTagApp extends SheetMixin(FormApplication) {
 	async #addTag(target) {
 		const tag = {
 			name: t("Litm.ui.name-tag"),
-			values: Array(6).fill().map(() => null),
+			values: Array(6)
+				.fill()
+				.map(() => null),
 			type: "tag",
 			isBurnt: false,
 			_id: randomID(),
-		}
+		};
 
 		if (target === "story") {
-			if (game.user.isGM)
-				return this.setTags([...this.tags, tag]);
+			if (game.user.isGM) return this.setTags([...this.tags, tag]);
 			return this.#broadcastUpdate("tags", [...this.tags, tag]);
 		}
 
@@ -188,28 +226,39 @@ export class StoryTagApp extends SheetMixin(FormApplication) {
 	}
 
 	async #removeTag(target) {
-		if (!await confirmDelete()) return;
+		if (!(await confirmDelete("Litm.other.tag"))) return;
 
 		const id = target.dataset.id;
 		const type = target.dataset.type;
 
 		if (type === "story") {
 			if (game.user.isGM)
-				return this.setTags(this.config.tags.filter(t => t._id !== id));
-			return this.#broadcastUpdate("tags", this.config.tags.filter(t => t._id !== id));
+				return this.setTags(this.config.tags.filter((t) => t._id !== id));
+			return this.#broadcastUpdate(
+				"tags",
+				this.config.tags.filter((t) => t._id !== id),
+			);
 		}
 		return this.#removeTagFromActor({ actorId: type, id });
 	}
 
 	async #addTagToActor({ id, tag }) {
 		const actor = game.actors.get(id);
-		if (!actor) return ui.notifications.error("Litm.ui.error-no-actor", { localize: true });
-		if (!actor.isOwner) return ui.notifications.error("Litm.ui.warn-not-owner", { localize: true });
+		if (!actor)
+			return ui.notifications.error("Litm.ui.error-no-actor", {
+				localize: true,
+			});
+		if (!actor.isOwner)
+			return ui.notifications.error("Litm.ui.warn-not-owner", {
+				localize: true,
+			});
 
-		await actor.createEmbeddedDocuments("ActiveEffect", [{
-			name: tag.name,
-			flags: { litm: { type: "tag", values: tag.values, isBurnt: false } },
-		}]);
+		await actor.createEmbeddedDocuments("ActiveEffect", [
+			{
+				name: tag.name,
+				flags: { litm: { type: "tag", values: tag.values, isBurnt: false } },
+			},
+		]);
 		return this.#broadcastRender();
 	}
 
@@ -220,8 +269,14 @@ export class StoryTagApp extends SheetMixin(FormApplication) {
 
 	async #removeTagFromActor({ actorId, id }) {
 		const actor = game.actors.get(actorId);
-		if (!actor) return ui.notifications.error("Litm.ui.error-no-actor", { localize: true });
-		if (!actor.isOwner) return ui.notifications.error("Litm.ui.warn-not-owner", { localize: true });
+		if (!actor)
+			return ui.notifications.error("Litm.ui.error-no-actor", {
+				localize: true,
+			});
+		if (!actor.isOwner)
+			return ui.notifications.error("Litm.ui.warn-not-owner", {
+				localize: true,
+			});
 
 		await actor.deleteEmbeddedDocuments("ActiveEffect", [id]);
 		return this.#broadcastRender();
@@ -229,10 +284,10 @@ export class StoryTagApp extends SheetMixin(FormApplication) {
 
 	async #removeActor(id) {
 		if (!game.user.isGM) return;
-		if (!await confirmDelete()) return;
+		if (!(await confirmDelete("Actor"))) return;
 
-		await this.setActors(this.config.actors.filter(a => a !== id));
-		this.#broadcastRender()
+		await this.setActors(this.config.actors.filter((a) => a !== id));
+		this.#broadcastRender();
 	}
 
 	/**  Start Socket Methods  */
@@ -243,13 +298,12 @@ export class StoryTagApp extends SheetMixin(FormApplication) {
 
 	#broadcastRender() {
 		dispatch({ app: "story-tags", type: "render" });
-		this.render()
+		this.render();
 	}
 
 	async #doUpdate(component, data) {
 		if (!game.user.isGM) return;
-		if (component === "tags")
-			return this.setTags(data);
+		if (component === "tags") return this.setTags(data);
 	}
 
 	/**  End Socket Methods  */

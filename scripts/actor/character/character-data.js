@@ -21,7 +21,10 @@ export class CharacterData extends foundry.abstract.DataModel {
 
 	get powerTags() {
 		return this.allTags.filter(
-			(tag) => tag.type === "powerTag" || tag.type === "themeTag" || tag.type === "backpack",
+			(tag) =>
+				tag.type === "powerTag" ||
+				tag.type === "themeTag" ||
+				tag.type === "backpack",
 		);
 	}
 
@@ -47,7 +50,10 @@ export class CharacterData extends foundry.abstract.DataModel {
 			error("Too many themes found, attempting to resolve...");
 			console.error(`Too many themes found for: ${this.parent._id}`, themes);
 			const toDelete = themes.slice(4);
-			await this.parent.deleteEmbeddedDocuments("Item", toDelete.map((item) => item._id));
+			await this.parent.deleteEmbeddedDocuments(
+				"Item",
+				toDelete.map((item) => item._id),
+			);
 		}
 
 		// Validate unique data ids
@@ -57,7 +63,10 @@ export class CharacterData extends foundry.abstract.DataModel {
 			.filter((id, index, arr) => arr.indexOf(id) !== index);
 		if (!duplicates.length) return;
 		error("Duplicate tag IDs found, attempting to resolve...");
-		console.error(`Duplicate tag IDs found for: ${this.parent._id}`, duplicates)
+		console.error(
+			`Duplicate tag IDs found for: ${this.parent._id}`,
+			duplicates,
+		);
 
 		// try to fix duplicates
 		const tags = this.allTags;

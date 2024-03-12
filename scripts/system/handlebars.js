@@ -4,13 +4,10 @@ export class HandlebarsHelpers {
 	static register() {
 		info("Registering Handlebars Helpers...");
 
-		Handlebars.registerHelper(
-			"add",
-			(...args) => {
-				args.pop();
-				return args.reduce((acc, val) => acc + val, 0);
-			}
-		);
+		Handlebars.registerHelper("add", (...args) => {
+			args.pop();
+			return args.reduce((acc, val) => acc + val, 0);
+		});
 
 		Handlebars.registerHelper(
 			"progress-buttons",
@@ -34,8 +31,8 @@ export class HandlebarsHelpers {
 			tag.isActive
 				? "Litm.tags.isActive"
 				: readonly
-					? "Litm.tags.isInactive"
-					: "Litm.tags.activate",
+				  ? "Litm.tags.isInactive"
+				  : "Litm.tags.activate",
 		);
 	}
 }

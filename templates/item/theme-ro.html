@@ -2,70 +2,83 @@
 <!-- Intended for use embedded on a character sheet -->
 <input type="hidden" name="items.{{data._id}}.type" value="{{data.type}}" />
 <div class="litm--theme-background" data-tooltip="{{localize 'Litm.ui.dblclick-open'}}" data-tooltip-direction="LEFT">
-	<div class="litm--theme-meta litm--accent-bg">
-		<span class="litm--theme-meta-part">{{data.system.themebook}}</span>
-		<span class="litm--theme-meta-part">{{data.system.level}} THEME</span>
-	</div>
-	<div class="litm--theme-legend">
-		<span>{{localize "Litm.tags.power"}}
-			{{localize "Litm.other.tags"}}</span><span>・</span><span>{{localize "Litm.tags.weakness"}}
-			{{localize "Litm.other.tag"}}</span>
-	</div>
-	<div class="litm--theme-title">
-		<!-- isActive checkbox -->
-		<label><span class="litm--sro">{{localize (tagActiveString data.system true)}}</span>
-			<input class="litm--checkbox litm--checkbox-with-bg" type="checkbox" name="items.{{data._id}}.system.isActive"
-				data-tooltip="{{localize (tagActiveString data.system true)}}" disabled {{checked data.system.isActive}}>
-		</label>
-		<!-- Name input -->
-		<span>{{data.name}}</span>
-		<input type="hidden" name="items.{{data._id}}.name" value="{{data.name}}" />
-		<!-- isBurnt checkbox -->
-		<label><span class="litm--sro">{{localize (ifThen data.system.isBurnt 'Litm.tags.isBurnt' 'Litm.tags.burn')}}</span>
-			<input class="litm--burn" type="checkbox" name="items.{{data._id}}.system.isBurnt"
-				data-tooltip="{{localize (ifThen data.system.isBurnt 'Litm.tags.isBurnt' 'Litm.tags.burn')}}"
-				{{checked data.system.isBurnt}} />
-		</label>
-	</div>
-	<ul class="litm--tags">
-		{{#each data.system.powerTags as |tag|}}
-			{{> systems/litm/templates/partials/tag.html tag=tag key=@key path=(concat 'items.' ../data._id '.system.powerTags') readonly=true}}
-		{{/each}}
-	</ul>
-	{{#with data.system.weakness as |tag|}}
-		<div class="litm--weakness">
-			<!-- Name -->
-			<span class="litm--weakness-part">{{tag.name}}</span>
+	<div class="litm--theme-top">
+		<img class="litm--theme-border-top" src="systems/litm/assets/media/theme-border-top.webp" aria-hidden="true">
+		<div class="litm--theme-top-bg">
+			<div class="litm--theme-meta">
+				<span class="litm--theme-meta-part">{{data.system.themebook}}</span>
+				<span class="litm--theme-meta-part">{{data.system.level}} THEME</span>
+			</div>
+			<div class="litm--theme-legend">
+				<span>{{localize "Litm.tags.power"}}
+					{{localize "Litm.other.tags"}}</span><span>・</span><span>{{localize "Litm.tags.weakness"}}
+					{{localize "Litm.other.tag"}}</span>
+			</div>
+			<div class="litm--theme-title">
+				<!-- isActive checkbox -->
+				<label><span class="litm--sro">{{localize (tagActiveString data.system true)}}</span>
+					<input class="litm--checkbox litm--checkbox-with-bg" type="checkbox" name="items.{{data._id}}.system.isActive"
+						data-tooltip="{{localize (tagActiveString data.system true)}}" disabled {{checked data.system.isActive}}>
+				</label>
+				<!-- Name input -->
+				<span>{{data.name}}</span>
+				<input type="hidden" name="items.{{data._id}}.name" value="{{data.name}}" />
+				<!-- isBurnt checkbox -->
+				<label><span
+						class="litm--sro">{{localize (ifThen data.system.isBurnt 'Litm.tags.isBurnt' 'Litm.tags.burn')}}</span>
+					<input class="litm--burn" type="checkbox" name="items.{{data._id}}.system.isBurnt"
+						data-tooltip="{{localize (ifThen data.system.isBurnt 'Litm.tags.isBurnt' 'Litm.tags.burn')}}"
+						{{checked data.system.isBurnt}} />
+				</label>
+			</div>
+			<ul class="litm--tags">
+				{{#each data.system.powerTags as |tag|}}
+					{{> systems/litm/templates/partials/tag.html tag=tag key=@key path=(concat 'items.' ../data._id '.system.powerTags') readonly=true}}
+				{{/each}}
+			</ul>
+			{{#with data.system.weakness as |tag|}}
+				<div class="litm--weakness">
+					<!-- Name -->
+					<span class="litm--weakness-part">{{tag.name}}</span>
+				</div>
+			{{/with}}
+			<div class="litm--theme-progression">
+				<!-- Experience buttons -->
+				<div data-click="increase" data-context="decrease" data-id="system.experience"
+					data-tooltip="{{localize 'Litm.ui.inc-dec'}}">
+					{{#progress-buttons data.system.experience 3}}
+						<span class="litm--checkbox litm--checkbox-with-bg {{ifThen @checked 'checked' ''}}"></span>
+					{{/progress-buttons}}
+					<label for="{{data._id}}-experience">{{localize "Litm.other.experience"}}
+						<input id="{{data._id}}-experience" type="number" class="litm--sro"
+							name="items.{{data._id}}.system.experience" value="{{data.system.experience}}" />
+					</label>
+				</div>
+				<!-- Decay buttons -->
+				<div data-click="increase" data-context="decrease" data-id="system.decay"
+					data-tooltip="{{localize 'Litm.ui.inc-dec'}}">
+					{{#progress-buttons data.system.decay 3}}
+						<span class="litm--checkbox litm--checkbox-with-bg {{ifThen @checked 'checked' ''}}"></span>
+					{{/progress-buttons}}
+					<label for="{{data._id}}-decay">{{localize "Litm.tags.decay"}}
+						<input id="{{data._id}}-decay" type="number" class="litm--sro" name="items.{{data._id}}.system.decay"
+							value="{{data.system.decay}}" />
+					</label>
+				</div>
+			</div>
 		</div>
-	{{/with}}
-	<div class="litm--theme-progression">
-		<!-- Experience buttons -->
-		<div data-click="increase" data-context="decrease" data-id="system.experience">
-			{{#progress-buttons data.system.experience 3}}
-				<span class="litm--checkbox litm--checkbox-with-bg {{ifThen @checked 'checked' ''}}"></span>
-			{{/progress-buttons}}
-			<label>{{localize "Litm.other.experience"}}
-				<input type="hidden" name="items.{{data._id}}.system.experience" value="{{data.system.experience}}" />
-			</label>
-		</div>
-		<!-- Decay buttons -->
-		<div data-click="increase" data-context="decrease" data-id="system.decay">
-			{{#progress-buttons data.system.decay 3}}
-				<span class="litm--checkbox litm--checkbox-with-bg {{ifThen @checked 'checked' ''}}"></span>
-			{{/progress-buttons}}
-			<label>{{localize "Litm.tags.decay"}}
-				<input type="hidden" name="items.{{data._id}}.system.decay" value="{{data.system.decay}}" />
-			</label>
-		</div>
 	</div>
-	<div class="litm--accent-bg litm--theme-bottom">
-		<div class="motivation">
-			<span role="textbox">{{data.system.motivation}}</span>
-			<input type="hidden" name="items.{{data._id}}.system.motivation" value="{{data.system.motivation}}" />
-		</div>
-		<div class="note">
-			{{editor data.system.note target='items.{{data._id}}.system.note' owner=owner editable=false}}
-			<input type="hidden" name="items.{{data._id}}.system.note" value="{{data.system.note}}">
+	<div class="litm--theme-bottom">
+		<img class="litm--theme-border-bottom" src="systems/litm/assets/media/theme-border-bottom.webp" aria-hidden="true">
+		<div class="litm--theme-bottom-bg">
+			<div class="motivation">
+				<span role="textbox">{{data.system.motivation}}</span>
+				<input type="hidden" name="items.{{data._id}}.system.motivation" value="{{data.system.motivation}}" />
+			</div>
+			<div class="note">
+				{{editor data.system.note target='items.{{data._id}}.system.note' owner=owner editable=false}}
+				<input type="hidden" name="items.{{data._id}}.system.note" value="{{data.system.note}}">
+			</div>
 		</div>
 	</div>
 </div>

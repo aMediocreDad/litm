@@ -1,9 +1,8 @@
 .litm.litm--character {
-	background: url("../../assets/media/bg.webp");
-	background-size: cover;
-	background-position: center;
+	background: url("../../assets/media/character-bg.webp") no-repeat left / cover;
 	overflow: visible;
 	z-index: unset;
+	border-radius: 0px;
 
 	&:not(.minimized) {
 		& .window-header {
@@ -165,18 +164,15 @@
 		position: absolute;
 		top: 50px;
 		left: 70px;
-		background: url("../../assets/media/bg.webp");
-		background-size: cover;
-		background-position: top;
-		outline: 2px solid var(--litm-color-primary);
+		background: url("../../assets/media/character-bg.webp") no-repeat left / contain;
 		color: var(--litm-color-primary-bg);
-		outline-offset: -10px;
+		box-shadow: none;
 		filter: drop-shadow(0 0 6px var(--litm-color-primary));
 		padding: var(--litm-space-3);
 		display: none;
 		flex-direction: column;
-		height: 450px;
-		width: 450px;
+		height: 361px;
+		width: 500px;
 		max-width: unset;
 		font-family: var(--litm-font-text);
 		z-index: 2;
@@ -185,12 +181,12 @@
 			content: "";
 			position: absolute;
 			background: url(../../assets/media/bottom-branch.webp) no-repeat center / contain;
-			height: 45%;
-			width: 65%;
+			height: 46%;
+			width: 55%;
 			z-index: 1;
 			pointer-events: none;
-			bottom: -80px;
-			right: -90px;
+			bottom: -60px;
+			right: -70px;
 		}
 
 		&::after {
@@ -198,11 +194,11 @@
 			position: absolute;
 			background: url(../../assets/media/feather.webp) no-repeat center / contain;
 			height: 45%;
-			width: 45%;
+			width: 35%;
 			z-index: 1;
 			pointer-events: none;
-			top: -100px;
-			left: 50px;
+			top: -80px;
+			left: 45px;
 		}
 
 		&[style*="display: block"] {
@@ -214,7 +210,8 @@
 			display: flex;
 			justify-content: space-between;
 			align-items: center;
-			padding-inline: var(--litm-space-2) var(--litm-space-1);
+			padding-inline: var(--litm-space-1);
+			flex: none;
 
 			& button {
 				border: none;
@@ -240,13 +237,13 @@
 		}
 	}
 
-	& .backpack {
+	& .litm--character-backpack {
 		position: absolute;
-		right: -260px;
+		right: -265px;
 		top: 0px;
 		isolation: isolate;
 
-		& .backpack--img {
+		& .litm--backpack-img {
 			position: absolute;
 			max-width: unset;
 			right: -50px;
@@ -258,14 +255,22 @@
 			pointer-events: none;
 		}
 
-		& .backpack--bg {
+		& .litm--backpack-bg-frame {
+			position: absolute;
+			pointer-events: none;
+			top: -13px;
+			right: 59px;
+			height: 82%;
+			width: 83%;
+			rotate: 7deg;
+			z-index: 1;
+		}
+
+		& .litm--backpack-bg {
 			position: relative;
 			top: -40px;
 			right: 35px;
 			background: url("../../assets/media/background.webp") 0% 0% / cover;
-			outline: 2px solid var(--litm-color);
-			outline-offset: -10px;
-			padding: 10px;
 			overflow: hidden;
 			box-shadow: none;
 			filter: drop-shadow(black 2px 4px 6px);
@@ -278,13 +283,13 @@
 			rotate: 7deg;
 
 			& .meta {
-				background: var(--litm-color-accent-2) url("/ui/parchment.jpg") repeat;
-				background-blend-mode: color-burn;
+				background: url(../../assets/media/backpack-top-bg.webp) no-repeat bottom / cover;
 				color: var(--litm-color-accent);
 				font-family: var(--litm-font-primary);
-				font-size: var(--font-size-16);
+				text-transform: uppercase;
+				font-size: var(--font-size-12);
 				text-align: center;
-				padding: var(--litm-space-1) var(--litm-space-3);
+				padding: var(--litm-space-2) var(--litm-space-3);
 			}
 
 			& .title {
@@ -314,17 +319,6 @@
 								transparent,
 								rgba(69, 59, 29, 0.1),
 								transparent);
-
-						& .tag--name {
-							border-top: 1.5px solid rgb(0, 0, 0, 0.2);
-							border-bottom: 1.5px solid rgb(0, 0, 0, 0.2);
-						}
-					}
-
-					&:last-child {
-						.tag--name {
-							border-bottom: 1.5px solid rgba(88, 9, 9, 0.2);
-						}
 					}
 
 					& .tag--name {
@@ -338,6 +332,8 @@
 						font-family: var(--litm-font-text);
 						color: var(--litm-color-primary);
 						width: 100%;
+						border-top: 1.5px solid rgb(0, 0, 0, 0.2);
+						border-image: url("../../assets/media/item-divider.webp") 14 / 2;
 
 						&:focus,
 						&:active {
@@ -395,6 +391,7 @@
 	}
 
 	& .litm--character-theme {
+		isolation: isolate;
 		position: absolute;
 		top: 0px;
 		left: -225px;
@@ -403,26 +400,12 @@
 		border-radius: 2px;
 		translate: -20% -18%;
 		rotate: 1deg;
-		scale: 0.7;
-		transition: scale 0.15s;
-
-		& .litm--theme-background {
-			background: url("../../assets/media/background.webp") 0% 0% / cover;
-			outline: 2px solid var(--litm-color);
-			outline-offset: -10px;
-			padding: 10px;
-			overflow: hidden;
-			box-shadow: none;
-			filter: drop-shadow(rgb(0, 0, 0, 0.2) -4px -2px 6px);
-			color: var(--litm-color);
-		}
-
-		& .meta {
-			padding-block-start: 8px;
-		}
+		scale: 0.71;
+		transition: scale 0.13s;
+		filter: drop-shadow(0px 2px 4px rgb(0, 0, 0, 0.5));
 
 		&:hover {
-			scale: 0.8;
+			scale: 0.85;
 			z-index: 1;
 		}
 
@@ -432,7 +415,7 @@
 			background: url(../../assets/media/middle-branches.webp) no-repeat center / contain;
 			height: 55%;
 			width: 55%;
-			z-index: 1;
+			z-index: 3;
 			pointer-events: none;
 			bottom: -80px;
 			left: -63px;
@@ -443,6 +426,20 @@
 			top: 20px;
 			left: -20px;
 			rotate: -1deg;
+
+			&::before {
+				content: "";
+				position: absolute;
+				background: url(../../assets/media/raven.webp) no-repeat center / contain;
+				height: 55%;
+				width: 55%;
+				z-index: 3;
+				pointer-events: none;
+				bottom: -150px;
+				left: -80px;
+				rotate: -10deg;
+				transform: scale(-0.6, 0.6);
+			}
 		}
 
 		&:nth-child(3) {
@@ -456,7 +453,7 @@
 				background: url(../../assets/media/flowers-top.webp) no-repeat center / contain;
 				height: 55%;
 				width: 55%;
-				z-index: 1;
+				z-index: 3;
 				pointer-events: none;
 				top: 280px;
 				left: -90px;
@@ -479,8 +476,16 @@
 				pointer-events: none;
 				top: -140px;
 				left: -10px;
-				rotate: -10deg;
+				rotate: 0deg;
 			}
+		}
+
+		& .litm--theme-background {
+			overflow: hidden;
+		}
+
+		& .litm--theme-top .litm--theme-meta {
+			padding-block: 12px;
 		}
 	}
 }

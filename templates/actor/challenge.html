@@ -4,8 +4,8 @@
 		<label for="limits">{{localize title}}</label>
 		<img src="systems/litm/assets/media/right-div.webp" aria-hidden="true" />
 		{{#if add}}
-			<button class="litm--challenge-add" type="button" data-click="add-{{add}}" aria-label="{{localize "Litm.ui.add"}}"
-				data-tooltip="{{localize (concat 'Litm.ui.add-' add) }}">
+			<button class="litm--challenge-add" type="button" data-click="{{concat 'add-' add}}"
+				aria-label="{{localize (concat 'Litm.ui.add-' add)}}" data-tooltip="{{localize (concat 'Litm.ui.add-' add) }}">
 				<i class="far fa-plus"></i>
 			</button>
 		{{/if}}

@@ -8,28 +8,28 @@ export class Fonts {
 				{
 					name: "LitM Dice",
 					urls: ["systems/litm/assets/fonts/litm-dice.otf"],
-				}
-			]
-		})
+				},
+			],
+		});
 		FontConfig.loadFont("CaslonAntique", {
 			editor: true,
 			fonts: [
 				{
 					name: "CaslonAntique",
 					urls: ["systems/litm/assets/fonts/caslon.ttf"],
-					sizeAdjust: "110%"
+					sizeAdjust: "110%",
 				},
 				{
 					name: "CaslonAntique",
 					urls: ["systems/litm/assets/fonts/caslon-b.ttf"],
 					weight: "bold",
-					sizeAdjust: "110%"
+					sizeAdjust: "110%",
 				},
 				{
 					name: "CaslonAntique",
 					urls: ["systems/litm/assets/fonts/caslon-i.ttf"],
 					style: "italic",
-					sizeAdjust: "110%"
+					sizeAdjust: "110%",
 				},
 			],
 		});
@@ -85,6 +85,6 @@ export class Fonts {
 					weight: "bold",
 				},
 			],
-		})
+		});
 	}
 }

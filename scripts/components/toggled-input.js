@@ -1,6 +1,11 @@
 export class ToggledInput extends HTMLElement {
-	#input = Object.assign(document.createElement("textarea"), { style: "resize: none;" });
-	#renderedTags = Object.assign(document.createElement("div"), { class: "litm--sro", role: "presentation" });
+	#input = Object.assign(document.createElement("textarea"), {
+		style: "resize: none;",
+	});
+	#renderedTags = Object.assign(document.createElement("div"), {
+		class: "litm--sro",
+		role: "presentation",
+	});
 
 	constructor() {
 		super();
@@ -26,15 +31,18 @@ export class ToggledInput extends HTMLElement {
 				object: this,
 				handler: () => {
 					this.#input.focus();
-					this.#input.setSelectionRange(this.#input.value.length, this.#input.value.length);
-				}
+					this.#input.setSelectionRange(
+						this.#input.value.length,
+						this.#input.value.length,
+					);
+				},
 			},
 			{
 				event: "blur",
 				object: this.#input,
 				handler: () => {
 					this.toggleAttribute("editing", false);
-				}
+				},
 			},
 			{
 				event: "keydown",
@@ -53,7 +61,7 @@ export class ToggledInput extends HTMLElement {
 						this.toggleAttribute("editing", false);
 				},
 			},
-		]
+		];
 	}
 
 	connectedCallback() {

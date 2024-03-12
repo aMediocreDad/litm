@@ -1,5 +1,4 @@
 {{#*inline 'tagItem' tag source editable}}
-	{{log tag.name editable}}
 	<li class="litm--tag-item litm--{{ifThen (eq tag.type 'status') 'status' 'tag'}}" data-context="remove-tag"
 		data-id="{{tag._id}}" data-type="{{source}}">
 		<label class="litm--burn-label"><span class="litm--sro">{{localize "Litm.ui.burn-tag"}}</span>
@@ -7,7 +6,7 @@
 				data-tooltip="{{localize (ifThen tag.isBurnt 'Litm.tags.isBurnt' 'Litm.tags.burn')}}"
 				{{ifThen editable "" "disabled"}} {{checked tag.isBurnt}} />
 		</label>
-		<input class="litm--tag-item-name" name="{{source}}.{{tag._id}}.name" value="{{tag.name}}"
+		<input class="litm--tag-item-name" data-focus="select" name="{{source}}.{{tag._id}}.name" value="{{tag.name}}"
 			{{ifThen editable "" "readonly"}} />
 		<div class="litm--tag-item-status" data-tooltip="{{tag.name}}{{ifThen tag.value (concat '-' tag.value) ''}}">
 			{{#each tag.values as |status|}}

@@ -1,16 +1,21 @@
 .litm.litm--story-tags {
+	min-width: 300px;
+	max-width: 600px;
+	outline: 2px solid var(--litm-color);
+	outline-offset: -10px;
+	border-radius: 0px;
+
 	& .window-header {
 		display: none;
 	}
 
 	& h2 {
-		background: url(/ui/parchment.jpg) repeat;
-		background-color: var(--litm-color-accent-bg);
-		background-blend-mode: color-burn;
+		background: url(../../assets/media/theme-alt-bg-top.webp) no-repeat bottom / cover;
+		border: none;
 		color: var(--litm-color-accent);
 		text-align: center;
-		font-size: var(--font-size-16);
-		padding: 0.4em 0px;
+		font-size: var(--font-size-14);
+		padding: 0.3em 0px 0.8em;
 		text-transform: uppercase;
 		position: sticky;
 		top: 0px;
@@ -34,9 +39,9 @@
 
 	& hr {
 		border: none;
-		height: 12px;
+		height: 18px;
 		background: url(../../assets/media/separator.webp) no-repeat center / contain;
-		width: 100%;
+		width: 95%;
 	}
 
 	& .litm--story-tags-main,

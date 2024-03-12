@@ -18,29 +18,33 @@ export class ThemeData extends foundry.abstract.DataModel {
 			powerTags: new fields.ArrayField(
 				new fields.EmbeddedDataField(abstract.TagData),
 				{
-					initial: () => Array(5)
-						.fill()
-						.map((_, i) => ({
-							id: randomID(),
-							name: `${i < 2 ? `${t("Litm.ui.name-power")}` : ""}`,
-							type: "powerTag",
-							isActive: i < 2,
-							isBurnt: false,
-						})),
+					initial: () =>
+						Array(5)
+							.fill()
+							.map((_, i) => ({
+								id: randomID(),
+								name: `${i < 2 ? `${t("Litm.ui.name-power")}` : ""}`,
+								type: "powerTag",
+								isActive: i < 2,
+								isBurnt: false,
+							})),
 					validate: (tags) => tags.length === 5,
-				}
+				},
 			),
 			weaknessTags: new fields.ArrayField(
-				new fields.EmbeddedDataField(abstract.TagData), {
-				initial: () => [{
-					id: randomID(),
-					name: t("Litm.ui.name-weakness"),
-					isActive: true,
-					isBurnt: false,
-					type: "weaknessTag",
-				}],
-				validate: (tags) => tags.length === 1,
-			}
+				new fields.EmbeddedDataField(abstract.TagData),
+				{
+					initial: () => [
+						{
+							id: randomID(),
+							name: t("Litm.ui.name-weakness"),
+							isActive: true,
+							isBurnt: false,
+							type: "weaknessTag",
+						},
+					],
+					validate: (tags) => tags.length === 1,
+				},
 			),
 			experience: new fields.NumberField({
 				integer: true,

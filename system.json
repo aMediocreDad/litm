@@ -1,7 +1,7 @@
 {
 	"$schema": "https://json.schemastore.org/foundryvtt-system-manifest.json",
 	"id": "litm",
-	"version": 7,
+	"version": 8,
 	"license": "LICENSE",
 	"title": "Legend in the Mist Demo",
 	"description": "A <strong>Rustic Fantasy</strong> Game for Foundry Virtual Tabletop",
@@ -12,8 +12,12 @@
 			"email": "hello@amediocre.dev"
 		}
 	],
-	"esmodules": ["litm.js"],
-	"styles": ["litm.css"],
+	"esmodules": [
+		"litm.js"
+	],
+	"styles": [
+		"litm.css"
+	],
 	"languages": [
 		{
 			"lang": "en",
@@ -39,8 +43,19 @@
 	],
 	"flags": {
 		"hotReload": {
-			"extensions": ["css", "html", "js", "json"],
-			"paths": ["styles", "templates", "lang", "litm.css", "litm.js"]
+			"extensions": [
+				"css",
+				"html",
+				"js",
+				"json"
+			],
+			"paths": [
+				"styles",
+				"templates",
+				"lang",
+				"litm.css",
+				"litm.js"
+			]
 		}
 	},
 	"relationships": {
@@ -55,6 +70,6 @@
 	"url": "https://github.com/aMediocreDad/litm",
 	"bugs": "https://github.com/aMediocreDad/litm/issues?q=is:issue+is:open+sort:updated-desc",
 	"manifest": "https://raw.githubusercontent.com/aMediocreDad/litm/main/system.json",
-	"download": "https://github.com/aMediocreDad/litm/archive/refs/tags/v7.zip",
+	"download": "https://github.com/aMediocreDad/litm/archive/refs/tags/v8.zip",
 	"readme": "https://github.com/aMediocreDad/litm/blob/main/README.md"
 }

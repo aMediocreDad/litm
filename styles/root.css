@@ -1,12 +1,12 @@
 :root {
 	--litm-color-bg: hsl(40, 85%, 87%);
-	--litm-color: hsl(41, 23%, 24%);
+	--litm-color: hsl(40, 27%, 24%);
 	--litm-color-alt-bg: hsl(34, 34%, 82%);
 	--litm-color-dark-bg: hsl(0 0.88% 44.51%);
 	--litm-color-accent-bg: hsl(225.94 10.66% 41.72%);
 	--litm-color-accent: hsl(46.61 81.44% 92.99%);
 	--litm-color-accent-2: hsl(24deg 20.72% 43.81%);
-	--litm-color-accent-3: hsl(32.06deg 89.89% 30.41%);
+	--litm-color-accent-3: hsl(17, 84%, 31%);
 	--litm-color-primary-bg: color-mix(in hsl, var(--litm-color-accent) 75%, hsl(0 0% 100%));
 	--litm-color-primary: color-mix(in hsl, var(--litm-color) 75%, hsl(0 0% 0%));
 	--litm-color-row-odd: rgb(0, 0, 0, 0.1);
@@ -133,14 +133,12 @@ a.content-link {
 /* App core style overrides */
 
 .app.litm {
-	background: url('../assets/media/background.webp') 0% 0% / cover;
+	background: url('../assets/media/background.webp') no-repeat left / cover;
 	overflow: hidden;
 	box-shadow: none;
 	filter: drop-shadow(rgb(0, 0, 0, 0.6) 2px 4px 8px);
 
 	&:where(:not(.minimized)) {
-		outline: 2px solid var(--litm-color-primary);
-		outline-offset: -10px;
 		padding: 10px;
 
 		& .window-title {

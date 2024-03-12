@@ -41,35 +41,44 @@ export function getConfiggedEffect(effect) {
 
 export async function newTagDialog(actors) {
 	const t = localize;
-	return Dialog.wait({
-		title: t("Litm.ui.add-tag"),
-		content: await renderTemplate("systems/litm/templates/partials/new-tag.html", { actors }),
-		acceptLabel: t("Litm.ui.create"),
-		buttons: {
-			cancel: {
-				label: t("Litm.ui.cancel"),
-			},
-			create: {
-				label: t("Litm.ui.create"),
-				callback: (html) => {
-					const form = html.find("form")[0];
-					const formData = new FormDataExtended(form);
-					const expanded = expandObject(formData.object);
-					return expanded
+	return Dialog.wait(
+		{
+			title: t("Litm.ui.add-tag"),
+			content: await renderTemplate(
+				"systems/litm/templates/partials/new-tag.html",
+				{ actors },
+			),
+			acceptLabel: t("Litm.ui.create"),
+			buttons: {
+				cancel: {
+					label: t("Litm.ui.cancel"),
+				},
+				create: {
+					label: t("Litm.ui.create"),
+					callback: (html) => {
+						const form = html.find("form")[0];
+						const formData = new FormDataExtended(form);
+						const expanded = expandObject(formData.object);
+						return expanded;
+					},
 				},
 			},
+			default: "create",
 		},
-		default: 'create',
-	}, {
-		classes: ["litm", "litm--new-tag"],
-	});
+		{
+			classes: ["litm", "litm--new-tag"],
+		},
+	);
 }
 
-export async function confirmDelete() {
-	const t = localize;
+export async function confirmDelete(string = "Item") {
+	const thing = game.i18n.localize(string);
 	return Dialog.confirm({
-		title: t("Litm.ui.confirm-delete-title"),
-		content: t("Litm.ui.confirm-delete-content"),
+		title: game.i18n.format("Litm.ui.confirm-delete-title", { thing }),
+		content: game.i18n.format("Litm.ui.confirm-delete-content", { thing }),
 		defaultYes: false,
+		options: {
+			classes: ["litm", "litm--confirm-delete"]
+		}
 	});
 }

@@ -76,7 +76,7 @@ export class LitmConfig {
 			action: "Litm.additionalEffects.extra_feat.action",
 			cost: "Litm.additionalEffects.extra_feat.cost",
 		},
-	}
+	};
 
 	tagStringRe = /\[([^\d\]]+)(?:[\s-\:](\d+))?\]/gi;
 	sceneLinkRe = /@ActivateScene\[([^\]]+)\](?:\{([^\}]+)\})?/gi;

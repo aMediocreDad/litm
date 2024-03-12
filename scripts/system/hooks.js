@@ -15,6 +15,7 @@ export class LitmHooks {
 		LitmHooks.#listenToContentLinks();
 		LitmHooks.#customizeDiceSoNice();
 		LitmHooks.#renderStoryTagApp();
+		LitmHooks.#repositionStoryTagApp();
 		LitmHooks.#rendeWelcomeScreen();
 	}
 
@@ -53,7 +54,9 @@ export class LitmHooks {
 
 				// Add the document ID link to the header if it's not already there
 				if (hook === "renderActorSheet" || hook === "renderItemSheet") {
-					html.find(".window-title>.document-id-link").prependTo(html.find(".window-header"));
+					html
+						.find(".window-title>.document-id-link")
+						.prependTo(html.find(".window-header"));
 				}
 			});
 		}
@@ -67,7 +70,9 @@ export class LitmHooks {
 
 			const { backpack } = system;
 			const validationErrors = backpack
-				.map((item) => tagSchema.validate(item, { strict: true, partial: false }))
+				.map((item) =>
+					tagSchema.validate(item, { strict: true, partial: false }),
+				)
 				.filter(Boolean);
 
 			if (validationErrors.length) {
@@ -87,7 +92,9 @@ export class LitmHooks {
 
 			const { powerTags = [], weaknessTags = [] } = system;
 			const validationErrors = [...powerTags, ...weaknessTags]
-				.map((item) => tagSchema.validate(item, { strict: true, partial: false }))
+				.map((item) =>
+					tagSchema.validate(item, { strict: true, partial: false }),
+				)
 				.filter(Boolean);
 
 			if (validationErrors.length) {
@@ -104,8 +111,10 @@ export class LitmHooks {
 			if (app.id !== "actors") return;
 			const button = $(
 				`<button class="litm--import-actor" data-tooltip="${t(
-					"Litm.ui.import-actor"
-				)}" aria-label="${t("Litm.ui.import-actor")}"><i class="fas fa-file-import"></i></button>`
+					"Litm.ui.import-actor",
+				)}" aria-label="${t(
+					"Litm.ui.import-actor",
+				)}"><i class="fas fa-file-import"></i></button>`,
 			);
 			button.on("click", () => {
 				const input = document.createElement("input");
@@ -137,13 +146,17 @@ export class LitmHooks {
 			const isEffectRoll = (li) => li.find(".dice-effect").length;
 			options.unshift(
 				{
-					name: `${t("Litm.effects.category-other")}: ${t("Litm.additionalEffects.discover.key")}`,
+					name: `${t("Litm.effects.category-other")}: ${t(
+						"Litm.additionalEffects.discover.key",
+					)}`,
 					icon: '<i class="fas fa-magnifying-glass"></i>',
 					condition: isEffectRoll,
 					callback: () => {
 						ChatMessage.create({
 							content: `<div class="litm dice-roll">
-							<div class="dice-flavor">${t("Litm.additionalEffects.discover.key")}</div>
+							<div class="dice-flavor">${t(
+								"Litm.additionalEffects.discover.key",
+							)}</div>
 							<div class="dice-effect">
 								<p><em>${t(discover.description)}</em></p>
 								<p>${t(discover.action)}</p>
@@ -156,7 +169,7 @@ export class LitmHooks {
 				},
 				{
 					name: `${t("Litm.effects.category-other")}: ${t(
-						"Litm.additionalEffects.extra_feat.key"
+						"Litm.additionalEffects.extra_feat.key",
 					)}`,
 					icon: '<i class="fas fa-plus"></i>',
 					condition: isEffectRoll,
@@ -164,36 +177,59 @@ export class LitmHooks {
 						ChatMessage.create({
 							content: `
 						<div class="litm dice-roll">
-							<div class="dice-flavor">${t("Litm.additionalEffects.extra_feat.key")}</div>
+							<div class="dice-flavor">${t(
+								"Litm.additionalEffects.extra_feat.key",
+							)}</div>
 							<div class="dice-effect">
 								<p><em>${t(extra_feat.description)}</em></p>
-								<p><strong>${t("Litm.other.cost")}:</strong> ${t(extra_feat.cost)}</p>
+								<p><strong>${t("Litm.other.cost")}:</strong> ${t(
+								extra_feat.cost,
+							)}</p>
 							</div>
 						</div>
 						`,
 						});
 					},
-				}
+				},
 			);
 		});
 	}
 
 	static #prepareCharacterOnCreate() {
 		Hooks.on("preCreateActor", (actor, data) => {
-			if (data.type !== "character") return;
+			const isCharacter = data.type === "character";
+			const hasImage = actor.img !== "icons/svg/mystery-man.svg";
 
-			const prototypeToken = {
+			const base = "icons/svg/";
+			let img = base;
+			switch (true) {
+				case hasImage:
+					img = actor.img;
+					break;
+				case !hasImage && isCharacter:
+					img += "target.svg";
+					break;
+				case !hasImage && data.type === "challenge":
+					img += "skull.svg";
+					break;
+				default:
+					img = "icons/svg/mystery-man.svg";
+			}
+
+			const prototypeToken = isCharacter ? {
 				sight: { enabled: true },
 				actorLink: true,
 				disposition: CONST.TOKEN_DISPOSITIONS.FRIENDLY,
-			};
-			actor.updateSource({ prototypeToken });
+				texture: { src: img }
+			} : null;
+			actor.updateSource({ prototypeToken, img });
 		});
 
 		Hooks.on("createActor", async (actor) => {
 			if (actor.type !== "character") return;
 
-			const missingThemes = 4 - actor.items.filter((it) => it.type === "theme").length;
+			const missingThemes =
+				4 - actor.items.filter((it) => it.type === "theme").length;
 
 			await Promise.all(
 				Array(missingThemes)
@@ -205,16 +241,27 @@ export class LitmHooks {
 								type: "theme",
 							},
 						]);
-					})
+					}),
 			);
 		});
 	}
 
 	static #prepareThemeOnCreate() {
 		Hooks.on("preCreateItem", (item, data) => {
-			if (data.type !== "theme") return;
+			if (item.img !== "icons/svg/item-bag.svg") return;
 
-			const img = "systems/litm/assets/media/note.webp";
+			const base = "systems/litm/assets/media/icons/";
+			let img = base;
+			switch (data.type) {
+				case "theme":
+					img += "unfurled-scroll.svg";
+					break;
+				case "threat":
+					img += "cracked-skull.svg";
+					break;
+				default:
+					img = "icons/svg/item-bag.svg";
+			}
 			item.updateSource({ img });
 		});
 	}
@@ -224,33 +271,40 @@ export class LitmHooks {
 		game.litm.storyTags = app;
 
 		Hooks.once("renderSidebar", async (_app, html) => {
-			const container = $(`<div class="litm--sidebar-buttons-container"></div>`);
+			const container = $(
+				`<div class="litm--sidebar-buttons-container"></div>`,
+			);
 
 			const rollButton = $(`
-		<button aria-label="${t("Litm.ui.roll-title")}" data-tooltip="${t("Litm.ui.roll-title")}">
+		<button aria-label="${t("Litm.ui.roll-title")}" data-tooltip="${t(
+				"Litm.ui.roll-title",
+			)}">
 			<i class="fas fa-dice"></i>
 		</button>`).on("click", () => {
-				if (!game.user.character) return ui.notifications.warn(t("Litm.ui.warn-no-character"));
+				if (!game.user.character)
+					return ui.notifications.warn(t("Litm.ui.warn-no-character"));
 				const actor = game.user.character;
 				game.litm.LitmRollDialog.create(
 					actor._id,
 					actor.system.availablePowerTags,
-					actor.system.weaknessTags
+					actor.system.weaknessTags,
 				);
 			});
 
 			const storyTagsButton = $(`
-			<button type="button" data-tooltip="${t("Litm.tags.story", "Litm.other.tags")}" aria-label="${t(
+			<button type="button" data-tooltip="${t(
 				"Litm.tags.story",
-				"Litm.other.tags"
-			)}">
+				"Litm.other.tags",
+			)}" aria-label="${t("Litm.tags.story", "Litm.other.tags")}">
 			<i class="fas fa-tags"></i>
 			</button>`).on("click", () => {
 				if (!app.rendered) {
 					app.render(true);
 					setTimeout(() => container.addClass("active"));
 				}
-				app.element.toggle(130, () => container.toggleClass("active", app.element.is(":visible")));
+				app.element.toggle(130, () =>
+					container.toggleClass("active", app.element.is(":visible")),
+				);
 			});
 
 			app.render(true);
@@ -258,6 +312,14 @@ export class LitmHooks {
 
 			container.append(storyTagsButton, rollButton);
 			html.before(container);
+		});
+	}
+
+	static #repositionStoryTagApp() {
+		Hooks.on("collapseSidebar", (_app, collapsed) => {
+			if (collapsed)
+				game.litm.storyTags.setPosition({ left: window.innerWidth - 337 });
+			else game.litm.storyTags.setPosition({ left: window.innerWidth - 605 });
 		});
 	}
 
@@ -287,7 +349,7 @@ export class LitmHooks {
 					font: "LitM Dice",
 					system: "litm",
 				},
-				"d12"
+				"d12",
 			);
 
 			dice3d.addColorset(
@@ -303,7 +365,7 @@ export class LitmHooks {
 					font: "Georgia",
 					visibility: "visible",
 				},
-				"preferred"
+				"preferred",
 			);
 		});
 	}
@@ -399,7 +461,7 @@ export class LitmHooks {
 				<p>This project already has some contributors, help and good vibes!</p>
 				<ul>
 						<li>
-								<p>Thanks to <strong>@Daegony</strong> <em>(Discord)</em> / <strong>@Roapon</strong> <em>(Github)</em> for contributing graphics, designs, UX advice and help with rules and the game in general.</p>
+								<p>Thanks to <strong>@Daegony</strong> for contributing graphics, designs, UX advice and help with rules and the game in general.</p>
 						</li>
 						<li>
 								<p>Thanks to <strong>@CussaMitre</strong> for contributing code and squashing bugs.</p>
@@ -428,11 +490,10 @@ export class LitmHooks {
 				content: /* html */ `
 				<p><strong>Welcome to Legend in the Mist</strong></p>
 				<p>Before you start playing, you should want to read the <a class="content-link" draggable="true" data-uuid="${entry.uuid
-					}" data-id="${entry._id
-					}" data-type="JournalEntryPage" data-tooltip="Text Page"><i class="fas fa-file-lines"></i>Legend in the Mist</a> journal entry. It contains some important information about the system, and what to expect.</p>
+					}" data-id="${entry._id}" data-type="JournalEntryPage" data-tooltip="Text Page"><i class="fas fa-file-lines"></i>Legend in the Mist</a> journal entry. It contains some important information about the system, and what to expect.</p>
 				<p>Once you've read the journal entry, you can click the button below to import all the rules and content required to play the Tinderbox Demo.</p>
 				<button type="button" id="litm--import-adventure" style="background: var(--litm-color-status-bg);"><strong>${t(
-						"Litm.ui.import-adventure"
+						"Litm.ui.import-adventure",
 					)}</strong></button>
 				<p style="text-align:center;">Good luck, and have fun!</p>
 			`,
@@ -450,7 +511,9 @@ export class LitmHooks {
 
 		Hooks.on("renderChatMessage", (_app, html) => {
 			html.find("#litm--import-adventure").on("click", async () => {
-				const adventure = await game.packs.get("litm.tinderbox-demo").getDocuments();
+				const adventure = await game.packs
+					.get("litm.tinderbox-demo")
+					.getDocuments();
 				adventure?.[0]?.sheet.render(true);
 			});
 		});
@@ -462,7 +525,7 @@ export class LitmHooks {
 					.map(async (s) => {
 						const { thumb } = await s.createThumbnail();
 						return { _id: s.id, thumb };
-					})
+					}),
 			);
 			await Scene.updateDocuments(updates);
 			game.journal.getName("Tinderbox Demo Rules").sheet.render(true);

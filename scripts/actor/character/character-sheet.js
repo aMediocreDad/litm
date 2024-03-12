@@ -1,12 +1,16 @@
 import { confirmDelete } from "../../utils.js";
 
 export class CharacterSheet extends ActorSheet {
+	#editImageTimeout = null;
+	#notesEditorOpened = false;
+
 	static defaultOptions = mergeObject(ActorSheet.defaultOptions, {
 		classes: ["litm", "litm--character"],
 		width: 250,
 		height: 350,
 		left: window.innerWidth / 2 - 250,
 		top: window.innerHeight / 2 - 250,
+		scrollY: [".taglist"],
 		resizable: false,
 	});
 
@@ -20,6 +24,12 @@ export class CharacterSheet extends ActorSheet {
 
 	get system() {
 		return this.actor.system;
+	}
+
+	async render(force = false, options = {}) {
+		await super.render(force, options);
+		if (this.#notesEditorOpened)
+			setTimeout(() => this.element.find("#note").show(100));
 	}
 
 	async getData() {
@@ -77,6 +87,11 @@ export class CharacterSheet extends ActorSheet {
 				foundry.utils.mergeObject(data, updateData),
 			);
 		return data;
+	}
+
+	_onEditImage(event) {
+		if (this.#editImageTimeout) return clearTimeout(this.#editImageTimeout);
+		super._onEditImage(event);
 	}
 
 	#handleClicks(event) {
@@ -142,13 +157,16 @@ export class CharacterSheet extends ActorSheet {
 		event.stopPropagation();
 		event.preventDefault();
 
+		this.#editImageTimeout = null;
+
 		const t = event.currentTarget;
-		const parent = $(t).parent();
+		const parent = $(t).parents(".window-app").first();
 
 		const x = event.clientX - parent.position().left;
 		const y = event.clientY - parent.position().top;
 
 		const handleDrag = (event) => {
+			this.#editImageTimeout = true;
 			parent.css({
 				left: event.clientX - x,
 				top: event.clientY - y,
@@ -157,6 +175,10 @@ export class CharacterSheet extends ActorSheet {
 
 		$(document).on("mousemove", handleDrag);
 		$(document).on("mouseup", () => {
+			if (this.#editImageTimeout)
+				this.#editImageTimeout = setTimeout(() => {
+					this.#editImageTimeout = null;
+				}, 100);
 			$(document).off("mousemove", handleDrag);
 		});
 	}
@@ -177,7 +199,7 @@ export class CharacterSheet extends ActorSheet {
 	}
 
 	async #removeTag(index) {
-		if (!(await confirmDelete())) return;
+		if (!(await confirmDelete("Litm.other.tag"))) return;
 
 		const backpack = this.system.backpack;
 		backpack.splice(index, 1);
@@ -186,7 +208,7 @@ export class CharacterSheet extends ActorSheet {
 	}
 
 	async #removeItem(id) {
-		if (!(await confirmDelete())) return;
+		if (!(await confirmDelete("TYPES.Item.theme"))) return;
 
 		const item = this.items.get(id);
 		return item.delete();
@@ -215,6 +237,7 @@ export class CharacterSheet extends ActorSheet {
 	#open(id) {
 		switch (id) {
 			case "note":
+				this.#notesEditorOpened = true;
 				this.element.find("#note").show(100);
 				break;
 			case "roll":
@@ -226,6 +249,7 @@ export class CharacterSheet extends ActorSheet {
 	#close(id) {
 		switch (id) {
 			case "note":
+				this.#notesEditorOpened = false;
 				this.element.find("#note").hide(100);
 		}
 	}

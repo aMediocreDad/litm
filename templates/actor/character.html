@@ -1,7 +1,7 @@
 <form class="{{cssClass}}" autocomplete="off">
-	<img class="avatar" src="{{data.img}}" data-edit="img" alt="{{title}}">
+	<img class="avatar draggable" data-drag="window" src="{{data.img}}" data-edit="img" alt="{{title}}">
 	<label class="litm--sro" for="name">{{localize "Name"}}</label>
-	<input type="text" id="name" name="name" value="{{data.name}}" required>
+	<input type="text" id="name" name="name" value="{{data.name}}" autocomplete="off" required>
 	<div class="nav">
 		<div>
 			<span id="dice-roll-button--{{data._id}}">{{localize "Litm.ui.roll-title"}}</span>
@@ -16,18 +16,20 @@
 					width="80px"></button>
 		</div>
 	</div>
-	<div id="note">
+	<div id="note" class="window-app">
 		<div class="handle draggable">
 			<span>{{localize 'Notes'}}</span>
 			<button type="button" data-click="close" data-id="note" data-tooltip="{{localize 'Close'}}"><i
 					class="far fa-xmark"></i></button>
 		</div>
-		<label class="litm--sro">{{localize "Notes"}}</label>
 		{{editor data.system.note target="system.note" owner=owner button=true editable=true}}
 	</div>
-	<div class="backpack">
-		<img width="300px" class="backpack--img" src="systems/litm/assets/media/backpack.webp" />
-		<div class="backpack--bg">
+	<div class="litm--character-backpack">
+		<img width="300px" class="litm--backpack-img" src="systems/litm/assets/media/backpack.webp"
+			alt="Soft illustration of a rustic backpack" />
+		<img width="100px" class="litm--backpack-bg-frame" src="systems/litm/assets/media/background-frame.webp"
+			aria-hidden="true">
+		<div class="litm--backpack-bg">
 			<div class="meta">{{localize 'Litm.tags.item-tags'}}</div>
 			<div class="title">{{localize 'Litm.other.backpack'}}</div>
 			<ul class="taglist">

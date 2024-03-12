@@ -143,13 +143,13 @@ export class LitmRollDialog extends FormApplication {
 
 	#increase(id) {
 		const input = this.element.find(`#${id}`);
-		const value = parseInt(input.val());
+		const value = Number.parseInt(input.val());
 		input.val(value + 1);
 	}
 
 	#decrease(id) {
 		const input = this.element.find(`#${id}`);
-		const value = parseInt(input.val());
+		const value = Number.parseInt(input.val());
 		input.val(value - 1);
 	}
 

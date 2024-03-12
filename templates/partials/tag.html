@@ -1,8 +1,8 @@
 <li {{#if remove}}data-context="remove-tag" data-id="{{key}}" {{/if}}>
 	<!-- isActive checkbox -->
 	<label data-tooltip="{{localize (tagActiveString tag readonly)}}" aria-label="{{localize "Litm.tags.isActive"}}">
-		<input {{ifThen readonly 'readonly' ''}} class="litm--checkbox litm--checkbox-with-bg" type="checkbox"
-			name="{{path}}.{{key}}.isActive" {{ifThen readonly 'disabled' ''}} {{checked tag.isActive}} />
+		<input class="litm--checkbox litm--checkbox-with-bg" type="checkbox" name="{{path}}.{{key}}.isActive"
+			{{ifThen readonly 'disabled' ''}} {{checked tag.isActive}} />
 	</label>
 	<!-- Name input -->
 	<input class="tag--name" type="text" name="{{path}}.{{key}}.name" {{ifThen readonly 'readonly' ''}}

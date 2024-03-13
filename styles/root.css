@@ -121,10 +121,35 @@ a.content-link {
 /* Fix the pause button */
 #pause {
 	background: none;
-	font-family: var(--litm-font-heading);
+	animation: pulse 3s infinite ease-in-out;
+	will-change: filter;
 
-	& figcaption {
-		text-shadow: 2px 1px 8px var(--color-shadow-dark), 1px 1px 10px var(--color-shadow-dark)
+	img {
+		opacity: 80%;
+		object-fit: contain;
+		object-position: center;
+		width: 220px;
+		height: 220px;
+		top: -55px;
+		left: calc(50% - 110px);
+		transform-origin: center;
+		rotate: 39deg;
+	}
+
+	figcaption {
+		color: var(--litm-color-accent);
+		text-shadow: 2px 2px 2px var(--litm-color);
+		font-family: var(--litm-font-heading);
+		font-weight: 800;
+		letter-spacing: 2.5px;
+		padding: 0;
+		margin: 0;
+	}
+}
+
+@media (prefers-reduced-motion) {
+	#pause {
+		animation: none;
 	}
 }
 
@@ -186,5 +211,20 @@ a.content-link {
 		& .tox.tox-tinymce .tox-edit-area__iframe {
 			background-color: #fff;
 		}
+	}
+}
+
+/* Animations */
+@keyframes pulse {
+	0% {
+		filter: drop-shadow(0 0 0 transparent);
+	}
+
+	50% {
+		filter: drop-shadow(0 0 4px var(--litm-color-alt-bg));
+	}
+
+	100% {
+		filter: drop-shadow(0 0 0 transparent);
 	}
 }

@@ -1,0 +1,15 @@
+<div class="litm--backpack-wrapper item" data-item-id="{{backpackId}}">
+	<img width="300px" class="litm--backpack-img" src="systems/litm/assets/media/backpack.webp"
+		alt="Soft illustration of a rustic backpack" />
+	<img width="250px" class="litm--backpack-bg-frame" src="systems/litm/assets/media/background-frame.webp"
+		aria-hidden="true">
+	<div class="litm--backpack-bg">
+		<div class="meta">{{localize 'Litm.tags.item-tags'}}</div>
+		<div class="title">{{localize 'Litm.other.backpack'}}</div>
+		<ul class="taglist">
+			{{#each backpack as |tag|}}
+				{{> systems/litm/templates/partials/tag.html tag=tag key=@key path=(concat "items." ../backpackId ".system.contents") readonly=true remove=false}}
+			{{/each}}
+		</ul>
+	</div>
+</div>

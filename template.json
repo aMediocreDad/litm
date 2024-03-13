@@ -6,7 +6,7 @@
 		"challenge": {}
 	},
 	"Item": {
-		"types": ["theme", "threat"],
+		"types": ["backpack", "theme", "threat"],
 		"htmlFields": ["note"],
 		"theme": {},
 		"threat": {}

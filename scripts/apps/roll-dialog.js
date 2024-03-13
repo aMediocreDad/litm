@@ -181,9 +181,14 @@ export class LitmRollDialog extends FormApplication {
 			}
 
 			// We assume it's a backpack tag a this point
-			const backpack = actor.system.backpack;
-			backpack.find((t) => t.id === tag.id).isBurnt = true;
-			return actor.update({ "system.backpack": backpack });
+			const backpack = actor.items
+				.find((item) => item.type === "backpack")
+				.toObject();
+			const { contents } = backpack.system;
+			contents.find((t) => t.id === tag.id).isBurnt = true;
+			return actor.updateEmbeddedDocuments("Item", [
+				{ _id: backpack._id, "system.contents": contents },
+			]);
 		} catch (error) {
 			console.error(error);
 			ui.notifications.error(game.i18n.localize("Litm.ui.error-burning-tag"));

@@ -33,10 +33,25 @@ export class CharacterSheet extends ActorSheet {
 	}
 
 	async getData() {
-		const { data, ...rest } = super.getData();
-		const items = await Promise.all(this.items.map((i) => i.sheet.getData()));
-		data.system.note = await TextEditor.enrichHTML(data.system.note);
-		return { ...rest, data, items };
+		const themes = await Promise.all(
+			this.items
+				.filter((i) => i.type === "theme")
+				.map((i) => i.sheet.getData()),
+		);
+		const note = await TextEditor.enrichHTML(this.system.note);
+		const backpack = this.system.backpack.sort((a, b) =>
+			a.isActive ? a.name.localeCompare(b.name) : 1,
+		);
+		return {
+			...this.object.system,
+			_id: this.actor.id,
+			img: this.actor.img,
+			name: this.actor.name,
+			backpack,
+			backpackId: this.items.find((i) => i.type === "backpack")?._id,
+			note,
+			themes,
+		};
 	}
 
 	activateListeners(html) {
@@ -57,7 +72,7 @@ export class CharacterSheet extends ActorSheet {
 	// Prevent dropping more than 4 themes on the character sheet
 	async _onDropItem(event, data) {
 		const item = await Item.implementation.fromDropData(data);
-		if (item.type !== "theme") return;
+		if (!["backpack", "theme"].includes(item.type)) return;
 
 		if (this.items.get(item.id)) return this._onSortItem(event, item);
 
@@ -103,9 +118,6 @@ export class CharacterSheet extends ActorSheet {
 		const id = t.dataset.id;
 
 		switch (action) {
-			case "add-tag":
-				this.#addTag();
-				break;
 			case "increase":
 				this.#increase(event);
 				break;
@@ -141,9 +153,6 @@ export class CharacterSheet extends ActorSheet {
 		const id = t.dataset.id;
 
 		switch (action) {
-			case "remove-tag":
-				this.#removeTag(id);
-				break;
 			case "decrease":
 				this.#decrease(event);
 				break;
@@ -181,30 +190,6 @@ export class CharacterSheet extends ActorSheet {
 				}, 100);
 			$(document).off("mousemove", handleDrag);
 		});
-	}
-
-	async #addTag() {
-		const item = {
-			name: "New Item",
-			isActive: false,
-			isBurnt: false,
-			type: "backpack",
-			id: randomID(),
-		};
-
-		const backpack = this.system.backpack;
-		backpack.push(item);
-
-		return this.actor.update({ "system.backpack": backpack });
-	}
-
-	async #removeTag(index) {
-		if (!(await confirmDelete("Litm.other.tag"))) return;
-
-		const backpack = this.system.backpack;
-		backpack.splice(index, 1);
-
-		return this.actor.update({ "system.backpack": backpack });
 	}
 
 	async #removeItem(id) {

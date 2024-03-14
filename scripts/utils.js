@@ -78,7 +78,7 @@ export async function confirmDelete(string = "Item") {
 		content: game.i18n.format("Litm.ui.confirm-delete-content", { thing }),
 		defaultYes: false,
 		options: {
-			classes: ["litm", "litm--confirm-delete"]
-		}
+			classes: ["litm", "litm--confirm-delete"],
+		},
 	});
 }

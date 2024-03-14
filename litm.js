@@ -8,6 +8,8 @@ import { CharacterData } from "./scripts/actor/character/character-data.js";
 import { CharacterSheet } from "./scripts/actor/character/character-sheet.js";
 import { ChallengeData } from "./scripts/actor/challenge/challenge-data.js";
 import { ChallengeSheet } from "./scripts/actor/challenge/challenge-sheet.js";
+import { BackpackData } from "./scripts/item/backpack/backpack-data.js";
+import { BackpackSheet } from "./scripts/item/backpack/backpack-sheet.js";
 import { ThemeData } from "./scripts/item/theme/theme-data.js";
 import { ThemeSheet } from "./scripts/item/theme/theme-sheet.js";
 import { ThreatData } from "./scripts/item/threat/threat-data.js";
@@ -49,6 +51,7 @@ Hooks.once("init", () => {
 	CONFIG.Actor.dataModels.challenge = ChallengeData;
 	CONFIG.Dice.terms[DENOMINATION] = DoubleSix;
 	CONFIG.Dice.rolls.push(LitmRoll);
+	CONFIG.Item.dataModels.backpack = BackpackData;
 	CONFIG.Item.dataModels.theme = ThemeData;
 	CONFIG.Item.dataModels.threat = ThreatData;
 	CONFIG.litm = game.litm.config;
@@ -64,6 +67,10 @@ Hooks.once("init", () => {
 	});
 	Actors.registerSheet("litm", ChallengeSheet, {
 		types: ["challenge"],
+		makeDefault: true,
+	});
+	Items.registerSheet("litm", BackpackSheet, {
+		types: ["backpack"],
 		makeDefault: true,
 	});
 	Items.registerSheet("litm", ThemeSheet, {

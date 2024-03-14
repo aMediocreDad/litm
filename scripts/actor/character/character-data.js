@@ -2,13 +2,27 @@ import { error } from "../../logger.js";
 export class CharacterData extends foundry.abstract.DataModel {
 	static defineSchema() {
 		const fields = foundry.data.fields;
-		const data = game.litm.data;
 		return {
 			note: new fields.HTMLField(),
-			backpack: new fields.ArrayField(
-				new fields.EmbeddedDataField(data.TagData),
-			),
 		};
+	}
+
+	static cleanData(...args) {
+		// I absolutely brought this on myself
+		const { backpack } = args[0] || {};
+		if (backpack && Array.isArray(backpack))
+			args[1].source.items.push({
+				type: "backpack",
+				name: "Backpack",
+				system: { contents: args[0].backpack },
+			});
+		return super.cleanData(...args);
+	}
+
+	get backpack() {
+		const backpack = this.parent.items.find((item) => item.type === "backpack");
+		if (!backpack) return [];
+		return backpack.system.contents;
 	}
 
 	get allTags() {
@@ -43,6 +57,7 @@ export class CharacterData extends foundry.abstract.DataModel {
 			.flatMap((item) => item.system.availablePowerTags);
 		return [...backpack, ...themeTags];
 	}
+
 	async prepareDerivedData() {
 		// Make sure only four themes are present
 		const themes = this.parent.items.filter((item) => item.type === "theme");
@@ -50,6 +65,23 @@ export class CharacterData extends foundry.abstract.DataModel {
 			error("Too many themes found, attempting to resolve...");
 			console.error(`Too many themes found for: ${this.parent._id}`, themes);
 			const toDelete = themes.slice(4);
+			await this.parent.deleteEmbeddedDocuments(
+				"Item",
+				toDelete.map((item) => item._id),
+			);
+		}
+
+		// Make sure only one backpack is present
+		const backpacks = this.parent.items.filter(
+			(item) => item.type === "backpack",
+		);
+		if (backpacks.length > 1) {
+			error("Too many backpacks found, attempting to resolve...");
+			console.error(
+				`Too many backpacks found for: ${this.parent._id}`,
+				backpacks,
+			);
+			const toDelete = backpacks.slice(1);
 			await this.parent.deleteEmbeddedDocuments(
 				"Item",
 				toDelete.map((item) => item._id),

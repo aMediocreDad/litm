@@ -1,18 +1,18 @@
-<form class="{{cssClass}}" autocomplete="off">
-	<img class="avatar draggable" data-drag="window" src="{{data.img}}" data-edit="img" alt="{{title}}">
+<form autocomplete="off">
+	<img class="avatar draggable" data-drag="window" src="{{img}}" data-edit="img" alt="{{name}}">
 	<label class="litm--sro" for="name">{{localize "Name"}}</label>
-	<input type="text" id="name" name="name" value="{{data.name}}" autocomplete="off" required>
+	<input type="text" id="name" name="name" value="{{name}}" autocomplete="off" required>
 	<div class="nav">
 		<div>
 			<span id="dice-roll-button--{{data._id}}">{{localize "Litm.ui.roll-title"}}</span>
 			<button type="button" data-click="open" data-id="roll" data-tooltip="{{localize 'Litm.ui.roll'}}"
-				aria-labelledby="dice-roll-button--{{data._id}}"><img src="systems/litm/assets/media/dice.webp" alt="Dice"
+				aria-labelledby="dice-roll-button--{{_id}}"><img src="systems/litm/assets/media/dice.webp" alt="Dice"
 					width="100px"></button>
 		</div>
 		<div>
-			<span id="note-button--{{data._id}}">{{localize "Notes"}}</span>
+			<span id="note-button--{{_id}}">{{localize "Notes"}}</span>
 			<button type=" button" data-click="open" data-id="note" data-tooltip="{{localize 'Notes'}}"
-				aria-labelledby="note-button--{{data._id}}"><img src="systems/litm/assets/media/note.webp" alt="Note"
+				aria-labelledby="note-button--{{_id}}"><img src="systems/litm/assets/media/note.webp" alt="Note"
 					width="80px"></button>
 		</div>
 	</div>
@@ -22,26 +22,21 @@
 			<button type="button" data-click="close" data-id="note" data-tooltip="{{localize 'Close'}}"><i
 					class="far fa-xmark"></i></button>
 		</div>
-		{{editor data.system.note target="system.note" owner=owner button=true editable=true}}
+		{{editor note target="system.note" owner=owner button=true editable=true}}
 	</div>
-	<div class="litm--character-backpack">
-		<img width="300px" class="litm--backpack-img" src="systems/litm/assets/media/backpack.webp"
-			alt="Soft illustration of a rustic backpack" />
-		<img width="100px" class="litm--backpack-bg-frame" src="systems/litm/assets/media/background-frame.webp"
-			aria-hidden="true">
-		<div class="litm--backpack-bg">
-			<div class="meta">{{localize 'Litm.tags.item-tags'}}</div>
-			<div class="title">{{localize 'Litm.other.backpack'}}</div>
-			<ul class="taglist">
-				{{#each data.system.backpack as |tag|}}
-					{{> systems/litm/templates/partials/tag.html tag=tag key=@key path="system.backpack" readonly=false remove=true}}
-				{{/each}}
-			</ul>
-			<button type="button" data-click="add-tag">{{localize "Litm.ui.add-tag"}}</button>
+	{{#if backpackId}}
+		<div class="litm--character-backpack item-list" data-dblclick="edit" data-context="delete" data-id="{{backpackId}}"
+			data-tooltip="{{localize 'Litm.ui.dblclick-open'}}" data-tooltip-direction="LEFT">
+			{{> systems/litm/templates/item/backpack-ro.html backpack=backpack}}
 		</div>
-	</div>
+	{{else}}
+		<div class="litm--character-backpack">
+			<img width="380px" class="litm--backpack-img" src="systems/litm/assets/media/backpack.webp"
+				alt="Soft illustration of a rustic backpack" />
+		</div>
+	{{/if}}
 	<div class="litm--character-themes item-list">
-		{{#each items as |item|}}
+		{{#each themes as |item|}}
 			<div class="litm--character-theme item" data-dblclick="edit" data-context="delete" data-id="{{item.data._id}}"
 				data-item-id="{{item.data._id}}">
 				{{> systems/litm/templates/item/theme-ro.html data=item.data}}

@@ -34,11 +34,6 @@ export function dispatch(data) {
 	return game.socket.emit("system.litm", { ...data, isGM, user });
 }
 
-export function getConfiggedEffect(effect) {
-	const config = Object.values(CONFIG.litm.effects).find((e) => !!e[effect]);
-	return { ...config?.[effect], name: effect };
-}
-
 export async function newTagDialog(actors) {
 	const t = localize;
 	return Dialog.wait(
@@ -58,7 +53,7 @@ export async function newTagDialog(actors) {
 					callback: (html) => {
 						const form = html.find("form")[0];
 						const formData = new FormDataExtended(form);
-						const expanded = expandObject(formData.object);
+						const expanded = foundry.utils.expandObject(formData.object);
 						return expanded;
 					},
 				},
@@ -80,5 +75,17 @@ export async function confirmDelete(string = "Item") {
 		options: {
 			classes: ["litm", "litm--confirm-delete"],
 		},
+	});
+}
+
+export async function gmModeratedRoll(app, cb) {
+	const id = foundry.utils.randomID();
+	dispatch({ app, id, type: "roll" });
+	game.socket.once("system.litm", async ({ isGM, app, type }) => {
+		if (!isGM || type !== "roll")
+			ui.notifications.error("Litm.ui.error-conducting-roll", {
+				localize: true,
+			});
+		return cb(app);
 	});
 }

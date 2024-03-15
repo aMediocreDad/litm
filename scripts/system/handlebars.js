@@ -9,6 +9,13 @@ export class HandlebarsHelpers {
 			return args.reduce((acc, val) => acc + val, 0);
 		});
 
+		Handlebars.registerHelper("includes", (array, value, path) =>
+			Array.isArray(array)
+				? (path && array.some((i) => i[path] === value)) ||
+				  array.includes(value)
+				: false,
+		);
+
 		Handlebars.registerHelper(
 			"progress-buttons",
 			function (current, max, block) {

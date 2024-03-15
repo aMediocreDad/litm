@@ -12,12 +12,8 @@
 			"email": "hello@amediocre.dev"
 		}
 	],
-	"esmodules": [
-		"litm.js"
-	],
-	"styles": [
-		"litm.css"
-	],
+	"esmodules": ["litm.js"],
+	"styles": ["litm.css"],
 	"languages": [
 		{
 			"lang": "en",
@@ -33,8 +29,8 @@
 	"socket": true,
 	"compatibility": {
 		"minimum": 11,
-		"verified": 11,
-		"maximum": 11
+		"verified": 12,
+		"maximum": 12
 	},
 	"packs": [
 		{
@@ -48,19 +44,8 @@
 	],
 	"flags": {
 		"hotReload": {
-			"extensions": [
-				"css",
-				"html",
-				"js",
-				"json"
-			],
-			"paths": [
-				"styles",
-				"templates",
-				"lang",
-				"litm.css",
-				"litm.js"
-			]
+			"extensions": ["css", "html", "js", "json"],
+			"paths": ["styles", "templates", "lang", "litm.css", "litm.js"]
 		}
 	},
 	"relationships": {

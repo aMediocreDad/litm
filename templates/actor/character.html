@@ -1,32 +1,60 @@
+{{#*inline 'leaf' data}}
+	<li class="litm--story-tag">
+		<img class="draggable"
+			src="{{ifThen (eq data.type 'tag') 'systems/litm/assets/media/yellow-leaf.webp' 'systems/litm/assets/media/green-leaf.webp'}}"
+			aria-hidden="true" width="220" />
+		<div class="{{data.type}}">
+			<label><span class="litm--sro">{{localize "Name"}}</span>
+				<input type="text" name="effects.{{data.id}}.name" value="{{data.name}}" />
+			</label>
+			<div class="litm--story-tag-values">
+				{{#each data.values as |value|}}
+					<div class="litm--story-tag-value">
+						{{#if (eq ../data.type 'status')}}
+							<label for="effects.{{../data.id}}.flags.litm.values.{{@index}}">{{add @index 1}}</label>
+						{{/if}}
+						<input id="effects.{{../data.id}}.flags.litm.values.{{@index}}"
+							name="effects.{{../data.id}}.flags.litm.values" type="checkbox" value="{{add @index 1}}" {{checked
+					value}} />
+					</div>
+				{{/each}}
+			</div>
+		</div>
+	</li>
+{{/inline}}
+
 <form autocomplete="off">
-	<img class="avatar draggable" data-drag="window" src="{{img}}" data-edit="img" alt="{{name}}">
+	<img class="avatar draggable" data-drag="window" src="{{img}}" data-edit="img" alt="{{name}}" />
 	<label class="litm--sro" for="name">{{localize "Name"}}</label>
-	<input type="text" id="name" name="name" value="{{name}}" autocomplete="off" required>
+	<input type="text" id="name" name="name" value="{{name}}" autocomplete="off" required />
 	<div class="nav">
 		<div>
 			<span id="dice-roll-button--{{data._id}}">{{localize "Litm.ui.roll-title"}}</span>
 			<button type="button" data-click="open" data-id="roll" data-tooltip="{{localize 'Litm.ui.roll'}}"
-				aria-labelledby="dice-roll-button--{{_id}}"><img src="systems/litm/assets/media/dice.webp" alt="Dice"
-					width="100px"></button>
+				aria-labelledby="dice-roll-button--{{_id}}">
+				<img src="systems/litm/assets/media/dice.webp" alt="Dice" width="100px" />
+			</button>
 		</div>
 		<div>
 			<span id="note-button--{{_id}}">{{localize "Notes"}}</span>
 			<button type=" button" data-click="open" data-id="note" data-tooltip="{{localize 'Notes'}}"
-				aria-labelledby="note-button--{{_id}}"><img src="systems/litm/assets/media/note.webp" alt="Note"
-					width="80px"></button>
+				aria-labelledby="note-button--{{_id}}">
+				<img src="systems/litm/assets/media/note.webp" alt="Note" width="80px" />
+			</button>
 		</div>
 	</div>
 	<div id="note" class="window-app">
 		<div class="handle draggable">
 			<span>{{localize 'Notes'}}</span>
-			<button type="button" data-click="close" data-id="note" data-tooltip="{{localize 'Close'}}"><i
-					class="far fa-xmark"></i></button>
+			<button type="button" data-click="close" data-id="note" data-tooltip="{{localize 'Close'}}">
+				<i class="far fa-xmark"></i>
+			</button>
 		</div>
 		{{editor note target="system.note" owner=owner button=true editable=true}}
 	</div>
-	{{#if backpackId}}
-		<div class="litm--character-backpack item-list" data-dblclick="edit" data-context="delete" data-id="{{backpackId}}"
-			data-tooltip="{{localize 'Litm.ui.dblclick-open'}}" data-tooltip-direction="LEFT">
+	{{#if backpack.id}}
+		<div class="litm--character-backpack item-list" data-tooltip="{{localize 'Litm.ui.context-edit'}}"
+			data-tooltip-direction="LEFT" data-id="{{backpack.id}}">
 			{{> systems/litm/templates/item/backpack-ro.html backpack=backpack}}
 		</div>
 	{{else}}
@@ -37,10 +65,13 @@
 	{{/if}}
 	<div class="litm--character-themes item-list">
 		{{#each themes as |item|}}
-			<div class="litm--character-theme item" data-dblclick="edit" data-context="delete" data-id="{{item.data._id}}"
-				data-item-id="{{item.data._id}}">
+			<div class="litm--character-theme item" data-id="{{item.data._id}}" data-item-id="{{item.data._id}}">
 				{{> systems/litm/templates/item/theme-ro.html data=item.data}}
 			</div>
 		{{/each}}
+	</div>
+	<div class="litm--character-story-tags window-app {{#if tagsFocused}}focused{{/if}}" data-mousedown="keep-open"
+		data-dblclick="return" data-id="story-tags" style="{{tagsFocused}}">
+		{{#each storyTags as |item|}} {{> leaf data=item}} {{/each}}
 	</div>
 </form>

@@ -22,7 +22,7 @@ export class ThemeData extends foundry.abstract.DataModel {
 						Array(5)
 							.fill()
 							.map((_, i) => ({
-								id: randomID(),
+								id: foundry.utils.randomID(),
 								name: `${i < 2 ? `${t("Litm.ui.name-power")}` : ""}`,
 								type: "powerTag",
 								isActive: i < 2,
@@ -36,7 +36,7 @@ export class ThemeData extends foundry.abstract.DataModel {
 				{
 					initial: () => [
 						{
-							id: randomID(),
+							id: foundry.utils.randomID(),
 							name: t("Litm.ui.name-weakness"),
 							isActive: true,
 							isBurnt: false,

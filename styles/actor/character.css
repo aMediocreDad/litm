@@ -5,6 +5,9 @@
 	border-radius: 0px;
 
 	&:not(.minimized) {
+		width: 15.625rem !important;
+		height: 21.875rem !important;
+
 		& .window-header {
 			&>* {
 				transition: scale 0.15s;
@@ -37,8 +40,8 @@
 			width: 167%;
 			z-index: 1;
 			pointer-events: none;
-			top: 20px;
-			left: -50px;
+			top: 1.25rem;
+			left: -3.125rem;
 			rotate: 15deg;
 			z-index: -1;
 		}
@@ -58,7 +61,7 @@
 			width: 40%;
 			z-index: 1;
 			pointer-events: none;
-			bottom: 92px;
+			bottom: 5.75rem;
 			right: 0px;
 			rotate: 40deg;
 		}
@@ -71,29 +74,29 @@
 			width: 50%;
 			z-index: 1;
 			pointer-events: none;
-			top: -60px;
-			left: 358px;
+			top: -3.75rem;
+			left: 22.375rem;
 			rotate: 10deg;
 		}
 	}
 
 	& .avatar {
 		position: absolute;
-		left: -225px;
-		top: -64px;
+		left: -14.0625rem;
+		top: -4rem;
 		border: none;
 		z-index: 0;
 	}
 
 	& #name {
 		position: absolute;
-		top: -60px;
-		left: -10px;
+		top: -3.75rem;
+		left: -0.625rem;
 		font-family: var(--litm-font-heading);
 		font-weight: 800;
 		font-size: var(--font-size-32);
 		height: auto;
-		width: 520px;
+		width: 32.5rem;
 		background-color: transparent;
 		border: none;
 		color: var(--litm-color-primary-bg);
@@ -107,8 +110,8 @@
 	}
 
 	& .nav {
-		height: 120px;
-		max-width: 220px;
+		height: 7.5rem;
+		max-width: 13.75rem;
 		display: flex;
 		justify-content: center;
 		margin-block: var(--litm-space-3) var(--litm-space-2);
@@ -124,14 +127,15 @@
 				font-family: var(--litm-font-accent);
 				color: var(--litm-color-primary-bg);
 				font-size: var(--font-size-20);
+				text-shadow: 4px 3px 3px rgb(0, 0, 0, 0.2);
 			}
 
 			& button {
 				border: none;
 				width: auto;
-				height: 60px;
+				height: 3.75rem;
 				background: transparent;
-				font-size: 52px;
+				font-size: 3.25rem;
 				color: var(--litm-color-accent);
 				text-shadow: 0px 0px 4px var(--litm-color-dark-bg);
 				transition: scale 0.15s;
@@ -144,11 +148,11 @@
 
 				& img {
 					border: none;
-					width: 60px;
-					filter: drop-shadow(0 0 6px rgb(0, 0, 0, 1));
+					width: 3.75rem;
+					filter: drop-shadow(0 0 3px rgb(0, 0, 0, 0.6));
 
 					&[alt="Dice"] {
-						width: 80px;
+						width: 5rem;
 					}
 				}
 
@@ -171,11 +175,11 @@
 		padding: var(--litm-space-3);
 		display: none;
 		flex-direction: column;
-		height: 361px;
-		width: 500px;
+		height: 22.5625rem;
+		width: 31.25rem;
 		max-width: unset;
 		font-family: var(--litm-font-text);
-		z-index: 2;
+		z-index: 3;
 
 		&::before {
 			content: "";
@@ -238,12 +242,11 @@
 	}
 
 	& .litm--character-backpack {
-		isolation: isolate;
 		position: absolute;
-		right: -236px;
-		width: 300px;
-		height: 300px;
-		top: -32px;
+		right: -14.75rem;
+		width: 18.75rem;
+		height: 18.75rem;
+		top: -2rem;
 		pointer-events: none;
 
 		& .litm--backpack-bg-frame,
@@ -251,14 +254,23 @@
 			transform: translate(-10px, -20px) scale(0.8) rotate(10deg);
 		}
 
+		& .litm--backpack-bg-frame {
+			width: 15.625rem;
+		}
+
 		& .litm--backpack-bg {
 			height: 97%;
-			width: 240px;
+			width: 15rem;
 			pointer-events: all;
+			overflow: visible;
 
 			& .taglist {
-				height: 210px;
+				height: 13.125rem;
 			}
+		}
+
+		& #context-menu {
+			pointer-events: all;
 		}
 	}
 
@@ -270,19 +282,16 @@
 		isolation: isolate;
 		position: absolute;
 		top: 0px;
-		left: -225px;
-		width: 300px;
-		outline-offset: -2px;
-		border-radius: 2px;
+		left: -14.0625rem;
+		width: 18.75rem;
 		translate: -20% -18%;
 		rotate: 1deg;
 		scale: 0.71;
 		transition: scale 0.13s;
-		filter: drop-shadow(0px 2px 4px rgb(0, 0, 0, 0.5));
 
 		&:hover {
 			scale: 0.85;
-			z-index: 1;
+			z-index: 3;
 		}
 
 		&:first-child::before {
@@ -293,14 +302,14 @@
 			width: 55%;
 			z-index: 3;
 			pointer-events: none;
-			bottom: -80px;
-			left: -63px;
+			bottom: -5rem;
+			left: -3.9375rem;
 			rotate: 115deg;
 		}
 
 		&:nth-child(2) {
-			top: 16px;
-			left: -22px;
+			top: 1rem;
+			left: -1.375rem;
 			rotate: -1deg;
 
 			&::before {
@@ -311,16 +320,16 @@
 				width: 55%;
 				z-index: 3;
 				pointer-events: none;
-				bottom: -150px;
-				left: -80px;
+				bottom: -9.375rem;
+				left: -5rem;
 				rotate: -10deg;
 				transform: scale(-0.6, 0.6);
 			}
 		}
 
 		&:nth-child(3) {
-			top: 60px;
-			left: 176px;
+			top: 3.75rem;
+			left: 11rem;
 			rotate: 0deg;
 
 			&::before {
@@ -331,15 +340,15 @@
 				width: 55%;
 				z-index: 3;
 				pointer-events: none;
-				top: 280px;
-				left: -90px;
+				top: 17.5rem;
+				left: -5.625rem;
 				rotate: 10deg;
 			}
 		}
 
 		&:nth-child(4) {
-			top: 63px;
-			left: 380px;
+			top: 3.9375rem;
+			left: 23.75rem;
 			rotate: -3deg;
 
 			&::before {
@@ -350,18 +359,200 @@
 				width: 120%;
 				z-index: 0;
 				pointer-events: none;
-				top: -125px;
-				left: -30px;
+				top: -7.8125rem;
+				left: -1.875rem;
 				rotate: 0deg;
 			}
 		}
 
-		& .litm--theme-background {
-			overflow: hidden;
+		& .litm--theme-top {
+			padding-block-start: 8px;
+
+			& .litm--theme-top-bg {
+				margin: 0px 13px 0px 6px;
+				display: flex;
+				flex-direction: column;
+
+				& .litm--theme-tag .tag--name {
+					min-height: var(--font-size-28);
+				}
+			}
+
+			& .litm--theme-meta {
+				padding-block: 6px 12px;
+			}
 		}
 
-		& .litm--theme-top .litm--theme-meta {
-			padding-block: 12px;
+		& .litm--theme-title,
+		& .litm--weakness {
+			width: auto;
+			padding: 0px;
+			position: relative;
 		}
+
+	}
+
+	& .litm--character-story-tags {
+		position: absolute;
+		top: 0.625rem;
+		right: -21.875rem;
+		rotate: 30deg;
+		pointer-events: none;
+		display: grid;
+		grid-template-areas: "centered";
+		place-items: center;
+		z-index: -1;
+		isolation: isolate;
+		box-shadow: none;
+		width: 13.75rem;
+
+		&:hover,
+		&:focus-within,
+		&.focused {
+			display: flex;
+			flex-direction: column;
+			pointer-events: all;
+			top: -3.75rem;
+			z-index: 2;
+			rotate: 0deg;
+
+			& .litm--story-tag {
+				display: relative;
+				margin-block-end: -0.9375rem;
+				scale: 1;
+				transform: rotate(5deg);
+
+				&:nth-child(1) {
+					margin-block-end: -40px;
+				}
+
+				&:nth-child(2) {
+					margin-block-end: -40px;
+				}
+
+				&:nth-child(3) {
+					margin-block-end: 0px;
+					transform: rotate(15deg);
+				}
+			}
+		}
+
+		& .litm--story-tag {
+			width: 13.75rem;
+			grid-area: centered;
+			pointer-events: all;
+			display: grid;
+			grid-template-areas: "centered";
+			place-items: center;
+			list-style: none;
+			scale: 0.6;
+			transition: scale 0.13s, rotate 0.13s, top 0.13s;
+			transform-origin: left;
+			transform: rotate(10deg);
+
+			&:nth-child(1) {
+				transform: rotate(-20deg);
+			}
+
+			&:nth-child(2) {
+				transform: rotate(-5deg);
+			}
+
+			&>* {
+				grid-area: centered;
+			}
+
+			&>div {
+				width: 55%;
+				margin-top: 14px;
+			}
+
+			& input[type="text"] {
+				background: none;
+				border: none;
+				margin-inline-start: 12px;
+				font-family: var(--litm-font-accent);
+				color: var(--litm-color);
+
+				&:focus {
+					box-shadow: none;
+					background-color: rgb(0, 0, 0, 0.1);
+				}
+			}
+
+			& .litm--story-tag-values {
+				display: flex;
+				flex-wrap: nowrap;
+				align-items: center;
+				margin-block-start: 13px;
+				margin-inline-start: -10px;
+				gap: 8.5px;
+
+
+				& .litm--story-tag-value {
+					position: relative;
+
+					& label {
+						position: absolute;
+						left: 3px;
+						top: -7px;
+						font-family: var(--litm-font-primary);
+						color: color-mix(in hsl, var(--litm-color) 70%, transparent);
+						font-size: var(--font-size-14);
+
+					}
+				}
+
+
+				& input[type="checkbox"] {
+					margin: 0px;
+					appearance: none;
+					width: 0.8em;
+					height: 1.2em;
+					color: var(--litm-color);
+					font-size: var(--font-size-20);
+					cursor: pointer;
+
+					&:checked::before {
+						content: "✓";
+					}
+				}
+			}
+		}
+	}
+
+	& .litm--theme-tag-button {
+		position: relative;
+		display: flex;
+		align-items: center;
+		width: 100%;
+		gap: var(--litm-space-3);
+		color: var(--litm-color);
+		line-height: 135%;
+		padding: 0px;
+		cursor: auto;
+
+		&[data-click="select"] {
+			cursor: pointer;
+		}
+	}
+
+	& [data-selected] {
+		&.burned>.litm--burn {
+			background-image: url("../../assets/media/burn-c.svg");
+		}
+	}
+
+	& [data-selected]::before {
+		content: "";
+		position: absolute;
+		width: 80%;
+		height: calc(10px + 100%);
+		background: url(../../assets/media/brush.svg) no-repeat center;
+		background-blend-mode: color;
+		background-size: contain;
+		opacity: 0.8;
+		left: 50%;
+		transform: translateX(-50%);
 	}
 }

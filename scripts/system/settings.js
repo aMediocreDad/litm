@@ -6,7 +6,18 @@ export class LitmSettings {
 			scope: "world",
 			config: false,
 			type: Object,
-			default: {},
+			default: {
+				tags: [],
+				actors: [],
+			},
+		});
+		game.settings.register("litm", "show_tag_window_on_load", {
+			name: "Litm.ui.show-tag-window-on-load",
+			hint: "Litm.ui.show-tag-window-on-load-hint",
+			scope: "world",
+			config: true,
+			type: Boolean,
+			default: game.user?.isGM ?? true,
 		});
 	}
 }

@@ -7,6 +7,7 @@
 const Status = {
 	SUCCESS: "hsl(46.61 81.44% 70%)",
 	INFO: "hsl(225.94 10.66% 41.72%)",
+	WARN: "hsl(45 100% 50%)",
 	ERROR: "hsl(6.5deg 42.05% 70%)",
 };
 
@@ -56,4 +57,14 @@ export function success(...args) {
  */
 export function info(...args) {
 	return log(Status.INFO)(...args);
+}
+
+/**
+ * @param  {...string} args
+ * @returns {void}
+ * @example
+ * warn("This is a warning message");
+ */
+export function warn(...args) {
+	return log(Status.WARN)(...args);
 }

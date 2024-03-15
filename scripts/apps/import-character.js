@@ -4,13 +4,15 @@ function createTag(data, type) {
 	return {
 		...(data || { name: "", isBurnt: false, isActive: false }),
 		type,
-		id: randomID(),
+		id: foundry.utils.randomID(),
 	};
 }
 
 export async function importCharacter(data) {
 	if (data.compatibility && !["litm", "empty"].includes(data.compatibility))
-		return ui.notifications.warn("Litm.ui.warn-incompatible-data", { localize: true });
+		return ui.notifications.warn("Litm.ui.warn-incompatible-data", {
+			localize: true,
+		});
 
 	const themeData = Object.entries(data)
 		.filter(
@@ -18,7 +20,7 @@ export async function importCharacter(data) {
 				key.startsWith("theme") &&
 				typeof theme === "object" &&
 				!Array.isArray(theme) &&
-				!theme.isEmpty
+				!theme.isEmpty,
 		)
 		.map(([_, theme]) => ({
 			name: theme.content.mainTag.name,
@@ -31,7 +33,16 @@ export async function importCharacter(data) {
 				powerTags: Array(5)
 					.fill()
 					.map((_, i) => createTag(theme.content.powerTags[i], "powerTag")),
-				weaknessTags: [createTag({ name: theme.content.weaknessTags[0] || "", isBurnt: false, isActive: true }, "weaknessTag")],
+				weaknessTags: [
+					createTag(
+						{
+							name: theme.content.weaknessTags[0] || "",
+							isBurnt: false,
+							isActive: true,
+						},
+						"weaknessTag",
+					),
+				],
 				experience: theme.content.experience,
 				decay: theme.content.decay,
 				motivation: theme.content.bio.title,
@@ -53,10 +64,11 @@ export async function importCharacter(data) {
 		},
 		items: [...themeData, backpack],
 	};
-	;
 	const created = await Actor.create(actorData);
 	if (created) {
-		const formatted = game.i18n.format("Litm.ui.info-imported-character", { name: created.name });
+		const formatted = game.i18n.format("Litm.ui.info-imported-character", {
+			name: created.name,
+		});
 		ui.notifications.info(formatted);
 		created.sheet.render(true);
 	}

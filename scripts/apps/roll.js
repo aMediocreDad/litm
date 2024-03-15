@@ -1,3 +1,5 @@
+import { localize as t } from "../utils.js";
+
 export class LitmRoll extends Roll {
 	static CHAT_TEMPLATE = "systems/litm/templates/chat/message.html";
 	static TOOLTIP_TEMPLATE = "systems/litm/templates/chat/message-tooltip.html";
@@ -15,44 +17,30 @@ export class LitmRoll extends Roll {
 	}
 
 	get flavor() {
-		if (!this.effect) return game.i18n.localize("Litm.ui.roll-quick");
-		return game.i18n.localize(`Litm.effects.${this.effect.name}.key`);
+		if (this.litm.type === "mitigate") return t("Litm.effects.mitigate.key");
+		if (this.litm.type === "tracked")
+			return t("Litm.ui.roll-tracked", "Litm.other.outcome");
+		return t("Litm.ui.roll-quick", "Litm.other.outcome");
+	}
+
+	get effect() {
+		if (this.litm.type !== "mitigate") return null;
+		return {
+			action: "Litm.effects.mitigate.action",
+			description: "Litm.effects.mitigate.description",
+			cost: "Litm.effects.mitigate.cost",
+		};
 	}
 
 	get power() {
-		if (!this.effect) return null;
+		if (this.litm.type === "quick") return null;
 		if (this.total < 7) return 0;
 
 		let totalPower = Math.max(this.litm.totalPower, 1);
 		if (this.total < 10) return totalPower;
-		if (this.effect?.name === "mitigate") totalPower += 1;
+		if (this.litm.type === "mitigate") totalPower += 1;
 
 		return totalPower;
-	}
-
-	get powerTags() {
-		const tags = this.litm.powerTags
-			.map((tag) =>
-				this.actor.system.powerTags.find((t) => t.id === tag)?.toObject(),
-			)
-			.filter(Boolean);
-		return tags;
-	}
-
-	get weaknessTags() {
-		const tags = this.litm.weaknessTags
-			.map((tag) =>
-				this.actor.system.weaknessTags.find((t) => t.id === tag)?.toObject(),
-			)
-			.filter(Boolean);
-		return tags;
-	}
-
-	get burnedTag() {
-		if (!this.litm.burnedTag) return null;
-		return this.actor.system.allTags.find(
-			(tag) => tag.id === this.litm.burnedTag,
-		);
 	}
 
 	get outcome() {
@@ -64,11 +52,6 @@ export class LitmRoll extends Roll {
 		return { label: "failure", description: "Litm.ui.roll-failure" };
 	}
 
-	get effect() {
-		if (!this.litm.tracked) return null;
-		return this.litm.effectData;
-	}
-
 	async render({
 		template = this.constructor.CHAT_TEMPLATE,
 		isPrivate = false,
@@ -76,7 +59,6 @@ export class LitmRoll extends Roll {
 		if (!this._evaluated) await this.evaluate({ async: true });
 		const chatData = {
 			actor: this.actor,
-			effect: this.effect,
 			formula: isPrivate ? "???" : this._formula.replace(/\s\+0/, ""),
 			flavor: isPrivate ? null : this.flavor,
 			outcome: isPrivate ? "???" : this.outcome,
@@ -85,8 +67,17 @@ export class LitmRoll extends Roll {
 			title: this.litm.title,
 			tooltip: isPrivate ? "" : await this.getTooltip(),
 			total: isPrivate ? "" : Math.round(this.total * 100) / 100,
+			type: this.litm.type,
+			effect: this.effect,
 			user: game.user.id,
+			isOwner: game.user.isGM || this.actor.isOwner,
+			hasBurnedTags: !this.litm.isBurnt && this.litm.burnedTags.length > 0,
+			hasWeaknessTags:
+				!this.litm.gainedExp &&
+				this.litm.weaknessTags.filter((t) => t.type === "weaknessTag").length >
+					0,
 		};
+
 		return renderTemplate(template, chatData);
 	}
 
@@ -98,11 +89,12 @@ export class LitmRoll extends Roll {
 
 	getTooltipData() {
 		return {
-			burnedTag: this.burnedTag,
-			mitigate: this.effect?.name === "mitigate",
-			powerTags: this.powerTags,
-			status: this.litm.status,
-			weaknessTags: this.weaknessTags,
+			mitigate: this.litm.type === "mitigate" && this.total > 9,
+			burnedTags: this.litm.burnedTags,
+			powerTags: this.litm.powerTags,
+			weaknessTags: this.litm.weaknessTags,
+			positiveStatuses: this.litm.positiveStatuses,
+			negativeStatuses: this.litm.negativeStatuses,
 		};
 	}
 }

@@ -1,8 +1,8 @@
-{{#*inline "section" name value flavor}}
+{{#*inline "section" name value flavor flavorClass}}
 	<section class="tooltip-part">
 		<header class="part-header flexrow">
 			<span class="part-formula">{{name}}</span>
-			{{#if flavor}}<span class="part-flavor">{{flavor}}</span>{{/if}}
+			{{#if flavor}}<span class="part-flavor {{flavorClass}}">{{flavor}}</span>{{/if}}
 			<span class="part-total">{{value}}</span>
 		</header>
 	</section>
@@ -26,9 +26,9 @@
 				</div>
 			</section>
 		{{/each}}
-		{{#if data.burnedTag}}
-			{{> section name=data.burnedTag.name value=3 flavor=(localize 'Litm.tags.isBurnt')}}
-		{{/if}}
+		{{#each data.burnedTags as |tag|}}
+			{{> section name=tag.name value=3 flavor=(localize 'Litm.tags.isBurnt') flavorClass="burned"}}
+		{{/each}}
 		{{#each data.powerTags as |tag|}}
 			{{> section name=tag.name value=1}}
 		{{/each}}
@@ -36,10 +36,13 @@
 			{{> section name=(localize 'Litm.effects.mitigate.key') value=1}}
 		{{/if}}
 		{{#each data.weaknessTags as |tag|}}
-			{{> section name=tag.name value=-1}}
+			{{> section name=tag.name value=-1 flavor=(ifThen (eq tag.type 'weaknessTag') (localize 'Litm.tags.weakness') '') flavorClass="negative"}}
 		{{/each}}
-		{{#if data.status}}
-			{{> section name=(localize 'Litm.ui.status') value=data.status}}
-		{{/if}}
+		{{#each data.positiveStatuses as |tag|}}
+			{{> section name=tag.name value=tag.value flavor=(localize 'Litm.other.status') flavorClass="positive"}}
+		{{/each}}
+		{{#each data.negativeStatuses as |tag|}}
+			{{> section name=tag.name value=(concat "-" tag.value) flavor=(localize 'Litm.other.status') flavorClass="positive"}}
+		{{/each}}
 	</div>
 {{/if}}

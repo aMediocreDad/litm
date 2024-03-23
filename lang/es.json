@@ -72,9 +72,7 @@
 				"description": "Bloquear, esquivar, parar, absorber.",
 				"action": "Reducir o cancelar efectos recibidos.",
 				"cost": "1 de Poder por rango, 2 de Poder por etiqueta."
-			}
-		},
-		"additionalEffects": {
+			},
 			"discover": {
 				"key": "Discover",
 				"description": "Sense, recall, research, converse.",

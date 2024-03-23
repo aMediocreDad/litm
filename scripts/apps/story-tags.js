@@ -3,7 +3,7 @@ import { confirmDelete, dispatch, localize as t } from "../utils.js";
 
 export class StoryTagApp extends SheetMixin(FormApplication) {
 	static get defaultOptions() {
-		return mergeObject(super.defaultOptions, {
+		return foundry.utils.mergeObject(super.defaultOptions, {
 			classes: ["litm", "litm--story-tags"],
 			template: "systems/litm/templates/apps/story-tags.html",
 			left: window.innerWidth - 605,
@@ -20,7 +20,8 @@ export class StoryTagApp extends SheetMixin(FormApplication) {
 
 	get config() {
 		const config = game.settings.get("litm", "storytags");
-		if (!config || isEmpty(config)) return { actors: [], tags: [] };
+		if (!config || foundry.utils.isEmpty(config))
+			return { actors: [], tags: [] };
 		return config;
 	}
 
@@ -38,19 +39,25 @@ export class StoryTagApp extends SheetMixin(FormApplication) {
 					tags: actor.effects
 						.filter((e) => !!e.flags.litm?.type)
 						.map((e) => ({
-							_id: e._id,
+							id: e._id,
 							name: e.name,
 							values: e.flags.litm.values,
 							isBurnt: e.flags.litm.isBurnt,
-							value: e.flags.litm.values.filter((v) => v !== null).at(-1),
-							type: e.flags.litm.type,
-						})),
+							value: e.flags.litm.values.findLast((v) => !!v),
+							type: e.flags.litm.values.some((v) => !!v) ? "status" : "tag",
+						}))
+						.sort((a, b) => a.name.localeCompare(b.name))
+						.sort((a, b) =>
+							a.type === b.type ? 0 : a.type === "status" ? -1 : 1,
+						),
 				})) || []
 		);
 	}
 
 	get tags() {
-		return this.config.tags || [];
+		return this.config.tags
+			.sort((a, b) => a.name.localeCompare(b.name))
+			.sort((a, b) => (a.type === b.type ? 0 : a.type === "status" ? -1 : 1));
 	}
 
 	async setActors(actors) {
@@ -98,8 +105,8 @@ export class StoryTagApp extends SheetMixin(FormApplication) {
 	}
 
 	async _updateObject(_event, formData) {
-		const data = expandObject(formData);
-		if (isEmpty(data)) return;
+		const data = foundry.utils.expandObject(formData);
+		if (foundry.utils.isEmpty(data)) return;
 
 		const { story, ...actors } = data;
 
@@ -123,7 +130,7 @@ export class StoryTagApp extends SheetMixin(FormApplication) {
 		);
 
 		const storyTags = Object.entries(story || {}).map(([tagId, data]) => ({
-			_id: tagId,
+			id: tagId,
 			name: data.name,
 			values: data.values,
 			isBurnt: data.isBurnt,
@@ -214,7 +221,7 @@ export class StoryTagApp extends SheetMixin(FormApplication) {
 				.map(() => null),
 			type: "tag",
 			isBurnt: false,
-			_id: randomID(),
+			id: foundry.utils.randomID(),
 		};
 
 		if (target === "story") {
@@ -226,17 +233,16 @@ export class StoryTagApp extends SheetMixin(FormApplication) {
 	}
 
 	async #removeTag(target) {
-		if (!(await confirmDelete("Litm.other.tag"))) return;
-
 		const id = target.dataset.id;
 		const type = target.dataset.type;
 
 		if (type === "story") {
+			if (!(await confirmDelete("Litm.other.tag"))) return;
 			if (game.user.isGM)
-				return this.setTags(this.config.tags.filter((t) => t._id !== id));
+				return this.setTags(this.config.tags.filter((t) => t.id !== id));
 			return this.#broadcastUpdate(
 				"tags",
-				this.config.tags.filter((t) => t._id !== id),
+				this.config.tags.filter((t) => t.id !== id),
 			);
 		}
 		return this.#removeTagFromActor({ actorId: type, id });
@@ -269,14 +275,14 @@ export class StoryTagApp extends SheetMixin(FormApplication) {
 
 	async #removeTagFromActor({ actorId, id }) {
 		const actor = game.actors.get(actorId);
+
 		if (!actor)
 			return ui.notifications.error("Litm.ui.error-no-actor", {
 				localize: true,
 			});
-		if (!actor.isOwner)
-			return ui.notifications.error("Litm.ui.warn-not-owner", {
-				localize: true,
-			});
+		if (!actor.isOwner) return;
+
+		if (!(await confirmDelete("Litm.other.tag"))) return;
 
 		await actor.deleteEmbeddedDocuments("ActiveEffect", [id]);
 		return this.#broadcastRender();

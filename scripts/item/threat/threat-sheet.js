@@ -6,7 +6,7 @@ export class ThreatSheet extends SheetMixin(ItemSheet) {
 
 	/** @override */
 	static get defaultOptions() {
-		return mergeObject(super.defaultOptions, {
+		return foundry.utils.mergeObject(super.defaultOptions, {
 			classes: ["litm", "litm--threat"],
 			template: "systems/litm/templates/item/threat.html",
 			width: 412,

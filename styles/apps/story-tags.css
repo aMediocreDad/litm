@@ -100,18 +100,8 @@
 				display: flex;
 				align-items: center;
 				border: none;
-				/* border-top: 1px solid transparent;
-				border-image: url(../../assets/media/tag-divider.webp) 11 / 5; */
 				padding-block: var(--litm-space-1);
 				gap: var(--litm-space-2);
-
-				/* &:nth-child(odd) {
-					background: linear-gradient(to right, transparent, rgba(69, 59, 29, 0.1), transparent);
-				}
-
-				&:last-child {
-					border-bottom: 1px solid transparent;
-				} */
 
 				& .litm--tag-item-name {
 					background: transparent;
@@ -119,6 +109,10 @@
 					font-family: var(--litm-font-text);
 					color: var(--litm-color-primary);
 					min-width: 10px;
+
+					&.status {
+						text-indent: 24px;
+					}
 				}
 
 				& .litm--burn-label {
@@ -126,7 +120,7 @@
 					height: var(--font-size-14);
 
 					& .litm--burn {
-						height: var(--font-size-14);
+						height: var(--font-size-18);
 						margin: 0px;
 					}
 				}

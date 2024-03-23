@@ -2,7 +2,7 @@ import { SheetMixin } from "../../mixins/sheet-mixin.js";
 import { confirmDelete } from "../../utils.js";
 
 export class ThemeSheet extends SheetMixin(ItemSheet) {
-	static defaultOptions = mergeObject(ItemSheet.defaultOptions, {
+	static defaultOptions = foundry.utils.mergeObject(ItemSheet.defaultOptions, {
 		classes: ["litm", "litm--theme"],
 		width: 330,
 		height: 660,
@@ -28,6 +28,25 @@ export class ThemeSheet extends SheetMixin(ItemSheet) {
 
 		html.find("[data-click]").click(this.#handleClicks.bind(this));
 		html.find("[data-context").contextmenu(this.#handleContextmenu.bind(this));
+	}
+
+	/** @override - This method needs to be overriden to accommodate readonly input fields */
+	_getSubmitData(updateData) {
+		if (!this.form)
+			throw new Error(
+				"The FormApplication subclass has no registered form element",
+			);
+		const fd = new FormDataExtended(this.form, {
+			editors: this.editors,
+			readonly: true,
+			disabled: true,
+		});
+		let data = fd.object;
+		if (updateData)
+			data = foundry.utils.flattenObject(
+				foundry.utils.mergeObject(data, updateData),
+			);
+		return data;
 	}
 
 	#handleClicks(event) {

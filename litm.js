@@ -2,6 +2,7 @@ import { DENOMINATION, DoubleSix } from "./scripts/apps/dice.js";
 import { importCharacter } from "./scripts/apps/import-character.js";
 import { LitmRollDialog } from "./scripts/apps/roll-dialog.js";
 import { StoryTagApp } from "./scripts/apps/story-tags.js";
+import { SuperCheckbox } from "./scripts/components/super-checkbox.js";
 import { ToggledInput } from "./scripts/components/toggled-input.js";
 import { TagData } from "./scripts/data/abstract.js";
 import { CharacterData } from "./scripts/actor/character/character-data.js";
@@ -19,6 +20,7 @@ import {
 	HandlebarsPartials,
 } from "./scripts/system/handlebars.js";
 import { Fonts } from "./scripts/system/fonts.js";
+import { KeyBindings } from "./scripts/system/keybidings.js";
 import { LitmHooks } from "./scripts/system/hooks.js";
 import { LitmRoll } from "./scripts/apps/roll.js";
 import { LitmConfig } from "./scripts/system/config.js";
@@ -31,6 +33,7 @@ $("#logo")[0].src = "systems/litm/assets/media/logo.webp";
 
 // Register Custom Elements
 ToggledInput.Register();
+SuperCheckbox.Register();
 
 // Init Hook
 Hooks.once("init", () => {
@@ -86,6 +89,7 @@ Hooks.once("init", () => {
 	HandlebarsPartials.register();
 	Enrichers.register();
 	Fonts.register();
+	KeyBindings.register();
 	LitmSettings.register();
 	LitmHooks.register();
 

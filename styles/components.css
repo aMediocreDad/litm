@@ -27,7 +27,6 @@
 	display: grid;
 	place-content: center;
 	rotate: 45deg;
-	cursor: pointer;
 
 	&::after {
 		content: "";
@@ -41,6 +40,10 @@
 	&.checked::after,
 	&:checked::after {
 		scale: 1;
+	}
+
+	&:is([type="checkbox"]) {
+		cursor: pointer;
 	}
 
 	&:disabled {
@@ -82,20 +85,24 @@
 	margin: 0;
 	font: inherit;
 	color: currentColor;
-	height: 1.2em;
+	height: 1.5em;
 	width: 1.2em;
 	background: url('../assets/media/burn.svg') no-repeat;
 	background-size: contain;
 	background-position: center;
-	cursor: pointer;
 
 	&.transparent {
 		background-image: url('../assets/media/burn-t.svg');
 		filter: none;
 	}
 
-	&:checked {
+	&:checked,
+	&.checked {
 		background-image: url('../assets/media/burn-c.svg');
+	}
+
+	&:is([type="checkbox"]) {
+		cursor: pointer;
 	}
 
 	&:disabled {
@@ -116,7 +123,6 @@
 	border-radius: 0.3em;
 	display: grid;
 	place-content: center;
-	cursor: pointer;
 
 	&::before {
 		content: "–";
@@ -125,7 +131,8 @@
 		-webkit-text-stroke-width: 0.1em;
 	}
 
-	&:checked {
+	&:checked,
+	&.checked {
 		background-color: currentColor;
 
 		&::before {
@@ -147,7 +154,11 @@
 
 :where(.litm--tag),
 :where(.litm--status),
-:where(.litm--limit) {
+:where(.litm--limit),
+:where(.litm--powerTag),
+:where(.litm--weaknessTag),
+:where(.litm--themeTag),
+:where(.litm--backpack) {
 	padding: 0px 0.4em;
 	border-radius: 0.2em;
 	white-space: nowrap;
@@ -166,10 +177,30 @@
 		background: var(--litm-color-status-bg);
 	}
 
-	&.litm--limit {
+	&.litm--limit,
+	&.litm--weaknessTag {
 		background: var(--litm-color-limit-bg);
 	}
+
+	&.litm--powerTag,
+	&.litm--themeTag,
+	&.litm--backpack {
+		background: color-mix(in hsl, var(--litm-color-accent-bg) 60%, transparent);
+	}
 }
+
+:where(.litm--kbd) {
+	flex: none;
+	padding: 0 4px;
+	min-width: 24px;
+	background: rgba(255, 255, 255, 0.25);
+	border: 1px solid var(--color-border-light-2);
+	border-radius: 5px;
+	box-shadow: 1px 1px #444;
+	text-align: center;
+}
+
+/* Custom Elements */
 
 litm-toggled-input {
 	display: block;
@@ -181,6 +212,8 @@ litm-toggled-input {
 		background-color: rgb(0, 0, 0, 0.2);
 	}
 }
+
+/* Custom App */
 
 .litm.litm--new-tag {
 	& .window-header {

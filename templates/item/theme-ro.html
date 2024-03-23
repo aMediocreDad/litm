@@ -1,9 +1,10 @@
 <!-- Readonly version of the Theme template -->
 <!-- Intended for use embedded on a character sheet -->
 <input type="hidden" name="items.{{data._id}}.type" value="{{data.type}}" />
-<div class="litm--theme-background" data-tooltip="{{localize 'Litm.ui.dblclick-open'}}" data-tooltip-direction="LEFT">
+<div class="litm--theme-background" data-context="menu" data-tooltip="{{localize 'Litm.ui.context-edit'}}"
+	data-tooltip-direction="LEFT">
 	<div class="litm--theme-top">
-		<img class="litm--theme-border-top" src="systems/litm/assets/media/theme-border-top.webp" aria-hidden="true">
+		<img class="litm--theme-border-top" src="systems/litm/assets/media/theme-border-top.webp" aria-hidden="true" />
 		<div class="litm--theme-top-bg">
 			<div class="litm--theme-meta">
 				<span class="litm--theme-meta-part">{{data.system.themebook}}</span>
@@ -14,40 +15,40 @@
 					{{localize "Litm.other.tags"}}</span><span>・</span><span>{{localize "Litm.tags.weakness"}}
 					{{localize "Litm.other.tag"}}</span>
 			</div>
-			<div class="litm--theme-title">
+			<button class="litm--theme-title" data-id="{{data._id}}"
+				{{#if (includes @root.rollTags data._id 'id')}}data-selected{{/if}}
+				{{#if data.system.isActive}}data-click="select"
+				data-tooltip="{{localize (ifThen tag.isBurnt 'Litm.ui.toggle-burnt' 'Litm.ui.toggle-roll')}}" {{/if}}>
 				<!-- isActive checkbox -->
-				<label><span class="litm--sro">{{localize (tagActiveString data.system true)}}</span>
-					<input class="litm--checkbox litm--checkbox-with-bg" type="checkbox" name="items.{{data._id}}.system.isActive"
-						data-tooltip="{{localize (tagActiveString data.system true)}}" disabled {{checked data.system.isActive}}>
-				</label>
+				<span class="litm--sro">{{localize (tagActiveString data.system true)}}</span>
+				<span class="litm--checkbox litm--checkbox-with-bg {{checked data.system.isActive}}"></span>
 				<!-- Name input -->
-				<span>{{data.name}}</span>
-				<input type="hidden" name="items.{{data._id}}.name" value="{{data.name}}" />
+				<span class="litm--theme-name">{{data.name}}</span>
 				<!-- isBurnt checkbox -->
-				<label><span
-						class="litm--sro">{{localize (ifThen data.system.isBurnt 'Litm.tags.isBurnt' 'Litm.tags.burn')}}</span>
-					<input class="litm--burn" type="checkbox" name="items.{{data._id}}.system.isBurnt"
-						data-tooltip="{{localize (ifThen data.system.isBurnt 'Litm.tags.isBurnt' 'Litm.tags.burn')}}"
-						{{checked data.system.isBurnt}} />
-				</label>
-			</div>
-			<ul class="litm--tags">
-				{{#each data.system.powerTags as |tag|}}
-					{{> systems/litm/templates/partials/tag.html tag=tag key=@key path=(concat 'items.' ../data._id '.system.powerTags') readonly=true}}
+				<span
+					class="litm--sro">{{localize (ifThen data.system.isBurnt 'Litm.tags.isBurnt' 'Litm.tags.burn')}}</span>
+				<span class="litm--burn {{checked data.system.isBurnt}}" aria-hidden="true"></span>
+			</button>
+			<ul class="litm--theme-tags">
+				{{#each data.system.powerTags as |tag|}} {{> systems/litm/templates/partials/tag.html
+				tag=tag key=@key path=(concat 'items.' ../data._id '.system.powerTags') embedded=true}}
 				{{/each}}
 			</ul>
+			<!-- Weakness -->
 			{{#with data.system.weakness as |tag|}}
-				<div class="litm--weakness">
-					<!-- Name -->
+				<button type="button" class="litm--weakness" data-click="select"
+					data-tooltip="{{localize 'Litm.ui.toggle-weakness-roll'}}" data-id="{{tag.id}}"
+					{{#if (includes @root.rollTags tag.id 'id')}}data-selected{{/if}}>
+					<!-- Weakness Name -->
 					<span class="litm--weakness-part">{{tag.name}}</span>
-				</div>
+				</button>
 			{{/with}}
 			<div class="litm--theme-progression">
 				<!-- Experience buttons -->
 				<div data-click="increase" data-context="decrease" data-id="system.experience"
 					data-tooltip="{{localize 'Litm.ui.inc-dec'}}">
 					{{#progress-buttons data.system.experience 3}}
-						<span class="litm--checkbox litm--checkbox-with-bg {{ifThen @checked 'checked' ''}}"></span>
+						<span class="litm--checkbox litm--checkbox-with-bg {{#if @checked}}checked{{/if}}"></span>
 					{{/progress-buttons}}
 					<label for="{{data._id}}-experience">{{localize "Litm.other.experience"}}
 						<input id="{{data._id}}-experience" type="number" class="litm--sro"
@@ -58,26 +59,28 @@
 				<div data-click="increase" data-context="decrease" data-id="system.decay"
 					data-tooltip="{{localize 'Litm.ui.inc-dec'}}">
 					{{#progress-buttons data.system.decay 3}}
-						<span class="litm--checkbox litm--checkbox-with-bg {{ifThen @checked 'checked' ''}}"></span>
+						<span class="litm--checkbox litm--checkbox-with-bg {{#if @checked}}checked{{/if}}"></span>
 					{{/progress-buttons}}
 					<label for="{{data._id}}-decay">{{localize "Litm.tags.decay"}}
-						<input id="{{data._id}}-decay" type="number" class="litm--sro" name="items.{{data._id}}.system.decay"
-							value="{{data.system.decay}}" />
+						<input id="{{data._id}}-decay" type="number" class="litm--sro"
+							name="items.{{data._id}}.system.decay" value="{{data.system.decay}}" />
 					</label>
 				</div>
 			</div>
 		</div>
 	</div>
 	<div class="litm--theme-bottom">
-		<img class="litm--theme-border-bottom" src="systems/litm/assets/media/theme-border-bottom.webp" aria-hidden="true">
+		<img class="litm--theme-border-bottom" src="systems/litm/assets/media/theme-border-bottom.webp"
+			aria-hidden="true" />
 		<div class="litm--theme-bottom-bg">
 			<div class="motivation">
 				<span role="textbox">{{data.system.motivation}}</span>
 				<input type="hidden" name="items.{{data._id}}.system.motivation" value="{{data.system.motivation}}" />
 			</div>
 			<div class="note">
-				{{editor data.system.note target='items.{{data._id}}.system.note' owner=owner editable=false}}
-				<input type="hidden" name="items.{{data._id}}.system.note" value="{{data.system.note}}">
+				{{editor data.system.note target='items.{{data._id}}.system.note' owner=owner
+				editable=false}}
+				<input type="hidden" name="items.{{data._id}}.system.note" value="{{data.system.note}}" />
 			</div>
 		</div>
 	</div>

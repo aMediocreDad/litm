@@ -1,10 +1,7 @@
-import { confirmDelete } from "../../utils.js";
+import { confirmDelete, dispatch } from "../../utils.js";
 
 export class CharacterSheet extends ActorSheet {
-	#editImageTimeout = null;
-	#notesEditorOpened = false;
-
-	static defaultOptions = mergeObject(ActorSheet.defaultOptions, {
+	static defaultOptions = foundry.utils.mergeObject(ActorSheet.defaultOptions, {
 		classes: ["litm", "litm--character"],
 		width: 250,
 		height: 350,
@@ -12,6 +9,16 @@ export class CharacterSheet extends ActorSheet {
 		top: window.innerHeight / 2 - 250,
 		scrollY: [".taglist"],
 		resizable: false,
+	});
+
+	#editImageTimeout = null;
+	#notesEditorOpened = false;
+	#focusedTags = null;
+	#contextmenu = null;
+	#roll = game.litm.LitmRollDialog.create({
+		actorId: this.actor._id,
+		characterTags: [],
+		shouldRoll: () => game.user.isGM,
 	});
 
 	get template() {
@@ -26,10 +33,74 @@ export class CharacterSheet extends ActorSheet {
 		return this.actor.system;
 	}
 
-	async render(force = false, options = {}) {
-		await super.render(force, options);
-		if (this.#notesEditorOpened)
-			setTimeout(() => this.element.find("#note").show(100));
+	get storyTags() {
+		return [...this.system.storyTags, ...this.system.statuses];
+	}
+
+	renderRollDialog() {
+		this.#roll.render(true);
+	}
+
+	resetRollDialog() {
+		this.#roll.reset();
+		this.render();
+	}
+
+	async toggleBurnTag(tag) {
+		switch (tag.type) {
+			case "powerTag": {
+				const parentTheme = this.items.find(
+					(i) =>
+						i.type === "theme" &&
+						i.system.powerTags.some((t) => t.id === tag.id),
+				);
+				const { powerTags } = parentTheme.system.toObject();
+				powerTags.find((t) => t.id === tag.id).isBurnt = !tag.isBurnt;
+				this.actor.updateEmbeddedDocuments("Item", [
+					{
+						_id: parentTheme.id,
+						"system.powerTags": powerTags,
+					},
+				]);
+				break;
+			}
+			case "themeTag": {
+				const theme = this.items.get(tag.id);
+				this.actor.updateEmbeddedDocuments("Item", [
+					{
+						_id: theme.id,
+						"system.isBurnt": !tag.isBurnt,
+					},
+				]);
+				break;
+			}
+			case "backpack": {
+				const backpack = this.items.find((i) => i.type === "backpack");
+				const { contents } = backpack.system.toObject();
+				contents.find((i) => i.id === tag.id).isBurnt = !tag.isBurnt;
+				this.actor.updateEmbeddedDocuments("Item", [
+					{
+						_id: backpack.id,
+						"system.contents": contents,
+					},
+				]);
+				break;
+			}
+		}
+	}
+
+	async gainExperience(tag) {
+		const parentTheme = this.items.find(
+			(i) =>
+				i.type === "theme" &&
+				i.system.weaknessTags.some((t) => t.id === tag.id),
+		);
+		this.actor.updateEmbeddedDocuments("Item", [
+			{
+				_id: parentTheme.id,
+				"system.experience": parentTheme.system.experience + 1,
+			},
+		]);
 	}
 
 	async getData() {
@@ -39,28 +110,76 @@ export class CharacterSheet extends ActorSheet {
 				.map((i) => i.sheet.getData()),
 		);
 		const note = await TextEditor.enrichHTML(this.system.note);
-		const backpack = this.system.backpack.sort((a, b) =>
-			a.isActive ? a.name.localeCompare(b.name) : 1,
-		);
+		const backpack = {
+			name: this.items.find((i) => i.type === "backpack")?.name,
+			id: this.items.find((i) => i.type === "backpack")?._id,
+			contents: this.system.backpack
+				.sort((a, b) => a.name.localeCompare(b.name))
+				.sort((a, b) => (a.isActive && b.isActive ? 0 : a.isActive ? -1 : 1)),
+		};
 		return {
 			...this.object.system,
 			_id: this.actor.id,
 			img: this.actor.img,
 			name: this.actor.name,
+			storyTags: this.storyTags,
 			backpack,
-			backpackId: this.items.find((i) => i.type === "backpack")?._id,
 			note,
 			themes,
+			tagsFocused: this.#focusedTags,
+			notesEditorOpened: this.#notesEditorOpened,
+			rollTags: this.#roll.characterTags,
 		};
 	}
 
 	activateListeners(html) {
 		super.activateListeners(html);
 
-		html.find("[data-click]").click(this.#handleClicks.bind(this));
-		html.find("[data-dblclick").dblclick(this.#handleDblclick.bind(this));
-		html.find("[data-context").contextmenu(this.#handleContextmenu.bind(this));
-		html.find(".draggable").mousedown(this.#onDragHandleMouseDown.bind(this));
+		html.find("[data-click]").on("click", this.#handleClicks.bind(this));
+		html.find("[data-dblclick").on("dblclick", this.#handleDblclick.bind(this));
+		html
+			.find("[data-context]")
+			.on("contextmenu", this.#handleContextmenu.bind(this));
+		html
+			.find("[data-mousedown]")
+			.on("mousedown", this.#handleMouseDown.bind(this));
+		html
+			.find(".draggable")
+			.on("mousedown", this.#onDragHandleMouseDown.bind(this));
+
+		this.#contextmenu = ContextMenu.create(
+			this,
+			html,
+			"[data-context='menu']",
+			[
+				{
+					name: game.i18n.localize("Litm.ui.edit"),
+					icon: '<i class="fas fa-edit"></i>',
+					callback: (html) => {
+						const id = html.parent().data("id");
+						const item = this.actor.items.get(id);
+						item.sheet.render(true);
+					},
+				},
+				{
+					name: game.i18n.localize("Litm.ui.remove"),
+					icon: "<i class='fas fa-trash'></i>",
+					callback: (html) => {
+						const id = html.parent().data("id");
+						this.#removeItem(id);
+					},
+				},
+			],
+			{
+				hookName: "LitmItemContextMenu",
+			},
+		);
+		this.#contextmenu._setPosition = function (html, target) {
+			// biome-ignore lint/suspicious/noAssignInExpressions: <explanation>
+			html.toggleClass("expand-up", (this._expandUp = true));
+			target.append(html);
+			target.addClass("context");
+		};
 	}
 
 	// Hack to allow updating the embedded items
@@ -109,10 +228,18 @@ export class CharacterSheet extends ActorSheet {
 		super._onEditImage(event);
 	}
 
-	#handleClicks(event) {
-		event.stopPropagation();
-		event.preventDefault();
+	#handleMouseDown(event) {
+		const t = event.currentTarget;
+		const action = t.dataset.mousedown;
 
+		switch (action) {
+			case "keep-open":
+				this.#keepOpen(event);
+				break;
+		}
+	}
+
+	#handleClicks(event) {
 		const t = event.currentTarget;
 		const action = t.dataset.click;
 		const id = t.dataset.id;
@@ -126,46 +253,38 @@ export class CharacterSheet extends ActorSheet {
 				break;
 			case "close":
 				this.#close(id);
+				break;
+			case "select":
+				this.#select(event);
+				break;
 		}
 	}
 
 	#handleDblclick(event) {
-		event.stopPropagation();
-		event.preventDefault();
-
 		const t = event.currentTarget;
 		const action = t.dataset.dblclick;
-		const id = t.dataset.id;
 
 		switch (action) {
-			case "edit":
-				this.actor.items.get(id).sheet.render(true);
+			case "return":
+				this.#focusedTags = null;
+				t.classList.remove("focused");
+				t.style.cssText = this.#focusedTags;
 				break;
 		}
 	}
 
 	#handleContextmenu(event) {
-		event.stopPropagation();
-		event.preventDefault();
-
 		const t = event.currentTarget;
 		const action = t.dataset.context;
-		const id = t.dataset.id;
 
 		switch (action) {
 			case "decrease":
 				this.#decrease(event);
 				break;
-			case "delete":
-				this.#removeItem(id);
-				break;
 		}
 	}
 
 	#onDragHandleMouseDown(event) {
-		event.stopPropagation();
-		event.preventDefault();
-
 		this.#editImageTimeout = null;
 
 		const t = event.currentTarget;
@@ -193,9 +312,9 @@ export class CharacterSheet extends ActorSheet {
 	}
 
 	async #removeItem(id) {
-		if (!(await confirmDelete("TYPES.Item.theme"))) return;
-
 		const item = this.items.get(id);
+		if (!(await confirmDelete(`TYPES.Item.${item.type}`))) return;
+
 		return item.delete();
 	}
 
@@ -226,7 +345,7 @@ export class CharacterSheet extends ActorSheet {
 				this.element.find("#note").show(100);
 				break;
 			case "roll":
-				this.#roll();
+				this.renderRollDialog();
 				break;
 		}
 	}
@@ -239,33 +358,100 @@ export class CharacterSheet extends ActorSheet {
 		}
 	}
 
-	#roll() {
-		const powerTags = this.system.availablePowerTags;
-		const weaknessTags = this.system.weaknessTags;
+	#select(event) {
+		if (event.detail > 1) return;
+		const t = event.currentTarget;
+		const toBurn = event.shiftKey;
+		const toBurnNoRoll = event.altKey;
+		const id = t.dataset.id;
+		const tag = this.system.allTags.find((t) => t.id === id).toObject();
+		const selected = t.hasAttribute("data-selected");
 
-		const rc = game.litm.LitmRollDialog;
-		rc.create(this.actor.id, powerTags, weaknessTags);
+		if (toBurnNoRoll) return this.toggleBurnTag(tag);
+		if (!selected && tag.isBurnt) return;
+
+		// Add or remove the tag from the roll
+		switch (selected) {
+			case true:
+				this.#roll.removeTag(tag);
+				break;
+			case false:
+				this.#roll.addTag(tag, toBurn);
+				break;
+		}
+		t.toggleAttribute("data-selected", !selected);
+
+		// Burn the tag if shift is pressed
+		if (toBurn && !selected) {
+			for (const el of this.element.find(`[data-click="select"].burned`))
+				el.classList.remove("burned");
+			t.classList.add("burned");
+		} else t.classList.remove("burned");
+
+		// Render the roll dialog if it's open
+		if (this.#roll.rendered) this.#roll.render();
+	}
+
+	#keepOpen(event) {
+		const t = event.currentTarget;
+
+		t.classList.add("focused");
+		const listener = t.addEventListener("mouseup", () => {
+			this.#focusedTags = t.style.cssText;
+			t.removeEventListener("mouseup", listener);
+		});
 	}
 
 	async #handleUpdateEmbeddedItems(formData) {
-		const updateMap = {};
+		const itemMap = {};
 		for (const [key, value] of Object.entries(formData)) {
 			if (!key.startsWith("items.")) continue;
 
 			delete formData[key];
 			const [_, _id, subkey, ...rest] = key.split(".");
-			updateMap[_id] ??= {};
-			updateMap[_id][subkey] ??= {};
-			if (rest.length === 0) updateMap[_id][subkey] = value;
-			else updateMap[_id][subkey][rest.join(".")] = value;
+			itemMap[_id] ??= {};
+			itemMap[_id][subkey] ??= {};
+			if (rest.length === 0) itemMap[_id][subkey] = value;
+			else itemMap[_id][subkey][rest.join(".")] = value;
 		}
 
-		const toUpdate = Object.entries(updateMap).reduce((acc, [id, data]) => {
+		const itemsToUpdate = Object.entries(itemMap).reduce((acc, [id, data]) => {
 			acc.push({ _id: id, ...data });
 			return acc;
 		}, []);
 
-		if (toUpdate.length) this.actor.updateEmbeddedDocuments("Item", toUpdate);
+		if (itemsToUpdate.length)
+			await this.actor.updateEmbeddedDocuments("Item", itemsToUpdate);
+
+		const effectMap = {};
+		for (const [key, value] of Object.entries(formData)) {
+			if (!key.startsWith("effects.")) continue;
+
+			delete formData[key];
+			const [_, _id, subkey, ...rest] = key.split(".");
+			effectMap[_id] ??= {};
+			effectMap[_id][subkey] ??= {};
+			if (rest.length === 0) effectMap[_id][subkey] = value;
+			else effectMap[_id][subkey][rest.join(".")] = value;
+		}
+
+		const effectsToUpdate = Object.entries(effectMap).reduce(
+			(acc, [id, data]) => {
+				acc.push({ _id: id, ...data });
+				return acc;
+			},
+			[],
+		);
+
+		if (effectsToUpdate.length) {
+			await this.actor.updateEmbeddedDocuments("ActiveEffect", effectsToUpdate);
+			game.litm.storyTags.render();
+			dispatch({
+				app: "story-tags",
+				type: "render",
+			});
+		}
+
 		return formData;
 	}
 }

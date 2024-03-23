@@ -41,7 +41,6 @@ export const SheetMixin = (Base) =>
 		}
 
 		#handleClick(event) {
-			event.preventDefault();
 			const action = event.currentTarget.dataset.click;
 			switch (action) {
 				case "toggle-edit": {

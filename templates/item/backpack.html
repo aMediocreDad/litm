@@ -5,7 +5,7 @@
 		aria-hidden="true">
 	<div class="litm--backpack-bg">
 		<div class="meta">{{localize 'Litm.tags.item-tags'}}</div>
-		<div class="title">{{localize 'Litm.other.backpack'}}</div>
+		<input class="title" name="name" value="{{name}}" />
 		<ul class="taglist">
 			{{#each backpack as |tag|}}
 				{{> systems/litm/templates/partials/tag.html tag=tag key=@key path="system.contents" readonly=false remove=true}}

@@ -12,8 +12,9 @@
 		position: absolute;
 		z-index: 1;
 		width: 94%;
-		margin: 8px 8px 0px 8px;
+		margin: 12px 8px 0px 8px;
 		color: var(--litm-color-accent);
+		line-height: 1;
 	}
 
 	& form {
@@ -110,7 +111,8 @@
 		}
 
 		& .litm--theme-title {
-			margin: var(--litm-space-1) 10px;
+			margin-inline: 10px;
+			padding-block: var(--litm-space-1) var(--litm-space-3);
 			display: flex;
 			justify-content: space-between;
 			align-items: center;
@@ -118,14 +120,16 @@
 			color: var(--litm-color);
 			font-size: var(--font-size-16);
 
-			& span {
+			& .litm--theme-name {
 				font-family: var(--litm-font-primary);
-				font-size: var(--font-size-26);
+				font-size: var(--font-size-28);
 				border: none;
 				background-color: transparent;
 				text-align: center;
-				margin-bottom: -0.85rem;
-				transition: all 0.15s;
+				line-height: 1;
+				letter-spacing: -1px;
+				margin-bottom: -0.35rem;
+				transition: background-color 0.15s;
 
 				&:focus {
 					outline: none;
@@ -139,22 +143,22 @@
 			}
 		}
 
-		& .litm--tags {
+		& .litm--theme-tags {
 			display: flex;
 			flex-direction: column;
 			list-style: none;
-			margin: var(--litm-space-3) 10px 0px;
+			margin: 0px 10px 0px;
 			padding: 0px;
 
-			& li {
+			& .litm--theme-tag {
 				display: flex;
 				align-items: center;
+				width: 100%;
 				gap: var(--litm-space-3);
 				color: var(--litm-color);
-				margin-block-start: -1px;
 
 				&:nth-child(odd) {
-					background-image: linear-gradient(to right, transparent, rgba(69, 59, 29, 0.1), transparent);
+					background-image: linear-gradient(to right, transparent, rgba(69, 59, 29, 0.15), transparent);
 				}
 
 				&:last-child {
@@ -167,8 +171,9 @@
 					text-align: center;
 					border: none;
 					border-radius: 0px;
-					padding-block: 0.4rem;
+					padding-block: var(--litm-space-2);
 					min-height: var(--font-size-14);
+					font-size: var(--font-size-16);
 					height: auto;
 					background-color: transparent;
 					font-family: var(--litm-font-text);
@@ -176,54 +181,33 @@
 					width: 100%;
 					border-top: 1.5px solid rgb(0, 0, 0, 0.2);
 					border-image: url("../../assets/media/item-divider.webp") 14 / 3;
+					border-image-outset: 1px;
 
 					&:focus,
 					&:active {
 						box-shadow: none;
-					}
-
-					&:read-only {
-						cursor: default;
-						user-select: none;
 					}
 				}
 
 				& label {
 					display: flex;
 					--checkbox-size: 10px;
-					cursor: pointer;
-				}
-
-				& button {
-					background-color: transparent;
-					border: none;
-					color: var(--litm-color-contrast);
-					cursor: pointer;
-					font-size: 1rem;
-					line-height: 1;
-					padding: 0;
-					transition: color 0.2s;
-					width: min-content;
-
-					&:hover {
-						box-shadow: none;
-						text-shadow: 0 0 4px rgb(0, 0, 0, 0.5);
-					}
 				}
 			}
 		}
 
 		& .litm--weakness {
-			margin-block-start: -2px;
-			padding: 0px var(--litm-space-3) 0px;
+			margin-inline: var(--litm-space-2);
+			padding: 0px;
 			display: flex;
-			align-items: baseline;
+			align-items: center;
 			background-image: radial-gradient(ellipse at top, var(--litm-color-weakness-bg) 30%, transparent 70%);
 
 			& .litm--weakness-part {
 				width: 100%;
 				height: auto;
 				min-height: var(--font-size-14);
+				font-size: var(--font-size-16);
 				border: none;
 				border-radius: 0px;
 				padding-block: var(--litm-space-2);
@@ -237,33 +221,15 @@
 					box-shadow: none;
 				}
 			}
-
-			& button {
-				background-color: transparent;
-				border: none;
-				color: var(--litm-color);
-				cursor: pointer;
-				font-size: 1rem;
-				line-height: 1;
-				padding: 0;
-				transition: color 0.2s;
-				width: min-content;
-
-				&:hover {
-					box-shadow: none;
-					text-shadow: 0 0 4px rgb(0, 0, 0, 0.5);
-				}
-			}
 		}
 
 		& .litm--theme-progression {
-			padding: var(--litm-space-4) var(--litm-space-3) 14px;
+			padding: var(--litm-space-4) 10px 8px;
 			display: flex;
 			justify-content: space-between;
 			background: url(../../assets/media/progress-bg.webp);
-			background-position: center;
 			background-size: cover;
-			margin-inline: -7px;
+			background-repeat: no-repeat;
 
 			&>div {
 				position: relative;

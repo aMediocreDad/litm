@@ -1,6 +1,6 @@
 {{#*inline 'leaf' data}}
 	<li class="litm--story-tag">
-		<img class="draggable"
+		<img class="draggable" data-drag="#story-tags"
 			src="{{ifThen (eq data.type 'tag') 'systems/litm/assets/media/yellow-leaf.webp' 'systems/litm/assets/media/green-leaf.webp'}}"
 			aria-hidden="true" width="220" />
 		<div class="{{data.type}}">
@@ -24,7 +24,7 @@
 {{/inline}}
 
 <form autocomplete="off">
-	<img class="avatar draggable" data-drag="window" src="{{img}}" data-edit="img" alt="{{name}}" />
+	<img class="avatar draggable" data-drag=".window-app" src="{{img}}" data-edit="img" alt="{{name}}" />
 	<label class="litm--sro" for="name">{{localize "Name"}}</label>
 	<input type="text" id="name" name="name" value="{{name}}" autocomplete="off" required />
 	<div class="nav">
@@ -43,8 +43,8 @@
 			</button>
 		</div>
 	</div>
-	<div id="note" class="window-app">
-		<div class="handle draggable">
+	<div id="note">
+		<div class="draggable litm--character-note-wrapper" data-drag="#note">
 			<span>{{localize 'Notes'}}</span>
 			<button type="button" data-click="close" data-id="note" data-tooltip="{{localize 'Close'}}">
 				<i class="far fa-xmark"></i>
@@ -70,8 +70,8 @@
 			</div>
 		{{/each}}
 	</div>
-	<div class="litm--character-story-tags window-app {{#if tagsFocused}}focused{{/if}}" data-mousedown="keep-open"
-		data-dblclick="return" data-id="story-tags" style="{{tagsFocused}}">
+	<div class="litm--character-story-tags {{#if tagsFocused}}focused{{/if}}" data-mousedown="keep-open"
+		data-dblclick="return" data-id="story-tags" id="story-tags" style="{{tagsFocused}}">
 		{{#each storyTags as |item|}} {{> leaf data=item}} {{/each}}
 	</div>
 </form>

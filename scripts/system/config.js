@@ -68,15 +68,15 @@ export class LitmConfig {
 		},
 		"Litm.effects.category-other": {
 			discover: {
-				description: "Litm.additionalEffects.discover.description",
-				action: "Litm.additionalEffects.discover.action",
-				cost: "Litm.additionalEffects.discover.cost",
+				description: "Litm.effects.discover.description",
+				action: "Litm.effects.discover.action",
+				cost: "Litm.effects.discover.cost",
 				icon: "fas fa-search",
 			},
 			extra_feat: {
-				description: "Litm.additionalEffects.extra_feat.description",
-				action: "Litm.additionalEffects.extra_feat.action",
-				cost: "Litm.additionalEffects.extra_feat.cost",
+				description: "Litm.effects.extra_feat.description",
+				action: "Litm.effects.extra_feat.action",
+				cost: "Litm.effects.extra_feat.cost",
 				icon: "fas fa-plus",
 			},
 		},

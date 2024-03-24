@@ -84,7 +84,7 @@ export class SuperCheckbox extends HTMLElement {
 				&[data-state="positive"] {
 					&::before {
 						content: "";
-						width: 0.62em;
+						width: 0.65em;
 						height: 0.15em;
 						border-radius: 0.05em;
 						scale: 1;
@@ -92,7 +92,7 @@ export class SuperCheckbox extends HTMLElement {
 					}
 					&::after {
 						content: "";
-						width: 0.62em;
+						width: 0.65em;
 						height: 0.15em;
 						border-radius: 0.05em;
 						rotate: 45deg;
@@ -103,7 +103,7 @@ export class SuperCheckbox extends HTMLElement {
 					&::after {
 						position: relative;
 						top: -0.035em;
-						left: -0.05em;
+						left: -0.045em;
 						background: url(systems/litm/assets/media/burn.svg);
 						box-shadow: none;
 						background-size: cover;

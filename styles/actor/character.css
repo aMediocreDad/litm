@@ -209,7 +209,7 @@
 			display: flex !important;
 		}
 
-		& .handle {
+		& .litm--character-note-wrapper {
 			margin-block-end: var(--litm-space-2);
 			display: flex;
 			justify-content: space-between;

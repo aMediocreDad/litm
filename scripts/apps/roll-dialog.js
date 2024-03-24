@@ -247,6 +247,8 @@ export class LitmRollDialog extends FormApplication {
 	reset() {
 		this.characterTags = [];
 		this.#tagState = [];
+		this.#shouldRoll = game.user.isGM;
+		if (this.actor.sheet.rendered) this.actor.sheet.render(true);
 	}
 
 	/**
@@ -274,7 +276,8 @@ export class LitmRollDialog extends FormApplication {
 		}
 
 		if (this.#shouldRoll()) return LitmRollDialog.roll(data);
-		return dispatch({ app: data, type: "roll", id: this.#rollId });
+		dispatch({ app: data, type: "roll", id: this.#rollId });
+		return this.reset();
 	}
 
 	#handleClick(event) {

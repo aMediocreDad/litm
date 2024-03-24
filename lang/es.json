@@ -175,7 +175,6 @@
 			"show-tag-window-on-load-hint": "Al activarlo el gestor de etiquetas será automáticamente mostrado cuando cargue el juego. Siempre puedes hacer click en el icono de etiqueta para mostrarlo manualmente.",
 			"special-features": "Rasgos especiales",
 			"status": "Modificadores finales de estado",
-			"story-tags-help": "Añade etiquetas haciendo Shift+Click en la caja de texto y escribiendo una etiqueta como [etiqueta] o [estado-3].",
 			"tags-statuses": "Etiquetas y Estados",
 			"toggle-burnt": "<span class='reference'>OPCIÓN + Click</span> para quemar/restablecer etiqueta.",
 			"toggle-roll": "<span class='reference'>Click</span> para añadir/quitar a la tirada. <br /> <span class='reference'>MAYUS + Click</span> para quemar una etiqueta para la tirada. <br /> <span class='reference'>OPCIÓN + Click</span> para quemar/restablecer una etiqueta.",

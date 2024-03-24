@@ -216,6 +216,8 @@ export class LitmHooks {
 					shouldRoll,
 				} = app;
 
+				const actor = game.actors.get(actorId);
+
 				const characterTags = tags.filter(
 					(tag) => tag.type !== "tag" && tag.type !== "status",
 				);
@@ -234,7 +236,10 @@ export class LitmHooks {
 					id: data.id,
 				});
 
+				// Put the creatd dialog in the actor for convenience
+				actor.sheet.roll = dialog;
 				dialog.render(true);
+
 				ui.notifications.info(
 					game.i18n.format("Litm.ui.roll-gm-moderate", { name: user.name }),
 					{ permanent: true },

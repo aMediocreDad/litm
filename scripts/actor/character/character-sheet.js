@@ -37,6 +37,10 @@ export class CharacterSheet extends ActorSheet {
 		return [...this.system.storyTags, ...this.system.statuses];
 	}
 
+	set roll(app) {
+		this.#roll = app;
+	}
+
 	renderRollDialog() {
 		this.#roll.render(true);
 	}

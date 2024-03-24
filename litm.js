@@ -43,6 +43,9 @@ Hooks.once("init", () => {
 		data: {
 			TagData,
 		},
+		rolls: {
+			// Temporary residing place of the roll callbacks
+		},
 		importCharacter,
 		LitmRollDialog,
 		LitmRoll,

@@ -20,6 +20,7 @@ export class LitmRollDialog extends FormApplication {
 		shouldRoll,
 		type,
 		title,
+		id,
 	}) {
 		return new LitmRollDialog(actorId, characterTags, {
 			tagState,
@@ -27,6 +28,7 @@ export class LitmRollDialog extends FormApplication {
 			shouldRoll,
 			type,
 			title,
+			id,
 		});
 	}
 
@@ -101,6 +103,7 @@ export class LitmRollDialog extends FormApplication {
 			});
 	}
 
+	#rollId = null;
 	#tagState = [];
 	#shouldRoll = () => false;
 
@@ -116,6 +119,7 @@ export class LitmRollDialog extends FormApplication {
 			options.speaker || ChatMessage.getSpeaker({ actor: this.actor });
 		this.rollName = options.title || LitmRollDialog.defaultOptions.title;
 		this.type = options.type || "tracked";
+		this.#rollId = options.id;
 	}
 
 	get actor() {
@@ -270,7 +274,7 @@ export class LitmRollDialog extends FormApplication {
 		}
 
 		if (this.#shouldRoll()) return LitmRollDialog.roll(data);
-		return dispatch({ app: data, type: "roll" });
+		return dispatch({ app: data, type: "roll", id: this.#rollId });
 	}
 
 	#handleClick(event) {

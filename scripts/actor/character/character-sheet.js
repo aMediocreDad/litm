@@ -307,6 +307,7 @@ export class CharacterSheet extends ActorSheet {
 				this.#editImageTimeout = setTimeout(() => {
 					this.#editImageTimeout = null;
 				}, 100);
+			this.setPosition({ left: parent.position().left, top: parent.position().top })
 			$(document).off("mousemove", handleDrag);
 		});
 	}

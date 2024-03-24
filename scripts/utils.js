@@ -80,12 +80,7 @@ export async function confirmDelete(string = "Item") {
 
 export async function gmModeratedRoll(app, cb) {
 	const id = foundry.utils.randomID();
+	game.litm.rolls[id] = cb;
+
 	dispatch({ app, id, type: "roll" });
-	game.socket.once("system.litm", async ({ isGM, app, type }) => {
-		if (!isGM || type !== "roll")
-			ui.notifications.error("Litm.ui.error-conducting-roll", {
-				localize: true,
-			});
-		return cb(app);
-	});
 }

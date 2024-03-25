@@ -11,7 +11,7 @@ export class CharacterSheet extends ActorSheet {
 		resizable: false,
 	});
 
-	#editImageTimeout = null;
+	#dragAvatarTimeout = null;
 	#notesEditorOpened = false;
 	#focusedTags = null;
 	#contextmenu = null;
@@ -148,7 +148,7 @@ export class CharacterSheet extends ActorSheet {
 			.find("[data-mousedown]")
 			.on("mousedown", this.#handleMouseDown.bind(this));
 		html
-			.find(".draggable")
+			.find("[data-drag]")
 			.on("mousedown", this.#onDragHandleMouseDown.bind(this));
 
 		this.#contextmenu = ContextMenu.create(
@@ -228,8 +228,8 @@ export class CharacterSheet extends ActorSheet {
 	}
 
 	_onEditImage(event) {
-		if (this.#editImageTimeout) return clearTimeout(this.#editImageTimeout);
-		super._onEditImage(event);
+		if (this.#dragAvatarTimeout) return clearTimeout(this.#dragAvatarTimeout);
+		return super._onEditImage(event);
 	}
 
 	#handleMouseDown(event) {
@@ -289,31 +289,41 @@ export class CharacterSheet extends ActorSheet {
 	}
 
 	#onDragHandleMouseDown(event) {
-		this.#editImageTimeout = null;
+		this.#dragAvatarTimeout = null;
 
 		const t = event.currentTarget;
-		const parent = $(t).parents(".window-app").first();
+		const target = t.dataset.drag;
+		const parent = $(t).parents(target).first();
 
 		const x = event.clientX - parent.position().left;
 		const y = event.clientY - parent.position().top;
 
 		const handleDrag = (event) => {
-			this.#editImageTimeout = true;
+			if (target === ".window-app") this.#dragAvatarTimeout = true;
+
 			parent.css({
 				left: event.clientX - x,
 				top: event.clientY - y,
 			});
 		};
 
-		$(document).on("mousemove", handleDrag);
-		$(document).on("mouseup", () => {
-			if (this.#editImageTimeout)
-				this.#editImageTimeout = setTimeout(() => {
-					this.#editImageTimeout = null;
+		const handleMouseUp = () => {
+			if (this.#dragAvatarTimeout) {
+				this.setPosition({
+					left: parent.position().left,
+					top: parent.position().top,
+				});
+				this.#dragAvatarTimeout = setTimeout(() => {
+					this.#dragAvatarTimeout = null;
 				}, 100);
-			this.setPosition({ left: parent.position().left, top: parent.position().top })
+			}
+
 			$(document).off("mousemove", handleDrag);
-		});
+			$(document).off("mouseup", handleMouseUp);
+		};
+
+		$(document).on("mousemove", handleDrag);
+		$(document).on("mouseup", handleMouseUp);
 	}
 
 	async #removeItem(id) {

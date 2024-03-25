@@ -247,7 +247,7 @@ export class LitmRollDialog extends FormApplication {
 	reset() {
 		this.characterTags = [];
 		this.#tagState = [];
-		this.#shouldRoll = game.user.isGM;
+		this.#shouldRoll = () => game.user.isGM;
 		if (this.actor.sheet.rendered) this.actor.sheet.render(true);
 	}
 

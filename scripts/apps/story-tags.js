@@ -156,7 +156,7 @@ export class StoryTagApp extends SheetMixin(FormApplication) {
 			if (target) {
 				return this.#addTagToActor({
 					id: target,
-					tag: data
+					tag: data,
 				});
 			}
 

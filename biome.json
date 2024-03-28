@@ -9,6 +9,10 @@
 				"noStaticOnlyClass": "off",
 				"noThisInStatic": "off"
 			}
-		}
+		},
+		"ignore": ["diff.js"]
+	},
+	"files": {
+		"ignore": ["packs", "foundry.js"]
 	}
 }

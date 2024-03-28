@@ -103,11 +103,12 @@
 			"outcome": "Outcome",
 			"rating": "Rating",
 			"roll": "Roll",
+			"status": "Status",
 			"tag": "Tag",
 			"tags": "Tags",
 			"themebook": "Themebook",
 			"threat": "Threat",
-			"status": "Status"
+			"unnamed": "Unnamed"
 		},
 		"tags": {
 			"activate": "Activate",

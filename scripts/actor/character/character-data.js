@@ -11,8 +11,8 @@ export class CharacterData extends foundry.abstract.DataModel {
 	static getTrackableAttributes() {
 		return {
 			bar: ["limit"],
-			value: []
-		}
+			value: [],
+		};
 	}
 
 	get backpack() {
@@ -85,9 +85,10 @@ export class CharacterData extends foundry.abstract.DataModel {
 	get limit() {
 		return {
 			label: "Litm.other.limit",
-			value: 6 - (this.statuses.sort((a, b) => b.value - a.value)[0]?.value || 0),
+			value:
+				6 - (this.statuses.sort((a, b) => b.value - a.value)[0]?.value || 0),
 			max: 6,
-		}
+		};
 	}
 
 	async prepareDerivedData() {

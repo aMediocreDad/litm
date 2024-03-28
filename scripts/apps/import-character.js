@@ -8,6 +8,41 @@ function createTag(data, type) {
 	};
 }
 
+function createStatus(data) {
+	if (typeof data === "string")
+		return {
+			name: data,
+			type: "ActiveEffect",
+			flags: {
+				litm: {
+					type: "tag",
+					values: Array(6).fill(null),
+					value: "",
+					isBurnt: false,
+				},
+			},
+		};
+
+	const values =
+		data.level?.map((level, i) => (level ? (i + 1).toString() : null)) ||
+		Array(6).fill(null);
+	const value = values.findLast((level) => level) || "";
+	const type = value ? "status" : "tag";
+
+	return {
+		name: data.name || t("Litm.other.unnamed"),
+		type: "ActiveEffect",
+		flags: {
+			litm: {
+				type,
+				values,
+				value,
+				isBurnt: false,
+			},
+		},
+	};
+}
+
 export async function importCharacter(data) {
 	if (data.compatibility && !["litm", "empty"].includes(data.compatibility))
 		return ui.notifications.warn("Litm.ui.warn-incompatible-data", {
@@ -23,11 +58,13 @@ export async function importCharacter(data) {
 				!theme.isEmpty,
 		)
 		.map(([_, theme]) => ({
-			name: theme.content.mainTag.name,
+			name:
+				theme.content.mainTag.name ||
+				t("Litm.other.unnamed", "TYPES.Item.theme"),
 			type: "theme",
 			system: {
 				themebook: theme.content.themebook,
-				level: theme.content.level,
+				level: theme.content.level?.toLowerCase(),
 				isActive: theme.content.mainTag.isActive,
 				isBurnt: theme.content.mainTag.isBurnt,
 				powerTags: Array(5)
@@ -45,7 +82,7 @@ export async function importCharacter(data) {
 				],
 				experience: theme.content.experience,
 				decay: theme.content.decay,
-				motivation: theme.content.bio.title,
+				motivation: theme.content.bio.title?.replace(/['"“”‟]/gm, "") || "",
 				note: theme.content.bio.body,
 			},
 		}));
@@ -53,8 +90,16 @@ export async function importCharacter(data) {
 	const backpack = {
 		name: t("TYPES.Item.backpack"),
 		type: "backpack",
-		"system.contents": data.backpack.map((item) => createTag(item, "backpack")),
+		system: {
+			contents: data.backpack.map((item) => createTag(item, "backpack")),
+		},
 	};
+
+	const statuses = data.statuses.map((status) => createStatus(status));
+
+	const tags = Object.values(data.miscCard?.content || {})
+		.flat()
+		.map((tag) => createStatus(tag));
 
 	const actorData = {
 		name: data.name,
@@ -62,6 +107,7 @@ export async function importCharacter(data) {
 		system: {
 			note: "",
 		},
+		effects: [...tags, ...statuses],
 		items: [...themeData, backpack],
 	};
 	const created = await Actor.create(actorData);

@@ -14,6 +14,7 @@ export class LitmHooks {
 		LitmHooks.#prepareCharacterOnCreate();
 		LitmHooks.#prepareThemeOnCreate();
 		LitmHooks.#listenToContentLinks();
+		LitmHooks.#listenToTagDragTransfer();
 		LitmHooks.#customizeDiceSoNice();
 		LitmHooks.#renderStoryTagApp();
 		LitmHooks.#repositionStoryTagApp();
@@ -291,11 +292,11 @@ export class LitmHooks {
 			const tokenImg = actor.prototypeToken?.texture?.src;
 			const prototypeToken = isCharacter
 				? {
-						sight: { enabled: true },
-						actorLink: true,
-						disposition: CONST.TOKEN_DISPOSITIONS.FRIENDLY,
-						texture: { src: tokenImg || img },
-				  }
+					sight: { enabled: true },
+					actorLink: true,
+					disposition: CONST.TOKEN_DISPOSITIONS.FRIENDLY,
+					texture: { src: tokenImg || img },
+				}
 				: null;
 			actor.updateSource({ prototypeToken, img });
 		});
@@ -364,8 +365,8 @@ export class LitmHooks {
 
 			const rollButton = $(`
 		<button aria-label="${t("Litm.ui.roll-title")}" data-tooltip="${t(
-			"Litm.ui.roll-title",
-		)}">
+				"Litm.ui.roll-title",
+			)}">
 			<i class="fas fa-dice"></i>
 		</button>`).on("click", () => {
 				if (!game.user.character)
@@ -422,6 +423,27 @@ export class LitmHooks {
 				scene.view();
 			});
 		});
+	}
+
+	static #listenToTagDragTransfer() {
+		Hooks.on("ready", () => {
+			$(document).on("dragstart", [".litm--tag", ".litm--status"], (event) => {
+				const text = event.target.textContent;
+				const matches = `{${text}}`.matchAll(CONFIG.litm.tagStringRe);
+				const match = [...matches][0];
+				if (!match) return;
+				const [, tag, status] = match;
+				const data = {
+					id: foundry.utils.randomID(),
+					name: tag,
+					type: status ? "status" : "tag",
+					values: Array(6).fill(null).map((_, i) => Number.parseInt(status) === i + 1 ? status : null),
+					isBurnt: false,
+					value: status,
+				};
+				event.originalEvent.dataTransfer.setData("text/plain", JSON.stringify(data));
+			})
+		})
 	}
 
 	static #customizeDiceSoNice() {
@@ -589,13 +611,12 @@ export class LitmHooks {
 				title: "Welcome to Legend in the Mist!",
 				content: /* html */ `
 				<p><strong>Welcome to Legend in the Mist</strong></p>
-				<p>Before you start playing, you should want to read the <a class="content-link" draggable="true" data-uuid="${
-					entry.uuid
-				}" data-id="${entry._id}" data-type="JournalEntryPage" data-tooltip="User Manual"><i class="fas fa-file-lines"></i>Legend in the Mist</a> journal entry. It contains some important information about the system, and what to expect.</p>
+				<p>Before you start playing, you should want to read the <a class="content-link" draggable="true" data-uuid="${entry.uuid
+					}" data-id="${entry._id}" data-type="JournalEntryPage" data-tooltip="User Manual"><i class="fas fa-file-lines"></i>Legend in the Mist</a> journal entry. It contains some important information about the system, and what to expect.</p>
 				<p>Once you've read the journal entry, you can click the button below to import all the rules and content required to play the Tinderbox Demo.</p>
 				<button type="button" id="litm--import-adventure" style="background: var(--litm-color-status-bg);"><strong>${t(
-					"Litm.ui.import-adventure",
-				)}</strong></button>
+						"Litm.ui.import-adventure",
+					)}</strong></button>
 				<p style="text-align:center;">Good luck, and have fun!</p>
 			`,
 			});

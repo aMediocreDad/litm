@@ -13,12 +13,9 @@ export class Enrichers {
 			if (!scene) return text;
 
 			const link = $(
-				`<a class="content-link" draggable="true" data-uuid="Scene.${
-					scene._id
-				}" data-id="${
-					scene._id
-				}" data-type="ActivateScene" data-tooltip="Scene"><i class="far fa-map"></i>${
-					flavour || scene.navName
+				`<a class="content-link" draggable="true" data-uuid="Scene.${scene._id
+				}" data-id="${scene._id
+				}" data-type="ActivateScene" data-tooltip="Scene"><i class="far fa-map"></i>${flavour || scene.navName
 				}</a>`,
 			);
 			return link[0];
@@ -33,13 +30,12 @@ export class Enrichers {
 		const enrichTags = ([_text, tag, status]) => {
 			if (tag.startsWith("-"))
 				return $(
-					`<mark class="litm--limit">${tag.replace(/^-/, "")}${
-						status ? `:${status}` : ""
+					`<mark class="litm--limit">${tag.replace(/^-/, "")}${status ? `:${status}` : ""
 					}</mark>`,
 				)[0];
 			if (tag && status)
-				return $(`<mark class="litm--status">${tag}-${status}</mark>`)[0];
-			return $(`<mark class="litm--tag">${tag}</mark>`)[0];
+				return $(`<mark class="litm--status" draggable="true">${tag}-${status}</mark>`)[0];
+			return $(`<mark class="litm--tag" draggable="true">${tag}</mark>`)[0];
 		};
 		CONFIG.TextEditor.enrichers.push({
 			pattern: CONFIG.litm.tagStringRe,

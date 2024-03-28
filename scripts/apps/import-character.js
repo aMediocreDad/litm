@@ -51,7 +51,7 @@ export async function importCharacter(data) {
 		}));
 
 	const backpack = {
-		name: t("ITEM.Types.backpack"),
+		name: t("TYPES.Item.backpack"),
 		type: "backpack",
 		"system.contents": data.backpack.map((item) => createTag(item, "backpack")),
 	};

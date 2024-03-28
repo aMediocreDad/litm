@@ -143,11 +143,26 @@ export class StoryTagApp extends SheetMixin(FormApplication) {
 	}
 
 	async _onDrop(dragEvent) {
-		const data = JSON.parse(dragEvent.dataTransfer.getData("text/plain"));
+		const dragData = dragEvent.dataTransfer.getData("text/plain");
+		const data = JSON.parse(dragData);
 
 		// Handle only Actors to begin with
-		if (data.type !== "Actor") return;
-		const id = data.uuid.split(".").pop();
+		if (!["Actor", "tag", "status"].includes(data.type)) return;
+		const id = data.uuid?.split(".").pop() || data.id;
+
+		// Add tags and statuses to the story / Actor
+		if (data.type === "tag" || data.type === "status") {
+			const target = dragEvent.target.closest("[data-id]")?.dataset.id;
+			if (target) {
+				return this.#addTagToActor({
+					id: target,
+					tag: data
+				});
+			}
+
+			if (game.user.isGM) return this.setTags([...this.tags, data]);
+			return this.#broadcastUpdate("tags", [...this.tags, data]);
+		}
 
 		if (this.config.actors.includes(id)) return;
 

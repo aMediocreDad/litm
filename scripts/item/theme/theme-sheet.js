@@ -20,6 +20,9 @@ export class ThemeSheet extends SheetMixin(ItemSheet) {
 		const { data, ...rest } = super.getData();
 
 		data.system.weakness = this.system.weakness;
+		data.system.levels = this.system.levels;
+		data.system.themebooks = this.system.themebooks;
+
 		return { data, ...rest };
 	}
 

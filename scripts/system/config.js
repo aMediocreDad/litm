@@ -82,7 +82,36 @@ export class LitmConfig {
 		},
 	};
 
-	tagStringRe = /(?!\b|\s)\[([^\d\]]+)(?:[\s\-\:](\d+))?\]/gi;
+	theme_levels = {
+		origin: [
+			"circumstance",
+			"past",
+			"devotion",
+			"mystery",
+			"people",
+			"possessions",
+			"personality",
+			"trade-or-skill",
+			"trait",
+			"hedge-magic",
+		],
+		adventure: [
+			"prodigious-skill",
+			"duty",
+			"relic",
+			"uncanny-being",
+			"thaumaturgy",
+		],
+		greatness: [
+			"rulership",
+			"destiny",
+			"mastery",
+			"monstrosity",
+			"grand-thaumaturgy",
+		],
+	};
+
+	tagStringRe = /(?!\b|\s)(?:\[|\{)([^\d\[\]{}]+)(?:[\s\-\:](\d+))?(?:\}|\])/gi;
 	sceneLinkRe = /@ActivateScene\[([^\]]+)\](?:\{([^\}]+)\})?/gi;
 
 	static createConfig() {

@@ -10,7 +10,7 @@
 	}
 
 	& h2 {
-		background: url(../../assets/media/theme-alt-bg-top.webp) no-repeat bottom / cover;
+		background: url(../../assets/media/theme-alt-bg-top-origin.webp) no-repeat bottom / cover;
 		border: none;
 		color: var(--litm-color-accent);
 		text-align: center;

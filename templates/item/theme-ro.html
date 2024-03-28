@@ -1,14 +1,15 @@
 <!-- Readonly version of the Theme template -->
 <!-- Intended for use embedded on a character sheet -->
 <input type="hidden" name="items.{{data._id}}.type" value="{{data.type}}" />
-<div class="litm--theme-background" data-context="menu" data-tooltip="{{localize 'Litm.ui.context-edit'}}"
-	data-tooltip-direction="LEFT">
+<div class="litm--theme-background {{data.system.level}}" data-context="menu"
+	data-tooltip="{{localize 'Litm.ui.context-edit'}}" data-tooltip-direction="LEFT">
 	<div class="litm--theme-top">
-		<img class="litm--theme-border-top" src="systems/litm/assets/media/theme-border-top.webp" aria-hidden="true" />
+		<img class="litm--theme-border-top" src="systems/litm/assets/media/theme-border-top-{{data.system.level}}.webp"
+			aria-hidden="true" />
 		<div class="litm--theme-top-bg">
 			<div class="litm--theme-meta">
 				<span class="litm--theme-meta-part">{{data.system.themebook}}</span>
-				<span class="litm--theme-meta-part">{{data.system.level}} THEME</span>
+				<span class="litm--theme-meta-part">{{localize data.system.level}} THEME</span>
 			</div>
 			<div class="litm--theme-legend">
 				<span>{{localize "Litm.tags.power"}}
@@ -70,8 +71,8 @@
 		</div>
 	</div>
 	<div class="litm--theme-bottom">
-		<img class="litm--theme-border-bottom" src="systems/litm/assets/media/theme-border-bottom.webp"
-			aria-hidden="true" />
+		<img class="litm--theme-border-bottom"
+			src="systems/litm/assets/media/theme-border-bottom-{{data.system.level}}.webp" aria-hidden="true" />
 		<div class="litm--theme-bottom-bg">
 			<div class="motivation">
 				<span role="textbox">{{data.system.motivation}}</span>

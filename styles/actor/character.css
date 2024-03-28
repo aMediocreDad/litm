@@ -531,9 +531,11 @@
 		line-height: 135%;
 		padding: 0px;
 		cursor: auto;
+		opacity: 0.5;
 
 		&[data-click="select"] {
 			cursor: pointer;
+			opacity: 1;
 		}
 	}
 

@@ -55,6 +55,7 @@ Hooks.once("init", () => {
 	info("Initializing Config...");
 	CONFIG.Actor.dataModels.character = CharacterData;
 	CONFIG.Actor.dataModels.challenge = ChallengeData;
+	CONFIG.Actor.trackableAttributes.character = CharacterData.getTrackableAttributes();
 	CONFIG.Dice.terms[DENOMINATION] = DoubleSix;
 	CONFIG.Dice.rolls.push(LitmRoll);
 	CONFIG.Item.dataModels.backpack = BackpackData;

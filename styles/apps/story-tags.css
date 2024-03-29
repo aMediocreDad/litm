@@ -10,7 +10,7 @@
 	}
 
 	& h2 {
-		background: url(../../assets/media/theme-alt-bg-top.webp) no-repeat bottom / cover;
+		background: url(../../assets/media/theme-alt-bg-top-origin.webp) no-repeat bottom / cover;
 		border: none;
 		color: var(--litm-color-accent);
 		text-align: center;
@@ -57,7 +57,7 @@
 			gap: var(--litm-space-1);
 
 			& legend {
-				background: url(../../assets/media/section-bg.webp) no-repeat left / auto;
+				background: url(../../assets/media/section-bg.webp) no-repeat center / auto;
 				color: var(--litm-color-primary-bg);
 				padding: 0.4em 20px 0.4em 6px;
 				background-position: left;

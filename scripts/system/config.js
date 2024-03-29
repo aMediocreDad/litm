@@ -68,21 +68,50 @@ export class LitmConfig {
 		},
 		"Litm.effects.category-other": {
 			discover: {
-				description: "Litm.additionalEffects.discover.description",
-				action: "Litm.additionalEffects.discover.action",
-				cost: "Litm.additionalEffects.discover.cost",
+				description: "Litm.effects.discover.description",
+				action: "Litm.effects.discover.action",
+				cost: "Litm.effects.discover.cost",
 				icon: "fas fa-search",
 			},
 			extra_feat: {
-				description: "Litm.additionalEffects.extra_feat.description",
-				action: "Litm.additionalEffects.extra_feat.action",
-				cost: "Litm.additionalEffects.extra_feat.cost",
+				description: "Litm.effects.extra_feat.description",
+				action: "Litm.effects.extra_feat.action",
+				cost: "Litm.effects.extra_feat.cost",
 				icon: "fas fa-plus",
 			},
 		},
 	};
 
-	tagStringRe = /(?!\b|\s)\[([^\d\]]+)(?:[\s\-\:](\d+))?\]/gi;
+	theme_levels = {
+		origin: [
+			"circumstance",
+			"past",
+			"devotion",
+			"mystery",
+			"people",
+			"possessions",
+			"personality",
+			"trade-or-skill",
+			"trait",
+			"hedge-magic",
+		],
+		adventure: [
+			"prodigious-skill",
+			"duty",
+			"relic",
+			"uncanny-being",
+			"thaumaturgy",
+		],
+		greatness: [
+			"rulership",
+			"destiny",
+			"mastery",
+			"monstrosity",
+			"grand-thaumaturgy",
+		],
+	};
+
+	tagStringRe = /(?!\b|\s)(?:\[|\{)([^\d\[\]{}]+)(?:[\s\-\:](\d+))?(?:\}|\])/gi;
 	sceneLinkRe = /@ActivateScene\[([^\]]+)\](?:\{([^\}]+)\})?/gi;
 
 	static createConfig() {

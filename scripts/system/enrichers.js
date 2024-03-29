@@ -38,8 +38,10 @@ export class Enrichers {
 					}</mark>`,
 				)[0];
 			if (tag && status)
-				return $(`<mark class="litm--status">${tag}-${status}</mark>`)[0];
-			return $(`<mark class="litm--tag">${tag}</mark>`)[0];
+				return $(
+					`<mark class="litm--status" draggable="true">${tag}-${status}</mark>`,
+				)[0];
+			return $(`<mark class="litm--tag" draggable="true">${tag}</mark>`)[0];
 		};
 		CONFIG.TextEditor.enrichers.push({
 			pattern: CONFIG.litm.tagStringRe,

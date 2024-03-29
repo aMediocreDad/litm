@@ -103,11 +103,12 @@
 			"outcome": "Outcome",
 			"rating": "Rating",
 			"roll": "Roll",
+			"status": "Status",
 			"tag": "Tag",
 			"tags": "Tags",
 			"themebook": "Themebook",
 			"threat": "Threat",
-			"status": "Status"
+			"unnamed": "Unnamed"
 		},
 		"tags": {
 			"activate": "Activate",
@@ -120,6 +121,28 @@
 			"power": "Power",
 			"story": "Story",
 			"weakness": "Weakness"
+		},
+		"themes": {
+			"circumstance": "Circumstance",
+			"past": "Past",
+			"devotion": "Devotion",
+			"mystery": "Mystery",
+			"people": "People",
+			"possessions": "Possessions",
+			"personality": "Personality",
+			"trade-or-skill": "Trade or Skill",
+			"trait": "Trait",
+			"hedge-magic": "Hedge Magic",
+			"prodigious-skill": "Prodigious Skill",
+			"duty": "Duty",
+			"relic": "Relic",
+			"uncanny-being": "Uncanny Being",
+			"thaumaturgy": "Thaumaturgy",
+			"rulership": "Rulership",
+			"destiny": "Destiny",
+			"mastery": "Mastery",
+			"monstrosity": "Monstrosity",
+			"grand-thaumaturgy": "Grand Thaumaturgy"
 		},
 		"ui": {
 			"add-consequence": "Add Consequence",
@@ -196,5 +219,8 @@
 	"TYPES.Item.threat": "Threat",
 	"failure": "Miss",
 	"consequence": "Mixed Hit",
-	"success": "Strong Hit"
+	"success": "Strong Hit",
+	"origin": "Origin",
+	"adventure": "Adventure",
+	"greatness": "Greatness"
 }

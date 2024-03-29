@@ -5,7 +5,8 @@
 		<img src="systems/litm/assets/media/right-div.webp" aria-hidden="true" />
 		{{#if add}}
 			<button class="litm--challenge-add" type="button" data-click="{{concat 'add-' add}}"
-				aria-label="{{localize (concat 'Litm.ui.add-' add)}}" data-tooltip="{{localize (concat 'Litm.ui.add-' add) }}">
+				aria-label="{{localize (concat 'Litm.ui.add-' add)}}"
+				data-tooltip="{{localize (concat 'Litm.ui.add-' add) }}">
 				<i class="far fa-plus"></i>
 			</button>
 		{{/if}}
@@ -54,8 +55,8 @@
 		<div class="litm--challenge-tags">
 			{{#if isEditing}}
 				<span role="textbox" contenteditable data-input="tags"
-					aria-labelledby="tags-label">{{data.system.tags}}</span><input type="hidden" id="tags" name="system.tags"
-					value="{{data.system.tags}}" required />
+					aria-labelledby="tags-label">{{data.system.tags}}</span><input type="hidden" id="tags"
+					name="system.tags" value="{{data.system.tags}}" required />
 			{{else}}
 				<div id="tags" data-click="toggle-edit">
 					{{{data.system.renderedTags}}}
@@ -65,10 +66,10 @@
 		{{> divider title="Litm.ui.special-features"}}
 		{{editor data.system.special target="system.special" owner=owner button=true editable=true}}
 		{{> divider title="Litm.ui.threats-consequences" add="threat"}}
-		<ul class="litm--challenge-threats item-list">
+		<ul class="litm--challenge-threats">
 			{{#each data.items as |item|}}
-				<li class="item" data-item-id="{{item.data._id}}" data-dblclick="edit-item" data-context="remove-threat"
-					data-id="{{item.data._id}}" data-tooltip="{{localize 'Litm.ui.dblclick-open'}}">
+				<li data-dblclick="edit-item" data-context="remove-threat" data-id="{{item.data._id}}"
+					data-tooltip="{{localize 'Litm.ui.dblclick-open'}}">
 					<div>> {{item.data.name}}</div>
 					{{#each item.data.system.consequences as |consequence|}}
 						<div>>> {{{consequence}}}</div>

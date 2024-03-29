@@ -1,12 +1,24 @@
-<form class="{{cssClass}}" autocomplete="off">
+<datalist id="litm--themebook">
+	{{#each data.system.themebooks as |themebook|}}
+		<option>{{localize (concat "Litm.themes." themebook)}}</option>
+	{{/each}}
+</datalist>
+
+<form class="{{cssClass}} {{data.system.level}}" autocomplete="off">
 	<div class="litm--theme-top">
-		<img class="litm--theme-border-top" src="systems/litm/assets/media/theme-border-top.webp" aria-hidden="true" />
+		<img class="litm--theme-border-top" src="systems/litm/assets/media/theme-border-top-{{data.system.level}}.webp"
+			aria-hidden="true" />
 		<div class="litm--theme-top-bg">
 			<div class="litm--theme-meta">
-				<input class="litm--theme-meta-part" type="text" name="system.themebook" data-size-input
-					value="{{data.system.themebook}}" />
-				<input class="litm--theme-meta-part" type="text" name="system.level" value="{{data.system.level}}" />
-				<span>THEME</span>
+				<input list="litm--themebook" class="litm--theme-meta-part" type="text" name="system.themebook"
+					data-size-input value="{{data.system.themebook}}" />
+				<select class="litm--theme-meta-part" type="text" name="system.level" value="{{data.system.level}}">
+					{{#select data.system.level}}
+						{{#each data.system.levels as |level|}}
+							<option value="{{level}}">{{localize level}} THEME</option>
+						{{/each}}
+					{{/select}}
+				</select>
 			</div>
 			<div class="litm--theme-legend">
 				<span>{{localize "Litm.tags.power"}}
@@ -77,8 +89,8 @@
 		</div>
 	</div>
 	<div class="litm--theme-bottom">
-		<img class="litm--theme-border-bottom" src="systems/litm/assets/media/theme-border-bottom.webp"
-			aria-hidden="true" />
+		<img class="litm--theme-border-bottom"
+			src="systems/litm/assets/media/theme-border-bottom-{{data.system.level}}.webp" aria-hidden="true" />
 		<div class="litm--theme-bottom-bg">
 			<div class="motivation">
 				<label class="litm--sro" for="motivation">{{localize "Litm.other.motivation"}}</label>

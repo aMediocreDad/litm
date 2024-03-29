@@ -1,4 +1,4 @@
-import { titleCase, localize as t } from "../../utils.js";
+import { localize as t, titleCase } from "../../utils.js";
 
 export class ThemeData extends foundry.abstract.DataModel {
 	static defineSchema() {
@@ -9,7 +9,9 @@ export class ThemeData extends foundry.abstract.DataModel {
 				initial: t("Litm.other.themebook"),
 			}),
 			level: new fields.StringField({
-				initial: t("Litm.other.level"),
+				initial: Object.keys(CONFIG.litm.theme_levels)[0],
+				validate: (level) =>
+					Object.keys(CONFIG.litm.theme_levels).includes(level),
 			}),
 			isActive: new fields.BooleanField({
 				initial: true,
@@ -98,5 +100,13 @@ export class ThemeData extends foundry.abstract.DataModel {
 
 	get allTags() {
 		return [...this.weaknessTags, ...this.powerTags, this.themeTag];
+	}
+
+	get levels() {
+		return Object.keys(CONFIG.litm.theme_levels);
+	}
+
+	get themebooks() {
+		return CONFIG.litm.theme_levels[this.level];
 	}
 }

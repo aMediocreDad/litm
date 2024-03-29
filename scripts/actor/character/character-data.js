@@ -8,6 +8,13 @@ export class CharacterData extends foundry.abstract.DataModel {
 		};
 	}
 
+	static getTrackableAttributes() {
+		return {
+			bar: ["limit"],
+			value: [],
+		};
+	}
+
 	get backpack() {
 		const backpack = this.parent.items.find((item) => item.type === "backpack");
 		if (!backpack) return [];
@@ -73,6 +80,15 @@ export class CharacterData extends foundry.abstract.DataModel {
 					name: item.name,
 				};
 			});
+	}
+
+	get limit() {
+		return {
+			label: "Litm.other.limit",
+			value:
+				6 - (this.statuses.sort((a, b) => b.value - a.value)[0]?.value || 0),
+			max: 6,
+		};
 	}
 
 	async prepareDerivedData() {

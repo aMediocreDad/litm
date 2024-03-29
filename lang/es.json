@@ -93,6 +93,7 @@
 			"add": "Añadir",
 			"backpack": "Mochila",
 			"category": "Categoría",
+			"consequence": "Consecuencia",
 			"cost": "Coste",
 			"description": "Descripción",
 			"experience": "Experiencia",
@@ -101,13 +102,13 @@
 			"limit": "Límite",
 			"outcome": "Resultado",
 			"rating": "Valor",
-			"roll": "Tirar",
+			"roll": "Tirada",
 			"status": "Estado",
 			"tag": "Etiqueta",
 			"tags": "Etiquetas",
 			"themebook": "Libreto",
 			"threat": "Amenaza",
-			"consequence": "Consecuencia"
+			"unnamed": "Sin nombre"
 		},
 		"tags": {
 			"activate": "Activar",
@@ -120,6 +121,28 @@
 			"power": "Poder",
 			"story": "Historia",
 			"weakness": "Debilidad"
+		},
+		"themes": {
+			"circumstance": "Circunstancia",
+			"past": "Pasado",
+			"devotion": "Devoción",
+			"mystery": "Misterio",
+			"people": "Gente",
+			"possessions": "Posesiones",
+			"personality": "Personalidad",
+			"trade-or-skill": "Oficio u aptitud",
+			"trait": "Rasgo",
+			"hedge-magic": "Magia Protectora",
+			"prodigious-skill": "Aptitud prodigiosa",
+			"duty": "Deber",
+			"relic": "Reliquia",
+			"uncanny-being": "Ser Sobrenatural",
+			"thaumaturgy": "Taumaturgia",
+			"rulership": "Dominio",
+			"destiny": "Destino",
+			"mastery": "Maestría",
+			"monstrosity": "Monstruosidad",
+			"grand-thaumaturgy": "Gran Taumaturgia"
 		},
 		"ui": {
 			"add-consequence": "Añadir consecuencia",
@@ -196,5 +219,8 @@
 	"TYPES.Item.threat": "Amenaza",
 	"failure": "Fallo",
 	"consequence": "Éxito parcial",
-	"success": "Éxito completo"
+	"success": "Éxito completo",
+	"origin": "Origen",
+	"adventure": "Aventura",
+	"gratness": "Grandeza"
 }

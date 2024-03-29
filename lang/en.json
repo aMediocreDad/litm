@@ -180,6 +180,8 @@
 			"name-consequence": "Name your Consequence using [tag] to indicate tags, and [tag 0] to indicate statuses.",
 			"remove": "Remove",
 			"remove-tag": "Remove Tag",
+			"remove-actors": "Remove Actors",
+			"remove-story-tags": "Remove Story Tags",
 			"rename": "Rename",
 			"rename-challenge": "Rename Challenge",
 			"roll": "Roll!",

@@ -9,7 +9,8 @@
 	& .window-header {
 		top: 6px;
 		position: relative;
-		padding-inline: 16px;
+		margin-inline: 6px;
+		padding-inline: 10px;
 		z-index: 1;
 		background: rgb(16 34 44 / 80%);
 	}

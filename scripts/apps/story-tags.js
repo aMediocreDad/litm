@@ -2,6 +2,8 @@ import { SheetMixin } from "../mixins/sheet-mixin.js";
 import { confirmDelete, dispatch, localize as t } from "../utils.js";
 
 export class StoryTagApp extends SheetMixin(FormApplication) {
+	#contextmenu = null;
+
 	static get defaultOptions() {
 		return foundry.utils.mergeObject(super.defaultOptions, {
 			classes: ["litm", "litm--story-tags"],
@@ -102,6 +104,40 @@ export class StoryTagApp extends SheetMixin(FormApplication) {
 					break;
 			}
 		});
+
+		// GM only listeners
+		if (!game.user.isGM) return
+
+		this.#contextmenu = ContextMenu.create(
+			this,
+			html,
+			"[data-context='menu']",
+			[
+				{
+					name: game.i18n.localize("Litm.ui.remove-story-tags"),
+					icon: '<i class="fas fa-tags"></i>',
+					callback: () => {
+						this.setTags([]);
+					},
+				},
+				{
+					name: game.i18n.localize("Litm.ui.remove-actors"),
+					icon: "<i class='fas fa-user-slash'></i>",
+					callback: () => {
+						this.setActors([]);
+					},
+				},
+			],
+			{
+				hookName: "LitmStoryTagsContextMenu",
+			},
+		);
+		this.#contextmenu._setPosition = function (html, target) {
+			// biome-ignore lint/suspicious/noAssignInExpressions: <explanation>
+			html.toggleClass("expand-up", (this._expandUp = true));
+			target.append(html);
+			target.addClass("context");
+		};
 	}
 
 	async _updateObject(_event, formData) {
@@ -202,7 +238,6 @@ export class StoryTagApp extends SheetMixin(FormApplication) {
 	}
 
 	#onClick(event) {
-		event.preventDefault();
 		const action = event.currentTarget.dataset.click;
 		const target = event.currentTarget.dataset.id;
 
@@ -214,7 +249,6 @@ export class StoryTagApp extends SheetMixin(FormApplication) {
 	}
 
 	#onContext(event) {
-		event.preventDefault();
 		const action = event.currentTarget.dataset.context;
 		const target = event.currentTarget.dataset.id;
 

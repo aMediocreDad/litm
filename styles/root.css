@@ -181,7 +181,6 @@ aside[role="tooltip"] {
 
 .app.litm {
 	background: url('../assets/media/background.webp') no-repeat left / cover;
-	overflow: hidden;
 	box-shadow: none;
 	filter: drop-shadow(rgb(0, 0, 0, 0.6) 2px 4px 8px);
 

@@ -224,6 +224,10 @@ aside[role="tooltip"] {
 		& .document-id-link {
 			margin-inline: 0 auto;
 		}
+
+		& .litm--sheet-scale-button {
+			rotate: 45deg;
+		}
 	}
 
 	& .window-content {

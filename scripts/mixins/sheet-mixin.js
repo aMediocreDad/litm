@@ -1,6 +1,9 @@
+import { localize as t } from "../utils.js";
+
 export const SheetMixin = (Base) =>
 	class extends Base {
 		isEditing = false;
+		#currentScale = 1;
 
 		activateListeners(html) {
 			super.activateListeners(html);
@@ -20,6 +23,8 @@ export const SheetMixin = (Base) =>
 				.on("blur", () =>
 					this._onSubmit(new Event("submit"), { rerender: true }),
 				);
+			html.find("[data-mousedown]").on("mousedown", this.#handleMousedown.bind(this));
+			html.closest(".app.window-app").find(".litm--sheet-scale-button").on("pointerdown", this.#scale.bind(this));
 		}
 
 		/** @override */
@@ -32,12 +37,34 @@ export const SheetMixin = (Base) =>
 			return res;
 		}
 
+		_getHeaderButtons() {
+			const buttons = super._getHeaderButtons();
+
+			buttons.unshift({
+				class: "litm--sheet-scale-button",
+				icon: "fas fa-arrows-alt-h",
+				tooltip: t("Resize"),
+				onclick: () => { },
+			});
+
+			return buttons;
+		}
+
 		#handleInput(event) {
 			const t = event.currentTarget;
 			const targetId = t.dataset.input;
 			const value = t.textContent || t.value;
 			const target = $(t).siblings(`input#${targetId}`);
 			target.val(value);
+		}
+
+		#handleMousedown(event) {
+			const action = event.currentTarget.dataset.mousedown;
+			switch (action) {
+				case "scale": {
+					this.#scale(event);
+				}
+			}
 		}
 
 		#handleClick(event) {
@@ -58,5 +85,39 @@ export const SheetMixin = (Base) =>
 		#toggleEdit() {
 			this.isEditing = !this.isEditing;
 			return this.render();
+		}
+
+		#scale(event) {
+			event.preventDefault();
+			event.stopPropagation();
+
+			const eventNames = event.originalEvent.type === "pointerdown"
+				? ["pointermove", "pointerup"]
+				: ["mousemove", "mouseup"];
+			const el = this.element;
+
+			let previousX = event.screenX;
+			let delta = 0;
+
+			const mousemove = (event) => {
+				delta = event.screenX - previousX;
+				previousX = event.screenX;
+				this.#currentScale += delta / 500;
+
+				el.css("transform", `scale(${this.#currentScale})`);
+			}
+
+			const mouseup = () => {
+				document.removeEventListener(eventNames[0], mousemove);
+				document.removeEventListener(eventNames[1], mouseup);
+
+				this.setPosition({
+					scale: this.#currentScale,
+				})
+			}
+
+
+			document.addEventListener(eventNames[0], mousemove);
+			document.addEventListener(eventNames[1], mouseup);
 		}
 	};

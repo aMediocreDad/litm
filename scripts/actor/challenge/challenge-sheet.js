@@ -1,11 +1,14 @@
 import { SheetMixin } from "../../mixins/sheet-mixin.js";
-import { confirmDelete } from "../../utils.js";
+import { confirmDelete, localize as t } from "../../utils.js";
 export class ChallengeSheet extends SheetMixin(ActorSheet) {
 	static defaultOptions = foundry.utils.mergeObject(ActorSheet.defaultOptions, {
 		classes: ["litm", "litm--challenge"],
 		width: 320,
 		height: 700,
 		resizable: false,
+		scrollY: [
+			".litm--challenge-wrapper"
+		]
 	});
 
 	get template() {

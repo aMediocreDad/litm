@@ -56,19 +56,6 @@
 		&::before {
 			content: "";
 			position: absolute;
-			background: url(../../assets/media/single-flower.webp) no-repeat center / contain;
-			height: 40%;
-			width: 40%;
-			z-index: 1;
-			pointer-events: none;
-			bottom: 5.75rem;
-			right: 0px;
-			rotate: 40deg;
-		}
-
-		&::after {
-			content: "";
-			position: absolute;
 			background: url(../../assets/media/necklace.webp) no-repeat center / contain;
 			height: 50%;
 			width: 50%;
@@ -161,6 +148,18 @@
 					scale: 1.1;
 				}
 			}
+		}
+
+		& .litm--sheet-scale-button {
+			position: absolute;
+			background: url(../../assets/media/single-flower.webp) no-repeat center / contain;
+			height: 130px;
+			width: 90px;
+			z-index: 1;
+			padding: 0px;
+			bottom: 6.05rem;
+			right: 0.2rem;
+			rotate: 40deg;
 		}
 	}
 

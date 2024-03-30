@@ -1,6 +1,7 @@
+import { SheetMixin } from "../../mixins/sheet-mixin.js";
 import { confirmDelete, dispatch } from "../../utils.js";
 
-export class CharacterSheet extends ActorSheet {
+export class CharacterSheet extends SheetMixin(ActorSheet) {
 	static defaultOptions = foundry.utils.mergeObject(ActorSheet.defaultOptions, {
 		classes: ["litm", "litm--character"],
 		width: 250,
@@ -179,7 +180,7 @@ export class CharacterSheet extends ActorSheet {
 			},
 		);
 		this.#contextmenu._setPosition = function (html, target) {
-			// biome-ignore lint/suspicious/noAssignInExpressions: <explanation>
+			// biome-ignore lint/suspicious/noAssignInExpressions: This is an override using the same logic
 			html.toggleClass("expand-up", (this._expandUp = true));
 			target.append(html);
 			target.addClass("context");

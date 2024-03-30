@@ -10,9 +10,33 @@ jobs:
     name: Publish
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - name: Publish FoundryVTT Package
-        uses: illandril/FoundryVTT-package-release-action@v1
+      - name: Get Version Number
+        id: tag
+        run: |
+          TAG_NAME=${{ github.event.release.tag_name }}
+          echo "::set-output name=version::${TAG_NAME//v/}"
+      - name: Push to Foundry
+        id: foundry
+        uses: fjogeleit/http-request-action@v1
         with:
-            package-release-token: ${{ secrets.FOUNDRY_API_KEY }}
-            manifest-url:  https://raw.githubusercontent.com/aMediocreDad/litm/${{ github.event.release.tag_name }}/system.json
+          url: 'https://api.foundryvtt.com/_api/packages/release_version/'
+          customHeaders: '{ "Content-Type": "application/json", "Authorization": "${{ secrets.FOUNDRY_API_KEY }}" }'
+          data:
+            '{
+              "id": "litm",
+              "release": {
+                "version": "${{ steps.tag.outputs.version }}",
+                "manifest": "https://raw.githubusercontent.com/aMediocreDad/litm/${{ github.event.release.tag_name }}/system.json",
+                "notes": "https://github.com/fvtt-fria-ligan/aMediocreDad/litm/releases/tag/${{ github.event.release.tag_name }}",
+                "compatibility": {
+                  "minimum": "11",
+                  "verified": "12",
+                  "maximum": "12"
+                }
+              }
+            }'
+      - name: Summary
+        run: |
+          echo "**Version:** ${{ steps.tag.outputs.version }}" >> $GITHUB_STEP_SUMMARY
+          echo "**Release Notes:** ${{ github.event.release.html_url }}" >> $GITHUB_STEP_SUMMARY
+          echo "**Published:** ${{ steps.foundry.outputs.response }}" >> $GITHUB_STEP_SUMMARY

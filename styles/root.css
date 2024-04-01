@@ -227,6 +227,8 @@ aside[role="tooltip"] {
 
 		& .litm--sheet-scale-button {
 			rotate: 45deg;
+
+			cursor: nwse-resize;
 		}
 	}
 

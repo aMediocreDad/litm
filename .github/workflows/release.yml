@@ -14,7 +14,7 @@ jobs:
         id: tag
         run: |
           TAG_NAME=${{ github.event.release.tag_name }}
-          echo "::set-output name=version::${TAG_NAME//v/}"
+          echo "version=${TAG_NAME//v/}" >> "$GITHUB_OUTPUT"
       - name: Push to Foundry
         id: foundry
         uses: fjogeleit/http-request-action@v1
@@ -27,7 +27,7 @@ jobs:
               "release": {
                 "version": "${{ steps.tag.outputs.version }}",
                 "manifest": "https://raw.githubusercontent.com/aMediocreDad/litm/${{ github.event.release.tag_name }}/system.json",
-                "notes": "https://github.com/fvtt-fria-ligan/aMediocreDad/litm/releases/tag/${{ github.event.release.tag_name }}",
+                "notes": "https://github.com/aMediocreDad/litm/releases/tag/${{ github.event.release.tag_name }}",
                 "compatibility": {
                   "minimum": "11",
                   "verified": "12",
@@ -39,4 +39,5 @@ jobs:
         run: |
           echo "**Version:** ${{ steps.tag.outputs.version }}" >> $GITHUB_STEP_SUMMARY
           echo "**Release Notes:** ${{ github.event.release.html_url }}" >> $GITHUB_STEP_SUMMARY
-          echo "**Published:** ${{ steps.foundry.outputs.response }}" >> $GITHUB_STEP_SUMMARY
+          echo "**Published:** ${{ steps.foundry.outputs.response.status }}" >> $GITHUB_STEP_SUMMARY
+          echo "**URL:** ${{ steps.foundry.outputs.response.page }}" >> $GITHUB_STEP_SUMMARY

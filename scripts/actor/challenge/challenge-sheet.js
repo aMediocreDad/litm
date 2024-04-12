@@ -1,14 +1,13 @@
 import { SheetMixin } from "../../mixins/sheet-mixin.js";
-import { confirmDelete, localize as t } from "../../utils.js";
+import { confirmDelete } from "../../utils.js";
+
 export class ChallengeSheet extends SheetMixin(ActorSheet) {
 	static defaultOptions = foundry.utils.mergeObject(ActorSheet.defaultOptions, {
 		classes: ["litm", "litm--challenge"],
 		width: 320,
 		height: 700,
 		resizable: false,
-		scrollY: [
-			".litm--challenge-wrapper"
-		]
+		scrollY: [".litm--challenge-wrapper"],
 	});
 
 	get template() {
@@ -122,7 +121,7 @@ export class ChallengeSheet extends SheetMixin(ActorSheet) {
 		};
 
 		limits.push(limit);
-		this.actor.update({ "data.limits": limits });
+		this.actor.update({ "system.limits": limits });
 	}
 
 	async #addThreat() {

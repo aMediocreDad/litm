@@ -359,7 +359,6 @@
 
 			& .editor {
 				padding: 0px 16px 1.5rem;
-				scrollbar-color: var(--litm-color-accent-2) transparent;
 			}
 
 			& [role="application"] {

@@ -1,4 +1,5 @@
-import { dispatch, gmModeratedRoll, sortTags } from "../utils.js";
+import { Sockets } from "../system/sockets.js";
+import { localize as t, sortTags } from "../utils.js";
 
 export class LitmRollDialog extends FormApplication {
 	static get defaultOptions() {
@@ -34,38 +35,29 @@ export class LitmRollDialog extends FormApplication {
 
 	static roll({ actorId, tags, title, type, speaker }) {
 		// Separate tags
-		const burnedTags = tags.filter((t) => t.state === "burned");
-		const powerTags = tags.filter(
-			(t) => t.type !== "status" && t.state === "positive",
-		);
-		const weaknessTags = tags.filter(
-			(t) => t.type !== "status" && t.state === "negative",
-		);
-		const positiveStatuses = tags.filter(
-			(t) => t.type === "status" && t.state === "positive",
-		);
-		const negativeStatuses = tags.filter(
-			(t) => t.type === "status" && t.state === "negative",
-		);
+		const {
+			burnedTags,
+			powerTags,
+			weaknessTags,
+			positiveStatuses,
+			negativeStatuses,
+		} = LitmRollDialog.#filterTags(tags);
 
 		// Values
-		const burnedValue = burnedTags.length * 3;
-		const powerValue = powerTags.length;
-		const weaknessValue = weaknessTags.length;
-		const positiveStatusValue = positiveStatuses.reduce(
-			(a, t) => a + Number.parseInt(t.value),
-			0,
-		);
-		const negativeStatusValue = negativeStatuses.reduce(
-			(a, t) => a + Number.parseInt(t.value),
-			0,
-		);
-		const totalPower =
-			burnedValue +
-			powerValue +
-			positiveStatusValue -
-			weaknessValue -
-			negativeStatusValue;
+		const {
+			burnedValue,
+			powerValue,
+			weaknessValue,
+			positiveStatusValue,
+			negativeStatusValue,
+			totalPower,
+		} = LitmRollDialog.#calculateTotalPower({
+			burnedTags,
+			powerTags,
+			weaknessTags,
+			positiveStatuses,
+			negativeStatuses,
+		});
 
 		// Roll
 		const roll = new game.litm.LitmRoll(
@@ -99,8 +91,67 @@ export class LitmRollDialog extends FormApplication {
 			.then((res) => {
 				// Reset roll dialog
 				res.rolls[0]?.actor?.sheet.resetRollDialog();
+				Sockets.dispatch("resetRollDialog", { actorId });
 				return res;
 			});
+	}
+
+	static #filterTags(tags) {
+		const burnedTags = tags.filter((t) => t.state === "burned");
+		const powerTags = tags.filter(
+			(t) => t.type !== "status" && t.state === "positive",
+		);
+		const weaknessTags = tags.filter(
+			(t) => t.type !== "status" && t.state === "negative",
+		);
+		const positiveStatuses = tags.filter(
+			(t) => t.type === "status" && t.state === "positive",
+		);
+		const negativeStatuses = tags.filter(
+			(t) => t.type === "status" && t.state === "negative",
+		);
+
+		return {
+			burnedTags,
+			powerTags,
+			weaknessTags,
+			positiveStatuses,
+			negativeStatuses,
+		};
+	}
+
+	static #calculateTotalPower(tags) {
+		const burnedValue = tags.burnedTags.length * 3;
+
+		const powerValue = tags.powerTags.length;
+
+		const weaknessValue = tags.weaknessTags.length;
+
+		const positiveStatusValue = tags.positiveStatuses.reduce(
+			(a, t) => a + Number.parseInt(t.value),
+			0,
+		);
+
+		const negativeStatusValue = tags.negativeStatuses.reduce(
+			(a, t) => a + Number.parseInt(t.value),
+			0,
+		);
+
+		const totalPower =
+			burnedValue +
+			powerValue +
+			positiveStatusValue -
+			weaknessValue -
+			negativeStatusValue;
+
+		return {
+			burnedValue,
+			powerValue,
+			weaknessValue,
+			positiveStatusValue,
+			negativeStatusValue,
+			totalPower,
+		};
 	}
 
 	#rollId = null;
@@ -113,7 +164,7 @@ export class LitmRollDialog extends FormApplication {
 		this.#tagState = options.tagState || [];
 		this.#shouldRoll = options.shouldRoll || (() => false);
 
-		this.actorId = actorId || null;
+		this.actorId = actorId;
 		this.characterTags = characterTags;
 		this.speaker =
 			options.speaker || ChatMessage.getSpeaker({ actor: this.actor });
@@ -163,35 +214,15 @@ export class LitmRollDialog extends FormApplication {
 	}
 
 	get totalPower() {
-		const burnedTags = [...this.#tagState, ...this.characterTags].filter(
-			(t) => t.state === "burned",
-		).length;
-		const powerTags = [
-			...this.#tagState.filter((t) => t.type === "tag"),
-			...this.characterTags,
-		].filter((t) => t.state === "positive").length;
-		const weaknessTags = [
-			...this.#tagState.filter((t) => t.type === "tag"),
-			...this.characterTags,
-		].filter((t) => t.state === "negative").length;
-		const positiveStatuses = this.#tagState
-			.filter((t) => t.type === "status" && t.state === "positive")
-			.reduce((a, t) => a + Number.parseInt(t.value), 0);
-		const negativeStatuses = this.#tagState
-			.filter((t) => t.type === "status" && t.state === "negative")
-			.reduce((a, t) => a + Number.parseInt(t.value), 0);
-
-		return (
-			burnedTags * 3 +
-			powerTags +
-			positiveStatuses -
-			weaknessTags -
-			negativeStatuses
-		);
+		const state = [...this.#tagState, ...this.characterTags];
+		const tags = LitmRollDialog.#filterTags(state);
+		const { totalPower } = LitmRollDialog.#calculateTotalPower(tags);
+		return totalPower;
 	}
 
 	getData() {
 		const data = super.getData();
+		const skipModeration = game.settings.get("litm", "skip_roll_moderation");
 		return {
 			...data,
 			actorId: this.actorId,
@@ -199,8 +230,9 @@ export class LitmRollDialog extends FormApplication {
 			rollTypes: {
 				quick: "Litm.ui.roll-quick",
 				tracked: "Litm.ui.roll-tracked",
-				mitigate: "Litm.effects.mitigate.key",
+				mitigate: "Litm.ui.roll-mitigate",
 			},
+			skipModeration,
 			statuses: sortTags(this.statuses),
 			tags: sortTags(this.tags),
 			gmTags: sortTags(this.gmTags),
@@ -221,6 +253,7 @@ export class LitmRollDialog extends FormApplication {
 				if (event.key === "Enter" || event.key === " ")
 					this.#handleClick(event);
 			});
+
 		html
 			.find("litm-super-checkbox")
 			.on("change", this.#handleCheckboxChange.bind(this));
@@ -230,11 +263,16 @@ export class LitmRollDialog extends FormApplication {
 		tag.state =
 			tag.type === "weaknessTag" ? "negative" : toBurn ? "burned" : "positive";
 		tag.states = tag.type === "weaknessTag" ? ",negative" : ",positive,burned";
+
 		this.characterTags.push(tag);
+		this.element.find("[data-update='totalPower']").text(this.totalPower);
+		this.#dispatchUpdate();
 	}
 
 	removeTag(tag) {
 		this.characterTags = this.characterTags.filter((t) => t.id !== tag.id);
+		this.element.find("[data-update='totalPower']").text(this.totalPower);
+		this.#dispatchUpdate();
 	}
 
 	getFilteredArrayFromFormData(formData) {
@@ -257,7 +295,7 @@ export class LitmRollDialog extends FormApplication {
 	 * @param {Object} formData - The form data
 	 */
 	async _updateObject(_event, formData) {
-		const { actorId, title, type, ...rest } = formData;
+		const { actorId, title, type, shouldRoll, ...rest } = formData;
 		const tags = this.getFilteredArrayFromFormData(rest);
 
 		const data = {
@@ -268,16 +306,10 @@ export class LitmRollDialog extends FormApplication {
 			speaker: this.speaker,
 		};
 
-		if (!game.user.isGM) {
-			ui.notifications.info("Litm.ui.roll-moderated", { localize: true });
-			return gmModeratedRoll({ ...data, shouldRoll: false }, (data) =>
-				LitmRollDialog.roll(data),
-			);
-		}
-
+		if (!game.user.isGM) this.#shouldRoll = () => shouldRoll;
+		// User has authority to initiate the roll
 		if (this.#shouldRoll()) return LitmRollDialog.roll(data);
-		dispatch({ app: data, type: "roll", id: this.#rollId });
-		return this.reset();
+		return this.#createModerationRequest(data);
 	}
 
 	#handleClick(event) {
@@ -325,5 +357,51 @@ export class LitmRollDialog extends FormApplication {
 		}
 
 		this.element.find("[data-update='totalPower']").text(this.totalPower);
+		this.#dispatchUpdate();
+	}
+
+	async #createModerationRequest(data) {
+		const id = foundry.utils.randomID();
+		this.#rollId = id;
+		const tags = LitmRollDialog.#filterTags(data.tags);
+		const { totalPower } = LitmRollDialog.#calculateTotalPower(tags);
+
+		ChatMessage.create({
+			content: await renderTemplate(
+				"systems/litm/templates/chat/moderation.html",
+				{
+					title: t("Litm.ui.roll-moderation"),
+					rollId: id,
+					type: data.type,
+					name: this.actor.name,
+					tags,
+					totalPower,
+				},
+			),
+			type: CONST.CHAT_MESSAGE_TYPES.WHISPER,
+			whisper: [
+				game.user.id,
+				...game.users.filter((u) => u.isGM).map((u) => u.id),
+			],
+			flags: { litm: { id, data } },
+		});
+	}
+
+	#dispatchUpdate() {
+		Sockets.dispatch("updateRollDialog", {
+			actorId: this.actorId,
+			characterTags: this.characterTags,
+			tagState: this.#tagState,
+		});
+	}
+
+	async receiveUpdate({ characterTags, tagState, actorId }) {
+		if (actorId !== this.actorId) return;
+
+		if (characterTags) this.characterTags = characterTags;
+		if (tagState) this.#tagState = tagState;
+
+		if (this.actor.sheet.rendered) this.actor.sheet.render();
+		if (this.rendered) this.render();
 	}
 }

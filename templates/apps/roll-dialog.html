@@ -50,8 +50,13 @@
 		<span data-update="totalPower">{{totalPower}}</span>
 	</div>
 	<button type="button" data-click="add-tag">{{localize "Litm.other.add"}} {{localize "Litm.other.tags"}}</button>
-	<div class="buttons">
+	<div class="litm--roll-dialog-buttons">
+		{{#unless isGM}}
+			<label class="litm--roll-dialog-skip-moderation">
+				<span>{{localize "Litm.ui.skip-moderation"}}</span>
+				<input class="litm--checkbox" type="checkbox" name="shouldRoll" {{checked skipModeration}} />
+			</label>
+		{{/unless}}
 		<button type="submit">{{localize "Litm.ui.roll"}}</button>
-		<button type="button" data-click="cancel">{{localize "Litm.ui.cancel"}}</button>
 	</div>
 </form>

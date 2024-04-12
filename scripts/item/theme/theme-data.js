@@ -72,14 +72,12 @@ export class ThemeData extends foundry.abstract.DataModel {
 	}
 
 	static migrateData(source) {
-		if (!('level' in source)) return super.migrateData(source);
+		if (!("level" in source)) return super.migrateData(source);
 
 		const lowerCaseLevel = source.level.toLowerCase();
 		const configLevels = Object.keys(CONFIG.litm.theme_levels);
-		if (!configLevels.includes(lowerCaseLevel))
-			source.level = configLevels[0];
-		else
-			source.level = lowerCaseLevel;
+		if (!configLevels.includes(lowerCaseLevel)) source.level = configLevels[0];
+		else source.level = lowerCaseLevel;
 		return super.migrateData(source);
 	}
 

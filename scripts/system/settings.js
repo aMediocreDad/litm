@@ -19,5 +19,13 @@ export class LitmSettings {
 			type: Boolean,
 			default: game.user?.isGM ?? true,
 		});
+		game.settings.register("litm", "skip_roll_moderation", {
+			name: "Litm.settings.skip-roll-moderation",
+			hint: "Litm.settings.skip-roll-moderation-hint",
+			scope: "world",
+			config: true,
+			type: Boolean,
+			default: false,
+		});
 	}
 }

@@ -23,8 +23,13 @@ export const SheetMixin = (Base) =>
 				.on("blur", () =>
 					this._onSubmit(new Event("submit"), { rerender: true }),
 				);
-			html.find("[data-mousedown]").on("mousedown", this.#handleMousedown.bind(this));
-			html.closest(".app.window-app").find(".litm--sheet-scale-button").on("pointerdown", this.#scale.bind(this));
+			html
+				.find("[data-mousedown]")
+				.on("mousedown", this.#handleMousedown.bind(this));
+			html
+				.closest(".app.window-app")
+				.find(".litm--sheet-scale-button")
+				.on("pointerdown", this.#scale.bind(this));
 		}
 
 		/** @override */
@@ -44,7 +49,7 @@ export const SheetMixin = (Base) =>
 				class: "litm--sheet-scale-button",
 				icon: "fas fa-arrows-alt-h",
 				tooltip: t("Resize"),
-				onclick: () => { },
+				onclick: () => {},
 			});
 
 			return buttons;
@@ -91,9 +96,10 @@ export const SheetMixin = (Base) =>
 			event.preventDefault();
 			event.stopPropagation();
 
-			const eventNames = event.originalEvent.type === "pointerdown"
-				? ["pointermove", "pointerup"]
-				: ["mousemove", "mouseup"];
+			const eventNames =
+				event.originalEvent.type === "pointerdown"
+					? ["pointermove", "pointerup"]
+					: ["mousemove", "mouseup"];
 			const el = this.element;
 
 			let previousX = event.screenX;
@@ -105,7 +111,7 @@ export const SheetMixin = (Base) =>
 				this.#currentScale += delta / 500;
 
 				el.css("transform", `scale(${this.#currentScale})`);
-			}
+			};
 
 			const mouseup = () => {
 				document.removeEventListener(eventNames[0], mousemove);
@@ -113,9 +119,8 @@ export const SheetMixin = (Base) =>
 
 				this.setPosition({
 					scale: this.#currentScale,
-				})
-			}
-
+				});
+			};
 
 			document.addEventListener(eventNames[0], mousemove);
 			document.addEventListener(eventNames[1], mouseup);

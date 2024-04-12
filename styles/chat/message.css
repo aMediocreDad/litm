@@ -25,7 +25,7 @@
 	}
 
 	& .dice-effect {
-		& p:first-of-type {
+		& p:has(em) {
 			color: var(--litm-color-alt-bg);
 			font-family: var(--litm-font-primary);
 			font-size: var(--font-size-16);
@@ -90,8 +90,7 @@
 		font-size: var(--font-size-12);
 	}
 
-	& .litm--roll-burn-button,
-	& .litm--roll-gain-exp-button {
+	& .dice-result button {
 		margin-block-start: var(--litm-space-2);
 		font-family: var(--litm-font-sc);
 		text-transform: uppercase;
@@ -102,6 +101,16 @@
 		color: var(--litm-color-alt-bg);
 		scale: 0.9;
 
+		&.litm--roll-approve-button {
+			color: color-mix(in hsl, var(--litm-color-status-bg) 70%, var(--litm-color-accent));
+			border-color: color-mix(in hsl, var(--litm-color-status-bg) 70%, var(--litm-color-accent));
+		}
+
+		&.litm--roll-reject-button {
+			color: color-mix(in hsl, var(--litm-color-limit-bg) 70%, var(--litm-color-accent));
+			border-color: color-mix(in hsl, var(--litm-color-limit-bg) 70%, var(--litm-color-accent));
+		}
+
 		&.litm--roll-burn-button {
 			color: color-mix(in hsl, var(--litm-color-weakness) 60%, var(--litm-color-accent));
 			border-color: color-mix(in hsl, var(--litm-color-weakness) 60%, var(--litm-color-accent));
@@ -109,6 +118,23 @@
 
 		&:hover {
 			text-shadow: 1px 2px 4px var(--litm-color-primary);
+		}
+	}
+}
+
+/* Moderation message */
+.chat-message.message {
+	& .gmOnly {
+		display: none;
+	}
+
+	&[data-user="gm"] {
+		& .gmOnly {
+			display: block;
+		}
+
+		& .playerOnly {
+			display: none;
 		}
 	}
 }

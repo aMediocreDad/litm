@@ -27,6 +27,7 @@ import {
 import { LitmHooks } from "./scripts/system/hooks.js";
 import { KeyBindings } from "./scripts/system/keybidings.js";
 import { LitmSettings } from "./scripts/system/settings.js";
+import { Sockets } from "./scripts/system/sockets.js";
 
 // Set the logo to the LitM logo
 $("#logo")[0].src = "systems/litm/assets/media/logo.webp";
@@ -42,9 +43,6 @@ Hooks.once("init", () => {
 		config: LitmConfig.createConfig(),
 		data: {
 			TagData,
-		},
-		rolls: {
-			// Temporary residing place of the roll callbacks
 		},
 		importCharacter,
 		LitmRollDialog,
@@ -97,6 +95,7 @@ Hooks.once("init", () => {
 	KeyBindings.register();
 	LitmSettings.register();
 	LitmHooks.register();
+	Sockets.registerListeners();
 
 	success("Successfully initialized Legend in the Mist!");
 });

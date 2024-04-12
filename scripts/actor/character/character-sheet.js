@@ -38,8 +38,8 @@ export class CharacterSheet extends SheetMixin(ActorSheet) {
 		return [...this.system.storyTags, ...this.system.statuses];
 	}
 
-	set roll(app) {
-		this.#roll = app;
+	updateRollDialog(data) {
+		this.#roll.receiveUpdate(data);
 	}
 
 	renderRollDialog() {
@@ -134,6 +134,9 @@ export class CharacterSheet extends SheetMixin(ActorSheet) {
 			tagsFocused: this.#focusedTags,
 			notesEditorOpened: this.#notesEditorOpened,
 			rollTags: this.#roll.characterTags,
+			burntTags: this.#roll.characterTags.filter(
+				(t) => t.isBurnt || t.state === "burned",
+			),
 		};
 	}
 
@@ -180,8 +183,8 @@ export class CharacterSheet extends SheetMixin(ActorSheet) {
 			},
 		);
 		this.#contextmenu._setPosition = function (html, target) {
-			// biome-ignore lint/suspicious/noAssignInExpressions: This is an override using the same logic
-			html.toggleClass("expand-up", (this._expandUp = true));
+			this._expandUp = true;
+			html.toggleClass("expand-up", this._expandUp);
 			target.append(html);
 			target.addClass("context");
 		};
@@ -375,7 +378,9 @@ export class CharacterSheet extends SheetMixin(ActorSheet) {
 	}
 
 	#select(event) {
+		// Prevent double clicks from selecting the tag
 		if (event.detail > 1) return;
+
 		const t = event.currentTarget;
 		const toBurn = event.shiftKey;
 		const toBurnNoRoll = event.altKey;
@@ -395,17 +400,10 @@ export class CharacterSheet extends SheetMixin(ActorSheet) {
 				this.#roll.addTag(tag, toBurn);
 				break;
 		}
-		t.toggleAttribute("data-selected", !selected);
-
-		// Burn the tag if shift is pressed
-		if (toBurn && !selected) {
-			for (const el of this.element.find(`[data-click="select"].burned`))
-				el.classList.remove("burned");
-			t.classList.add("burned");
-		} else t.classList.remove("burned");
 
 		// Render the roll dialog if it's open
 		if (this.#roll.rendered) this.#roll.render();
+		this.render();
 	}
 
 	#keepOpen(event) {

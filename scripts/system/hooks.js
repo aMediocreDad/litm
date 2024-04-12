@@ -1,5 +1,6 @@
 import { error, info } from "../logger.js";
-import { localize as t, sleep } from "../utils.js";
+import { localize, sleep } from "../utils.js";
+import { Sockets } from "./sockets.js";
 
 export class LitmHooks {
 	static register() {
@@ -10,7 +11,7 @@ export class LitmHooks {
 		LitmHooks.#replaceLoadSpinner();
 		LitmHooks.#attachChatMessageListeners();
 		LitmHooks.#attachContextMenuToRollMessage();
-		LitmHooks.#gmRollListener();
+		LitmHooks.#attachGMIndicatorToMessage();
 		LitmHooks.#prepareCharacterOnCreate();
 		LitmHooks.#prepareThemeOnCreate();
 		LitmHooks.#listenToContentLinks();
@@ -136,24 +137,32 @@ export class LitmHooks {
 	static #attachChatMessageListeners() {
 		Hooks.on("renderChatMessage", (app, html) => {
 			html.find("[data-click]").on("click", async (event) => {
-				const t = event.currentTarget;
-				const { click } = t.dataset;
-				const roll = app.rolls[0];
-				const actor = game.actors.get(roll?.litm?.actorId);
-				if (!roll || !actor) return;
+				const target = event.currentTarget;
+				const { click } = target.dataset;
 
 				switch (click) {
-					case "burn-tags":
+					case "burn-tags": {
 						event.stopPropagation();
 						event.preventDefault();
+
+						const roll = app.rolls[0];
+						const actor = game.actors.get(roll?.litm?.actorId);
+						if (!roll || !actor) return;
+
 						for (const tag of roll.litm.burnedTags)
 							await actor.sheet.toggleBurnTag(tag);
 						roll.options.isBurnt = true;
 						app.update({ rolls: [roll] });
 						break;
-					case "gain-experience":
+					}
+					case "gain-experience": {
 						event.stopPropagation();
 						event.preventDefault();
+
+						const roll = app.rolls[0];
+						const actor = game.actors.get(roll?.litm?.actorId);
+						if (!roll || !actor) return;
+
 						for (const tag of roll.litm.weaknessTags.filter(
 							(t) => t.type === "weaknessTag",
 						))
@@ -161,19 +170,59 @@ export class LitmHooks {
 						roll.options.gainedExp = true;
 						app.update({ rolls: [roll] });
 						break;
+					}
+					// biome-ignore lint/suspicious/noFallthroughSwitchClause: Intentional fallthrough
+					case "skip-moderation":
+						Sockets.dispatch("skipModeration", {
+							name: game.user.name,
+						});
+					case "approve-moderation": {
+						const data = await app.getFlag("litm", "data");
+						// Delete Message
+						app.delete();
+						// Roll
+						game.litm.LitmRollDialog.roll(data);
+						// Dispatch order to reset Roll Dialog
+						Sockets.dispatch("resetRollDialog", {
+							actorId: data.actorId,
+						});
+						break;
+					}
+					case "reject-moderation": {
+						const data = await app.getFlag("litm", "data");
+						// Delete Message
+						app.delete();
+						// Reopen Roll Dialog
+						const actor = game.actors.get(data.actorId);
+						actor.sheet.renderRollDialog();
+						ui.notifications.warn(
+							game.i18n.format("Litm.ui.roll-rejected", { name: t("You") }),
+						);
+						// Dispatch order to reopen
+						Sockets.dispatch("rejectRoll", {
+							name: game.user.name,
+							actorId: data.actorId,
+						});
+						break;
+					}
 				}
 			});
 		});
 	}
 
+	static #attachGMIndicatorToMessage() {
+		Hooks.on("renderChatMessage", (_, html) => {
+			html.attr("data-user", game.user.isGM ? "gm" : "player");
+		});
+	}
+
 	static #attachContextMenuToRollMessage() {
 		Hooks.on("getChatLogEntryContext", (_, options) => {
-			const isTrackedRoll = (li) => li.find("[data-type='tracked']").length;
-
+			// Add context menu options to tracked rolls
 			const createEffect = ([key, effect], category) => ({
 				name: `${t(category)}: ${t(`Litm.effects.${key}.key`)}`,
 				icon: `<i class="${effect.icon}"></i>`,
-				condition: isTrackedRoll,
+				condition: (li) => li.find("[data-type='tracked']").length,
 				callback: () => {
 					ChatMessage.create({
 						content: `<div class="litm dice-roll">
@@ -192,79 +241,27 @@ export class LitmHooks {
 			const createGroup = (category, effects) =>
 				effects.map((effect) => createEffect(effect, category));
 
+			// Add context menu option to change roll types
+			const createTypeChange = (type) => ({
+				name: `${t("Litm.ui.change-roll-type")}: ${t(`Litm.ui.roll-${type}`)}`,
+				icon: '<i class="fas fa-dice"></i>',
+				condition: (li) =>
+					li.find(".litm.dice-roll[data-type]").length &&
+					!li.find(`[data-type='${type}']`).length,
+				callback: (li) => {
+					const message = game.messages.get(li.data("message-id"));
+					const roll = message.rolls[0];
+					roll.options.type = type;
+					message.update({ rolls: [roll] });
+				},
+			});
+
 			options.unshift(
+				...["quick", "tracked", "mitigate"].map(createTypeChange),
 				...Object.entries(CONFIG.litm.effects).flatMap(([category, effects]) =>
 					createGroup(category, Object.entries(effects)),
 				),
 			);
-		});
-	}
-
-	static #gmRollListener() {
-		Hooks.once("ready", () => {
-			if (!game.user.isGM) return;
-			game.socket.on("system.litm", (data) => {
-				const { app, type, user: userId } = data;
-				if (type !== "roll") return;
-				const user = game.users.get(userId);
-
-				const {
-					actorId,
-					speaker,
-					title,
-					type: rollType,
-					tags,
-					shouldRoll,
-				} = app;
-
-				const actor = game.actors.get(actorId);
-
-				const characterTags = tags.filter(
-					(tag) => tag.type !== "tag" && tag.type !== "status",
-				);
-				const tagState = tags.filter(
-					(tag) => tag.type === "tag" || tag.type === "status",
-				);
-
-				const dialog = game.litm.LitmRollDialog.create({
-					actorId,
-					speaker,
-					characterTags,
-					tagState,
-					shouldRoll,
-					title,
-					type: rollType,
-					id: data.id,
-				});
-
-				// Put the creatd dialog in the actor for convenience
-				actor.sheet.roll = dialog;
-				dialog.render(true);
-				actor.sheet.render();
-
-				ui.notifications.info(
-					game.i18n.format("Litm.ui.roll-gm-moderate", { name: user.name }),
-					{ permanent: true },
-				);
-			});
-		});
-		Hooks.once("ready", () => {
-			if (game.user.isGM) return;
-			game.socket.on("system.litm", async ({ isGM, app, type, id }) => {
-				if (!isGM || type !== "roll" || !id) return;
-
-				// ui.notifications.error("Litm.ui.error-conducting-roll", {
-				// 	localize: true,
-				// });
-
-				const cb = game.litm.rolls[id];
-				if (!cb) return;
-
-				// Reset all callbacks to avoid memory leaks
-				game.litm.rolls = {};
-
-				return cb(app);
-			});
 		});
 	}
 

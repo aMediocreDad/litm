@@ -9,12 +9,13 @@
 			{{#if tag.isActive}}data-tooltip="{{localize (ifThen tag.isBurnt 'Litm.ui.toggle-burnt' 'Litm.ui.toggle-roll')}}"
 			{{/if}}>
 			<!-- isActive indicator -->
-			<span class="litm--checkbox litm--checkbox-with-bg {{#if tag.isActive}}checked{{/if}}"></span>
+			<span class="litm--checkbox litm--checkbox-with-bg {{checked tag.isActive}}"></span>
 			<!-- Name -->
 			<span class="tag--name">{{tag.name}}</span>
 			<!-- isBurnt indicator -->
 			<span class="litm--sro">{{localize (ifThen tag.isBurnt 'Litm.tags.isBurnt' 'Litm.tags.burn')}}</span>
-			<span class="litm--burn {{#if tag.isBurnt}}checked{{/if}}" aria-hidden="true"></span>
+			<span class="litm--burn {{checked (or tag.isBurnt (includes @root.burntTags tag.id 'id'))}}"
+				aria-hidden="true"></span>
 		</button>
 	{{else}}
 		<!-- Tag functionality in Items -->

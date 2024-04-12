@@ -46,7 +46,6 @@
 /* DANGER AREA */
 /* TODO: Find a better way to override styles like this */
 
-
 /* Background-colors not implemented using css variables  */
 button,
 .directory .directory-header .header-search input {
@@ -190,6 +189,12 @@ aside[role="tooltip"] {
 		& .window-title {
 			display: none;
 		}
+	}
+
+	/* Scrollbar colors */
+	& * {
+		scrollbar-color: var(--litm-color-accent-2) transparent;
+		scrollbar-width: thin;
 	}
 
 	& button {

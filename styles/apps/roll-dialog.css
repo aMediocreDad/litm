@@ -48,7 +48,7 @@
 		justify-content: center;
 		align-items: center;
 		gap: var(--litm-space-3);
-		margin: var(--litm-space-4) var(--litm-space-4) var(--litm-space-2);
+		margin: var(--litm-space-3) var(--litm-space-4) var(--litm-space-2);
 
 		& .litm--roll-dialog-type-choices {
 			display: flex;
@@ -159,7 +159,8 @@
 		}
 	}
 
-	& .buttons {
+	& .litm--roll-dialog-buttons {
+		position: relative;
 		grid-area: buttons;
 		margin-block: var(--litm-space-3);
 		display: flex;
@@ -167,17 +168,26 @@
 		justify-content: center;
 		gap: var(--litm-space-4);
 
+		.litm--roll-dialog-skip-moderation {
+			position: absolute;
+			display: flex;
+			align-items: center;
+			gap: var(--litm-space-2);
+			left: var(--litm-space-2);
+			bottom: calc(-1 * var(--litm-space-3));
+			cursor: pointer;
+		}
+
 		& button {
-			padding-inline: var(--litm-space-5);
+			padding-block: var(--litm-space-1);
 			border: none;
 			background: none;
 			color: var(--litm-color-primary);
 			font-family: var(--litm-font-heading);
 			font-weight: bold;
-			font-size: var(--font-size-20);
+			font-size: var(--font-size-24);
 			cursor: pointer;
 			transition: color 0.2s;
-			width: auto;
 
 			&:hover {
 				box-shadow: none;
@@ -186,10 +196,6 @@
 
 			&[type="submit"] {
 				background-image: linear-gradient(to right, transparent, var(--litm-color-muted-bg), transparent);
-			}
-
-			&[type="button"] {
-				background-image: linear-gradient(to right, transparent, var(--litm-color-weakness-bg), transparent);
 			}
 		}
 	}

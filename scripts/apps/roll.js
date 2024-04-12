@@ -17,10 +17,14 @@ export class LitmRoll extends Roll {
 	}
 
 	get flavor() {
-		if (this.litm.type === "mitigate") return t("Litm.effects.mitigate.key");
-		if (this.litm.type === "tracked")
-			return t("Litm.ui.roll-tracked", "Litm.other.outcome");
-		return t("Litm.ui.roll-quick", "Litm.other.outcome");
+		switch (this.litm.type) {
+			case "mitigate":
+				return t("Litm.ui.roll-mitigate", "Litm.other.outcome");
+			case "tracked":
+				return t("Litm.ui.roll-tracked", "Litm.other.outcome");
+			default:
+				return t("Litm.ui.roll-quick", "Litm.other.outcome");
+		}
 	}
 
 	get effect() {

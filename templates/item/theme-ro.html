@@ -28,7 +28,8 @@
 				<!-- isBurnt checkbox -->
 				<span
 					class="litm--sro">{{localize (ifThen data.system.isBurnt 'Litm.tags.isBurnt' 'Litm.tags.burn')}}</span>
-				<span class="litm--burn {{checked data.system.isBurnt}}" aria-hidden="true"></span>
+				<span class="litm--burn {{checked (or tag.isBurnt (includes @root.burntTags data._id 'id'))}}"
+					aria-hidden="true"></span>
 			</button>
 			<ul class="litm--theme-tags">
 				{{#each data.system.powerTags as |tag|}} {{> systems/litm/templates/partials/tag.html

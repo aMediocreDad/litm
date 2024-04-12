@@ -106,7 +106,7 @@ export class StoryTagApp extends SheetMixin(FormApplication) {
 		});
 
 		// GM only listeners
-		if (!game.user.isGM) return
+		if (!game.user.isGM) return;
 
 		this.#contextmenu = ContextMenu.create(
 			this,

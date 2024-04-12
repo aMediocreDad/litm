@@ -160,6 +160,8 @@
 			bottom: 6.05rem;
 			right: 0.2rem;
 			rotate: 40deg;
+
+			cursor: nwse-resize;
 		}
 	}
 

@@ -23,7 +23,9 @@ export class ThemeSheet extends SheetMixin(ItemSheet) {
 		data.system.levels = this.system.levels;
 		data.system.themebooks = this.system.themebooks;
 
-		return { data, ...rest };
+		const themesrc = data.system.levels.includes(data.system.level) ? data.system.level : data.system.levels[0];
+
+		return { data, themesrc, ...rest };
 	}
 
 	activateListeners(html) {

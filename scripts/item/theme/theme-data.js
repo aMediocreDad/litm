@@ -6,10 +6,12 @@ export class ThemeData extends foundry.abstract.DataModel {
 		const abstract = game.litm.data;
 		return {
 			themebook: new fields.StringField({
+				trim: true,
 				initial: t("Litm.other.themebook"),
 			}),
 			level: new fields.StringField({
-				initial: Object.keys(CONFIG.litm.theme_levels)[0],
+				trim: true,
+				initial: () => Object.keys(CONFIG.litm.theme_levels)[0],
 				validate: (level) =>
 					Object.keys(CONFIG.litm.theme_levels).includes(level),
 			}),
@@ -67,6 +69,18 @@ export class ThemeData extends foundry.abstract.DataModel {
 				initial: t("Litm.ui.name-note"),
 			}),
 		};
+	}
+
+	static migrateData(source) {
+		if (!('level' in source)) return super.migrateData(source);
+
+		const lowerCaseLevel = source.level.toLowerCase();
+		const configLevels = Object.keys(CONFIG.litm.theme_levels);
+		if (!configLevels.includes(lowerCaseLevel))
+			source.level = configLevels[0];
+		else
+			source.level = lowerCaseLevel;
+		return super.migrateData(source);
 	}
 
 	get themeTag() {

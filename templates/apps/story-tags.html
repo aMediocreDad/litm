@@ -24,9 +24,7 @@
 		<i class="far fa-add"></i>
 	</button>
 {{/inline}}
-
 <form class="{{cssClass}}" autocomplete="off" data-context='menu'>
-	<h2>{{localize "Litm.ui.manage-tags"}}</h2>
 	<section>
 		<div class="litm--story-tags-main">
 			<fieldset style="display: contents">
@@ -46,7 +44,8 @@
 			<div data-id="{{actor.id}}" class="litm--story-tags-actor">
 				<fieldset style="display: contents">
 					<div class="litm--story-tags-section-header">
-						<legend aria-label="{{actor.name}} tags" data-context="remove-actor" data-id="{{actor.id}}">
+						<legend aria-label="{{actor.name}} tags" data-click="open-sheet" data-context="remove-actor"
+							data-id="{{actor.id}}" data-tooltip="{{localize 'Litm.ui.click-open-context-remove'}}">
 							<!-- <img src="{{actor.img}}" alt="" aria-hidden="true"> -->
 							{{actor.name}}
 						</legend>

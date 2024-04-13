@@ -55,6 +55,12 @@ export const SheetMixin = (Base) =>
 			return buttons;
 		}
 
+		renderRollDialog() {
+			return ui.notifications.warn("Litm.ui.warn-not-supported", {
+				localize: true,
+			});
+		}
+
 		#handleInput(event) {
 			const t = event.currentTarget;
 			const targetId = t.dataset.input;

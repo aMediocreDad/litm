@@ -42,10 +42,6 @@
 				<img src="systems/litm/assets/media/note.webp" alt="Note" width="80px" />
 			</button>
 		</div>
-		<button class="litm--sheet-scale-button" type="button" data-mousedown="scale" aria-pressed="false"
-			data-tooltip="{{localize 'Resize'}}">
-			<span class="litm--sro">{{localize "Resize"}}</span>
-		</button>
 	</div>
 	<div id="note">
 		<div class="draggable litm--character-note-wrapper" data-drag="#note">
@@ -69,7 +65,8 @@
 	{{/if}}
 	<div class="litm--character-themes item-list">
 		{{#each themes as |item|}}
-			<div class="litm--character-theme item" data-id="{{item.data._id}}" data-item-id="{{item.data._id}}">
+			<div class="litm--character-theme item{{#if (eq item.data._id ../themeHovered)}} hovered{{/if}}"
+				data-id="{{item.data._id}}" data-item-id="{{item.data._id}}">
 				{{> systems/litm/templates/item/theme-ro.html data=item.data}}
 			</div>
 		{{/each}}

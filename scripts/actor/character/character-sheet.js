@@ -15,6 +15,7 @@ export class CharacterSheet extends SheetMixin(ActorSheet) {
 	#dragAvatarTimeout = null;
 	#notesEditorOpened = false;
 	#focusedTags = null;
+	#themeHovered = null;
 	#contextmenu = null;
 	#roll = game.litm.LitmRollDialog.create({
 		actorId: this.actor._id,
@@ -133,6 +134,7 @@ export class CharacterSheet extends SheetMixin(ActorSheet) {
 			note,
 			themes,
 			tagsFocused: this.#focusedTags,
+			themeHovered: this.#themeHovered,
 			notesEditorOpened: this.#notesEditorOpened,
 			rollTags: this.#roll.characterTags,
 			burntTags: this.#roll.characterTags.filter(
@@ -155,6 +157,16 @@ export class CharacterSheet extends SheetMixin(ActorSheet) {
 		html
 			.find("[data-drag]")
 			.on("mousedown", this.#onDragHandleMouseDown.bind(this));
+		html.on("mouseover", (event) => {
+			html.find(".litm--character-theme").removeClass("hovered");
+
+			const t = event.target.classList.contains("litm--character-theme")
+				? event.target
+				: event.target.closest(".litm--character-theme");
+
+			if (t) this.#themeHovered = t.dataset.id;
+			else this.#themeHovered = null;
+		});
 
 		this.#contextmenu = ContextMenu.create(
 			this,
@@ -288,6 +300,8 @@ export class CharacterSheet extends SheetMixin(ActorSheet) {
 
 		switch (action) {
 			case "decrease":
+				event.preventDefault();
+				event.stopPropagation();
 				this.#decrease(event);
 				break;
 		}

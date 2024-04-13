@@ -42,8 +42,9 @@ export class CharacterSheet extends SheetMixin(ActorSheet) {
 		this.#roll.receiveUpdate(data);
 	}
 
-	renderRollDialog() {
-		this.#roll.render(true);
+	renderRollDialog({ toggle } = { toggle: false }) {
+		if (toggle && this.#roll.rendered) this.#roll.close();
+		else this.#roll.render(true);
 	}
 
 	resetRollDialog() {

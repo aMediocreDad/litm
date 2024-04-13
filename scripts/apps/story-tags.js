@@ -8,8 +8,10 @@ export class StoryTagApp extends SheetMixin(FormApplication) {
 		return foundry.utils.mergeObject(super.defaultOptions, {
 			classes: ["litm", "litm--story-tags"],
 			template: "systems/litm/templates/apps/story-tags.html",
+			title: t("Litm.ui.manage-tags"),
+			id: "litm-story-tags",
 			left: window.innerWidth - 605,
-			top: 80,
+			top: 170,
 			width: 300,
 			height: 500,
 			resizable: true,
@@ -90,7 +92,7 @@ export class StoryTagApp extends SheetMixin(FormApplication) {
 			.on("focus", (event) => event.currentTarget.select());
 
 		window.addEventListener("resize", () => {
-			this.setPosition({ left: window.innerWidth - 605 });
+			if (this.rendered) this.setPosition({ left: window.innerWidth - 605 });
 		});
 
 		game.socket.on("system.litm", async (data) => {
@@ -245,6 +247,11 @@ export class StoryTagApp extends SheetMixin(FormApplication) {
 			case "add-tag":
 				this.#addTag(target);
 				break;
+			case "open-sheet": {
+				const actor = game.actors.get(target);
+				actor.sheet.render(true);
+				break;
+			}
 		}
 	}
 
@@ -254,9 +261,13 @@ export class StoryTagApp extends SheetMixin(FormApplication) {
 
 		switch (action) {
 			case "remove-tag":
+				event.preventDefault();
+				event.stopPropagation();
 				this.#removeTag(event.currentTarget);
 				break;
 			case "remove-actor":
+				event.preventDefault();
+				event.stopPropagation();
 				this.#removeActor(target);
 				break;
 		}

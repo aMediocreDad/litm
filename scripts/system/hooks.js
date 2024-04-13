@@ -1,5 +1,5 @@
 import { error, info } from "../logger.js";
-import { localize, sleep } from "../utils.js";
+import { localize as t, sleep } from "../utils.js";
 import { Sockets } from "./sockets.js";
 
 export class LitmHooks {
@@ -355,45 +355,67 @@ export class LitmHooks {
 		const app = new game.litm.StoryTagApp();
 		game.litm.storyTags = app;
 
-		Hooks.once("renderSidebar", async (_app, html) => {
-			const container = $(
-				`<div class="litm--sidebar-buttons-container"></div>`,
-			);
-
-			const rollButton = $(`
-		<button aria-label="${t("Litm.ui.roll-title")}" data-tooltip="${t(
-			"Litm.ui.roll-title",
-		)}">
-			<i class="fas fa-dice"></i>
-		</button>`).on("click", () => {
-				if (!game.user.character)
-					return ui.notifications.warn(t("Litm.ui.warn-no-character"));
-				const actor = game.user.character;
-				actor.sheet.renderRollDialog();
-			});
-
-			const storyTagsButton = $(`
-			<button type="button" data-tooltip="${t(
-				"Litm.tags.story",
-				"Litm.other.tags",
-			)}" aria-label="${t("Litm.tags.story", "Litm.other.tags")}">
-			<i class="fas fa-tags"></i>
-			</button>`).on("click", () => {
-				if (!app.rendered) {
-					app.render(true);
-					setTimeout(() => container.addClass("active"));
+		Hooks.on("renderSidebar", (_app, html) => {
+			const buttonSection = $(/*html*/ `
+				<menu class="litm--sidebar-buttons-container">
+					<li>
+						<button type="button" data-click="toggle-rendered"
+							aria-label="${t("Litm.tags.story", "Litm.other.tags")}"
+							data-tooltip="${t("Litm.tags.story", "Litm.other.tags")}">
+							<i class="fas fa-tags"></i>
+						</button>
+					</li>
+					<li>
+						<button type="button" data-click="render-character" aria-label="${
+							game.user.character
+								? game.user.character.name
+								: t("PLAYER.SelectedCharacter")
+						}"
+							data-tooltip="${
+								game.user.character
+									? game.user.character.name
+									: t("PLAYER.SelectedCharacter")
+							}">
+							<i class="fas fa-user"></i>
+						</button>
+					</li>
+					<li>
+						<button type="button" data-click="render-roll" aria-label="${t(
+							"Litm.ui.roll-title",
+						)}"
+							data-tooltip="${t("Litm.ui.roll-title")}">
+							<i class="fas fa-dice"></i>
+						</button>
+					</li>
+				</menu>
+			`).on("click", "[data-click]", (event) => {
+				const { click } = event.currentTarget.dataset;
+				switch (click) {
+					case "toggle-rendered":
+						if (!app.rendered) app.render(true);
+						else app.close();
+						break;
+					case "render-character":
+						if (!game.user.character)
+							return ui.notifications.warn(t("Litm.ui.warn-no-character"));
+						if (!game.user.character.sheet.rendered)
+							game.user.character.sheet.render(true);
+						else game.user.character.sheet.close();
+						break;
+					case "render-roll":
+						if (!game.user.character)
+							return ui.notifications.warn(t("Litm.ui.warn-no-character"));
+						game.user.character.sheet.renderRollDialog({ toggle: true });
+						break;
 				}
-				app.element.toggle(130, () =>
-					container.toggleClass("active", app.element.is(":visible")),
-				);
 			});
 
-			container.append(storyTagsButton, rollButton);
-			html.before(container);
+			html.before(buttonSection);
+		});
 
+		Hooks.once("ready", async (_app, html) => {
 			if (game.settings.get("litm", "show_tag_window_on_load")) {
 				app.render(true);
-				setTimeout(() => container.addClass("active"));
 			}
 		});
 	}

@@ -13,10 +13,10 @@ export class KeyBindings {
 			onDown: () => {
 				const sheet = game.user.character?.sheet;
 				if (!sheet)
-					return ui.notifications.warn(
-						t("Litm.ui.warn-no-character", { localize: true }),
-					);
-				return sheet.renderRollDialog();
+					return ui.notifications.warn("Litm.ui.warn-no-character", {
+						localize: true,
+					});
+				return sheet.renderRollDialog({ toggle: true });
 			},
 			onUp: () => {},
 			restricted: false,

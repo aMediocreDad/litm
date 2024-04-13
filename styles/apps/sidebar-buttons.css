@@ -1,12 +1,15 @@
-.litm--sidebar-buttons-container {
+menu.litm--sidebar-buttons-container.litm--sidebar-buttons-container {
 	position: absolute;
-	left: -34px;
-	top: 120px;
+	left: -2rem;
+	top: 40px;
 	cursor: pointer;
 	pointer-events: all;
+	padding: 0;
+	margin: 0;
+	list-style: none;
 	z-index: -1;
 
-	& button {
+	& li button {
 		position: relative;
 		background: url("../../assets/media/tabs-bg.webp") no-repeat center / contain;
 		color: var(--litm-color-primary-bg);

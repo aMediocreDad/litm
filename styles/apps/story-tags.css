@@ -1,24 +1,31 @@
 .litm.litm--story-tags {
 	min-width: 300px;
 	max-width: 600px;
-	outline: 2px solid var(--litm-color);
-	outline-offset: -10px;
+	min-height: 250px;
 	border-radius: 0px;
 
-	& .window-header {
-		display: none;
+	&:not(.minimized) {
+		outline: 2px solid var(--litm-color);
+		outline-offset: -10px;
 	}
 
-	& h2 {
+	& .window-header {
 		background: url(../../assets/media/theme-alt-bg-top-origin.webp) no-repeat bottom / cover;
-		border: none;
-		color: var(--litm-color-accent);
-		text-align: center;
-		font-size: var(--font-size-14);
-		padding: 0.3em 0px 0.8em;
-		text-transform: uppercase;
-		position: sticky;
-		top: 0px;
+		padding-block-end: var(--litm-space-4);
+
+		& .window-title {
+			display: inline;
+			font-size: var(--font-size-14);
+			text-transform: uppercase;
+		}
+	}
+
+	& .window-content {
+		overflow: visible;
+	}
+
+	& form {
+		position: relative
 	}
 
 	& fieldset {
@@ -27,7 +34,7 @@
 		padding: 0px;
 	}
 
-	& .window-content section {
+	& .window-content form section {
 		display: flex;
 		flex-direction: column;
 		margin-block-start: var(--litm-space-2);
@@ -57,12 +64,13 @@
 			gap: var(--litm-space-1);
 
 			& legend {
-				background: url(../../assets/media/section-bg.webp) no-repeat center / auto;
-				color: var(--litm-color-primary-bg);
+				flex: 1 0 auto;
+				margin-inline-start: -2px;
 				padding: 0.4em 20px 0.4em 6px;
+				background: url(../../assets/media/section-bg.webp) no-repeat center / auto;
 				background-position: left;
 				background-size: cover;
-				flex: 1 0 auto;
+				color: var(--litm-color-primary-bg);
 
 				& img {
 					aspect-ratio: 1/1;

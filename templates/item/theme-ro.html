@@ -16,10 +16,11 @@
 					{{localize "Litm.other.tags"}}</span><span>・</span><span>{{localize "Litm.tags.weakness"}}
 					{{localize "Litm.other.tag"}}</span>
 			</div>
-			<button class="litm--theme-title" data-id="{{data._id}}"
+			<button type="button" class="litm--theme-title" data-id="{{data._id}}"
 				{{#if (includes @root.rollTags data._id 'id')}}data-selected{{/if}}
 				{{#if data.system.isActive}}data-click="select"
-				data-tooltip="{{localize (ifThen tag.isBurnt 'Litm.ui.toggle-burnt' 'Litm.ui.toggle-roll')}}" {{/if}}>
+				data-tooltip="{{localize (ifThen data.system.isBurnt 'Litm.ui.toggle-burnt' 'Litm.ui.toggle-roll')}}"
+				{{/if}}>
 				<!-- isActive checkbox -->
 				<span class="litm--sro">{{localize (tagActiveString data.system true)}}</span>
 				<span class="litm--checkbox litm--checkbox-with-bg {{checked data.system.isActive}}"></span>
@@ -28,7 +29,7 @@
 				<!-- isBurnt checkbox -->
 				<span
 					class="litm--sro">{{localize (ifThen data.system.isBurnt 'Litm.tags.isBurnt' 'Litm.tags.burn')}}</span>
-				<span class="litm--burn {{checked (or tag.isBurnt (includes @root.burntTags data._id 'id'))}}"
+				<span class="litm--burn {{checked (or data.system.isBurnt (includes @root.burntTags data._id 'id'))}}"
 					aria-hidden="true"></span>
 			</button>
 			<ul class="litm--theme-tags">

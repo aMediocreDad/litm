@@ -51,12 +51,10 @@
 	</div>
 	<button type="button" data-click="add-tag">{{localize "Litm.other.add"}} {{localize "Litm.other.tags"}}</button>
 	<div class="litm--roll-dialog-buttons">
-		{{#unless isGM}}
-			<label class="litm--roll-dialog-skip-moderation">
-				<span>{{localize "Litm.ui.skip-moderation"}}</span>
-				<input class="litm--checkbox" type="checkbox" name="shouldRoll" {{checked skipModeration}} />
-			</label>
-		{{/unless}}
+		<label class="litm--roll-dialog-skip-moderation">
+			<span>{{localize "Litm.ui.skip-moderation"}}</span>
+			<input class="litm--checkbox" type="checkbox" name="shouldRoll" {{checked skipModeration}} />
+		</label>
 		<button type="submit">{{localize "Litm.ui.roll"}}</button>
 	</div>
 </form>

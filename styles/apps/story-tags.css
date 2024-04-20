@@ -10,7 +10,7 @@
 	}
 
 	& .window-header {
-		background: url(../../assets/media/theme-alt-bg-top-origin.webp) no-repeat bottom / cover;
+		background: url(../../assets/media/origin-theme-alt-bg-top.webp) no-repeat bottom / cover;
 		padding-block-end: var(--litm-space-4);
 
 		& .window-title {

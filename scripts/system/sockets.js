@@ -44,6 +44,11 @@ export class Sockets {
 	}
 
 	static #registerRollModerationListeners() {
+		Sockets.on("rollDice", ({ data: { userId, data } }) => {
+			if (userId !== game.userId) return;
+			game.litm.LitmRollDialog.roll(data)
+		});
+
 		Sockets.on("rejectRoll", ({ data: { actorId, name } }) => {
 			ui.notifications.warn(
 				game.i18n.format("Litm.ui.roll-rejected", { name }),

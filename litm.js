@@ -25,7 +25,7 @@ import {
 	HandlebarsPartials,
 } from "./scripts/system/handlebars.js";
 import { LitmHooks } from "./scripts/system/hooks.js";
-import { KeyBindings } from "./scripts/system/keybidings.js";
+import { KeyBindings } from "./scripts/system/keybindings.js";
 import { LitmSettings } from "./scripts/system/settings.js";
 import { Sockets } from "./scripts/system/sockets.js";
 

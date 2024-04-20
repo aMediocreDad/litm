@@ -63,6 +63,10 @@
 			max-width: fit-content;
 			height: auto;
 			padding: 0px;
+
+			&::-webkit-calendar-picker-indicator {
+				display: none !important;
+			}
 		}
 
 		&>img {

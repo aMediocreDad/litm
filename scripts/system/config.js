@@ -1,4 +1,16 @@
 export class LitmConfig {
+	challenge_types = [
+		"attacker",
+		"barrier-hazard",
+		"charge",
+		"countdown",
+		"mystery",
+		"pursuer",
+		"quarry",
+		"temptation",
+		"watcher",
+	];
+
 	effects = {
 		"Litm.effects.category-target": {
 			attack: {
@@ -109,6 +121,12 @@ export class LitmConfig {
 			"monstrosity",
 			"grand-thaumaturgy",
 		],
+	};
+
+	theme_src = {
+		origin: "systems/litm/assets/media/origin",
+		adventure: "systems/litm/assets/media/adventure",
+		greatness: "systems/litm/assets/media/greatness",
 	};
 
 	tagStringRe = /(?!\b|\s)(?:\[|\{)([^\d\[\]{}]+)(?:[\s\-\:](\d+))?(?:\}|\])/gi;

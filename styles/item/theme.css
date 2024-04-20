@@ -50,15 +50,7 @@
 			font-family: var(--litm-font-primary);
 			font-size: var(--font-size-12);
 			padding-block-start: 24px;
-			background: url('../../assets/media/theme-alt-bg-top-origin.webp') no-repeat bottom / cover;
-
-			.adventure & {
-				background-image: url('../../assets/media/theme-alt-bg-top-adventure.webp');
-			}
-
-			.greatness & {
-				background-image: url('../../assets/media/theme-alt-bg-top-greatness.webp');
-			}
+			background: var(--theme-src) no-repeat bottom / cover;
 
 			&>* {
 				width: min-content;
@@ -289,19 +281,11 @@
 			margin: 0px 12px 0px 4px;
 			display: flex;
 			flex-direction: column;
-			background: url("../../assets/media/theme-bg-bottom-origin.webp");
+			background: var(--theme-src);
 			background-color: transparent;
 			background-blend-mode: unset;
 			overflow: hidden;
 			overflow: clip;
-
-			.adventure & {
-				background-image: url('../../assets/media/theme-bg-bottom-adventure.webp');
-			}
-
-			.greatness & {
-				background-image: url('../../assets/media/theme-bg-bottom-greatness.webp');
-			}
 		}
 
 		& .motivation {

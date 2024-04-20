@@ -4,10 +4,9 @@
 <div class="litm--theme-background {{data.system.level}}" data-context="menu"
 	data-tooltip="{{localize 'Litm.ui.context-edit'}}" data-tooltip-direction="LEFT">
 	<div class="litm--theme-top">
-		<img class="litm--theme-border-top" src="systems/litm/assets/media/theme-border-top-{{themesrc}}.webp"
-			aria-hidden="true" />
+		<img class="litm--theme-border-top" src="{{themesrc}}-theme-border-top.webp" aria-hidden="true" />
 		<div class="litm--theme-top-bg">
-			<div class="litm--theme-meta">
+			<div class="litm--theme-meta" style="--theme-src:url('/{{themesrc}}-theme-alt-bg-top.webp');">
 				<span class="litm--theme-meta-part">{{data.system.themebook}}</span>
 				<span class="litm--theme-meta-part">{{localize data.system.level}} THEME</span>
 			</div>
@@ -73,9 +72,8 @@
 		</div>
 	</div>
 	<div class="litm--theme-bottom">
-		<img class="litm--theme-border-bottom" src="systems/litm/assets/media/theme-border-bottom-{{themesrc}}.webp"
-			aria-hidden="true" />
-		<div class="litm--theme-bottom-bg">
+		<img class="litm--theme-border-bottom" src="{{themesrc}}-theme-border-bottom.webp" aria-hidden="true" />
+		<div class="litm--theme-bottom-bg" style="--theme-src:url('/{{themesrc}}-theme-bg-bottom.webp');">
 			<div class="motivation">
 				<span role="textbox">{{data.system.motivation}}</span>
 				<input type="hidden" name="items.{{data._id}}.system.motivation" value="{{data.system.motivation}}" />

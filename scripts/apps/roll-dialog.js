@@ -222,7 +222,7 @@ export class LitmRollDialog extends FormApplication {
 
 	getData() {
 		const data = super.getData();
-		const skipModeration = game.settings.get("litm", "skip_roll_moderation");
+		const skipModeration = this.#shouldRoll();
 		return {
 			...data,
 			actorId: this.actorId,
@@ -306,9 +306,10 @@ export class LitmRollDialog extends FormApplication {
 			speaker: this.speaker,
 		};
 
-		if (!game.user.isGM) this.#shouldRoll = () => shouldRoll;
+		this.#shouldRoll = () => shouldRoll;
 		// User has authority to initiate the roll
 		if (this.#shouldRoll()) return LitmRollDialog.roll(data);
+		// Else create a moderation request
 		return this.#createModerationRequest(data);
 	}
 
@@ -363,6 +364,7 @@ export class LitmRollDialog extends FormApplication {
 	async #createModerationRequest(data) {
 		const id = foundry.utils.randomID();
 		this.#rollId = id;
+		const userId = game.user.id;
 		const tags = LitmRollDialog.#filterTags(data.tags);
 		const { totalPower } = LitmRollDialog.#calculateTotalPower(tags);
 
@@ -379,11 +381,8 @@ export class LitmRollDialog extends FormApplication {
 				},
 			),
 			type: CONST.CHAT_MESSAGE_TYPES.WHISPER,
-			whisper: [
-				game.user.id,
-				...game.users.filter((u) => u.isGM).map((u) => u.id),
-			],
-			flags: { litm: { id, data } },
+			whisper: game.users.filter((u) => u.isOwner).map((u) => u.id),
+			flags: { litm: { id, userId, data } },
 		});
 	}
 

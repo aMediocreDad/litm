@@ -25,4 +25,8 @@ export class ChallengeData extends foundry.abstract.DataModel {
 			}),
 		};
 	}
+
+	get challenges() {
+		return CONFIG.litm.challenge_types;
+	}
 }

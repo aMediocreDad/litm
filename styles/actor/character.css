@@ -367,6 +367,11 @@
 			}
 		}
 
+		& .litm--theme-background {
+			overflow: hidden;
+			overflow: clip;
+		}
+
 		& .litm--theme-top {
 			padding-block-start: 8px;
 

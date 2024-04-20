@@ -13,11 +13,17 @@
 	</div>
 {{/inline}}
 
+<datalist id="litm--challenge-types">
+	{{#each data.system.challenges as |challenge|}}
+		<option>{{localize (concat "Litm.challenges." challenge)}}</option>
+	{{/each}}
+</datalist>
 <img class="litm--challenge-border" src="systems/litm/assets/media/challenge-border.webp" aria-hidden="true">
 <form class="{{cssClass}}" autocomplete="off">
 	<div class="litm--challenge-meta">
 		<label class="litm--sro" for="category">{{localize "Litm.other.category"}}</label>
-		<input data-size-input type="text" id="category" name="system.category" value="{{data.system.category}}" />
+		<input data-size-input list="litm--challenge-types" type="text" id="category" name="system.category"
+			value="{{data.system.category}}" />
 		<img src="systems/litm/assets/media/separator.webp" alt="">
 		<label class="litm--sro" for="rating">{{localize "Litm.other.rating"}}</label>
 		<div role="button" class="litm--challenge-rating" data-click="increase" data-context="decrease"
@@ -66,10 +72,10 @@
 		{{> divider title="Litm.ui.special-features"}}
 		{{editor data.system.special target="system.special" owner=owner button=true editable=true}}
 		{{> divider title="Litm.ui.threats-consequences" add="threat"}}
-		<ul class="litm--challenge-threats">
+		<ul class="litm--challenge-threats item-list">
 			{{#each data.items as |item|}}
-				<li data-dblclick="edit-item" data-context="remove-threat" data-id="{{item.data._id}}"
-					data-tooltip="{{localize 'Litm.ui.dblclick-open'}}">
+				<li class="item" data-dblclick="edit-item" data-context="remove-threat" data-id="{{item.data._id}}"
+					data-item-id="{{item.data._id}}" data-tooltip="{{localize 'Litm.ui.dblclick-open'}}">
 					<div>> {{item.data.name}}</div>
 					{{#each item.data.system.consequences as |consequence|}}
 						<div>>> {{{consequence}}}</div>

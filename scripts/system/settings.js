@@ -14,15 +14,15 @@ export class LitmSettings {
 		game.settings.register("litm", "show_tag_window_on_load", {
 			name: "Litm.ui.show-tag-window-on-load",
 			hint: "Litm.ui.show-tag-window-on-load-hint",
-			scope: "world",
+			scope: "client",
 			config: true,
 			type: Boolean,
-			default: game.user?.isGM ?? true,
+			default: true,
 		});
 		game.settings.register("litm", "skip_roll_moderation", {
 			name: "Litm.settings.skip-roll-moderation",
 			hint: "Litm.settings.skip-roll-moderation-hint",
-			scope: "world",
+			scope: "client",
 			config: true,
 			type: Boolean,
 			default: false,

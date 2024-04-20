@@ -20,7 +20,7 @@ export class CharacterSheet extends SheetMixin(ActorSheet) {
 	#roll = game.litm.LitmRollDialog.create({
 		actorId: this.actor._id,
 		characterTags: [],
-		shouldRoll: () => game.user.isGM,
+		shouldRoll: () => game.settings.get("litm", "skip_roll_moderation")
 	});
 
 	get template() {
@@ -114,6 +114,7 @@ export class CharacterSheet extends SheetMixin(ActorSheet) {
 		const themes = await Promise.all(
 			this.items
 				.filter((i) => i.type === "theme")
+				.sort((a, b) => a.sort - b.sort)
 				.map((i) => i.sheet.getData()),
 		);
 		const note = await TextEditor.enrichHTML(this.system.note);

@@ -23,9 +23,14 @@ export class ThemeSheet extends SheetMixin(ItemSheet) {
 		data.system.levels = this.system.levels;
 		data.system.themebooks = this.system.themebooks;
 
-		const themesrc = data.system.levels.includes(data.system.level)
+		const fallbackSrc = ["origin", "adventure", "greatness"].includes(
+			data.system.level,
+		)
 			? data.system.level
-			: data.system.levels[0];
+			: "origin";
+		const themesrc =
+			CONFIG.litm.theme_src[data.system.level] ||
+			`systems/litm/assets/media/${fallbackSrc}`;
 
 		return { data, themesrc, ...rest };
 	}

@@ -1,5 +1,16 @@
 {
 	"Litm": {
+		"challenges": {
+			"attacker": "Attacker",
+			"barrier-hazard": "Barrier or Hazard",
+			"charge": "Charge",
+			"countdown": "Countdown",
+			"mystery": "Mystery",
+			"pursuer": "Pursuer",
+			"quarry": "Quarry",
+			"temptation": "Temptation",
+			"watcher": "Watcher"
+		},
 		"effects": {
 			"category-target": "Against an Opponent or a Target",
 			"category-ally": "For Yourself or for an Ally",

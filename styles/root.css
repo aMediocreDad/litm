@@ -254,6 +254,15 @@ aside[role="tooltip"] {
 		& .tox.tox-tinymce .tox-edit-area__iframe {
 			background-color: #fff;
 		}
+
+		blockquote {
+			border: none;
+			padding: 0px;
+			font-family: var(--litm-font-accent);
+			color: var(--litm-color-weakness);
+			font-size: var(--font-size-14);
+			margin: 0.8em 0px;
+		}
 	}
 }
 

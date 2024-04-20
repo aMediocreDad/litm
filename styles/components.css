@@ -239,7 +239,7 @@ litm-toggled-input {
 	border-radius: 0px;
 
 	& .window-header {
-		background: url("../assets/media/theme-alt-bg-top-origin.webp") no-repeat bottom / cover;
+		background: url("../assets/media/origin-theme-alt-bg-top.webp") no-repeat bottom / cover;
 		color: var(--litm-color-accent);
 		flex: 0 0 32px;
 

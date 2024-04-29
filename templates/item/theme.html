@@ -14,7 +14,7 @@
 				<select class="litm--theme-meta-part" type="text" name="system.level" value="{{data.system.level}}">
 					{{#select data.system.level}}
 						{{#each data.system.levels as |level|}}
-							<option value="{{level}}">{{localize level}} THEME</option>
+							<option value="{{level}}">{{localize level}} {{localize "TYPES.Item.theme"}}</option>
 						{{/each}}
 					{{/select}}
 				</select>

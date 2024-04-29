@@ -12,13 +12,14 @@
 			"email": "hello@amediocre.dev"
 		}
 	],
-	"esmodules": [
-		"litm.js"
-	],
-	"styles": [
-		"litm.css"
-	],
+	"esmodules": ["litm.js"],
+	"styles": ["litm.css"],
 	"languages": [
+		{
+			"lang": "cn",
+			"name": "中文",
+			"path": "lang/cn.json"
+		},
 		{
 			"lang": "en",
 			"name": "English",
@@ -30,9 +31,9 @@
 			"path": "lang/es.json"
 		},
 		{
-			"lang": "cn",
-			"name": "中文",
-			"path": "lang/cn.json"
+			"lang": "no",
+			"name": "Norwegian",
+			"path": "lang/no.json"
 		}
 	],
 	"socket": true,
@@ -53,19 +54,8 @@
 	],
 	"flags": {
 		"hotReload": {
-			"extensions": [
-				"css",
-				"html",
-				"js",
-				"json"
-			],
-			"paths": [
-				"styles",
-				"templates",
-				"lang",
-				"litm.css",
-				"litm.js"
-			]
+			"extensions": ["css", "html", "js", "json"],
+			"paths": ["styles", "templates", "lang", "litm.css", "litm.js"]
 		}
 	},
 	"relationships": {

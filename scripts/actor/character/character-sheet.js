@@ -20,7 +20,7 @@ export class CharacterSheet extends SheetMixin(ActorSheet) {
 	#roll = game.litm.LitmRollDialog.create({
 		actorId: this.actor._id,
 		characterTags: [],
-		shouldRoll: () => game.settings.get("litm", "skip_roll_moderation")
+		shouldRoll: () => game.settings.get("litm", "skip_roll_moderation"),
 	});
 
 	get template() {

@@ -1,1 +1,262 @@
-
+{
+	"Litm": {
+		"challenges": {
+			"attacker": "Angreifer",
+			"barrier-hazard": "Hindernis oder Gefährdung",
+			"charge": "Charge",
+			"countdown": "Countdown",
+			"mystery": "Geheimnis",
+			"pursuer": "Verfolger",
+			"quarry": "Gejagter",
+			"temptation": "Versuchung",
+			"watcher": "Beobachter"
+		},
+		"effects": {
+			"category-target": "Gegen einen Gegner oder Ziel",
+			"category-ally": "Für einen selbst oder einen Verbündeten",
+			"category-process": "Auf einen Vorgang",
+			"category-other": "Anderer Effekt",
+			"category-consequence": "Gegen eine Konsequenz",
+			"effect": "Effekt",
+			"attack": {
+				"key": "Angriff",
+				"description": "Slash, punch, lay a curse, shoot.",
+				"action": "Give your target a harmful status.",
+				"cost": "1 Power per tier."
+			},
+			"disrupt": {
+				"key": "Disrupt",
+				"description": "Blind, confuse, shock, trip, interrupt.",
+				"action": "Give your target a hindering tag or status.",
+				"cost": "1 Power per tier, 2 Power per tag."
+			},
+			"influence": {
+				"key": "Influence",
+				"description": "Convince, threaten, provoke, mind control.",
+				"action": "Give your target a compelling status.",
+				"cost": "1 Power per tier."
+			},
+			"weaken": {
+				"key": "Weaken",
+				"description": "Break, sunder, neutralize, silence.",
+				"action": "Remove a target’s useful tag or status.",
+				"cost": "1 Power per tier 2 Power per tag."
+			},
+			"bestow": {
+				"key": "Bestow",
+				"description": "Teach, empower, enchant, equip.",
+				"action": "Give yourself or an ally new abilities using tags.",
+				"cost": "2 Power per tag."
+			},
+			"enhance": {
+				"key": "Enhance",
+				"description": "Assist, aim, boost, take cover.",
+				"action": "Give yourself or an ally a helpful status.",
+				"cost": "1 Power per tier."
+			},
+			"create": {
+				"key": "Create",
+				"description": "Craft, find, purchase, summon, rally.",
+				"action": "Create a new object or being using tags.",
+				"cost": "2 Power per tag."
+			},
+			"restore": {
+				"key": "Restore",
+				"description": "Heal, repair, rejuvenate, undo.",
+				"action": "Reduce a harmful status or recover a burnt power tag.",
+				"cost": "1 Power per tier 2 Power per tag."
+			},
+			"advance": {
+				"key": "Advance",
+				"description": "Make progress, get closer, push forward.",
+				"action": "Increase a progress status 1 Power per tier.",
+				"cost": "1 Power per tier."
+			},
+			"set_back": {
+				"key": "Set Back",
+				"description": "Delay, ruin, sabotage, reverse.",
+				"action": "Decrease a progress status.",
+				"cost": "1 Power per tier."
+			},
+			"mitigate": {
+				"key": "Mitigate",
+				"description": "Block, dodge, shield, absorb.",
+				"action": "Reduce or cancel incoming Effects.",
+				"cost": "1 Power per tier; 2 Power per tag."
+			},
+			"discover": {
+				"key": "Discover",
+				"description": "Sense, recall, research, converse.",
+				"action": "Discover a valuable detail.",
+				"cost": "1 Power per detail."
+			},
+			"extra_feat": {
+				"key": "Extra Feat",
+				"description": "Add a feature or minor achievement to an action.",
+				"action": "",
+				"cost": "1 Power per additional feature or minor achievement included in the action."
+			}
+		},
+		"name": "Legend in the Mist",
+		"other": {
+			"action": "Aktion",
+			"actors": "Actors",
+			"add": "Hinzufügen",
+			"backpack": "Rucksack",
+			"category": "Kategorie",
+			"consequence": "Konsequenz",
+			"cost": "Kosten",
+			"description": "Beschreibung",
+			"experience": "Erfahrung",
+			"level": "Stufe",
+			"limits": "Grenzen",
+			"limit": "Grenze",
+			"outcome": "Ergebnis",
+			"rating": "Rating",
+			"roll": "Wurf",
+			"status": "Status",
+			"tag": "Merkmal",
+			"tags": "Merkmale",
+			"themebook": "Themenbuch",
+			"threat": "Gefahr",
+			"unnamed": "Unbenannt"
+		},
+		"tags": {
+			"activate": "Activate",
+			"burn": "Burn",
+			"decay": "Decay",
+			"isActive": "Active",
+			"isInactive": "Not active",
+			"isBurnt": "Burned",
+			"item-tags": "Item Tags",
+			"power": "Power",
+			"story": "Story",
+			"weakness": "Weakness"
+		},
+		"themes": {
+			"circumstance": "Circumstance",
+			"past": "Past",
+			"devotion": "Devotion",
+			"mystery": "Mystery",
+			"people": "People",
+			"possessions": "Possessions",
+			"personality": "Personality",
+			"trade-or-skill": "Trade or Skill",
+			"trait": "Trait",
+			"hedge-magic": "Hedge Magic",
+			"prodigious-skill": "Prodigious Skill",
+			"duty": "Duty",
+			"relic": "Relic",
+			"uncanny-being": "Uncanny Being",
+			"thaumaturgy": "Thaumaturgy",
+			"rulership": "Rulership",
+			"destiny": "Destiny",
+			"mastery": "Mastery",
+			"monstrosity": "Monstrosity",
+			"grand-thaumaturgy": "Grand Thaumaturgy"
+		},
+		"ui": {
+			"add-consequence": "Add Consequence",
+			"add-tag": "Add Tag",
+			"add-limit": "Add Limit",
+			"add-theme": "Add Theme",
+			"add-threat": "Add Threat",
+			"approve": "Approve",
+			"burn-tags": "Burn Tags",
+			"cancel": "Cancel",
+			"change-roll-type": "Change Roll Type",
+			"click-open-context-remove": "<span class='reference'>Click</span> to open sheet, <span class='reference'>Right-Click</span> to remove.",
+			"confirm-delete-content": "Are you sure you want to remove this {thing}?",
+			"confirm-delete-title": "Confirm Removal",
+			"context-edit": "<span class='reference'>Right-Click</span> to edit",
+			"dblclick-open": "<span class='reference'>Double-Click</span> to edit",
+			"dice-roller": "Dice Roller",
+			"dice-roller-hint": "Opens the dice roll dialog if a character is attached to the user.",
+			"drop-actors": "Drop actors here.",
+			"edit": "Edit",
+			"error-burning-tag": "There was an error trying to burn your tag. Please see the console for more information.",
+			"error-no-actor": "No actor found. Please make sure the actor exists and is properly configured.",
+			"error-conducting-roll": "There was an error conducting the roll. Please see the console for more information.",
+			"error-validating-actor": "There was an error validating the actor. Please see the console for more information.",
+			"error-validating-item": "There was an error validating the item. Please see the console for more information.",
+			"gain-exp": "Gain Experience",
+			"info-imported-character": "{name} imported successfully.",
+			"import-actor": "Import Actor from JSON",
+			"import-adventure": "Import Tinderbox Content",
+			"inc-dec": "<span class='reference'>Click</span> to increase<br /> <span class='reference'>Right-Click</span> to decrease",
+			"manage-tags": "Manage Tags & Statuses",
+			"moderate-roll-gm": "Moderate Roll",
+			"moderate-roll-player": "Wait for it!",
+			"moderate-roll-gm-hint": "wants to roll with a",
+			"moderate-roll-player-hint": "The GM is moderating the roll. Please wait for their decision.",
+			"name-motivation": "Write down your Motivation.",
+			"name-note": "Give your Theme a description.",
+			"name-power": "Name your Power",
+			"name-category": "Give it a type",
+			"name-tag": "Name your Tag",
+			"name-weakness": "Name your Weakness",
+			"name-consequence": "Name your Consequence using [tag] to indicate tags, and [tag 0] to indicate statuses.",
+			"player-skipped-moderation": "{name} skipped roll moderation.",
+			"remove": "Remove",
+			"remove-tag": "Remove Tag",
+			"remove-actors": "Remove Actors",
+			"remove-story-tags": "Remove Story Tags",
+			"reject": "Reject",
+			"rename": "Rename",
+			"rename-challenge": "Rename Challenge",
+			"roll": "Roll!",
+			"roll-consequence": "The action succeeds, <br /> but there are Consequences.",
+			"roll-failure": "The action fails. <br /> There are Consequences.",
+			"roll-gm-moderate": "You have received a roll from {name}. Make any necessary adjustments and click 'Roll' to send it back.",
+			"roll-mitigate": "Mitigate",
+			"roll-moderated": "The GM is moderating the roll. Please wait for their decision.",
+			"roll-quick": "Quick",
+			"roll-rejected": "{name} has rejected the roll. Please make any necessary adjustments, or close the dialog if you did not intend to roll.",
+			"roll-success": "The action succeeds. <br /> There are no Consequences.",
+			"roll-title": "Roll Dice",
+			"roll-tracked": "Tracked",
+			"roll-tracked-hint": "<span class='reference'>Right-Click</span> to post Effects to chat.",
+			"roll-tracked-success": "You can push your roll by accepting Consequences to get 1 more Power to spend on Effects.",
+			"selected": "Selected",
+			"show-tag-window-on-load": "Show Tag Manager on load",
+			"show-tag-window-on-load-hint": "If checked, the tag manager will be shown automatically when the game is loaded. You can always click the tag icon to show it manually.",
+			"skip-moderation": "Skip GM moderation",
+			"special-features": "Special Features",
+			"status": "Story Tags and Statuses",
+			"tags-statuses": "Tags & Statuses",
+			"toggle-burnt": "<span class='reference'>ALT/OPTION + Click</span> to burn/unburn tag.",
+			"toggle-roll": "<span class='reference'>Click</span> to add/remove from dice roll. <br /> <span class='reference'>SHIFT + Click</span> to burn tag on dice roll. <br /> <span class='reference'>ALT/OPTION + Click</span> to burn/unburn tag.",
+			"toggle-weakness-roll": "<span class='reference'>Click</span> to add/remove from dice roll.",
+			"total-power": "Total Power",
+			"threats-consequences": "> Threats / >> Consequences",
+			"warn-incompatible-data": "The data you are trying to import is not compatible with this system.",
+			"warn-no-effect-found": "The game is misconfigured. The selected effect was not found.",
+			"warn-no-character": "Please assign a character to your user in the bottom-left player configuration menu.",
+			"warn-not-owner": "You are not the owner of this actor. You cannot edit it.",
+			"warn-not-supported": "Not supported by current actor.",
+			"warn-backpack-migration": "Migrating backpack items to the new system. After V11 characters on the old system will lose their backpack items.",
+			"warn-theme-limit": "You have reached the maximum number of themes. Please remove a theme before adding another."
+		},
+		"settings": {
+			"skip-roll-moderation": "Skip Roll Moderation",
+			"skip-roll-moderation-hint": "If checked, players will be able to roll without GM moderation."
+		}
+	},
+	"TYPES": {
+		"Actor": {
+			"challenge": "Challenge",
+			"character": "Character"
+		},
+		"Item": {
+			"backpack": "Backpack",
+			"theme": "Theme",
+			"threat": "Threat"
+		}
+	},
+	"failure": "Miss",
+	"consequence": "Mixed Hit",
+	"success": "Strong Hit",
+	"origin": "Origin",
+	"adventure": "Adventure",
+	"greatness": "Greatness"
+}

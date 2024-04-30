@@ -3,9 +3,9 @@
 		"challenges": {
 			"attacker": "Angreifer",
 			"barrier-hazard": "Hindernis oder Gefährdung",
-			"charge": "Charge",
+			"charge": "Schützling",
 			"countdown": "Countdown",
-			"mystery": "Geheimnis",
+			"mystery": "Rätsel",
 			"pursuer": "Verfolger",
 			"quarry": "Gejagter",
 			"temptation": "Versuchung",
@@ -123,37 +123,37 @@
 		},
 		"tags": {
 			"activate": "Activate",
-			"burn": "Burn",
-			"decay": "Decay",
-			"isActive": "Active",
-			"isInactive": "Not active",
-			"isBurnt": "Burned",
-			"item-tags": "Item Tags",
-			"power": "Power",
-			"story": "Story",
-			"weakness": "Weakness"
+			"burn": "ausbrennen",
+			"decay": "Verfall",
+			"isActive": "aktiv sein",
+			"isInactive": "nicht aktiv sein",
+			"isBurnt": "augebrannt",
+			"item-tags": "Gegenstandsmerkmal",
+			"power": "Kraft",
+			"story": "Erzählung",
+			"weakness": "Schwäche"
 		},
 		"themes": {
-			"circumstance": "Circumstance",
-			"past": "Past",
-			"devotion": "Devotion",
-			"mystery": "Mystery",
-			"people": "People",
-			"possessions": "Possessions",
-			"personality": "Personality",
-			"trade-or-skill": "Trade or Skill",
-			"trait": "Trait",
-			"hedge-magic": "Hedge Magic",
-			"prodigious-skill": "Prodigious Skill",
-			"duty": "Duty",
-			"relic": "Relic",
-			"uncanny-being": "Uncanny Being",
-			"thaumaturgy": "Thaumaturgy",
-			"rulership": "Rulership",
-			"destiny": "Destiny",
-			"mastery": "Mastery",
-			"monstrosity": "Monstrosity",
-			"grand-thaumaturgy": "Grand Thaumaturgy"
+			"circumstance": "Umstand",
+			"past": "Vergangenheit",
+			"devotion": "Hingabe",
+			"mystery": "Geheimnis",
+			"people": "Leute",
+			"possessions": "Besitztümer",
+			"personality": "Persönlichkeit",
+			"trade-or-skill": "Handwerk oder Begabung",
+			"trait": "Eigenheit",
+			"hedge-magic": "Hecken-Magie",
+			"prodigious-skill": "Erstaunliche Fähigkeit",
+			"duty": "Pflicht",
+			"relic": "Relikt",
+			"uncanny-being": "Unheimliches Wesen",
+			"thaumaturgy": "Thaumaturgie",
+			"rulership": "Regentschaft",
+			"destiny": "Bestimmung",
+			"mastery": "Meisterschaft",
+			"monstrosity": "Monströsität",
+			"grand-thaumaturgy": "Hohe Thaumatirgie"
 		},
 		"ui": {
 			"add-consequence": "Add Consequence",
@@ -238,25 +238,25 @@
 			"warn-theme-limit": "You have reached the maximum number of themes. Please remove a theme before adding another."
 		},
 		"settings": {
-			"skip-roll-moderation": "Skip Roll Moderation",
-			"skip-roll-moderation-hint": "If checked, players will be able to roll without GM moderation."
+			"skip-roll-moderation": "Überspringe Wurf Moderation",
+			"skip-roll-moderation-hint": "Wenn markiert, können Spielende Würfelwürfe ausführen, ohne das eine Moderation durch den MC erfolgt."
 		}
 	},
 	"TYPES": {
 		"Actor": {
-			"challenge": "Challenge",
-			"character": "Character"
+			"challenge": "Herausforderung",
+			"character": "Charakter"
 		},
 		"Item": {
-			"backpack": "Backpack",
-			"theme": "Theme",
-			"threat": "Threat"
+			"backpack": "Rucksack",
+			"theme": "Thema",
+			"threat": "Gefahr"
 		}
 	},
-	"failure": "Miss",
-	"consequence": "Mixed Hit",
-	"success": "Strong Hit",
-	"origin": "Origin",
-	"adventure": "Adventure",
-	"greatness": "Greatness"
+	"failure": "Fehlschlag",
+	"consequence": "Teilweiser Erfolg",
+	"success": "Voller Erfolg",
+	"origin": "Ursprung",
+	"adventure": "Erlebnis",
+	"greatness": "Großartigkeit"
 }

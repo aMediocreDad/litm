@@ -20,81 +20,81 @@
 			"effect": "Effekt",
 			"attack": {
 				"key": "Angriff",
-				"description": "Slash, punch, lay a curse, shoot.",
-				"action": "Give your target a harmful status.",
-				"cost": "1 Power per tier."
+				"description": "Aufschlitzen, schlagen, verfluchen, schießen.",
+				"action": "Deinem Ziel einen schädlichen Status verleihen.",
+				"cost": "1 Kraft pro Rang"
 			},
 			"disrupt": {
-				"key": "Disrupt",
-				"description": "Blind, confuse, shock, trip, interrupt.",
-				"action": "Give your target a hindering tag or status.",
-				"cost": "1 Power per tier, 2 Power per tag."
+				"key": "Unterbrechen",
+				"description": "Blenden, verwirren, schockieren, stolpern, unterbrechen.",
+				"action": "Deinem Ziel einen hinderlichen Status verleihen.",
+				"cost": "1 Kraft pro Rang, 2 Kraft pro Merkmal."
 			},
 			"influence": {
-				"key": "Influence",
-				"description": "Convince, threaten, provoke, mind control.",
-				"action": "Give your target a compelling status.",
-				"cost": "1 Power per tier."
+				"key": "Beeinflussen",
+				"description": "Überzeugen, drohen, provozieren, Gedankenkontrolle.",
+				"action": "Deinem Ziel einen zwingenden Status verleihen.",
+				"cost": "1 Kraft pro Rang"
 			},
 			"weaken": {
-				"key": "Weaken",
-				"description": "Break, sunder, neutralize, silence.",
-				"action": "Remove a target’s useful tag or status.",
-				"cost": "1 Power per tier 2 Power per tag."
+				"key": "Schwächen",
+				"description": "Brechen, zerreißen, neutralisieren, zum Schweigen bringen.",
+				"action": "Ein nützliches Merkmal oder Status entfernen.",
+				"cost": "1 Kraft pro Rang, 2 Kraft pro Merkmal."
 			},
 			"bestow": {
-				"key": "Bestow",
-				"description": "Teach, empower, enchant, equip.",
-				"action": "Give yourself or an ally new abilities using tags.",
-				"cost": "2 Power per tag."
+				"key": "Verleihen",
+				"description": "Lehren, befähigen, verzaubern, ausrüsten.",
+				"action": "Dir selbst oder einem Verbündenden neue Fähigkeiten durch ein Merkmal verleihen.",
+				"cost": "2 Kraft pro Merkmal."
 			},
 			"enhance": {
-				"key": "Enhance",
-				"description": "Assist, aim, boost, take cover.",
-				"action": "Give yourself or an ally a helpful status.",
+				"key": "Verbessern",
+				"description": "Assistieren, zielen, boosten, in Deckung gehen.",
+				"action": "Dir selbst oder einem Verbündenden einen hilfreichen Status geben.",
 				"cost": "1 Power per tier."
 			},
 			"create": {
-				"key": "Create",
-				"description": "Craft, find, purchase, summon, rally.",
-				"action": "Create a new object or being using tags.",
-				"cost": "2 Power per tag."
+				"key": "Hervorbringen",
+				"description": "Basteln, finden, kaufen, beschwören, versammeln.",
+				"action": "Ein neues Opjekt oder Wesen durch ein Merkmal erschaffen.",
+				"cost": "2 Kraft pro Merkmal."
 			},
 			"restore": {
-				"key": "Restore",
-				"description": "Heal, repair, rejuvenate, undo.",
-				"action": "Reduce a harmful status or recover a burnt power tag.",
-				"cost": "1 Power per tier 2 Power per tag."
+				"key": "Wiederherstellen",
+				"description": "Heilen, reparieren, verjüngen, rückgängig machen.",
+				"action": "Einen schädlichen Status verringern oder ausgebranntes Merkmal wiederstellen.",
+				"cost": "1 Kraft pro Rang, 2 Kraft pro Merkmal."
 			},
 			"advance": {
-				"key": "Advance",
-				"description": "Make progress, get closer, push forward.",
+				"key": "Voranbringen",
+				"description": "Make progress, come closer, advance.",
 				"action": "Increase a progress status 1 Power per tier.",
-				"cost": "1 Power per tier."
+				"cost": "1 Kraft pro Rang"
 			},
 			"set_back": {
-				"key": "Set Back",
-				"description": "Delay, ruin, sabotage, reverse.",
-				"action": "Decrease a progress status.",
-				"cost": "1 Power per tier."
+				"key": "Zurücksetzen",
+				"description": "Verzögern, ruinieren, sabotieren, umkehren.",
+				"action": "Einen Fortschrittsstatus verringern.",
+				"cost": "1 Kraft pro Rang"
 			},
 			"mitigate": {
-				"key": "Mitigate",
-				"description": "Block, dodge, shield, absorb.",
-				"action": "Reduce or cancel incoming Effects.",
-				"cost": "1 Power per tier; 2 Power per tag."
+				"key": "Abwenden",
+				"description": "Blocken, ausweichen, abschirmen, absorbieren.",
+				"action": "Anzuwendende Effekte reduzieren oder negieren.",
+				"cost": "1 Kraft pro Rang, 2 Kraft pro Merkmal."
 			},
 			"discover": {
-				"key": "Discover",
-				"description": "Sense, recall, research, converse.",
-				"action": "Discover a valuable detail.",
-				"cost": "1 Power per detail."
+				"key": "Entdecken",
+				"description": "Wahrnehmen, abrufen, recherchieren, sprechen.",
+				"action": "Ein wertvolles Detail erkennen.",
+				"cost": "1 Kraft pro Detail."
 			},
 			"extra_feat": {
-				"key": "Extra Feat",
-				"description": "Add a feature or minor achievement to an action.",
+				"key": "Besondere Leistung",
+				"description": "Fügen Sie einer Aktion ein Merkmal oder eine kleine Leistung hinzu.",
 				"action": "",
-				"cost": "1 Power per additional feature or minor achievement included in the action."
+				"cost": "1 Kraft für jede zusätzliche Wirkung oder kleine Errungenschaft die Teil der Aktion ist."
 			}
 		},
 		"name": "Legend in the Mist",

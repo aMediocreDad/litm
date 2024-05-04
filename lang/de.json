@@ -184,7 +184,7 @@
 			"import-actor": "Akteur von JSON importieren",
 			"import-adventure": "Den Inhalt der Tinderbox DEMO (engl.) importieren",
 			"inc-dec": "<span class='reference'>Linksklick</span> zum Erhöhen<br /> <span class='reference'>Rechtsklick</span> zum Verringern",
-			"manage-tags": "Merkamle und Status verwalten",
+			"manage-tags": "Merkamle & Status verwalten",
 			"moderate-roll-gm": "Würfelwurf moderieren",
 			"moderate-roll-player": "Bitte Warten!",
 			"moderate-roll-gm-hint": "will einen Würfelwurf ausführen mit",
@@ -221,7 +221,7 @@
 			"show-tag-window-on-load": "Zeige die Merkmalsverwaltung beim Laden",
 			"show-tag-window-on-load-hint": "Wenn markiert, wird die Merkmalsverwaltung automatisch angezeigt, wenn das Spiel geladen wird. Sie können immer auf das Etikett Symbol klicken um sie manuell anzuzeigen.",
 			"skip-moderation": "MC Moderation überspringen",
-			"special-features": "Special Features",
+			"special-features": "Besondere Eigenschaften",
 			"status": "Geschichtsmerkmale und Status",
 			"tags-statuses": "Merkmale & Status",
 			"toggle-burnt": "<span class='reference'>ALT/OPTION + Linksklick</span> um Merkmal auszubrennen/wiederzuerlangen.",
@@ -258,5 +258,6 @@
 	"success": "Voller Erfolg",
 	"origin": "Ursprung",
 	"adventure": "Erlebnis",
-	"greatness": "Großartigkeit"
+	"greatness": "Großartigkeit",
+	"Notes": "Notizen"
 }

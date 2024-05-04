@@ -12,6 +12,8 @@
 	& .window-header {
 		background: url(../../assets/media/origin-theme-alt-bg-top.webp) no-repeat bottom / cover;
 		padding-block-end: var(--litm-space-4);
+		flex-wrap: nowrap;
+		align-items: baseline;
 
 		& .window-title {
 			display: inline;

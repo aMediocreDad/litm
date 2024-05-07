@@ -37,13 +37,13 @@
 		</ul>
 		{{#if isGM}}
 			<hr />
-			<ul>
-				<!-- GM Tags -->
-				{{#each gmTags as |tag|}}
-					{{> tag tag=tag}}
-				{{/each}}
-			</ul>
 		{{/if}}
+		<ul>
+			<!-- GM Tags -->
+			{{#each gmTags as |tag|}}
+				{{> tag tag=tag}}
+			{{/each}}
+		</ul>
 	</div>
 	<div class="litm--tags-summary-total">
 		<span>{{localize "Litm.ui.total-power"}}: </span>

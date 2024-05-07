@@ -200,17 +200,18 @@ export class LitmRollDialog extends FormApplication {
 	}
 
 	get gmTags() {
-		if (!game.user.isGM) return [];
 		const { actors } = game.litm.storyTags;
 		const tags = actors
 			.filter((actor) => actor.id !== this.actorId)
 			.flatMap((actor) => actor.tags);
-		return tags.map((tag) => ({
-			...tag,
-			state: this.#tagState.find((t) => t.id === tag.id)?.state || "",
-			states:
-				tag.type === "tag" ? ",negative,positive,burned" : ",negative,positive",
-		}));
+		return tags
+			.map((tag) => ({
+				...tag,
+				state: this.#tagState.find((t) => t.id === tag.id)?.state || "",
+				states:
+					tag.type === "tag" ? ",negative,positive,burned" : ",negative,positive",
+			}))
+			.filter(tag => game.user.isGM || tag.state !== "");
 	}
 
 	get totalPower() {

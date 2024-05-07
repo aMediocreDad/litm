@@ -368,6 +368,9 @@ export class LitmRollDialog extends FormApplication {
 		const userId = game.user.id;
 		const tags = LitmRollDialog.#filterTags(data.tags);
 		const { totalPower } = LitmRollDialog.#calculateTotalPower(tags);
+		const recipients = Object.entries(this.actor.ownership)
+			.filter(u => u[1] === 3 && u[0] !== 'default')
+			.map(u => u[0])
 
 		ChatMessage.create({
 			content: await renderTemplate(
@@ -382,7 +385,7 @@ export class LitmRollDialog extends FormApplication {
 				},
 			),
 			type: CONST.CHAT_MESSAGE_TYPES.WHISPER,
-			whisper: game.users.filter((u) => u.isOwner).map((u) => u.id),
+			whisper: recipients,
 			flags: { litm: { id, userId, data } },
 		});
 	}

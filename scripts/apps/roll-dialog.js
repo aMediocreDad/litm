@@ -286,7 +286,7 @@ export class LitmRollDialog extends FormApplication {
 	reset() {
 		this.characterTags = [];
 		this.#tagState = [];
-		this.#shouldRoll = () => game.user.isGM;
+		this.#shouldRoll = () => game.settings.get("litm", "skip_roll_moderation");
 		if (this.actor.sheet.rendered) this.actor.sheet.render(true);
 	}
 

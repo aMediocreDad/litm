@@ -1,4 +1,12 @@
-:root {
+/* Font smooth only on macOS */
+@media screen and (-webkit-min-device-pixel-ratio: 0) {
+	html {
+		-webkit-font-smoothing: antialiased;
+		-moz-osx-font-smoothing: grayscale;
+	}
+}
+
+body {
 	--litm-color-bg: hsl(40, 85%, 87%);
 	--litm-color: hsl(40, 27%, 24%);
 	--litm-color-alt-bg: hsl(34, 34%, 82%);
@@ -40,6 +48,9 @@
 	--color-border-highlight: var(--litm-color-accent-bg);
 	--color-border-highlight-alt: var(--litm-color-accent-2);
 	--color-text-hyperlink: var(--litm-color-accent-3);
+	--color-level-success: rgba(26, 107, 34, 0.8);
+	--color-level-error: rgba(105, 0, 8, 0.8);
+	--color-level-warning: rgba(214, 150, 0, 0.8);
 }
 
 

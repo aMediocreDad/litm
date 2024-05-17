@@ -48,7 +48,7 @@
 
 	& hr {
 		border: none;
-		height: 18px;
+		min-height: 16px;
 		background: url(../../assets/media/separator.webp) no-repeat center / contain;
 		width: 95%;
 	}
@@ -73,6 +73,8 @@
 				background-position: left;
 				background-size: cover;
 				color: var(--litm-color-primary-bg);
+				font-size: var(--font-size-16);
+				line-height: var(--font-size-16);
 
 				& img {
 					aspect-ratio: 1/1;
@@ -117,21 +119,16 @@
 					background: transparent;
 					border: none;
 					font-family: var(--litm-font-text);
+					font-size: var(--font-size-15);
 					color: var(--litm-color-primary);
 					min-width: 10px;
-
-					&.status {
-						text-indent: 24px;
-					}
+					padding: 0px;
 				}
 
 				& .litm--burn-label {
-					line-height: 1;
-					height: var(--font-size-14);
-
+					height: var(--font-size-18);
 					& .litm--burn {
 						height: var(--font-size-18);
-						margin: 0px;
 					}
 				}
 
@@ -155,8 +152,8 @@
 						cursor: pointer;
 						margin: 0;
 						padding: 0;
-						width: 0.8em;
-						height: 0.8em;
+						width: 0.9em;
+						height: 0.9em;
 						border-radius: 4px;
 						border: 1px solid var(--litm-color);
 

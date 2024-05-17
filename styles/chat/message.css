@@ -47,8 +47,11 @@
 			}
 
 			&.positive {
-				color: var(--litm-color-status-bg);
+				color: color-mix(in hsl, var(--litm-color-status-bg), lightgreen);
+			}
 
+			&.warning {
+				color: color-mix(in hsl, var(--litm-color-tag-bg), yellow);
 			}
 
 			&.negative {

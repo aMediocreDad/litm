@@ -172,6 +172,7 @@
 			"dblclick-open": "<span class='reference'>Dobbelklikk</span> for å åpne",
 			"dice-roller": "Terningkast",
 			"dice-roller-hint": "Åpner terningkast-vinduet for denne karakteren.",
+			"drag-apply": "Dra til en aktør eller Merke-vinduet for å legge til.",
 			"drop-actors": "Dra aktører hit",
 			"edit": "Rediger",
 			"error-burning-tag": "Det oppstod en feil under brenning av merket. Se konsollen for mer informasjon.",

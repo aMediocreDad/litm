@@ -1,5 +1,5 @@
 import { error, info } from "../logger.js";
-import { localize as t, sleep } from "../utils.js";
+import { sleep, localize as t } from "../utils.js";
 import { Sockets } from "./sockets.js";
 
 export class LitmHooks {
@@ -302,7 +302,7 @@ export class LitmHooks {
 						actorLink: true,
 						disposition: CONST.TOKEN_DISPOSITIONS.FRIENDLY,
 						texture: { src: tokenImg || img },
-				  }
+					}
 				: null;
 			actor.updateSource({ prototypeToken, img });
 		});

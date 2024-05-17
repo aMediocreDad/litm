@@ -13,12 +13,8 @@
 			"ko-fi": "amediocredad"
 		}
 	],
-	"esmodules": [
-		"litm.js"
-	],
-	"styles": [
-		"litm.css"
-	],
+	"esmodules": ["litm.js"],
+	"styles": ["litm.css"],
 	"languages": [
 		{
 			"lang": "cn",
@@ -64,19 +60,8 @@
 	],
 	"flags": {
 		"hotReload": {
-			"extensions": [
-				"css",
-				"html",
-				"js",
-				"json"
-			],
-			"paths": [
-				"styles",
-				"templates",
-				"lang",
-				"litm.css",
-				"litm.js"
-			]
+			"extensions": ["css", "html", "js", "json"],
+			"paths": ["styles", "templates", "lang", "litm.css", "litm.js"]
 		}
 	},
 	"relationships": {

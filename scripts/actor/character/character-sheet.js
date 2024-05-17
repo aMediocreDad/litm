@@ -1,5 +1,6 @@
 import { SheetMixin } from "../../mixins/sheet-mixin.js";
 import { confirmDelete, dispatch } from "../../utils.js";
+import { localize as t } from "../../utils.js";
 
 export class CharacterSheet extends SheetMixin(ActorSheet) {
 	static defaultOptions = foundry.utils.mergeObject(ActorSheet.defaultOptions, {
@@ -267,6 +268,9 @@ export class CharacterSheet extends SheetMixin(ActorSheet) {
 		const id = t.dataset.id;
 
 		switch (action) {
+			case "add-tag":
+				this.#addTag();
+				break;
 			case "increase":
 				this.#increase(event);
 				break;
@@ -304,6 +308,11 @@ export class CharacterSheet extends SheetMixin(ActorSheet) {
 				event.preventDefault();
 				event.stopPropagation();
 				this.#decrease(event);
+				break;
+			case "remove-effect":
+				event.preventDefault();
+				event.stopPropagation();
+				this.#removeEffect(t.dataset.id);
 				break;
 		}
 	}
@@ -346,11 +355,33 @@ export class CharacterSheet extends SheetMixin(ActorSheet) {
 		$(document).on("mouseup", handleMouseUp);
 	}
 
+	async #addTag() {
+		await this.actor.createEmbeddedDocuments("ActiveEffect", [
+			{
+				name: t("Litm.ui.name-tag"),
+				flags: {
+					litm: {
+						type: "tag",
+						values: new Array(6).fill(false),
+						isBurnt: false,
+					},
+				},
+			},
+		]);
+	}
+
 	async #removeItem(id) {
 		const item = this.items.get(id);
 		if (!(await confirmDelete(`TYPES.Item.${item.type}`))) return;
 
 		return item.delete();
+	}
+
+	async #removeEffect(id) {
+		const effect = this.actor.effects.get(id);
+		if (!(await confirmDelete())) return;
+
+		return effect.delete();
 	}
 
 	async #increase(event) {

@@ -1,5 +1,14 @@
 export class LitmSettings {
 	static register() {
+		game.settings.register("litm", "welcomed", {
+			name: "Welcome Screen",
+			hint: "Welcome Scene, Message, and Journal Entry has been created and displayed.",
+			scope: "world",
+			config: false,
+			type: Boolean,
+			default: false,
+		});
+
 		game.settings.register("litm", "storytags", {
 			name: "Story Tags",
 			hint: "Tags that are shared between all users.",

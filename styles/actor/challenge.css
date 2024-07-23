@@ -48,11 +48,12 @@
 		grid-template-columns: auto 1fr 70px;
 		align-items: center;
 		gap: var(--litm-space-1);
-		padding: var(--litm-space-1) 16px var(--litm-space-3);
+		padding: var(--litm-space-1) 16px var(--litm-space-3) 12px;
 		background-image: linear-gradient(to bottom, rgb(16 34 44 / 80%) 30%, transparent 100%);
 
 		& input {
-			margin-inline: -4px 6px;
+			margin-inline: 1px;
+			padding: 0px;
 			font-size: 0.6rem;
 			font-family: var(--litm-font-sc);
 			color: var(--litm-color-primary-bg);
@@ -60,9 +61,9 @@
 			background: transparent;
 			border: none;
 			min-width: 10px;
-			max-width: fit-content;
+			max-width: 207px;
+			letter-spacing: -0.05em;
 			height: auto;
-			padding: 0px;
 
 			&::-webkit-calendar-picker-indicator {
 				display: none !important;
@@ -265,13 +266,13 @@
 					color: var(--litm-color-accent);
 					text-align: center;
 					margin-inline: auto;
+					padding-inline: 4px;
 
 					&.litm--limit-label {
 						z-index: 1;
 						position: relative;
 						top: 20px;
 						background: url("../../assets/media/limit-label.webp") no-repeat center;
-						width: fit-content;
 						background-size: cover;
 						height: var(--font-size-16);
 						font-size: 0.6rem;

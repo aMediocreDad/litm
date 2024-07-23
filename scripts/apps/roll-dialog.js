@@ -386,7 +386,6 @@ export class LitmRollDialog extends FormApplication {
 					totalPower,
 				},
 			),
-			type: CONST.CHAT_MESSAGE_TYPES.WHISPER,
 			whisper: recipients,
 			flags: { litm: { id, userId, data } },
 		});

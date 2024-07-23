@@ -115,7 +115,10 @@ export class ThemeData extends foundry.abstract.DataModel {
 	}
 
 	get levels() {
-		return Object.keys(CONFIG.litm.theme_levels);
+		return Object.keys(CONFIG.litm.theme_levels).reduce((acc, level) => {
+			acc[level] = t(level, "TYPES.Item.theme");
+			return acc;
+		}, {});
 	}
 
 	get themebooks() {

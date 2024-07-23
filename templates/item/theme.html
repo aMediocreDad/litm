@@ -6,17 +6,17 @@
 
 <form class="{{cssClass}} {{data.system.level}}" autocomplete="off">
 	<div class="litm--theme-top">
-		<img class="litm--theme-border-top" src="{{themesrc}}-theme-border-top.webp" aria-hidden="true" />
+		<img class="litm--theme-border-top" src="{{themesrc}}-theme-border-top.webp"
+			aria-hidden="true" />
 		<div class="litm--theme-top-bg">
-			<div class="litm--theme-meta" style="--theme-src:url('/{{themesrc}}-theme-alt-bg-top.webp');">
-				<input list="litm--themebook" class="litm--theme-meta-part" type="text" name="system.themebook"
-					data-size-input value="{{data.system.themebook}}" />
-				<select class="litm--theme-meta-part" type="text" name="system.level" value="{{data.system.level}}">
-					{{#select data.system.level}}
-						{{#each data.system.levels as |level|}}
-							<option value="{{level}}">{{localize level}} {{localize "TYPES.Item.theme"}}</option>
-						{{/each}}
-					{{/select}}
+			<div class="litm--theme-meta"
+				style="--theme-src:url('/{{themesrc}}-theme-alt-bg-top.webp');">
+				<input list="litm--themebook" class="litm--theme-meta-part" type="text"
+					name="system.themebook" data-size-input
+					value="{{data.system.themebook}}" />
+				<select class="litm--theme-meta-part" type="text" name="system.level"
+					value="{{data.system.level}}">
+					{{selectOptions data.system.levels selected=data.system.level}}
 				</select>
 			</div>
 			<div class="litm--theme-legend">
@@ -28,12 +28,14 @@
 				<!-- isActive checkbox -->
 				<label class="litm--sro" for="name--isActive"
 					aria-label="{{localize (tagActiveString data.system false)}}"></label>
-				<input class="litm--checkbox litm--checkbox-with-bg" type="checkbox" id="name--isActive"
-					name="system.isActive" data-tooltip="{{localize (tagActiveString data.system false)}}" {{checked
+				<input class="litm--checkbox litm--checkbox-with-bg" type="checkbox"
+					id="name--isActive" name="system.isActive"
+					data-tooltip="{{localize (tagActiveString data.system false)}}" {{checked
 					data.system.isActive}} />
 				<!-- Name input -->
 				<input type="hidden" name="name" id="name" value="{{title}}" required />
-				<span class="litm--theme-name" role="textbox" contenteditable data-input="name">{{title}}</span>
+				<span class="litm--theme-name" role="textbox" contenteditable
+					data-input="name">{{title}}</span>
 				<!-- isBurnt checkbox -->
 				<label>
 					<span
@@ -50,14 +52,16 @@
 			{{#with data.system.weakness as |tag|}}
 				<div class="litm--weakness">
 					<!-- Name -->
-					<input class="litm--weakness-part" type="text" name="system.weaknessTags.0.name" value="{{name}}" />
+					<input class="litm--weakness-part" type="text"
+						name="system.weaknessTags.0.name" value="{{name}}" />
 					<!-- The way foundry validates data these have to be present else validation fails -->
-					<input type="hidden" name="system.weaknessTags.0.type" value="{{type}}" />
+					<input type="hidden" name="system.weaknessTags.0.type"
+						value="{{type}}" />
 					<input type="hidden" name="system.weaknessTags.0.id" value="{{id}}" />
-					<input type="hidden" name="system.weaknessTags.0.isBurnt" data-dtype="Boolean"
-						value="{{isBurnt}}" />
-					<input type="hidden" name="system.weaknessTags.0.isActive" data-dtype="Boolean"
-						value="{{isActive}}" />
+					<input type="hidden" name="system.weaknessTags.0.isBurnt"
+						data-dtype="Boolean" value="{{isBurnt}}" />
+					<input type="hidden" name="system.weaknessTags.0.isActive"
+						data-dtype="Boolean" value="{{isActive}}" />
 				</div>
 			{{/with}}
 			<!-- Add Tag button -->
@@ -65,20 +69,23 @@
 			<!-- <button type="button" data-click="add-tag">{{localize "Litm.ui.add-tag"}}</button> -->
 			<div class="litm--theme-progression">
 				<!-- Experience buttons -->
-				<div data-click="increase" data-context="decrease" data-id="system.experience"
+				<div data-click="increase" data-context="decrease"
+					data-id="system.experience"
 					data-tooltip="{{localize 'Litm.ui.inc-dec'}}">
 					{{#progress-buttons data.system.experience 3}}
-						<span class="litm--checkbox litm--checkbox-with-bg {{#if @checked}}checked{{/if}}"></span>
+						<span
+							class="litm--checkbox litm--checkbox-with-bg {{#if @checked}}checked{{/if}}"></span>
 					{{/progress-buttons}}
-					<input class="litm--sro" id="experience" type="number" name="system.experience"
-						value="{{data.system.experience}}" />
+					<input class="litm--sro" id="experience" type="number"
+						name="system.experience" value="{{data.system.experience}}" />
 					<label for="experience">{{localize "Litm.other.experience"}}</label>
 				</div>
 				<!-- Decay buttons -->
-				<div data-click="increase" data-context="decrease" data-id="system.decay"
-					data-tooltip="{{localize 'Litm.ui.inc-dec'}}">
+				<div data-click="increase" data-context="decrease"
+					data-id="system.decay" data-tooltip="{{localize 'Litm.ui.inc-dec'}}">
 					{{#progress-buttons data.system.decay 3}}
-						<span class="litm--checkbox litm--checkbox-with-bg {{#if @checked}}checked{{/if}}"></span>
+						<span
+							class="litm--checkbox litm--checkbox-with-bg {{#if @checked}}checked{{/if}}"></span>
 					{{/progress-buttons}}
 					<input type="number" id="decay" class="litm--sro" name="system.decay"
 						value="{{data.system.decay}}" />
@@ -88,13 +95,17 @@
 		</div>
 	</div>
 	<div class="litm--theme-bottom">
-		<img class="litm--theme-border-bottom" src="{{themesrc}}-theme-border-bottom.webp" aria-hidden="true" />
-		<div class="litm--theme-bottom-bg" style="--theme-src:url('/{{themesrc}}-theme-bg-bottom.webp');">
+		<img class="litm--theme-border-bottom"
+			src="{{themesrc}}-theme-border-bottom.webp" aria-hidden="true" />
+		<div class="litm--theme-bottom-bg"
+			style="--theme-src:url('/{{themesrc}}-theme-bg-bottom.webp');">
 			<div class="motivation">
-				<label class="litm--sro" for="motivation">{{localize "Litm.other.motivation"}}</label>
-				<input class="litm--sro" type="text" name="system.motivation" id="motivation"
-					value="{{data.system.motivation}}" required />
-				<span role="textbox" contenteditable data-input="motivation">{{data.system.motivation}}</span>
+				<label class="litm--sro"
+					for="motivation">{{localize "Litm.other.motivation"}}</label>
+				<input class="litm--sro" type="text" name="system.motivation"
+					id="motivation" value="{{data.system.motivation}}" required />
+				<span role="textbox" contenteditable
+					data-input="motivation">{{data.system.motivation}}</span>
 			</div>
 			<div class="note">
 				{{editor data.system.note target="system.note" owner=owner button=true editable=true}}

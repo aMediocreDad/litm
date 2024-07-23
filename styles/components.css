@@ -288,3 +288,11 @@ litm-toggled-input {
 		}
 	}
 }
+
+/* Experimental Features */
+@supports (field-sizing: content) {
+	[data-size-input] {
+		field-sizing: content;
+		width: unset !important;
+	}
+}

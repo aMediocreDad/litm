@@ -12,8 +12,8 @@ export const SheetMixin = (Base) =>
 
 			html
 				.find("[data-size-input]")
-				.attr("size", function () {
-					return Math.max(this.value.replace(/\s/g, "").length * 1.56 + 1, 6);
+				.css("width", function () {
+					return Math.ceil(Math.max(this.value.length * 1.5, 6)) + "ch";
 				})
 				.on("input", this.#sizeInput.bind(this));
 
@@ -49,7 +49,7 @@ export const SheetMixin = (Base) =>
 				class: "litm--sheet-scale-button",
 				icon: "fas fa-arrows-alt-h",
 				tooltip: t("Resize"),
-				onclick: () => {},
+				onclick: () => { },
 			});
 
 			return buttons;
@@ -89,8 +89,8 @@ export const SheetMixin = (Base) =>
 
 		#sizeInput(event) {
 			const input = event.currentTarget;
-			const size = input.value.replace(/\s/g, "").length;
-			input.size = Math.max(size * 1.56 + 1, 6);
+			const size = input.value.length;
+			input.style.width = Math.ceil(Math.max(size * 1.5, 6)) + "ch";
 		}
 
 		#toggleEdit() {

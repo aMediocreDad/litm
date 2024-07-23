@@ -9,12 +9,12 @@ export class CharacterSheet extends SheetMixin(ActorSheet) {
 		height: 350,
 		left: window.innerWidth / 2 - 250,
 		top: window.innerHeight / 2 - 250,
-		scrollY: [".taglist"],
+		scrollY: [".taglist", ".editor"],
 		resizable: false,
 	});
 
 	#dragAvatarTimeout = null;
-	#notesEditorOpened = false;
+	#notesEditorStyle = "display: none;";
 	#tagsFocused = null;
 	#tagsHovered = false;
 	#themeHovered = null;
@@ -129,21 +129,21 @@ export class CharacterSheet extends SheetMixin(ActorSheet) {
 		};
 		return {
 			...this.object.system,
-			_id: this.actor.id,
-			img: this.actor.img,
-			name: this.actor.name,
-			storyTags: this.storyTags,
 			backpack,
 			note,
 			themes,
-			tagsFocused: this.#tagsFocused,
-			tagsHovered: this.#tagsHovered,
-			themeHovered: this.#themeHovered,
-			notesEditorOpened: this.#notesEditorOpened,
-			rollTags: this.#roll.characterTags,
+			_id: this.actor.id,
 			burntTags: this.#roll.characterTags.filter(
 				(t) => t.isBurnt || t.state === "burned",
 			),
+			img: this.actor.img,
+			name: this.actor.name,
+			notesEditorStyle: this.#notesEditorStyle,
+			rollTags: this.#roll.characterTags,
+			storyTags: this.storyTags,
+			tagsFocused: this.#tagsFocused,
+			tagsHovered: this.#tagsHovered,
+			themeHovered: this.#themeHovered,
 		};
 	}
 
@@ -381,6 +381,8 @@ export class CharacterSheet extends SheetMixin(ActorSheet) {
 				}, 100);
 			}
 
+			if (target === "#note") this.#notesEditorStyle = parent.attr("style");
+
 			$(document).off("mousemove", handleDrag);
 			$(document).off("mouseup", handleMouseUp);
 		};
@@ -453,8 +455,8 @@ export class CharacterSheet extends SheetMixin(ActorSheet) {
 	#open(id) {
 		switch (id) {
 			case "note":
-				this.#notesEditorOpened = true;
 				this.element.find("#note").show(100);
+				this.#notesEditorStyle = "display: block;";
 				break;
 			case "roll":
 				this.renderRollDialog();
@@ -464,9 +466,11 @@ export class CharacterSheet extends SheetMixin(ActorSheet) {
 
 	#close(id) {
 		switch (id) {
-			case "note":
-				this.#notesEditorOpened = false;
-				this.element.find("#note").hide(100);
+			case "note": {
+				const notes = this.element.find("#note");
+				this.#notesEditorStyle = notes.attr("style").replace("block", "none");
+				notes.hide(100);
+			}
 		}
 	}
 

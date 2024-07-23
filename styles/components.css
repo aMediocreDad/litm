@@ -293,6 +293,7 @@ litm-toggled-input {
 @supports (field-sizing: content) {
 	[data-size-input] {
 		field-sizing: content;
+		min-inline-size: 7ch;
 		width: unset !important;
 	}
 }

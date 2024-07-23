@@ -12,7 +12,9 @@ export const SheetMixin = (Base) =>
 
 			html
 				.find("[data-size-input]")
-				.css("width", function () { return `${Math.ceil(Math.max(this.value.length * 1.5, 6))}ch` })
+				.css("width", function () {
+					return `${Math.ceil(Math.max(this.value.length * 1.5, 6))}ch`;
+				})
 				.on("input", this.#sizeInput.bind(this));
 
 			html
@@ -47,7 +49,7 @@ export const SheetMixin = (Base) =>
 				class: "litm--sheet-scale-button",
 				icon: "fas fa-arrows-alt-h",
 				tooltip: t("Resize"),
-				onclick: () => { },
+				onclick: () => {},
 			});
 
 			return buttons;

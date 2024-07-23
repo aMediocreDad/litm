@@ -1,5 +1,6 @@
 import { SheetMixin } from "../../mixins/sheet-mixin.js";
 import { confirmDelete, dispatch } from "../../utils.js";
+import { localize as t } from "../../utils.js";
 
 export class CharacterSheet extends SheetMixin(ActorSheet) {
 	static defaultOptions = foundry.utils.mergeObject(ActorSheet.defaultOptions, {
@@ -14,7 +15,8 @@ export class CharacterSheet extends SheetMixin(ActorSheet) {
 
 	#dragAvatarTimeout = null;
 	#notesEditorOpened = false;
-	#focusedTags = null;
+	#tagsFocused = null;
+	#tagsHovered = false;
 	#themeHovered = null;
 	#contextmenu = null;
 	#roll = game.litm.LitmRollDialog.create({
@@ -134,7 +136,8 @@ export class CharacterSheet extends SheetMixin(ActorSheet) {
 			backpack,
 			note,
 			themes,
-			tagsFocused: this.#focusedTags,
+			tagsFocused: this.#tagsFocused,
+			tagsHovered: this.#tagsHovered,
 			themeHovered: this.#themeHovered,
 			notesEditorOpened: this.#notesEditorOpened,
 			rollTags: this.#roll.characterTags,
@@ -160,6 +163,7 @@ export class CharacterSheet extends SheetMixin(ActorSheet) {
 			.on("mousedown", this.#onDragHandleMouseDown.bind(this));
 		html.on("mouseover", (event) => {
 			html.find(".litm--character-theme").removeClass("hovered");
+			html.find(".litm--character-story-tags").removeClass("hovered");
 
 			const t = event.target.classList.contains("litm--character-theme")
 				? event.target
@@ -167,6 +171,10 @@ export class CharacterSheet extends SheetMixin(ActorSheet) {
 
 			if (t) this.#themeHovered = t.dataset.id;
 			else this.#themeHovered = null;
+
+			if (event.target.closest(".litm--character-story-tags"))
+				this.#tagsHovered = true;
+			else this.#tagsHovered = false;
 		});
 
 		this.#contextmenu = ContextMenu.create(
@@ -208,6 +216,33 @@ export class CharacterSheet extends SheetMixin(ActorSheet) {
 	async _updateObject(event, formData) {
 		const cleaned = await this.#handleUpdateEmbeddedItems(formData);
 		return super._updateObject(event, cleaned);
+	}
+
+	async _onDrop(dragEvent) {
+		const dragData = dragEvent.dataTransfer.getData("text/plain");
+		const data = JSON.parse(dragData);
+
+		// Handle dropping tags and statuses
+		if (!["tag", "status"].includes(data.type)) return;
+
+		await this.actor.createEmbeddedDocuments("ActiveEffect", [
+			{
+				name: data.name,
+				flags: {
+					litm: {
+						type: data.type,
+						values: data.values,
+						isBurnt: data.isBurnt,
+					},
+				},
+			},
+		]);
+
+		game.litm.storyTags.render();
+		dispatch({
+			app: "story-tags",
+			type: "render",
+		});
 	}
 
 	// Prevent dropping more than 4 themes on the character sheet
@@ -267,6 +302,9 @@ export class CharacterSheet extends SheetMixin(ActorSheet) {
 		const id = t.dataset.id;
 
 		switch (action) {
+			case "add-tag":
+				this.#addTag();
+				break;
 			case "increase":
 				this.#increase(event);
 				break;
@@ -288,9 +326,9 @@ export class CharacterSheet extends SheetMixin(ActorSheet) {
 
 		switch (action) {
 			case "return":
-				this.#focusedTags = null;
+				this.#tagsFocused = null;
 				t.classList.remove("focused");
-				t.style.cssText = this.#focusedTags;
+				t.style.cssText = this.#tagsFocused;
 				break;
 		}
 	}
@@ -304,6 +342,11 @@ export class CharacterSheet extends SheetMixin(ActorSheet) {
 				event.preventDefault();
 				event.stopPropagation();
 				this.#decrease(event);
+				break;
+			case "remove-effect":
+				event.preventDefault();
+				event.stopPropagation();
+				this.#removeEffect(t.dataset.id);
 				break;
 		}
 	}
@@ -346,11 +389,45 @@ export class CharacterSheet extends SheetMixin(ActorSheet) {
 		$(document).on("mouseup", handleMouseUp);
 	}
 
+	async #addTag() {
+		await this.actor.createEmbeddedDocuments("ActiveEffect", [
+			{
+				name: t("Litm.ui.name-tag"),
+				flags: {
+					litm: {
+						type: "tag",
+						values: new Array(6).fill(false),
+						isBurnt: false,
+					},
+				},
+			},
+		]);
+
+		game.litm.storyTags.render();
+		dispatch({
+			app: "story-tags",
+			type: "render",
+		});
+	}
+
 	async #removeItem(id) {
 		const item = this.items.get(id);
 		if (!(await confirmDelete(`TYPES.Item.${item.type}`))) return;
 
 		return item.delete();
+	}
+
+	async #removeEffect(id) {
+		const effect = this.actor.effects.get(id);
+		if (!(await confirmDelete())) return;
+
+		await effect.delete();
+
+		game.litm.storyTags.render();
+		dispatch({
+			app: "story-tags",
+			type: "render",
+		});
 	}
 
 	async #increase(event) {
@@ -426,10 +503,11 @@ export class CharacterSheet extends SheetMixin(ActorSheet) {
 		const t = event.currentTarget;
 
 		t.classList.add("focused");
-		const listener = t.addEventListener("mouseup", () => {
-			this.#focusedTags = t.style.cssText;
+		const listener = () => {
+			this.#tagsFocused = t.style.cssText;
 			t.removeEventListener("mouseup", listener);
-		});
+		};
+		t.addEventListener("mouseup", listener);
 	}
 
 	async #handleUpdateEmbeddedItems(formData) {

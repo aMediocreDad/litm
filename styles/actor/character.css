@@ -400,6 +400,9 @@
 
 	& .litm--character-story-tags {
 		position: absolute;
+		margin: 0px;
+		padding: 0px;
+		list-style: none;
 		top: 0.625rem;
 		right: -21.875rem;
 		rotate: 30deg;
@@ -414,7 +417,8 @@
 
 		&:hover,
 		&:focus-within,
-		&.focused {
+		&.focused,
+		&.hovered {
 			display: flex;
 			flex-direction: column;
 			pointer-events: all;
@@ -486,14 +490,31 @@
 				}
 			}
 
+			& button {
+				background: none;
+				border: none;
+				margin: 0px;
+				padding: 0px;
+				position: relative;
+				font-family: var(--litm-font-accent);
+				color: var(--litm-color);
+
+				& span {
+					position: absolute;
+					top: 2rem;
+					width: 55%;
+					left: 2.5rem;
+				}
+			}
+
 			& .litm--story-tag-values {
 				display: flex;
 				flex-wrap: nowrap;
 				align-items: center;
-				margin-block-start: 13px;
-				margin-inline-start: -10px;
-				gap: 8.5px;
-
+				margin-block-start: 9px;
+				margin-inline-start: -8px;
+				gap: 8.2px;
+				rotate: -1deg;
 
 				& .litm--story-tag-value {
 					position: relative;
@@ -505,7 +526,6 @@
 						font-family: var(--litm-font-primary);
 						color: color-mix(in hsl, var(--litm-color) 70%, transparent);
 						font-size: var(--font-size-14);
-
 					}
 				}
 

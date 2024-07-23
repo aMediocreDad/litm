@@ -172,6 +172,7 @@
 			"dblclick-open": "<span class='reference'>Double-Click</span> to edit",
 			"dice-roller": "Dice Roller",
 			"dice-roller-hint": "Opens the dice roll dialog if a character is attached to the user.",
+			"drag-apply": "Drag onto Actors or Story Window to apply",
 			"drop-actors": "Drop actors here.",
 			"edit": "Edit",
 			"error-burning-tag": "There was an error trying to burn your tag. Please see the console for more information.",

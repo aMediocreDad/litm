@@ -1,10 +1,12 @@
-<div class="litm dice-roll" data-type="{{type}}">
+<div class="litm dice-roll" data-type="{{type}}"
+	data-result="{{outcome.label}}">
 	<div class="dice-flavor">{{flavor}}</div>
 	{{#if effect}}
 		<div class="dice-effect">
 			<p><em>{{localize effect.description}}</em></p>
 			<p>{{localize effect.action}}</p>
-			<p><strong>{{localize 'Litm.other.cost'}}: </strong>{{localize effect.cost}}</p>
+			<p><strong>{{localize 'Litm.other.cost'}}:
+				</strong>{{localize effect.cost}}</p>
 		</div>
 	{{else}}
 		<div class="dice-effect">
@@ -18,16 +20,24 @@
 		{{{tooltip}}}
 		<h4 class="dice-total {{outcome.label}}">
 			{{#unless (eq type 'mitigate')}}<span>{{localize outcome.label}}</span>{{/unless}}
-			{{#unless (eq type 'quick')}}<span>{{power}} {{localize 'Litm.tags.power'}}</span>{{/unless}}
+			{{#unless (eq type 'quick')}}<span>{{power}}
+					{{localize 'Litm.tags.power'}}</span>{{/unless}}
 		</h4>
 		{{#if (eq type 'tracked')}}
-			{{#if (gt total 9)}}
-				<p class="litm--dice-roll-subtle">{{localize 'Litm.ui.roll-tracked-success'}}</p>
+			{{#if (gt total 6)}}
+				<p class="litm--dice-roll-subtle">
+					{{{localize "Litm.ui.roll-tracked-hint"}}}
+				</p>
 			{{/if}}
-			<p class="litm--dice-roll-subtle">{{{localize "Litm.ui.roll-tracked-hint"}}}</p>
+			{{#if (gt total 9)}}
+				<p class="litm--dice-roll-subtle">
+					{{localize 'Litm.ui.roll-tracked-success'}}
+				</p>
+			{{/if}}
 		{{/if}}
 		{{#if (and isOwner hasBurnedTags)}}
-			<button class="litm--roll-burn-button" data-click="burn-tags">{{localize 'Litm.ui.burn-tags'}}</button>
+			<button class="litm--roll-burn-button"
+				data-click="burn-tags">{{localize 'Litm.ui.burn-tags'}}</button>
 		{{/if}}
 		{{#if (and isOwner hasWeaknessTags)}}
 			<button class="litm--roll-gain-exp-button"

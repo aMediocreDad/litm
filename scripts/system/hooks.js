@@ -1,5 +1,5 @@
 import { error, info } from "../logger.js";
-import { localize as t, sleep } from "../utils.js";
+import { sleep, localize as t } from "../utils.js";
 import { Sockets } from "./sockets.js";
 
 export class LitmHooks {
@@ -231,7 +231,8 @@ export class LitmHooks {
 			const createEffect = ([key, effect], category) => ({
 				name: `${t(category)}: ${t(`Litm.effects.${key}.key`)}`,
 				icon: `<i class="${effect.icon}"></i>`,
-				condition: (li) => li.find("[data-type='tracked']").length,
+				condition: (li) =>
+					li.find("[data-type='tracked']:not([data-result='failure'])").length,
 				callback: () => {
 					ChatMessage.create({
 						content: `<div class="litm dice-roll">
@@ -302,7 +303,7 @@ export class LitmHooks {
 						actorLink: true,
 						disposition: CONST.TOKEN_DISPOSITIONS.FRIENDLY,
 						texture: { src: tokenImg || img },
-				  }
+					}
 				: null;
 			actor.updateSource({ prototypeToken, img });
 		});

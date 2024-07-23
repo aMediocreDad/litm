@@ -106,15 +106,21 @@ export const SheetMixin = (Base) =>
 				event.originalEvent.type === "pointerdown"
 					? ["pointermove", "pointerup"]
 					: ["mousemove", "mouseup"];
+
 			const el = this.element;
 
 			let previousX = event.screenX;
 			let delta = 0;
 
+			const clampValue = (current, delta) => {
+				const value = current + delta / 500;
+				return Math.max(0.3, Math.min(3, value));
+			};
+
 			const mousemove = (event) => {
 				delta = event.screenX - previousX;
 				previousX = event.screenX;
-				this.#currentScale += delta / 500;
+				this.#currentScale = clampValue(this.#currentScale, delta);
 
 				el.css("transform", `scale(${this.#currentScale})`);
 			};

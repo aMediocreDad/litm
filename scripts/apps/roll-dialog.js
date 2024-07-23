@@ -1,5 +1,5 @@
 import { Sockets } from "../system/sockets.js";
-import { localize as t, sortTags } from "../utils.js";
+import { sortTags, localize as t } from "../utils.js";
 
 export class LitmRollDialog extends FormApplication {
 	static get defaultOptions() {
@@ -209,9 +209,11 @@ export class LitmRollDialog extends FormApplication {
 				...tag,
 				state: this.#tagState.find((t) => t.id === tag.id)?.state || "",
 				states:
-					tag.type === "tag" ? ",negative,positive,burned" : ",negative,positive",
+					tag.type === "tag"
+						? ",negative,positive,burned"
+						: ",negative,positive",
 			}))
-			.filter(tag => game.user.isGM || tag.state !== "");
+			.filter((tag) => game.user.isGM || tag.state !== "");
 	}
 
 	get totalPower() {
@@ -369,8 +371,8 @@ export class LitmRollDialog extends FormApplication {
 		const tags = LitmRollDialog.#filterTags(data.tags);
 		const { totalPower } = LitmRollDialog.#calculateTotalPower(tags);
 		const recipients = Object.entries(this.actor.ownership)
-			.filter(u => u[1] === 3 && u[0] !== 'default')
-			.map(u => u[0])
+			.filter((u) => u[1] === 3 && u[0] !== "default")
+			.map((u) => u[0]);
 
 		ChatMessage.create({
 			content: await renderTemplate(

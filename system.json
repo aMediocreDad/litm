@@ -13,21 +13,32 @@
 			"ko-fi": "amediocredad"
 		}
 	],
-	"esmodules": ["litm.js"],
-	"styles": ["litm.css"],
+	"esmodules": [
+		"litm.js"
+	],
+	"styles": [
+		"litm.css"
+	],
 	"documentTypes": {
 		"Actor": {
 			"character": {
-				"htmlFields": ["note"]
+				"htmlFields": [
+					"note"
+				]
 			},
 			"challenge": {
-				"htmlFields": ["note", "special"]
+				"htmlFields": [
+					"note",
+					"special"
+				]
 			}
 		},
 		"Item": {
 			"backpack": {},
 			"theme": {
-				"htmlFields": ["note"]
+				"htmlFields": [
+					"note"
+				]
 			},
 			"threat": {}
 		}
@@ -61,7 +72,7 @@
 	],
 	"socket": true,
 	"compatibility": {
-		"minimum": 11,
+		"minimum": 12,
 		"verified": 12,
 		"maximum": 12
 	},
@@ -77,8 +88,19 @@
 	],
 	"flags": {
 		"hotReload": {
-			"extensions": ["css", "html", "js", "json"],
-			"paths": ["styles", "templates", "lang", "litm.css", "litm.js"]
+			"extensions": [
+				"css",
+				"html",
+				"js",
+				"json"
+			],
+			"paths": [
+				"styles",
+				"templates",
+				"lang",
+				"litm.css",
+				"litm.js"
+			]
 		}
 	},
 	"relationships": {

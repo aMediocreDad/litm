@@ -210,7 +210,6 @@
 			"warn-no-effect-found": "El juego no está bien configurado. El efecto seleccionado no existe.",
 			"warn-no-character": "Asigna un personaje a tu usuario en el menú de configuración de jugadores en la esquina inferior izquierda.",
 			"warn-not-owner": "No eres el propietario de este actor. No puedes editarlo.",
-			"warn-backpack-migration": "Migrando objetos de la mochila al nuevo sistema. Después de V11 los personajes del viejo sistema perderán los objetos de su mochila.",
 			"warn-theme-limit": "Has llegado al número máximo de temas. Por favor, elimina un tema antes de añadir otro."
 		}
 	},
@@ -224,6 +223,6 @@
 	"success": "Éxito completo",
 	"origin": "Origen",
 	"adventure": "Aventura",
-	"gratness": "Grandeza",
+	"greatness": "Grandeza",
 	"Notes": "Notas"
 }

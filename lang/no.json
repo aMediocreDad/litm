@@ -184,11 +184,11 @@
 			"info-imported-character": "{name} ble importert.",
 			"import-actor": "Importer Karakter fra JSON",
 			"import-adventure": "Importer Tinderbox Eventyret",
-			"inc-dec": "<span class='reference'>Klikk</span> for å øke<br /><span class='reference'>Høyreklikke</span> to decrease",
+			"inc-dec": "<span class='reference'>Klikk</span> for å øke<br /><span class='reference'>Høyreklikke</span> for å senke",
 			"manage-tags": "Merker & Statuser",
 			"moderate-roll-gm": "Moderer Kast",
 			"moderate-roll-player": "Vent litt!",
-			"moderate-roll-gm-hint": "vil kaste med en",
+			"moderate-roll-gm-hint": "vil kaste med et",
 			"moderate-roll-player-hint": "SL modererer kastet, vennligst vent.",
 			"name-motivation": "Skriv ned en motivasjon.",
 			"name-note": "Gi det en kort beskrivelse.",
@@ -196,7 +196,7 @@
 			"name-category": "Gi det en kategori",
 			"name-tag": "Gi Evnemerket et navn",
 			"name-weakness": "Gi Svakheten et navn",
-			"name-consequence": "Skriv [tag] for å lage et Merke, og [tag 0] for a lage en Status.",
+			"name-consequence": "Skriv [tag] for å lage et Merke, og [tag 1] for a lage en Status.",
 			"player-skipped-moderation": "{name} har ignorert SL-modereringen.",
 			"remove": "Fjern",
 			"remove-tag": "Fjern Merke",
@@ -209,7 +209,8 @@
 			"roll-consequence": "Handlingen lykkes, <br /> men ikke uten Konsekvenser.",
 			"roll-failure": "Handlingen feilet. <br /> Det blir konsekvenser.",
 			"roll-mitigate": "Beskyttende",
-			"roll-moderated": "SL  moderer kastet. Venligst vent.",
+			"roll-gm-moderate": "Du har mottatt en kast-forespørsel fra {name}. Gjør nødvendige endringer og trykk 'Kast' for å godkjenne.",
+			"roll-moderated": "Spilleder moderer kastet. Venligst vent.",
 			"roll-quick": "Enkelt",
 			"roll-rejected": "{name} har avvist kastet. Vennligst gjør endringer, eller lukk dialogen hvis du har ombestemt deg.",
 			"roll-success": "Handlingen lykkes. <br /> Uten noen konsekvenser.",
@@ -228,6 +229,7 @@
 			"toggle-roll": "<span class='reference'>Klikk</span> for å legge til/fjerne fra kastet. <br /> <span class='reference'>SHIFT + klikk</span> for å brenne en merket i et kast. <br /> <span class='reference'>ALT/OPTION + klikk</span> for å brenne merket.",
 			"toggle-weakness-roll": "<span class='reference'>Klikk</span> for å legge til/fjerne fra kastet.",
 			"total-power": "Styrketotal",
+			"user-manual": "Åpne brukermanual",
 			"threats-consequences": "> Trussel / >> Konsekvens",
 			"warn-incompatible-data": "Dataene er ikke kompatible med Legend in the Mist. Vennligst sjekk at du har laget en Legend in the Mist karakter.",
 			"warn-no-effect-found": "Ingen effekt funnet. Systemet er miskonfigurert.",
@@ -238,7 +240,7 @@
 		},
 		"settings": {
 			"skip-roll-moderation": "Kast uten SL-moderering",
-			"skip-roll-moderation-hint": "Hvis aktivert, vil terningene bli kastet uten moderering av SL."
+			"skip-roll-moderation-hint": "Hvis aktivert, vil terningene bli kastet uten moderering av spilleder."
 		}
 	},
 	"TYPES": {

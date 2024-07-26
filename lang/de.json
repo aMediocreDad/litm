@@ -234,7 +234,6 @@
 			"warn-no-character": "Bitte ordnen Sie dem Spieler einen Charakter aus dem Spielerkonfigurationsmenü links unten zu.",
 			"warn-not-owner": "Sie sind kein Besitzer dieses Akteurs. Sie können ihn nicht bearbeiten.",
 			"warn-not-supported": "Das wird vom actuellen Akteur nicht unterstützt.",
-			"warn-backpack-migration": "Gegenstände aus dem Rucksack in das neue System umziehen. Mit V11 verlieren Charaktere älterer Versionen die Gegenstnde iheres Rucksack.",
 			"warn-theme-limit": "Sie haben die maximale Anzahl an Themen erreicht. Bitte entfernen Sie ein Thema bevor Sie ein neues hinzufügen."
 		},
 		"settings": {

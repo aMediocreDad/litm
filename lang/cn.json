@@ -233,7 +233,6 @@
 			"warn-no-character": "请在左下角的玩家配置菜单中为你的用户分配一个角色。",
 			"warn-not-owner": "你不是这个实体的所有者，无法进行编辑。",
 			"warn-not-supported": "没有任何现有实体提供支持",
-			"warn-backpack-migration": "将行囊物品迁移到新系统时，任何迁移到V11之后的旧角色会丢失行囊物品。",
 			"warn-theme-limit": "你的主题数量已达到上限，请在添加前移除一个已有的主题。"
 		},
 		"settings": {

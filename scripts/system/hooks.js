@@ -299,11 +299,11 @@ export class LitmHooks {
 			const tokenImg = actor.prototypeToken?.texture?.src;
 			const prototypeToken = isCharacter
 				? {
-					sight: { enabled: true },
-					actorLink: true,
-					disposition: CONST.TOKEN_DISPOSITIONS.FRIENDLY,
-					texture: { src: tokenImg || img },
-				}
+						sight: { enabled: true },
+						actorLink: true,
+						disposition: CONST.TOKEN_DISPOSITIONS.FRIENDLY,
+						texture: { src: tokenImg || img },
+					}
 				: null;
 			actor.updateSource({ prototypeToken, img });
 		});
@@ -377,43 +377,44 @@ export class LitmHooks {
 					</li>
 					<li>
 						<button type="button" data-click="render-character"
-							data-tooltip="${game.user.character
-					? game.user.character.name
-					: t("USER.FIELDS.character.label")
-				}">
+							data-tooltip="${
+								game.user.character
+									? game.user.character.name
+									: t("USER.FIELDS.character.label")
+							}">
 							<i class="fas fa-user"></i>
 						</button>
 					</li>
 					<li>
 						<button type="button" data-click="render-roll" aria-label="${t(
-					"Litm.ui.roll-title",
-				)}"
+							"Litm.ui.roll-title",
+						)}"
 							data-tooltip="${t("Litm.ui.roll-title")}">
 							<i class="fas fa-dice"></i>
 						</button>
 					</li>
 				</menu>
 			`).on("click", "[data-click]", (event) => {
-					const { click } = event.currentTarget.dataset;
-					switch (click) {
-						case "toggle-rendered":
-							if (!app.rendered) app.render(true);
-							else app.close();
-							break;
-						case "render-character":
-							if (!game.user.character)
-								return ui.notifications.warn(t("Litm.ui.warn-no-character"));
-							if (!game.user.character.sheet.rendered)
-								game.user.character.sheet.render(true);
-							else game.user.character.sheet.close();
-							break;
-						case "render-roll":
-							if (!game.user.character)
-								return ui.notifications.warn(t("Litm.ui.warn-no-character"));
-							game.user.character.sheet.renderRollDialog({ toggle: true });
-							break;
-					}
-				});
+				const { click } = event.currentTarget.dataset;
+				switch (click) {
+					case "toggle-rendered":
+						if (!app.rendered) app.render(true);
+						else app.close();
+						break;
+					case "render-character":
+						if (!game.user.character)
+							return ui.notifications.warn(t("Litm.ui.warn-no-character"));
+						if (!game.user.character.sheet.rendered)
+							game.user.character.sheet.render(true);
+						else game.user.character.sheet.close();
+						break;
+					case "render-roll":
+						if (!game.user.character)
+							return ui.notifications.warn(t("Litm.ui.warn-no-character"));
+						game.user.character.sheet.renderRollDialog({ toggle: true });
+						break;
+				}
+			});
 
 			html.before(buttonSection);
 		});
@@ -639,19 +640,20 @@ export class LitmHooks {
 				],
 			});
 
-			const { uuid, id } = entry.pages.contents[0]
+			const { uuid, id } = entry.pages.contents[0];
 
 			// Create a "welcome" chat message
 			ChatMessage.create({
 				title: "Welcome to Legend in the Mist!",
 				content: /* html */ `
 				<p><strong>Welcome to Legend in the Mist</strong></p>
-				<p>Before you start playing, you should want to read the <a class="content-link" draggable="true" data-link data-uuid="${uuid
-					}" data-id="${id}" data-type="JournalEntryPage" data-tooltip="${t("Litm.ui.user-manual")}"><i class="fas fa-file-lines"></i>Legend in the Mist</a> journal entry. It contains some important information about the system, and what to expect.</p>
+				<p>Before you start playing, you should want to read the <a class="content-link" draggable="true" data-link data-uuid="${
+					uuid
+				}" data-id="${id}" data-type="JournalEntryPage" data-tooltip="${t("Litm.ui.user-manual")}"><i class="fas fa-file-lines"></i>Legend in the Mist</a> journal entry. It contains some important information about the system, and what to expect.</p>
 				<p>Once you've read the journal entry, you can click the button below to import all the rules and content required to play the Tinderbox Demo.</p>
 				<button type="button" id="litm--import-adventure" style="background: var(--litm-color-status-bg);"><strong>${t(
-						"Litm.ui.import-adventure",
-					)}</strong></button>
+					"Litm.ui.import-adventure",
+				)}</strong></button>
 				<p style="text-align:center;">Good luck, and have fun!</p>
 			`,
 			});

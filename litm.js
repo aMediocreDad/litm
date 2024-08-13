@@ -40,9 +40,11 @@ SuperCheckbox.Register();
 Hooks.once("init", () => {
 	info("Initializing Legend in the Mist...");
 	game.litm = {
-		config: LitmConfig.createConfig(),
 		data: {
 			TagData,
+		},
+		methods: {
+			calculatePower: LitmRollDialog.calculatePower,
 		},
 		importCharacter,
 		LitmRollDialog,
@@ -60,7 +62,7 @@ Hooks.once("init", () => {
 	CONFIG.Item.dataModels.backpack = BackpackData;
 	CONFIG.Item.dataModels.theme = ThemeData;
 	CONFIG.Item.dataModels.threat = ThreatData;
-	CONFIG.litm = game.litm.config;
+	CONFIG.litm = new LitmConfig();
 
 	info("Registering Sheets...");
 	// Unregister the default sheets

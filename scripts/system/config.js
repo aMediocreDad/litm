@@ -1,4 +1,5 @@
 export class LitmConfig {
+
 	challenge_types = [
 		"attacker",
 		"barrier-hazard",
@@ -94,6 +95,17 @@ export class LitmConfig {
 		},
 	};
 
+	/**
+	 * You can use this to completely override the default effects.
+	 * formula: ({ totalPower }) => `${1 + Math.max(Math.abs(totalPower))}d6${totalPower < 1 ? `kl1` : "kh1"}`,
+	 * resolver: (roll) => {
+	 *    if (roll.dice[0].results.every(d => d.active && d.result === 1)) return { label: "failure", description: "Litm.ui.roll-failure" };
+	 * }
+	 * @link scripts/apps/roll-dialog.js
+	 * @link scripts/apps/roll.js
+	 */
+	roll = { formula: null, resolver: null }
+
 	theme_levels = {
 		origin: [
 			"circumstance",
@@ -131,8 +143,4 @@ export class LitmConfig {
 
 	tagStringRe = /(?!\b|\s)(?:\[|\{)([^\d\[\]{}]+)(?:[\s\-\:](\d+))?(?:\}|\])/gi;
 	sceneLinkRe = /@ActivateScene\[([^\]]+)\](?:\{([^\}]+)\})?/gi;
-
-	static createConfig() {
-		return new LitmConfig();
-	}
 }

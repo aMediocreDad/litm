@@ -24,12 +24,12 @@
 					{{localize 'Litm.tags.power'}}</span>{{/unless}}
 		</h4>
 		{{#if (eq type 'tracked')}}
-			{{#if (gt total 6)}}
+			{{#if (eq outcome.label 'consequence')}}
 				<p class="litm--dice-roll-subtle">
 					{{{localize "Litm.ui.roll-tracked-hint"}}}
 				</p>
 			{{/if}}
-			{{#if (gt total 9)}}
+			{{#if (eq outcome.label 'success')}}
 				<p class="litm--dice-roll-subtle">
 					{{localize 'Litm.ui.roll-tracked-success'}}
 				</p>

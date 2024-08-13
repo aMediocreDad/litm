@@ -51,7 +51,7 @@ export class LitmRollDialog extends FormApplication {
 			positiveStatusValue,
 			negativeStatusValue,
 			totalPower,
-		} = LitmRollDialog.#calculateTotalPower({
+		} = game.litm.methods.calculatePower({
 			burnedTags,
 			powerTags,
 			weaknessTags,
@@ -59,9 +59,26 @@ export class LitmRollDialog extends FormApplication {
 			negativeStatuses,
 		});
 
+		const formula = typeof CONFIG.litm.roll.formula === "function" ? CONFIG.litm.roll.formula({
+			burnedTags,
+			powerTags,
+			weaknessTags,
+			positiveStatuses,
+			negativeStatuses,
+			burnedValue,
+			powerValue,
+			weaknessValue,
+			positiveStatusValue,
+			negativeStatusValue,
+			totalPower,
+			actorId,
+			type,
+			title,
+		}) : CONFIG.litm.roll.formula || "2d6 + (@burnedValue + @powerValue + @positiveStatusValue - @weaknessValue - @negativeStatusValue)";
+
 		// Roll
 		const roll = new game.litm.LitmRoll(
-			"2d6 + @burnedValue + @powerValue + @positiveStatusValue - @weaknessValue - @negativeStatusValue",
+			formula,
 			{
 				burnedValue,
 				powerValue,
@@ -96,31 +113,7 @@ export class LitmRollDialog extends FormApplication {
 			});
 	}
 
-	static #filterTags(tags) {
-		const burnedTags = tags.filter((t) => t.state === "burned");
-		const powerTags = tags.filter(
-			(t) => t.type !== "status" && t.state === "positive",
-		);
-		const weaknessTags = tags.filter(
-			(t) => t.type !== "status" && t.state === "negative",
-		);
-		const positiveStatuses = tags.filter(
-			(t) => t.type === "status" && t.state === "positive",
-		);
-		const negativeStatuses = tags.filter(
-			(t) => t.type === "status" && t.state === "negative",
-		);
-
-		return {
-			burnedTags,
-			powerTags,
-			weaknessTags,
-			positiveStatuses,
-			negativeStatuses,
-		};
-	}
-
-	static #calculateTotalPower(tags) {
+	static calculatePower(tags) {
 		const burnedValue = tags.burnedTags.length * 3;
 
 		const powerValue = tags.powerTags.length;
@@ -154,7 +147,30 @@ export class LitmRollDialog extends FormApplication {
 		};
 	}
 
-	#rollId = null;
+	static #filterTags(tags) {
+		const burnedTags = tags.filter((t) => t.state === "burned");
+		const powerTags = tags.filter(
+			(t) => t.type !== "status" && t.state === "positive",
+		);
+		const weaknessTags = tags.filter(
+			(t) => t.type !== "status" && t.state === "negative",
+		);
+		const positiveStatuses = tags.filter(
+			(t) => t.type === "status" && t.state === "positive",
+		);
+		const negativeStatuses = tags.filter(
+			(t) => t.type === "status" && t.state === "negative",
+		);
+
+		return {
+			burnedTags,
+			powerTags,
+			weaknessTags,
+			positiveStatuses,
+			negativeStatuses,
+		};
+	}
+
 	#tagState = [];
 	#shouldRoll = () => false;
 
@@ -170,7 +186,6 @@ export class LitmRollDialog extends FormApplication {
 			options.speaker || ChatMessage.getSpeaker({ actor: this.actor });
 		this.rollName = options.title || LitmRollDialog.defaultOptions.title;
 		this.type = options.type || "tracked";
-		this.#rollId = options.id;
 	}
 
 	get actor() {
@@ -219,7 +234,7 @@ export class LitmRollDialog extends FormApplication {
 	get totalPower() {
 		const state = [...this.#tagState, ...this.characterTags];
 		const tags = LitmRollDialog.#filterTags(state);
-		const { totalPower } = LitmRollDialog.#calculateTotalPower(tags);
+		const { totalPower } = LitmRollDialog.calculatePower(tags);
 		return totalPower;
 	}
 
@@ -366,10 +381,9 @@ export class LitmRollDialog extends FormApplication {
 
 	async #createModerationRequest(data) {
 		const id = foundry.utils.randomID();
-		this.#rollId = id;
 		const userId = game.user.id;
 		const tags = LitmRollDialog.#filterTags(data.tags);
-		const { totalPower } = LitmRollDialog.#calculateTotalPower(tags);
+		const { totalPower } = game.litm.methods.calculatePower(tags);
 		const recipients = Object.entries(this.actor.ownership)
 			.filter((u) => u[1] === 3 && u[0] !== "default")
 			.map((u) => u[0]);

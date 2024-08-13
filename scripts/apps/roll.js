@@ -37,22 +37,35 @@ export class LitmRoll extends Roll {
 	}
 
 	get power() {
+		const { label: outcome } = this.outcome;
+
+		// Quick outcomes don't need to track power
 		if (this.litm.type === "quick") return null;
-		if (this.total < 7) return 0;
+		if (outcome === 'failure') return 0;
 
+		// Minimum of 1 power
 		let totalPower = Math.max(this.litm.totalPower, 1);
-		if (this.total < 10) return totalPower;
-		if (this.litm.type === "mitigate") totalPower += 1;
 
+		// If it's not a strong success, return the total power
+		if (outcome === "consequence") return totalPower;
+
+		// Mitigate outcomes add 1 power on a strong success
+		if (this.litm.type === "mitigate") totalPower += 1;
 		return totalPower;
 	}
 
 	get outcome() {
-		const total = this.total;
-		if (total >= 10)
+		const { resolver } = CONFIG.litm.roll;
+
+		if (typeof resolver === "function")
+			return resolver(this);
+
+		if (this.total > 9)
 			return { label: "success", description: "Litm.ui.roll-success" };
-		if (total >= 7)
+
+		if (this.total > 6)
 			return { label: "consequence", description: "Litm.ui.roll-consequence" };
+
 		return { label: "failure", description: "Litm.ui.roll-failure" };
 	}
 
@@ -60,7 +73,9 @@ export class LitmRoll extends Roll {
 		template = this.constructor.CHAT_TEMPLATE,
 		isPrivate = false,
 	} = {}) {
+
 		if (!this._evaluated) await this.evaluate({ async: true });
+
 		const chatData = {
 			actor: this.actor,
 			formula: isPrivate ? "???" : this._formula.replace(/\s\+0/, ""),
@@ -79,7 +94,7 @@ export class LitmRoll extends Roll {
 			hasWeaknessTags:
 				!this.litm.gainedExp &&
 				this.litm.weaknessTags.filter((t) => t.type === "weaknessTag").length >
-					0,
+				0,
 		};
 
 		return renderTemplate(template, chatData);
@@ -92,8 +107,9 @@ export class LitmRoll extends Roll {
 	}
 
 	getTooltipData() {
+		const { label: outcome } = this.outcome
 		return {
-			mitigate: this.litm.type === "mitigate" && this.total > 9,
+			mitigate: this.litm.type === "mitigate" && outcome === 'success',
 			burnedTags: this.litm.burnedTags,
 			powerTags: this.litm.powerTags,
 			weaknessTags: this.litm.weaknessTags,

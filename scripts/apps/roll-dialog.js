@@ -59,22 +59,26 @@ export class LitmRollDialog extends FormApplication {
 			negativeStatuses,
 		});
 
-		const formula = typeof CONFIG.litm.roll.formula === "function" ? CONFIG.litm.roll.formula({
-			burnedTags,
-			powerTags,
-			weaknessTags,
-			positiveStatuses,
-			negativeStatuses,
-			burnedValue,
-			powerValue,
-			weaknessValue,
-			positiveStatusValue,
-			negativeStatusValue,
-			totalPower,
-			actorId,
-			type,
-			title,
-		}) : CONFIG.litm.roll.formula || "2d6 + (@burnedValue + @powerValue + @positiveStatusValue - @weaknessValue - @negativeStatusValue)";
+		const formula =
+			typeof CONFIG.litm.roll.formula === "function"
+				? CONFIG.litm.roll.formula({
+						burnedTags,
+						powerTags,
+						weaknessTags,
+						positiveStatuses,
+						negativeStatuses,
+						burnedValue,
+						powerValue,
+						weaknessValue,
+						positiveStatusValue,
+						negativeStatusValue,
+						totalPower,
+						actorId,
+						type,
+						title,
+					})
+				: CONFIG.litm.roll.formula ||
+					"2d6 + (@burnedValue + @powerValue + @positiveStatusValue - @weaknessValue - @negativeStatusValue)";
 
 		// Roll
 		const roll = new game.litm.LitmRoll(

@@ -1,5 +1,4 @@
 export class LitmConfig {
-
 	challenge_types = [
 		"attacker",
 		"barrier-hazard",
@@ -104,7 +103,7 @@ export class LitmConfig {
 	 * @link scripts/apps/roll-dialog.js
 	 * @link scripts/apps/roll.js
 	 */
-	roll = { formula: null, resolver: null }
+	roll = { formula: null, resolver: null };
 
 	theme_levels = {
 		origin: [

@@ -1,7 +1,7 @@
 {
 	"$schema": "https://json.schemastore.org/foundryvtt-system-manifest.json",
 	"id": "litm",
-	"version": 25,
+	"version": 26,
 	"license": "LICENSE",
 	"title": "Legend in the Mist Demo",
 	"description": "A <strong>Rustic Fantasy</strong> Game for Foundry Virtual Tabletop.",
@@ -93,6 +93,6 @@
 	"url": "https://github.com/aMediocreDad/litm",
 	"bugs": "https://github.com/aMediocreDad/litm/issues?q=is:issue+is:open+sort:updated-desc",
 	"manifest": "https://raw.githubusercontent.com/aMediocreDad/litm/main/system.json",
-	"download": "https://github.com/aMediocreDad/litm/archive/refs/tags/v25.zip",
+	"download": "https://github.com/aMediocreDad/litm/archive/refs/tags/v26.zip",
 	"readme": "https://github.com/aMediocreDad/litm/blob/main/README.md"
 }

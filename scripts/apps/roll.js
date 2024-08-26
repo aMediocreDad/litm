@@ -41,7 +41,7 @@ export class LitmRoll extends Roll {
 
 		// Quick outcomes don't need to track power
 		if (this.litm.type === "quick") return null;
-		if (outcome === 'failure') return 0;
+		if (outcome === "failure") return 0;
 
 		// Minimum of 1 power
 		let totalPower = Math.max(this.litm.totalPower, 1);
@@ -57,8 +57,7 @@ export class LitmRoll extends Roll {
 	get outcome() {
 		const { resolver } = CONFIG.litm.roll;
 
-		if (typeof resolver === "function")
-			return resolver(this);
+		if (typeof resolver === "function") return resolver(this);
 
 		if (this.total > 9)
 			return { label: "success", description: "Litm.ui.roll-success" };
@@ -73,7 +72,6 @@ export class LitmRoll extends Roll {
 		template = this.constructor.CHAT_TEMPLATE,
 		isPrivate = false,
 	} = {}) {
-
 		if (!this._evaluated) await this.evaluate({ async: true });
 
 		const chatData = {
@@ -94,7 +92,7 @@ export class LitmRoll extends Roll {
 			hasWeaknessTags:
 				!this.litm.gainedExp &&
 				this.litm.weaknessTags.filter((t) => t.type === "weaknessTag").length >
-				0,
+					0,
 		};
 
 		return renderTemplate(template, chatData);
@@ -107,9 +105,9 @@ export class LitmRoll extends Roll {
 	}
 
 	getTooltipData() {
-		const { label: outcome } = this.outcome
+		const { label: outcome } = this.outcome;
 		return {
-			mitigate: this.litm.type === "mitigate" && outcome === 'success',
+			mitigate: this.litm.type === "mitigate" && outcome === "success",
 			burnedTags: this.litm.burnedTags,
 			powerTags: this.litm.powerTags,
 			weaknessTags: this.litm.weaknessTags,

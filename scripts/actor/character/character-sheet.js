@@ -522,13 +522,19 @@ export class CharacterSheet extends SheetMixin(ActorSheet) {
 		const { contents } = item.system;
 		const chosenLoot = await Dialog.wait({
 			title: game.i18n.localize("Litm.ui.item-transfer-title"),
-			content: await renderTemplate("systems/litm/templates/apps/loot-dialog.html", { contents, cssClass: "litm--loot-dialog" }),
+			content: await renderTemplate(
+				"systems/litm/templates/apps/loot-dialog.html",
+				{ contents, cssClass: "litm--loot-dialog" },
+			),
 			buttons: {
 				loot: {
 					icon: '<i class="fas fa-check"></i>',
 					label: game.i18n.localize("Litm.other.transfer"),
 					callback: (html) => {
-						const chosenLoot = html.find("input[type=checkbox]:checked").map((_, i) => i.value).get();
+						const chosenLoot = html
+							.find("input[type=checkbox]:checked")
+							.map((_, i) => i.value)
+							.get();
 						return chosenLoot;
 					},
 				},
@@ -542,14 +548,22 @@ export class CharacterSheet extends SheetMixin(ActorSheet) {
 		if (!backpack) {
 			error("Litm.ui.error-no-backpack");
 			throw new Error("Litm.ui.error-no-backpack");
-		};
+		}
 
 		// Add the loot to the backpack
-		await backpack.update({ ['system.contents']: [...this.system.backpack, ...loot] });
+		await backpack.update({
+			"system.contents": [...this.system.backpack, ...loot],
+		});
 		// Remove the loot from the item
-		await item.update({ ['system.contents']: contents.filter((i) => !chosenLoot.includes(i.id)) });
+		await item.update({
+			"system.contents": contents.filter((i) => !chosenLoot.includes(i.id)),
+		});
 
-		ui.notifications.info(game.i18n.format("Litm.ui.item-transfer-success", { items: loot.map((i) => i.name).join(", ") }));
+		ui.notifications.info(
+			game.i18n.format("Litm.ui.item-transfer-success", {
+				items: loot.map((i) => i.name).join(", "),
+			}),
+		);
 		backpack.sheet.render(true);
 	}
 

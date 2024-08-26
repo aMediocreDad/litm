@@ -12,7 +12,7 @@ export class HandlebarsHelpers {
 		Handlebars.registerHelper("includes", (array, value, path) =>
 			Array.isArray(array)
 				? (path && array.some((i) => i[path] === value)) ||
-				array.includes(value)
+					array.includes(value)
 				: false,
 		);
 

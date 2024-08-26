@@ -95,7 +95,9 @@ export class CharacterData extends foundry.abstract.TypeDataModel {
 		// Make sure only four themes are present
 		const themes = this.parent.items.filter((item) => item.type === "theme");
 		if (themes.length > 4) {
-			warn(`Too many themes found for ${this.parent.name}, attempting to resolve...`);
+			warn(
+				`Too many themes found for ${this.parent.name}, attempting to resolve...`,
+			);
 			const toDelete = themes.slice(4);
 			await this.parent.deleteEmbeddedDocuments(
 				"Item",
@@ -108,7 +110,9 @@ export class CharacterData extends foundry.abstract.TypeDataModel {
 			(item) => item.type === "backpack",
 		);
 		if (backpacks.length > 1) {
-			warn(`Too many backpacks found for ${this.parent.name}, attempting to resolve...`);
+			warn(
+				`Too many backpacks found for ${this.parent.name}, attempting to resolve...`,
+			);
 			const toDelete = backpacks.slice(1);
 			await this.parent.deleteEmbeddedDocuments(
 				"Item",

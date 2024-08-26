@@ -1,6 +1,6 @@
 import { localize as t } from "../../utils.js";
 
-export class ThreatData extends foundry.abstract.DataModel {
+export class ThreatData extends foundry.abstract.TypeDataModel {
 	static defineSchema() {
 		const fields = foundry.data.fields;
 		return {

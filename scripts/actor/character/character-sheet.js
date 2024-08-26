@@ -223,7 +223,7 @@ export class CharacterSheet extends SheetMixin(ActorSheet) {
 		const data = JSON.parse(dragData);
 
 		// Handle dropping tags and statuses
-		if (!["tag", "status"].includes(data.type)) return;
+		if (!["tag", "status"].includes(data.type)) return super._onDrop(dragEvent);
 
 		await this.actor.createEmbeddedDocuments("ActiveEffect", [
 			{
@@ -257,6 +257,10 @@ export class CharacterSheet extends SheetMixin(ActorSheet) {
 			return ui.notifications.warn(
 				game.i18n.localize("Litm.ui.warn-theme-limit"),
 			);
+
+		const numBackpacks = this.items.filter((i) => i.type === "backpack").length;
+		if (item.type === "backpack" && numBackpacks >= 1)
+			return this.#handleLootDrop(item);
 
 		return super._onDropItem(event, data);
 	}
@@ -512,6 +516,41 @@ export class CharacterSheet extends SheetMixin(ActorSheet) {
 			t.removeEventListener("mouseup", listener);
 		};
 		t.addEventListener("mouseup", listener);
+	}
+
+	async #handleLootDrop(item) {
+		const { contents } = item.system;
+		const chosenLoot = await Dialog.wait({
+			title: game.i18n.localize("Litm.ui.item-transfer-title"),
+			content: await renderTemplate("systems/litm/templates/apps/loot-dialog.html", { contents, cssClass: "litm--loot-dialog" }),
+			buttons: {
+				loot: {
+					icon: '<i class="fas fa-check"></i>',
+					label: game.i18n.localize("Litm.other.transfer"),
+					callback: (html) => {
+						const chosenLoot = html.find("input[type=checkbox]:checked").map((_, i) => i.value).get();
+						return chosenLoot;
+					},
+				},
+			},
+		});
+		if (!chosenLoot || !chosenLoot.length) return;
+
+		const loot = contents.filter((i) => chosenLoot.includes(i.id));
+		const backpack = this.items.find((i) => i.type === "backpack");
+
+		if (!backpack) {
+			error("Litm.ui.error-no-backpack");
+			throw new Error("Litm.ui.error-no-backpack");
+		};
+
+		// Add the loot to the backpack
+		await backpack.update({ ['system.contents']: [...this.system.backpack, ...loot] });
+		// Remove the loot from the item
+		await item.update({ ['system.contents']: contents.filter((i) => !chosenLoot.includes(i.id)) });
+
+		ui.notifications.info(game.i18n.format("Litm.ui.item-transfer-success", { items: loot.map((i) => i.name).join(", ") }));
+		backpack.sheet.render(true);
 	}
 
 	async #handleUpdateEmbeddedItems(formData) {

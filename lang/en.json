@@ -119,6 +119,7 @@
 			"tags": "Tags",
 			"themebook": "Themebook",
 			"threat": "Threat",
+			"transfer": "Transfer",
 			"unnamed": "Unnamed"
 		},
 		"tags": {
@@ -178,6 +179,7 @@
 			"error-burning-tag": "There was an error trying to burn your tag. Please see the console for more information.",
 			"error-no-actor": "No actor found. Please make sure the actor exists and is properly configured.",
 			"error-conducting-roll": "There was an error conducting the roll. Please see the console for more information.",
+			"error-no-backpack": "No backpack found. Try duplicating the actor to solve this issue.",
 			"error-validating-actor": "There was an error validating the actor. Please see the console for more information.",
 			"error-validating-item": "There was an error validating the item. Please see the console for more information.",
 			"gain-exp": "Gain Experience",
@@ -185,6 +187,9 @@
 			"import-actor": "Import Actor from JSON",
 			"import-adventure": "Import Tinderbox Content",
 			"inc-dec": "<span class='reference'>Click</span> to increase<br /> <span class='reference'>Right-Click</span> to decrease",
+			"item-transfer-title": "Transfer Backpack tags",
+			"item-transfer-content": "Select the tags you want to transfer to your backpack.",
+			"item-transfer-success": "Transferred {items} to your backpack.",
 			"manage-tags": "Manage Tags & Statuses",
 			"moderate-roll-gm": "Moderate Roll",
 			"moderate-roll-player": "Wait for it!",

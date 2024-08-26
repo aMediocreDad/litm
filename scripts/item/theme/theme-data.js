@@ -1,6 +1,6 @@
 import { localize as t, titleCase } from "../../utils.js";
 
-export class ThemeData extends foundry.abstract.DataModel {
+export class ThemeData extends foundry.abstract.TypeDataModel {
 	static defineSchema() {
 		const fields = foundry.data.fields;
 		const abstract = game.litm.data;

@@ -1,5 +1,5 @@
 import { localize as t } from "../../utils.js";
-export class ChallengeData extends foundry.abstract.DataModel {
+export class ChallengeData extends foundry.abstract.TypeDataModel {
 	static defineSchema() {
 		const fields = foundry.data.fields;
 		return {

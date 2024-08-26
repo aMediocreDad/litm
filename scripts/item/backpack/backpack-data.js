@@ -1,4 +1,4 @@
-export class BackpackData extends foundry.abstract.DataModel {
+export class BackpackData extends foundry.abstract.TypeDataModel {
 	static defineSchema() {
 		const fields = foundry.data.fields;
 		const abstract = game.litm.data;

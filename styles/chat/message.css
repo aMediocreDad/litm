@@ -14,7 +14,6 @@
 
 	&:hover {
 		box-shadow: 0 0 3px var(--litm-color-primary-bg);
-
 	}
 
 	& .dice-flavor {
@@ -43,7 +42,11 @@
 
 		.part-flavor {
 			&.burned {
-				color: color-mix(in hsl, var(--litm-color-weakness) 60%, var(--litm-color-accent));
+				color: color-mix(
+					in hsl,
+					var(--litm-color-weakness) 60%,
+					var(--litm-color-accent)
+				);
 			}
 
 			&.positive {
@@ -105,18 +108,42 @@
 		scale: 0.9;
 
 		&.litm--roll-approve-button {
-			color: color-mix(in hsl, var(--litm-color-status-bg) 70%, var(--litm-color-accent));
-			border-color: color-mix(in hsl, var(--litm-color-status-bg) 70%, var(--litm-color-accent));
+			color: color-mix(
+				in hsl,
+				var(--litm-color-status-bg) 70%,
+				var(--litm-color-accent)
+			);
+			border-color: color-mix(
+				in hsl,
+				var(--litm-color-status-bg) 70%,
+				var(--litm-color-accent)
+			);
 		}
 
 		&.litm--roll-reject-button {
-			color: color-mix(in hsl, var(--litm-color-limit-bg) 70%, var(--litm-color-accent));
-			border-color: color-mix(in hsl, var(--litm-color-limit-bg) 70%, var(--litm-color-accent));
+			color: color-mix(
+				in hsl,
+				var(--litm-color-limit-bg) 70%,
+				var(--litm-color-accent)
+			);
+			border-color: color-mix(
+				in hsl,
+				var(--litm-color-limit-bg) 70%,
+				var(--litm-color-accent)
+			);
 		}
 
 		&.litm--roll-burn-button {
-			color: color-mix(in hsl, var(--litm-color-weakness) 60%, var(--litm-color-accent));
-			border-color: color-mix(in hsl, var(--litm-color-weakness) 60%, var(--litm-color-accent));
+			color: color-mix(
+				in hsl,
+				var(--litm-color-weakness) 60%,
+				var(--litm-color-accent)
+			);
+			border-color: color-mix(
+				in hsl,
+				var(--litm-color-weakness) 60%,
+				var(--litm-color-accent)
+			);
 		}
 
 		&:hover {

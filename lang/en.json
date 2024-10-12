@@ -170,6 +170,7 @@
 			"confirm-delete-content": "Are you sure you want to remove this {thing}?",
 			"confirm-delete-title": "Confirm Removal",
 			"context-edit": "<span class='reference'>Right-Click</span> to edit",
+			"context-remove-all-tags": "<span class='reference'>Right-Click</span> to remove all story tags",
 			"dblclick-open": "<span class='reference'>Double-Click</span> to edit",
 			"dice-roller": "Dice Roller",
 			"dice-roller-hint": "Opens the dice roll dialog if a character is attached to the user.",

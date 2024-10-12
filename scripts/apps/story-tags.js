@@ -260,6 +260,11 @@ export class StoryTagApp extends SheetMixin(FormApplication) {
 		const target = event.currentTarget.dataset.id;
 
 		switch (action) {
+			case "remove-all-tags":
+				event.preventDefault();
+				event.stopPropagation();
+				this.#removeAllTags();
+				break;
 			case "remove-tag":
 				event.preventDefault();
 				event.stopPropagation();
@@ -306,6 +311,12 @@ export class StoryTagApp extends SheetMixin(FormApplication) {
 			);
 		}
 		return this.#removeTagFromActor({ actorId: type, id });
+	}
+
+	async #removeAllTags() {
+		if (!this.config.tags.length || !(await confirmDelete())) return;
+		if (game.user.isGM) return this.setTags([]);
+		return this.#broadcastUpdate("tags", []);
 	}
 
 	async #addTagToActor({ id, tag }) {

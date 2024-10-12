@@ -36,7 +36,7 @@
 		}
 
 		& .litm--theme-top-bg {
-			background: url('../../assets/media/theme-bg-top.webp');
+			background: url("../../assets/media/theme-bg-top.webp");
 			background-size: cover;
 			background-repeat: no-repeat;
 			margin: 7px 13px 0px 6px;
@@ -52,11 +52,11 @@
 			padding-block-start: 24px;
 			background: var(--theme-src) no-repeat bottom / cover;
 
-			&>* {
+			& > * {
 				width: min-content;
 			}
 
-			&>span {
+			& > span {
 				padding-block: 3px;
 			}
 
@@ -83,7 +83,11 @@
 				}
 
 				&:last-child {
-					color: color-mix(in hsl, var(--litm-color-primary-bg) 75%, transparent);
+					color: color-mix(
+						in hsl,
+						var(--litm-color-primary-bg) 75%,
+						transparent
+					);
 					font-size: var(--font-size-11);
 					margin-inline: auto 0;
 					text-align: right;
@@ -102,9 +106,8 @@
 			font-size: var(--font-size-11);
 
 			& span {
-
 				&:last-of-type {
-					color: var(--litm-color-weakness)
+					color: var(--litm-color-weakness);
 				}
 			}
 		}
@@ -157,7 +160,12 @@
 				color: var(--litm-color);
 
 				&:nth-child(odd) {
-					background-image: linear-gradient(to right, transparent, rgba(69, 59, 29, 0.15), transparent);
+					background-image: linear-gradient(
+						to right,
+						transparent,
+						rgba(69, 59, 29, 0.15),
+						transparent
+					);
 				}
 
 				&:last-child {
@@ -200,7 +208,11 @@
 			padding: 0px;
 			display: flex;
 			align-items: center;
-			background-image: radial-gradient(ellipse at top, var(--litm-color-weakness-bg) 30%, transparent 70%);
+			background-image: radial-gradient(
+				ellipse at top,
+				var(--litm-color-weakness-bg) 30%,
+				transparent 70%
+			);
 
 			& .litm--weakness-part {
 				width: 100%;
@@ -230,7 +242,7 @@
 			background-size: cover;
 			background-repeat: no-repeat;
 
-			&>div {
+			& > div {
 				position: relative;
 				display: flex;
 				align-items: center;
@@ -241,7 +253,8 @@
 				&:first-child::before {
 					content: "";
 					position: absolute;
-					background: url(../../assets/media/connector.webp) no-repeat center / contain;
+					background: url(../../assets/media/connector.webp) no-repeat center /
+						contain;
 					top: -62px;
 					left: 4px;
 					height: 300px;
@@ -322,7 +335,7 @@
 				}
 
 				&::after {
-					content: "\"";
+					content: '"';
 					margin-inline-start: 4px;
 				}
 			}
@@ -346,7 +359,7 @@
 			}
 
 			& [role="application"] {
-				height: 100% !important
+				height: 100% !important;
 			}
 		}
 	}

@@ -22,7 +22,7 @@
 		grid-template-areas: "center";
 		place-items: center;
 
-		&>* {
+		& > * {
 			grid-area: center;
 		}
 	}
@@ -49,7 +49,8 @@
 		width: 260px;
 
 		& .meta {
-			background: url(../../assets/media/backpack-top-bg.webp) no-repeat bottom / cover;
+			background: url(../../assets/media/backpack-top-bg.webp) no-repeat bottom
+				/ cover;
 			color: var(--litm-color-accent);
 			font-family: var(--litm-font-primary);
 			text-transform: uppercase;
@@ -89,10 +90,12 @@
 				color: var(--litm-color);
 
 				&:nth-child(odd) {
-					background-image: linear-gradient(to right,
-							transparent,
-							rgba(69, 59, 29, 0.15),
-							transparent);
+					background-image: linear-gradient(
+						to right,
+						transparent,
+						rgba(69, 59, 29, 0.15),
+						transparent
+					);
 				}
 
 				& .tag--name {
@@ -141,7 +144,6 @@
 			font-size: var(--font-size-20);
 			font-family: var(--litm-font-accent);
 			transition: all 0.15s;
-
 
 			&:hover,
 			&:focus,

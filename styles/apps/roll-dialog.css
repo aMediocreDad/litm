@@ -6,7 +6,7 @@
 	background-color: var(--litm-color-alt-bg);
 
 	& .window-header {
-		color: var(--litm-color-primary)
+		color: var(--litm-color-primary);
 	}
 
 	& .window-content form {
@@ -27,7 +27,6 @@
 		text-align: center;
 		height: unset;
 		transition: background-color 0.15s;
-
 
 		&:focus {
 			box-shadow: none;
@@ -151,7 +150,6 @@
 		font-family: var(--litm-font-accent);
 		transition: text-shadow 0.15s;
 
-
 		&:hover,
 		&:focus,
 		&:active {
@@ -196,7 +194,12 @@
 			}
 
 			&[type="submit"] {
-				background-image: linear-gradient(to right, transparent, var(--litm-color-muted-bg), transparent);
+				background-image: linear-gradient(
+					to right,
+					transparent,
+					var(--litm-color-muted-bg),
+					transparent
+				);
 			}
 		}
 	}

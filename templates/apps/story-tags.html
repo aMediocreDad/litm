@@ -1,25 +1,32 @@
 {{#*inline 'tagItem' tag source editable}}
-	<li class="litm--tag-item litm--{{ifThen (eq tag.type 'status') 'status' 'tag'}}" data-context="remove-tag"
-		data-id="{{tag.id}}" data-type="{{source}}"
+	<li
+		class="litm--tag-item litm--{{ifThen (eq tag.type 'status') 'status' 'tag'}}"
+		data-context="remove-tag" data-id="{{tag.id}}" data-type="{{source}}"
 		data-tooltip="{{localize (concat 'Litm.other.' tag.type)}}: {{tag.name}}{{#if tag.value}}{{concat '-' tag.value}}{{/if}}">
 		{{#if (eq tag.type "tag")}}
-			<label class="litm--burn-label"><span class="litm--sro">{{localize "Litm.ui.burn-tag"}}</span>
-				<input class="litm--burn" type="checkbox" name="{{source}}.{{tag.id}}.isBurnt"
+			<label class="litm--burn-label"><span
+					class="litm--sro">{{localize "Litm.ui.burn-tag"}}</span>
+				<input class="litm--burn" type="checkbox"
+					name="{{source}}.{{tag.id}}.isBurnt"
 					data-tooltip="{{localize (ifThen tag.isBurnt 'Litm.tags.isBurnt' 'Litm.tags.burn')}}" {{disabled
 			(not
 			editable)}} {{checked
 			tag.isBurnt}} />
 			</label>
-		{{/if}} <input class="litm--tag-item-name {{tag.type}}" data-focus="select" name="{{source}}.{{tag.id}}.name"
-			value="{{tag.name}}" {{ifThen editable "" "readonly"}} />
+		{{/if}} <input class="litm--tag-item-name {{tag.type}}" data-focus="select"
+			name="{{source}}.{{tag.id}}.name" value="{{tag.name}}"
+			{{ifThen editable "" "readonly"}} />
 		<div class="litm--tag-item-status">
-			{{#each tag.values as |status|}} <input name="{{../source}}.{{../tag.id}}.values" type="checkbox"
-					value="{{add @index 1}}" {{disabled (not ../editable)}} {{checked status}} />
+			{{#each tag.values as |status|}} <input
+					name="{{../source}}.{{../tag.id}}.values" type="checkbox"
+					value="{{add @index 1}}" {{disabled (not ../editable)}}
+					{{checked status}} />
 			{{/each}}
 		</div>
 	</li>
 {{/inline}} {{#*inline 'add-button' id}}
-	<button type="button" data-click="add-tag" data-id="{{id}}" data-tooltip="{{localize 'Litm.ui.add-tag'}}">
+	<button type="button" data-click="add-tag" data-id="{{id}}"
+		data-tooltip="{{localize 'Litm.ui.add-tag'}}">
 		<span class="litm--sro">{{localize "Litm.ui.add-tag"}}</span>
 		<i class="far fa-add"></i>
 	</button>
@@ -28,12 +35,17 @@
 	<section>
 		<div class="litm--story-tags-main">
 			<fieldset style="display: contents">
-				<div class="litm--story-tags-section-header">
-					<legend>{{concat (localize "Litm.tags.story") " " (localize "Litm.other.tags")}}</legend>
+				<div class="litm--story-tags-section-header"
+					data-context="remove-all-tags"
+					data-tooltip="{{localize 'Litm.ui.context-remove-all-tags'}}">
+					<legend>
+						{{concat (localize "Litm.tags.story") " " (localize "Litm.other.tags")}}
+					</legend>
 					{{> add-button id="story"}}
 				</div>
 				<ul>
-					{{#each tags as |tag|}} {{> tagItem tag=tag source="story" editable=true}} {{/each}}
+					{{#each tags as |tag|}}
+						{{> tagItem tag=tag source="story" editable=true}} {{/each}}
 				</ul>
 			</fieldset>
 		</div>
@@ -44,15 +56,17 @@
 			<div data-id="{{actor.id}}" class="litm--story-tags-actor">
 				<fieldset style="display: contents">
 					<div class="litm--story-tags-section-header">
-						<legend aria-label="{{actor.name}} tags" data-click="open-sheet" data-context="remove-actor"
-							data-id="{{actor.id}}" data-tooltip="{{localize 'Litm.ui.click-open-context-remove'}}">
+						<legend aria-label="{{actor.name}} tags" data-click="open-sheet"
+							data-context="remove-actor" data-id="{{actor.id}}"
+							data-tooltip="{{localize 'Litm.ui.click-open-context-remove'}}">
 							<!-- <img src="{{actor.img}}" alt="" aria-hidden="true"> -->
 							{{actor.name}}
 						</legend>
 						{{#if actor.isOwner}} {{> add-button id=actor.id}} {{/if}}
 					</div>
 					<ul>
-						{{#each actor.tags as |tag|}} {{> tagItem tag=tag source=../id editable=actor.isOwner}}
+						{{#each actor.tags as |tag|}}
+							{{> tagItem tag=tag source=../id editable=actor.isOwner}}
 						{{/each}}
 					</ul>
 				</fieldset>
@@ -60,7 +74,8 @@
 		{{else}}
 			<div class="litm--story-tags-no-actors">
 				<p>{{localize "Litm.ui.drop-actors"}}</p>
-				<img src="systems/litm/assets/media/birb.webp" width="75" aria-hidden="true" />
+				<img src="systems/litm/assets/media/birb.webp" width="75"
+					aria-hidden="true" />
 			</div>
 		{{/each}}
 	</section>

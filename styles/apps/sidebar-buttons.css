@@ -11,7 +11,8 @@ menu.litm--sidebar-buttons-container.litm--sidebar-buttons-container {
 
 	& li button {
 		position: relative;
-		background: url("../../assets/media/tabs-bg.webp") no-repeat center / contain;
+		background: url("../../assets/media/tabs-bg.webp") no-repeat center /
+			contain;
 		color: var(--litm-color-primary-bg);
 		display: grid;
 		place-content: center;
@@ -40,7 +41,8 @@ menu.litm--sidebar-buttons-container.litm--sidebar-buttons-container {
 
 		& button:first-child i {
 			color: transparent;
-			background: url('../../assets/media/tabs-collapse.webp') no-repeat center / contain;
+			background: url("../../assets/media/tabs-collapse.webp") no-repeat center
+				/ contain;
 		}
 	}
 }

@@ -119,6 +119,7 @@
 			"tags": "标签",
 			"themebook": "主题问卷",
 			"threat": "威胁",
+			"transfer": "转化",
 			"unnamed": "未命名"
 		},
 		"tags": {
@@ -161,6 +162,7 @@
 			"add-limit": "添加极限",
 			"add-theme": "添加主题",
 			"add-threat": "添加威胁",
+			"approve": "允许",
 			"burn-tags": "燃尽标签",
 			"cancel": "取消",
 			"change-roll-type": "改变掷骰类型",
@@ -171,6 +173,7 @@
 			"dblclick-open": "<span class='reference'>双击左键</span>以编辑",
 			"dice-roller": "骰盘",
 			"dice-roller-hint": "如果角色已关联到用户，则可以打开骰盘",
+			"drag-apply": "拖拽至实体或故事标签栏以应用",
 			"drop-actors": "把实体放到此处",
 			"edit": "编辑",
 			"error-burning-tag": "尝试燃尽标签时出错，更多信息请参阅控制台。",
@@ -228,6 +231,7 @@
 			"toggle-weakness-roll": "<span class='reference'>单击</span>以在掷骰中加入或删去。",
 			"total-power": "总效力",
 			"threats-consequences": "> 威胁 / >> 效力",
+			"user-manual": "打开用户手册",
 			"warn-incompatible-data": "尝试导入的数据与这个系统不匹配。",
 			"warn-no-effect-found": "游戏配置错误。没有找到选定的效果。",
 			"warn-no-character": "请在左下角的玩家配置菜单中为你的用户分配一个角色。",

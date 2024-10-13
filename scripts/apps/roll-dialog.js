@@ -397,6 +397,7 @@ export class LitmRollDialog extends FormApplication {
 				"systems/litm/templates/chat/moderation.html",
 				{
 					title: t("Litm.ui.roll-moderation"),
+					id: this.actor.id,
 					rollId: id,
 					type: data.type,
 					name: this.actor.name,

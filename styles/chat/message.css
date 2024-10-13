@@ -16,6 +16,14 @@
 		box-shadow: 0 0 3px var(--litm-color-primary-bg);
 	}
 
+	& .content-link {
+		color: var(--litm-color-alt-bg);
+
+		& i {
+			color: var(--litm-color-alt-bg);
+		}
+	}
+
 	& .dice-flavor {
 		font-family: var(--litm-font-heading);
 		font-size: var(--font-size-24);

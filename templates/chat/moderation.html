@@ -3,14 +3,22 @@
 		<span class="gmOnly">{{localize 'Litm.ui.moderate-roll-gm'}}</span>
 		<span class="playerOnly">{{localize 'Litm.ui.moderate-roll-player'}}</span>
 	</div>
+	{{log this}}
 	<div class="dice-effect">
-		<p class="gmOnly"><em>{{name}} {{localize "Litm.ui.moderate-roll-gm-hint"}}
-				{{localize (concat "Litm.ui.roll-" type)}} {{localize "Litm.other.outcome"}}</em></p>
-		<p class="playerOnly"><em>{{localize 'Litm.ui.moderate-roll-player-hint'}}</em></p>
+		<p class="gmOnly"><em><a class="content-link" draggable="true" data-link=""
+					data-uuid="Actor.{{id}}" data-id="{{id}}" data-type="Actor"
+					data-tooltip="{{name}}"><i class="fas fa-user"></i>{{name}}</a>
+				{{localize "Litm.ui.moderate-roll-gm-hint"}}
+				{{localize (concat "Litm.ui.roll-" type)}}
+				{{localize "Litm.other.outcome"}}.</em></p>
+		<p class="playerOnly">
+			<em>{{localize 'Litm.ui.moderate-roll-player-hint'}}</em>
+		</p>
 	</div>
 	<div class="dice-result">
 		{{> systems/litm/templates/chat/message-tooltip.html data=tags expanded=true}}
-		<h4 class="dice-total">{{localize 'Litm.ui.total-power'}}: {{totalPower}}</h4>
+		<h4 class="dice-total">{{localize 'Litm.ui.total-power'}}: {{totalPower}}
+		</h4>
 		<button class="gmOnly litm--roll-approve-button"
 			data-click="approve-moderation">{{localize 'Litm.ui.approve'}}</button>
 		<button class="gmOnly litm--roll-reject-button"

@@ -1,4 +1,5 @@
 /* Font smooth only on macOS */
+/* biome-ignore lint/correctness/noUnknownMediaFeatureName: It's used because this is specific to a certain browser/OS */
 @media screen and (-webkit-min-device-pixel-ratio: 0) {
 	html {
 		-webkit-font-smoothing: antialiased;

@@ -73,6 +73,10 @@
 				min-width: 10px;
 				width: auto;
 
+				& > option {
+					color: var(--litm-color-primary);
+				}
+
 				&::-webkit-calendar-picker-indicator {
 					display: none !important;
 				}

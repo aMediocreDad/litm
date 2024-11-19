@@ -1,4 +1,4 @@
-name: Publish to Foundry Package Registry
+name: Pack Content Packs
 on:
   workflow_dispatch: 
 
@@ -14,13 +14,13 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 'lts/*'
-          cache: 'npm'
       - name: Packer
         id: packs
         uses: aMediocreDad/foundry-db-packer@next
         with:
           inputdir: packs/tinderbox-demo/_source
-          packsdir: packs/
+          packsdir: packs/tinderbox-demo
+          remove_input: true
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
         with:

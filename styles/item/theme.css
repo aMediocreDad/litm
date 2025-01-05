@@ -127,8 +127,9 @@
 			font-size: var(--font-size-16);
 
 			& .litm--theme-name {
-				font-family: var(--litm-font-primary);
+				font-family: var(--litm-font-input);
 				font-size: var(--font-size-28);
+				font-weight: 800;
 				border: none;
 				background-color: transparent;
 				text-align: center;
@@ -159,6 +160,7 @@
 			& .litm--theme-tag {
 				display: flex;
 				align-items: center;
+				justify-content: space-between;
 				width: 100%;
 				gap: var(--litm-space-3);
 				color: var(--litm-color);
@@ -170,39 +172,6 @@
 						rgba(69, 59, 29, 0.15),
 						transparent
 					);
-				}
-
-				&:last-child {
-					.tag--name {
-						border-bottom: 1.5px solid rgb(0, 0, 0, 0.2);
-					}
-				}
-
-				& .tag--name {
-					text-align: center;
-					border: none;
-					border-radius: 0px;
-					padding-block: var(--litm-space-2);
-					min-height: var(--font-size-14);
-					font-size: var(--font-size-16);
-					height: auto;
-					background-color: transparent;
-					font-family: var(--litm-font-text);
-					color: var(--litm-color-primary);
-					width: 100%;
-					border-top: 1.5px solid rgb(0, 0, 0, 0.2);
-					border-image: url("../../assets/media/item-divider.webp") 14 / 3;
-					border-image-outset: 1px;
-
-					&:focus,
-					&:active {
-						box-shadow: none;
-					}
-				}
-
-				& label {
-					display: flex;
-					--checkbox-size: 10px;
 				}
 			}
 		}

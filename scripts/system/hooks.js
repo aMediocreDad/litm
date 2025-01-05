@@ -5,6 +5,7 @@ import { Sockets } from "./sockets.js";
 export class LitmHooks {
 	static register() {
 		info("Registering Hooks...");
+		LitmHooks.#addLinkPreloadsToHead();
 		LitmHooks.#addImportToActorSidebar();
 		LitmHooks.#iconOnlyHeaderButtons();
 		LitmHooks.#safeUpdateItemSheet();
@@ -18,7 +19,7 @@ export class LitmHooks {
 		LitmHooks.#listenToTagDragTransfer();
 		LitmHooks.#customizeDiceSoNice();
 		LitmHooks.#renderStoryTagApp();
-		LitmHooks.#repositionStoryTagApp();
+		// LitmHooks.#repositionStoryTagApp();
 		LitmHooks.#popOutCompatiblity();
 		LitmHooks.#rendeWelcomeScreen();
 	}
@@ -99,6 +100,81 @@ export class LitmHooks {
 		});
 	}
 
+	static #addLinkPreloadsToHead() {
+		const assets = [
+			"systems/litm/assets/media/adventure-theme-alt-bg-top.webp",
+			"systems/litm/assets/media/adventure-theme-bg-bottom.webp",
+			"systems/litm/assets/media/adventure-theme-border-bottom.webp",
+			"systems/litm/assets/media/adventure-theme-border-top.webp",
+			"systems/litm/assets/media/background-frame.webp",
+			"systems/litm/assets/media/background.webp",
+			"systems/litm/assets/media/backpack-top-bg.webp",
+			"systems/litm/assets/media/backpack.webp",
+			"systems/litm/assets/media/bg-alt.webp",
+			"systems/litm/assets/media/birb.webp",
+			"systems/litm/assets/media/bottom-branch.webp",
+			"systems/litm/assets/media/bottom-frame-branches.webp",
+			"systems/litm/assets/media/button-bg.webp",
+			"systems/litm/assets/media/button-border.webp",
+			"systems/litm/assets/media/challenge-bg.webp",
+			"systems/litm/assets/media/challenge-border.webp",
+			"systems/litm/assets/media/character-bg.webp",
+			"systems/litm/assets/media/connector.webp",
+			"systems/litm/assets/media/dice.webp",
+			"systems/litm/assets/media/effects.webp",
+			"systems/litm/assets/media/feather.webp",
+			"systems/litm/assets/media/flowers-top.webp",
+			"systems/litm/assets/media/greatness-theme-alt-bg-top.webp",
+			"systems/litm/assets/media/greatness-theme-bg-bottom.webp",
+			"systems/litm/assets/media/greatness-theme-border-bottom.webp",
+			"systems/litm/assets/media/greatness-theme-border-top.webp",
+			"systems/litm/assets/media/green-leaf.webp",
+			"systems/litm/assets/media/header-bg.webp",
+			"systems/litm/assets/media/item-divider.webp",
+			"systems/litm/assets/media/left-div.webp",
+			"systems/litm/assets/media/limit-bg.webp",
+			"systems/litm/assets/media/limit-label.webp",
+			"systems/litm/assets/media/limit-value.webp",
+			"systems/litm/assets/media/litm_splash.webp",
+			"systems/litm/assets/media/logo-b.webp",
+			"systems/litm/assets/media/logo.webp",
+			"systems/litm/assets/media/marshal-crest.webp",
+			"systems/litm/assets/media/middle-branches.webp",
+			"systems/litm/assets/media/necklace.webp",
+			"systems/litm/assets/media/note.webp",
+			"systems/litm/assets/media/origin-theme-alt-bg-top.webp",
+			"systems/litm/assets/media/origin-theme-bg-bottom.webp",
+			"systems/litm/assets/media/origin-theme-border-bottom.webp",
+			"systems/litm/assets/media/origin-theme-border-top.webp",
+			"systems/litm/assets/media/progress-bg.webp",
+			"systems/litm/assets/media/raven.webp",
+			"systems/litm/assets/media/right-div.webp",
+			"systems/litm/assets/media/scroll-background.webp",
+			"systems/litm/assets/media/scroll-border.webp",
+			"systems/litm/assets/media/section-bg.webp",
+			"systems/litm/assets/media/separator.webp",
+			"systems/litm/assets/media/single-flower.webp",
+			"systems/litm/assets/media/skull.webp",
+			"systems/litm/assets/media/story-tag-bg.webp",
+			"systems/litm/assets/media/tabs-bg.webp",
+			"systems/litm/assets/media/tabs-collapse.webp",
+			"systems/litm/assets/media/tag-divider.webp",
+			"systems/litm/assets/media/theme-bg-top.webp",
+			"systems/litm/assets/media/top-frame-branches.webp",
+			"systems/litm/assets/media/yellow-leaf.webp",
+		];
+
+		for (const asset of assets) {
+			const link = Object.assign(document.createElement("link"), {
+				rel: "preload",
+				href: asset,
+				as: "image",
+				type: "image/webp",
+			});
+			document.head.appendChild(link);
+		}
+	}
+
 	static #addImportToActorSidebar() {
 		Hooks.on("renderSidebarTab", (app, html) => {
 			if (app.id !== "actors") return;
@@ -126,17 +202,20 @@ export class LitmHooks {
 	}
 
 	static #replaceLoadSpinner() {
-		Hooks.on("renderPause", (_, html) => {
-			html
-				.find("img")
-				.attr("src", "systems/litm/assets/media/marshal-crest.webp")
-				.removeAttr("class");
+		Hooks.on("renderGamePause", (_, html) => {
+			const img = html.querySelector("img");
+			if (!img) return;
+			img.src = "systems/litm/assets/media/marshal-crest.webp";
+			img.classList.remove("fa-spin");
 		});
 	}
 
 	static #attachChatMessageListeners() {
-		Hooks.on("renderChatMessage", (app, html) => {
-			html.find("[data-click]").on("click", async (event) => {
+		Hooks.on("renderChatMessageHTML", (app, html) => {
+			const button = html.querySelector("[data-click]");
+			if (!button) return;
+
+			button.addEventListener("click", async (event) => {
 				const target = event.currentTarget;
 				const { click } = target.dataset;
 
@@ -220,8 +299,8 @@ export class LitmHooks {
 	}
 
 	static #attachGMIndicatorToMessage() {
-		Hooks.on("renderChatMessage", (_, html) => {
-			html.attr("data-user", game.user.isGM ? "gm" : "player");
+		Hooks.on("renderChatMessageHTML", (_, html) => {
+			html.setAttribute("data-user", game.user.isGM ? "gm" : "player");
 		});
 	}
 
@@ -365,7 +444,8 @@ export class LitmHooks {
 		const app = new game.litm.StoryTagApp();
 		game.litm.storyTags = app;
 
-		Hooks.on("renderSidebar", (_app, html) => {
+		// FIXME: Render the app on the sidebar somehow
+		Hooks.on("nothing", (_app, html) => {
 			const buttonSection = $(/*html*/ `
 				<menu class="litm--sidebar-buttons-container">
 					<li>
@@ -651,7 +731,7 @@ export class LitmHooks {
 					uuid
 				}" data-id="${id}" data-type="JournalEntryPage" data-tooltip="${t("Litm.ui.user-manual")}"><i class="fas fa-file-lines"></i>Legend in the Mist</a> journal entry. It contains some important information about the system, and what to expect.</p>
 				<p>Once you've read the journal entry, you can click the button below to import all the rules and content required to play the Tinderbox Demo.</p>
-				<button type="button" id="litm--import-adventure" style="background: var(--litm-color-status-bg);"><strong>${t(
+				<button type="button" id="litm--import-adventure" style="margin-inline: auto; background: var(--litm-color-status-bg);"><strong>${t(
 					"Litm.ui.import-adventure",
 				)}</strong></button>
 				<p style="text-align:center;">Good luck, and have fun!</p>
@@ -671,8 +751,11 @@ export class LitmHooks {
 			game.settings.set("litm", "welcomed", true);
 		});
 
-		Hooks.on("renderChatMessage", (_app, html) => {
-			html.find("#litm--import-adventure").on("click", async () => {
+		Hooks.on("renderChatMessageHTML", (_app, html) => {
+			const button = html.querySelector("#litm--import-adventure");
+			if (!button) return;
+
+			button.addEventListener("click", async () => {
 				const adventure = await game.packs
 					.get("litm.tinderbox-demo")
 					.getDocuments();

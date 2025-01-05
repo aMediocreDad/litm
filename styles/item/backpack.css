@@ -4,17 +4,28 @@
 	background: none;
 	padding: 0px;
 	overflow: visible;
+	border: none;
+	box-shadow: none;
 
-	& .window-header {
+	&:not(.minimized) .window-header {
 		position: absolute;
 		padding-inline: 70px;
 		width: 100%;
 		flex-wrap: nowrap;
 		text-shadow: 1px 2px 2px var(--litm-color);
+		background: none;
+		border: none;
+	}
+
+	&.minimized .window-header {
+		border-radius: 4px;
 	}
 
 	& .window-content {
 		overflow: visible;
+		backdrop-filter: none;
+		-webkit-backdrop-filter: none;
+		padding: 0px;
 	}
 
 	& .litm--backpack-wrapper {
@@ -51,21 +62,13 @@
 		& .meta {
 			background: url(../../assets/media/backpack-top-bg.webp) no-repeat bottom
 				/ cover;
-			color: var(--litm-color-accent);
-			font-family: var(--litm-font-primary);
-			text-transform: uppercase;
-			font-size: var(--font-size-12);
-			text-align: center;
-			padding: var(--litm-space-2) var(--litm-space-3);
-		}
-
-		& .title {
-			color: var(--litm-color);
-			font-size: var(--font-size-32);
-			font-family: var(--litm-font-accent);
-			text-align: center;
-			background: none;
 			border: none;
+			outline: none;
+			color: var(--litm-color-accent);
+			font-family: var(--litm-font-accent);
+			font-size: var(--font-size-24);
+			text-align: center;
+			padding: 0.125rem var(--litm-space-3);
 
 			&:focus,
 			&:active {
@@ -79,52 +82,25 @@
 			flex-direction: column;
 			list-style: none;
 			margin: var(--litm-space-1) 0px 0px;
-			padding: var(--litm-space-2) var(--litm-space-3);
+			padding: var(--litm-space-2);
 			height: 100%;
 			overflow: auto;
 
 			& li {
 				display: flex;
 				align-items: center;
+				justify-content: space-between;
 				gap: var(--litm-space-3);
 				color: var(--litm-color);
+				margin: 0px;
 
-				&:nth-child(odd) {
+				&:nth-child(even) {
 					background-image: linear-gradient(
 						to right,
 						transparent,
 						rgba(69, 59, 29, 0.15),
 						transparent
 					);
-				}
-
-				& .tag--name {
-					text-align: center;
-					border: none;
-					border-radius: 0px;
-					padding-block: var(--litm-space-2);
-					min-height: var(--font-size-14);
-					height: auto;
-					background-color: transparent;
-					font-family: var(--litm-font-text);
-					color: var(--litm-color-primary);
-					width: 100%;
-					border-top: 1.5px solid rgb(0, 0, 0, 0.2);
-					border-image: url("../../assets/media/item-divider.webp") 14 / 2;
-
-					&:focus,
-					&:active {
-						box-shadow: none;
-					}
-
-					&:read-only {
-						cursor: auto;
-					}
-				}
-
-				& label {
-					display: flex;
-					cursor: pointer;
 				}
 			}
 		}

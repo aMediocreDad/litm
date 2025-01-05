@@ -110,9 +110,9 @@ export class StoryTagApp extends SheetMixin(FormApplication) {
 		// GM only listeners
 		if (!game.user.isGM) return;
 
-		this.#contextmenu = ContextMenu.create(
+		this.#contextmenu = foundry.applications.ui.ContextMenu.create(
 			this,
-			html,
+			html[0],
 			"[data-context='menu']",
 			[
 				{

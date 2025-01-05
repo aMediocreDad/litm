@@ -16,19 +16,22 @@ body {
 	--litm-color-accent: hsl(46.61 81.44% 92.99%);
 	--litm-color-accent-2: hsl(24deg 20.72% 43.81%);
 	--litm-color-accent-3: hsl(17, 84%, 31%);
-	--litm-color-primary-bg: color-mix(
-		in hsl,
-		var(--litm-color-accent) 75%,
-		hsl(0 0% 100%)
-	);
+	--litm-color-primary-bg: color-mix(in hsl,
+			var(--litm-color-accent) 75%,
+			hsl(0 0% 100%));
 	--litm-color-primary: color-mix(in hsl, var(--litm-color) 75%, hsl(0 0% 0%));
 	--litm-color-row-odd: rgb(0, 0, 0, 0.1);
 	--litm-color-weakness: hsl(10 41.04% 26.41%);
 	--litm-color-weakness-bg: hsl(6.5 42.05% 41.08% / 20%);
 	--litm-color-muted-bg: hsl(0 0% 45.42% / 20%);
-	--litm-color-tag-bg: hsl(45 98% 46% / 70%);
+	--litm-color-tag-bg: hsla(45, 81%, 51%, 0.7);
 	--litm-color-status-bg: hsl(75.88 48.31% 42.3% / 70%);
 	--litm-color-limit-bg: hsl(0 67.35% 63.41% / 70%);
+	--litm-color-origin-bg: hsl(145, 25%, 40%);
+	--litm-color-adventure-bg: hsl(359, 36%, 36%);
+	--litm-color-greatness-bg: hsl(240, 23%, 47%);
+	--litm-color-weakness-n-bg: hsl(30, 47%, 39%);
+
 
 	/* Fonts */
 	--litm-font-heading: PackardAntique, CaslonAntique, "Palatino Linotype",
@@ -37,8 +40,10 @@ body {
 		"Book Antiqua", Palatino, serif;
 	--litm-font-accent: AlchemyItalic, "Brush Script MT", "Bradley Hand ITC",
 		"Lucida Calligraphy", "Lucida Handwriting", "Apple Chancery", cursive;
-	--litm-font-text: Fraunces, LibreCaslonText, "Book Antiqua", Palatino, serif;
+	--litm-font-text: Labrada, LibreCaslonText, "Book Antiqua", Palatino, serif;
 	--litm-font-sc: PowellAntique, PackardAntique, Palatino, serif;
+	--litm-font-input: Caveat, "Brush Script MT", "Bradley Hand ITC",
+		"Lucida Calligraphy", "Lucida Handwriting", "Apple Chancery", cursive;
 
 	/* Vertical spacing */
 	--litm-space-1: 0.25rem;
@@ -49,8 +54,7 @@ body {
 
 	/* Foundry Overrides */
 	--font-size-26: 1.625rem;
-	--font-primary: Fraunces, BespokeSans, Lato, "PackardAntique", "Open Sans",
-		sans-serif;
+	--font-primary: Labrada, BespokeSans, Lato, "PackardAntique", "Open Sans", sans-serif;
 	--color-text-light-1: var(--litm-color-accent);
 	--color-shadow-primary: var(--litm-color-primary);
 	--color-shadow-highlight: var(--litm-color-accent-bg);
@@ -62,141 +66,8 @@ body {
 	--color-level-warning: rgba(214, 150, 0, 0.8);
 }
 
-/* DANGER AREA */
-/* TODO: Find a better way to override styles like this */
-
-/* Background-colors not implemented using css variables  */
-button,
-.directory .directory-header .header-search input {
-	background-color: var(--litm-color-alt-bg);
-}
-
-/* A border-color that was not implemented using css variables */
-#navigation #scene-list .scene.gm {
-	border-color: var(--litm-color-accent-bg);
-}
-
-/* Add more color to sidebar */
-#sidebar {
-	border: 2px solid var(--litm-color);
-}
-
-/* Custom dice roll chat messages */
-.chat-message:has(.litm.dice-roll) {
-	background-color: var(--litm-color-weakness);
-	background-blend-mode: color-burn;
-	color: var(--litm-color-primary-bg);
-	font-family: var(--litm-font-text);
-	font-size: var(--font-size-12);
-
-	&.whisper {
-		background-color: var(--color-border-dark-primary);
-	}
-
-	&.blind {
-		border-color: var(--color-level-warning);
-	}
-
-	&.self {
-		border-color: var(--color-level-error);
-	}
-
-	& .message-header {
-		color: color-mix(in hsl, var(--litm-color-accent) 70%, transparent);
-	}
-}
-
-/* Custom content links */
-a.content-link {
-	border: none;
-	border-radius: 0px;
-	background: none;
-	color: var(--litm-color-weakness);
-	outline: 1px solid;
-	outline-offset: -1px;
-	outline-style: dashed;
-
-	& i {
-		color: var(--litm-color-weakness);
-	}
-}
-
-/* Journal Entries background color */
-.window-app .window-content,
-.sheet.journal-entry .journal-entry-content {
-	background-color: var(--litm-color-alt-bg);
-	background-blend-mode: luminosity;
-}
-
-/* Fix the logo */
-#logo {
-	object-fit: contain;
-	object-position: top;
-	filter: drop-shadow(
-		0px 0px 3px color-mix(in hsl, var(--litm-color-bg) 60%, transparent)
-	);
-	margin-inline: 16px;
-	image-rendering: -webkit-optimize-contrast;
-}
-
-/* Fix the pause button */
-#pause {
-	background: none;
-	animation: pulse 3s infinite ease-in-out;
-	will-change: filter;
-
-	img {
-		opacity: 80%;
-		object-fit: contain;
-		object-position: center;
-		width: 220px;
-		height: 220px;
-		top: -55px;
-		left: calc(50% - 110px);
-		transform-origin: center;
-		rotate: 39deg;
-	}
-
-	figcaption {
-		color: var(--litm-color-accent);
-		text-shadow: 2px 2px 2px var(--litm-color);
-		font-family: var(--litm-font-heading);
-		font-weight: 800;
-		letter-spacing: 2.5px;
-		padding: 0;
-		margin: 0;
-	}
-}
-
-@media (prefers-reduced-motion) {
-	#pause {
-		animation: none;
-	}
-}
-
-/* Reduce size of tooltips */
-#tooltip,
-aside[role="tooltip"] {
-	font-size: var(--font-size-14);
-
-	& a.content-link {
-		color: var(--litm-color-accent);
-
-		& i {
-			color: var(--litm-color-accent);
-		}
-	}
-}
-
-/* Draggable should have grap-cursor */
-[draggable="true"] {
-	cursor: grab;
-}
-
-/* END DANGER AREA */
-
 /* App core style overrides */
-
+.application.litm,
 .app.litm {
 	background: url("../assets/media/background.webp") no-repeat left / cover;
 	box-shadow: none;
@@ -224,6 +95,7 @@ aside[role="tooltip"] {
 		&:focus,
 		&:active {
 			box-shadow: none;
+			outline: none;
 		}
 	}
 
@@ -282,20 +154,5 @@ aside[role="tooltip"] {
 			font-size: var(--font-size-14);
 			margin: 0.8em 0px;
 		}
-	}
-}
-
-/* Animations */
-@keyframes pulse {
-	0% {
-		filter: drop-shadow(0 0 0 transparent);
-	}
-
-	50% {
-		filter: drop-shadow(0 0 4px var(--litm-color-alt-bg));
-	}
-
-	100% {
-		filter: drop-shadow(0 0 0 transparent);
 	}
 }

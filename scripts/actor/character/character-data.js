@@ -4,7 +4,9 @@ export class CharacterData extends foundry.abstract.TypeDataModel {
 	static defineSchema() {
 		const fields = foundry.data.fields;
 		return {
+			experience: new fields.NumberField(),
 			note: new fields.HTMLField(),
+			specials: new fields.StringField({ isArray: true }),
 		};
 	}
 
@@ -93,17 +95,17 @@ export class CharacterData extends foundry.abstract.TypeDataModel {
 
 	async prepareDerivedData() {
 		// Make sure only four themes are present
-		const themes = this.parent.items.filter((item) => item.type === "theme");
-		if (themes.length > 4) {
-			warn(
-				`Too many themes found for ${this.parent.name}, attempting to resolve...`,
-			);
-			const toDelete = themes.slice(4);
-			await this.parent.deleteEmbeddedDocuments(
-				"Item",
-				toDelete.map((item) => item._id),
-			);
-		}
+		// const themes = this.parent.items.filter((item) => item.type === "theme");
+		// if (themes.length > 4) {
+		// 	warn(
+		// 		`Too many themes found for ${this.parent.name}, attempting to resolve...`,
+		// 	);
+		// 	const toDelete = themes.slice(4);
+		// 	await this.parent.deleteEmbeddedDocuments(
+		// 		"Item",
+		// 		toDelete.map((item) => item._id),
+		// 	);
+		// }
 
 		// Make sure only one backpack is present
 		const backpacks = this.parent.items.filter(

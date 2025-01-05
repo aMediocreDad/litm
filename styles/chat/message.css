@@ -50,11 +50,9 @@
 
 		.part-flavor {
 			&.burned {
-				color: color-mix(
-					in hsl,
-					var(--litm-color-weakness) 60%,
-					var(--litm-color-accent)
-				);
+				color: color-mix(in hsl,
+						var(--litm-color-weakness) 60%,
+						var(--litm-color-accent));
 			}
 
 			&.positive {
@@ -114,48 +112,37 @@
 		border: 2px solid var(--litm-color-alt-bg);
 		color: var(--litm-color-alt-bg);
 		scale: 0.9;
+		width: 100%;
 
 		&.litm--roll-approve-button {
-			color: color-mix(
-				in hsl,
-				var(--litm-color-status-bg) 70%,
-				var(--litm-color-accent)
-			);
-			border-color: color-mix(
-				in hsl,
-				var(--litm-color-status-bg) 70%,
-				var(--litm-color-accent)
-			);
+			color: color-mix(in hsl,
+					var(--litm-color-status-bg) 70%,
+					var(--litm-color-accent));
+			border-color: color-mix(in hsl,
+					var(--litm-color-status-bg) 70%,
+					var(--litm-color-accent));
 		}
 
 		&.litm--roll-reject-button {
-			color: color-mix(
-				in hsl,
-				var(--litm-color-limit-bg) 70%,
-				var(--litm-color-accent)
-			);
-			border-color: color-mix(
-				in hsl,
-				var(--litm-color-limit-bg) 70%,
-				var(--litm-color-accent)
-			);
+			color: color-mix(in hsl,
+					var(--litm-color-limit-bg) 70%,
+					var(--litm-color-accent));
+			border-color: color-mix(in hsl,
+					var(--litm-color-limit-bg) 70%,
+					var(--litm-color-accent));
 		}
 
 		&.litm--roll-burn-button {
-			color: color-mix(
-				in hsl,
-				var(--litm-color-weakness) 60%,
-				var(--litm-color-accent)
-			);
-			border-color: color-mix(
-				in hsl,
-				var(--litm-color-weakness) 60%,
-				var(--litm-color-accent)
-			);
+			color: color-mix(in hsl,
+					var(--litm-color-weakness) 60%,
+					var(--litm-color-accent));
+			border-color: color-mix(in hsl,
+					var(--litm-color-weakness) 60%,
+					var(--litm-color-accent));
 		}
 
 		&:hover {
-			text-shadow: 1px 2px 4px var(--litm-color-primary);
+			text-shadow: 0px 0px 2px var(--litm-color-accent);
 		}
 	}
 }

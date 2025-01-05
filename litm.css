@@ -1,4 +1,5 @@
 @import "./styles/root.css";
+@import "./styles/foundry.css";
 @import "./styles/components.css";
 @import "./styles/item/backpack.css";
 @import "./styles/item/theme.css";
@@ -10,4 +11,5 @@
 @import "./styles/apps/sidebar-buttons.css";
 @import "./styles/apps/story-tags.css";
 @import "./styles/chat/message.css";
+@import "./styles/dark.css";
 @import "./styles/popout.css";

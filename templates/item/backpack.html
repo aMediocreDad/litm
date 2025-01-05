@@ -1,16 +1,15 @@
-<form autocomplete="off" class="litm--backpack-wrapper">
+<div autocomplete="off" class="litm--backpack-wrapper">
 	<img width="380px" class="litm--backpack-img" src="systems/litm/assets/media/backpack.webp"
 		alt="Soft illustration of a rustic backpack" />
 	<img width="270px" class="litm--backpack-bg-frame" src="systems/litm/assets/media/background-frame.webp"
 		aria-hidden="true">
 	<div class="litm--backpack-bg">
-		<div class="meta">{{localize 'Litm.tags.item-tags'}}</div>
-		<input class="title" name="name" value="{{name}}" />
+		<input class="meta" name="name" value="{{name}}" />
 		<ul class="taglist">
 			{{#each backpack as |tag|}}
-				{{> systems/litm/templates/partials/tag.html tag=tag key=@key path="system.contents" readonly=false remove=true}}
+			{{> systems/litm/templates/partials/tag.html tag=tag key=@key path="system.contents" readonly=false remove=true}}
 			{{/each}}
 		</ul>
 		<button type="button" data-click="add-tag">{{localize "Litm.ui.add-tag"}}</button>
 	</div>
-</form>
+</div>

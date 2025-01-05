@@ -17,7 +17,7 @@
 		height: 450px !important;
 	}
 
-	& + .litm--roll .window-content form {
+	&+.litm--roll .window-content form {
 		overflow: auto;
 	}
 }

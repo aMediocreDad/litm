@@ -2,7 +2,9 @@ import { SheetMixin } from "../../mixins/sheet-mixin.js";
 import { confirmDelete, dispatch } from "../../utils.js";
 import { localize as t } from "../../utils.js";
 
-export class CharacterSheet extends SheetMixin(ActorSheet) {
+const { ActorSheetV2 } = foundry.applications.sheets;
+
+export class CharacterSheet extends SheetMixin(ActorSheetV2) {
 	static defaultOptions = foundry.utils.mergeObject(ActorSheet.defaultOptions, {
 		classes: ["litm", "litm--character"],
 		width: 250,
@@ -177,9 +179,9 @@ export class CharacterSheet extends SheetMixin(ActorSheet) {
 			else this.#tagsHovered = false;
 		});
 
-		this.#contextmenu = ContextMenu.create(
+		this.#contextmenu = foundry.applications.ui.ContextMenu.create(
 			this,
-			html,
+			html[0],
 			"[data-context='menu']",
 			[
 				{
@@ -204,11 +206,10 @@ export class CharacterSheet extends SheetMixin(ActorSheet) {
 				hookName: "LitmItemContextMenu",
 			},
 		);
-		this.#contextmenu._setPosition = function (html, target) {
-			this._expandUp = true;
-			html.toggleClass("expand-up", this._expandUp);
+		this.#contextmenu._setPosition = (html, target) => {
+			html.classList.add("expand-up");
 			target.append(html);
-			target.addClass("context");
+			target.classList.add("context");
 		};
 	}
 
@@ -252,11 +253,11 @@ export class CharacterSheet extends SheetMixin(ActorSheet) {
 
 		if (this.items.get(item.id)) return this._onSortItem(event, item);
 
-		const numThemes = this.items.filter((i) => i.type === "theme").length;
-		if (item.type === "theme" && numThemes >= 4)
-			return ui.notifications.warn(
-				game.i18n.localize("Litm.ui.warn-theme-limit"),
-			);
+		// const numThemes = this.items.filter((i) => i.type === "theme").length;
+		// if (item.type === "theme" && numThemes >= 4)
+		// 	return ui.notifications.warn(
+		// 		game.i18n.localize("Litm.ui.warn-theme-limit"),
+		// 	);
 
 		const numBackpacks = this.items.filter((i) => i.type === "backpack").length;
 		if (item.type === "backpack" && numBackpacks >= 1)

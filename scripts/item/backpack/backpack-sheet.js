@@ -1,25 +1,38 @@
 import { SheetMixin } from "../../mixins/sheet-mixin.js";
 import { confirmDelete, localize as t } from "../../utils.js";
 
-export class BackpackSheet extends SheetMixin(ItemSheet) {
-	/** @override */
-	static get defaultOptions() {
-		return foundry.utils.mergeObject(super.defaultOptions, {
-			classes: ["litm", "litm--backpack"],
+const { HandlebarsApplicationMixin } = foundry.applications.api;
+const { ItemSheetV2 } = foundry.applications.sheets;
+
+export class BackpackSheet extends SheetMixin(
+	HandlebarsApplicationMixin(ItemSheetV2),
+) {
+	static PARTS = {
+		form: {
 			template: "systems/litm/templates/item/backpack.html",
-			width: 400,
+			scrollable: [".taglist"]
+		},
+	};
+
+	static DEFAULT_OPTIONS = {
+		classes: ["litm", "litm--backpack"],
+		form: {
+			submitOnChange: true,
+		},
+		position: {
 			height: 450,
+			width: 400
+		},
+		window: {
 			resizable: false,
-			scrollY: [".taglist"],
-		});
-	}
+		},
+	};
 
 	get system() {
 		return this.item.system;
 	}
 
-	/** @override */
-	async getData() {
+	async _preparePartContext(_id, _context) {
 		return { backpack: this.system.contents, name: this.item.name };
 	}
 

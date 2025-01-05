@@ -33,17 +33,27 @@ export class Fonts {
 				},
 			],
 		});
-		FontConfig.loadFont("Fraunces", {
+		FontConfig.loadFont("Caveat", {
 			editor: true,
 			fonts: [
 				{
-					name: "Fraunces",
-					urls: ["systems/litm/assets/fonts/fraunces.ttf"],
+					name: "Caveat",
+					urls: ["systems/litm/assets/fonts/caveat_wght.woff2"],
+					weight: "300 800",
+				},
+			],
+		});
+		FontConfig.loadFont("Labrada", {
+			editor: true,
+			fonts: [
+				{
+					name: "Labrada",
+					urls: ["systems/litm/assets/fonts/labrada_wght.woff2"],
 					weight: "300 800",
 				},
 				{
-					name: "Fraunces",
-					urls: ["systems/litm/assets/fonts/fraunces-i.ttf"],
+					name: "Labrada",
+					urls: ["systems/litm/assets/fonts/labrada_i_wght.woff2"],
 					style: "italic",
 					weight: "300 800",
 				},

@@ -68,6 +68,10 @@ export class LitmRoll extends Roll {
 		return { label: "failure", description: "Litm.ui.roll-failure" };
 	}
 
+	get modifier() {
+		return this.options.modifier || 0;
+	}
+
 	async render({
 		template = this.constructor.CHAT_TEMPLATE,
 		isPrivate = false,
@@ -86,6 +90,7 @@ export class LitmRoll extends Roll {
 			total: isPrivate ? "" : Math.round(this.total * 100) / 100,
 			type: this.litm.type,
 			effect: this.effect,
+			modifier: isPrivate ? "???" : this.modifier,
 			user: game.user.id,
 			isOwner: game.user.isGM || this.actor.isOwner,
 			hasBurnedTags: !this.litm.isBurnt && this.litm.burnedTags.length > 0,
@@ -113,6 +118,7 @@ export class LitmRoll extends Roll {
 			weaknessTags: this.litm.weaknessTags,
 			positiveStatuses: this.litm.positiveStatuses,
 			negativeStatuses: this.litm.negativeStatuses,
+			modifier: this.modifier,
 		};
 	}
 }

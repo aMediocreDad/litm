@@ -1,89 +1,104 @@
 {
+	"adventure": "Aventura",
+	"consequence": "Éxito parcial",
+	"failure": "Fallo",
+	"greatness": "Grandeza",
 	"Litm": {
+		"challenges": {
+			"attacker": "Atacante",
+			"barrier-hazard": "Barrera o Peligro",
+			"charge": "Protegido",
+			"countdown": "Cuenta atrás",
+			"mystery": "Misterio",
+			"pursuer": "Perseguidor",
+			"quarry": "Presa",
+			"temptation": "Tentación",
+			"watcher": "Vigilante"
+		},
 		"effects": {
-			"category-target": "Contra un oponente u objetivo",
-			"category-ally": "Para ti o un aliado",
-			"category-process": "En un proceso",
-			"category-other": "Otro efecto",
-			"category-consequence": "Contra una consecuencia",
-			"effect": "Efecto",
+			"advance": {
+				"action": "Incrementa un estado de progreso un rango por cada 1 de Poder.",
+				"cost": "1 de Poder por rango.",
+				"description": "Hacer progreso, acercarse, avanzar.",
+				"key": "Avanzar"
+			},
 			"attack": {
-				"key": "Atacar",
-				"description": "Cortar, golpear, maldecir, disparar.",
 				"action": "Otorga al objetivo un estado nocivo.",
-				"cost": "1 Power per tier."
-			},
-			"disrupt": {
-				"key": "Interferir",
-				"description": "Cegar, confundir, conmocionar, derribar, interrumpir.",
-				"action": "Da a tu objetivo un estado o etiqueta que obstaculice.",
-				"cost": "1 de Poder por rango, 2 de Poder por etiqueta."
-			},
-			"influence": {
-				"key": "Influenciar",
-				"description": "Convencer, amenazar, probocar, control metal.",
-				"action": "Otorga a tu objetivo un estado apropiado.",
-				"cost": "1 de Poder por rango."
-			},
-			"weaken": {
-				"key": "Debilitar",
-				"description": "Romper, dividir, neutralizar, silenciar.",
-				"action": "Elimina una etiqueta o estado beneficioso de un objetivo.",
-				"cost": "1 de Poder por rango, 2 de Poder por etiqueta."
+				"cost": "1 Power per tier.",
+				"description": "Cortar, golpear, maldecir, disparar.",
+				"key": "Atacar"
 			},
 			"bestow": {
-				"key": "Otorgar",
-				"description": "Teach, empower, enchant, equip.",
 				"action": "Give yourself or an ally new abilities using tags.",
-				"cost": "2 de Poder por etiqueta."
+				"cost": "2 de Poder por etiqueta.",
+				"description": "Teach, empower, enchant, equip.",
+				"key": "Otorgar"
 			},
-			"enhance": {
-				"key": "Mejorar",
-				"description": "Asistir, apuntar, potenciar, cubrirse.",
-				"action": "Otorga a ti o a un aliado un estado beneficioso.",
-				"cost": "1 de Poder por rango."
-			},
+			"category-ally": "Para ti o un aliado",
+			"category-consequence": "Contra una consecuencia",
+			"category-other": "Otro efecto",
+			"category-process": "En un proceso",
+			"category-target": "Contra un oponente u objetivo",
 			"create": {
-				"key": "Crear",
-				"description": "Crear, encontrar, comprar, invocar, reunir.",
 				"action": "Crea un nuevo objeto o ser usando etiquetas.",
-				"cost": "2 de Poder por etiqueta."
-			},
-			"restore": {
-				"key": "Restaurar",
-				"description": "Sanar, reparar, rejuvenecer, deshacer.",
-				"action": "Reduce un estado perjudicial o recupera una etiqueta de poder quemada.",
-				"cost": "1 de Poder por rango, 2 de Poder por etiqueta."
-			},
-			"advance": {
-				"key": "Avanzar",
-				"description": "Hacer progreso, acercarse, avanzar.",
-				"action": "Incrementa un estado de progreso un rango por cada 1 de Poder.",
-				"cost": "1 de Poder por rango."
-			},
-			"set_back": {
-				"key": "Retrasar",
-				"description": "Retrasar, arruinar, sabotear, revertir.",
-				"action": "Reduce un estado de progreso.",
-				"cost": "1 de Poder por rango."
-			},
-			"mitigate": {
-				"key": "Mitigar",
-				"description": "Bloquear, esquivar, parar, absorber.",
-				"action": "Reducir o cancelar efectos recibidos.",
-				"cost": "1 de Poder por rango, 2 de Poder por etiqueta."
+				"cost": "2 de Poder por etiqueta.",
+				"description": "Crear, encontrar, comprar, invocar, reunir.",
+				"key": "Crear"
 			},
 			"discover": {
-				"key": "Discover",
-				"description": "Sense, recall, research, converse.",
 				"action": "Discover a valuable detail.",
-				"cost": "1 Power per detail."
+				"cost": "1 Power per detail.",
+				"description": "Sense, recall, research, converse.",
+				"key": "Discover"
+			},
+			"disrupt": {
+				"action": "Da a tu objetivo un estado o etiqueta que obstaculice.",
+				"cost": "1 de Poder por rango, 2 de Poder por etiqueta.",
+				"description": "Cegar, confundir, conmocionar, derribar, interrumpir.",
+				"key": "Interferir"
+			},
+			"effect": "Efecto",
+			"enhance": {
+				"action": "Otorga a ti o a un aliado un estado beneficioso.",
+				"cost": "1 de Poder por rango.",
+				"description": "Asistir, apuntar, potenciar, cubrirse.",
+				"key": "Mejorar"
 			},
 			"extra_feat": {
-				"key": "Extra Feat",
-				"description": "Add a feature or minor achievement to an action.",
 				"action": "",
-				"cost": "1 Power per additional feature or minor achievement included in the action."
+				"cost": "1 Power per additional feature or minor achievement included in the action.",
+				"description": "Add a feature or minor achievement to an action.",
+				"key": "Extra Feat"
+			},
+			"influence": {
+				"action": "Otorga a tu objetivo un estado apropiado.",
+				"cost": "1 de Poder por rango.",
+				"description": "Convencer, amenazar, probocar, control metal.",
+				"key": "Influenciar"
+			},
+			"mitigate": {
+				"action": "Reducir o cancelar efectos recibidos.",
+				"cost": "1 de Poder por rango, 2 de Poder por etiqueta.",
+				"description": "Bloquear, esquivar, parar, absorber.",
+				"key": "Mitigar"
+			},
+			"restore": {
+				"action": "Reduce un estado perjudicial o recupera una etiqueta de poder quemada.",
+				"cost": "1 de Poder por rango, 2 de Poder por etiqueta.",
+				"description": "Sanar, reparar, rejuvenecer, deshacer.",
+				"key": "Restaurar"
+			},
+			"set_back": {
+				"action": "Reduce un estado de progreso.",
+				"cost": "1 de Poder por rango.",
+				"description": "Retrasar, arruinar, sabotear, revertir.",
+				"key": "Retrasar"
+			},
+			"weaken": {
+				"action": "Elimina una etiqueta o estado beneficioso de un objetivo.",
+				"cost": "1 de Poder por rango, 2 de Poder por etiqueta.",
+				"description": "Romper, dividir, neutralizar, silenciar.",
+				"key": "Debilitar"
 			}
 		},
 		"name": "Legend in the Mist",
@@ -98,8 +113,8 @@
 			"description": "Descripción",
 			"experience": "Experiencia",
 			"level": "Nivel",
-			"limits": "Límites",
 			"limit": "Límite",
+			"limits": "Límites",
 			"outcome": "Resultado",
 			"rating": "Valor",
 			"roll": "Tirada",
@@ -108,15 +123,20 @@
 			"tags": "Etiquetas",
 			"themebook": "Libreto",
 			"threat": "Amenaza",
+			"transfer": "Transferir",
 			"unnamed": "Sin nombre"
+		},
+		"settings": {
+			"skip-roll-moderation": "Omitir Moderación de Tiradas",
+			"skip-roll-moderation-hint": "Si está marcado, los jugadores podrán tirar sin moderación del GM."
 		},
 		"tags": {
 			"activate": "Activar",
 			"burn": "Quemar",
 			"decay": "Deterioro",
 			"isActive": "Activo",
-			"isInactive": "Inactivo",
 			"isBurnt": "Quemado",
+			"isInactive": "Inactivo",
 			"item-tags": "Etiquetas de objeto",
 			"power": "Poder",
 			"story": "Historia",
@@ -124,105 +144,128 @@
 		},
 		"themes": {
 			"circumstance": "Circunstancia",
-			"past": "Pasado",
-			"devotion": "Devoción",
-			"mystery": "Misterio",
-			"people": "Gente",
-			"possessions": "Posesiones",
-			"personality": "Personalidad",
-			"trade-or-skill": "Oficio u aptitud",
-			"trait": "Rasgo",
-			"hedge-magic": "Magia Protectora",
-			"prodigious-skill": "Aptitud prodigiosa",
-			"duty": "Deber",
-			"relic": "Reliquia",
-			"uncanny-being": "Ser Sobrenatural",
-			"thaumaturgy": "Taumaturgia",
-			"rulership": "Dominio",
 			"destiny": "Destino",
+			"devotion": "Devoción",
+			"duty": "Deber",
+			"grand-thaumaturgy": "Gran Taumaturgia",
+			"hedge-magic": "Magia Protectora",
 			"mastery": "Maestría",
 			"monstrosity": "Monstruosidad",
-			"grand-thaumaturgy": "Gran Taumaturgia"
+			"mystery": "Misterio",
+			"past": "Pasado",
+			"people": "Gente",
+			"personality": "Personalidad",
+			"possessions": "Posesiones",
+			"prodigious-skill": "Aptitud prodigiosa",
+			"relic": "Reliquia",
+			"rulership": "Dominio",
+			"thaumaturgy": "Taumaturgia",
+			"trade-or-skill": "Oficio u aptitud",
+			"trait": "Rasgo",
+			"uncanny-being": "Ser Sobrenatural"
 		},
 		"ui": {
 			"add-consequence": "Añadir consecuencia",
-			"add-tag": "Añadir etiqueta",
 			"add-limit": "Añadir límite",
+			"add-tag": "Añadir etiqueta",
 			"add-theme": "Añadir tema",
 			"add-threat": "Añadir amenaza",
+			"approve": "Aprobar",
 			"burn-tags": "Quemar etiquetas",
 			"cancel": "Cancelar",
+			"change-roll-type": "Cambiar tipo de tirada",
+			"click-open-context-remove": "<span class='reference'>Click</span> para abrir hoja, <span class='reference'>Click derecho</span> para eliminar.",
 			"confirm-delete-content": "¿Seguro que quieres eliminar este/a {thing}?",
 			"confirm-delete-title": "Confirmar borrado",
 			"context-edit": "<span class='reference'>Click derecho</span> para editar",
+			"context-remove-all-tags": "<span class='reference'>Click derecho</span> para eliminar todas las etiquetas de historia",
 			"dblclick-open": "Doble click para editar",
 			"dice-roller": "Lanzador de dados",
 			"dice-roller-hint": "Abre la ventana de lanzamiento de dados si el personaje está enlazado al usuario.",
+			"drag-apply": "Arrastra a Actores o a la ventana de Historia para aplicar",
 			"drop-actors": "Arrastra actores aquí",
 			"edit": "Editar",
 			"error-burning-tag": "Ha habido un error intentando quemar tu etiqueta. Por favor, mira la consola para más información.",
 			"error-conducting-roll": "Ha habido un error realizando la tirada. Mira la consola para más información.",
 			"error-no-actor": "No se encontró el actor. Por favor, asegúrate de que el actor existe y está configurado correctamente.",
+			"error-no-backpack": "No se encontró mochila. Intenta duplicar el actor para resolver este problema.",
 			"error-validating-actor": "Ha habido un error validando el actor. Por favor, mira la consola para más información.",
 			"error-validating-item": "Ha habido un error validando el item. Mira la consola para más información.",
 			"gain-exp": "Ganar experiencia",
-			"info-imported-character": "{name} importado correctamente.",
 			"import-actor": "Importar Actor desde JSON",
 			"import-adventure": "Importar el contenido de Tinderbox",
 			"inc-dec": "Click izquierdo para incrementar<br /> Click derecho para reducir",
+			"info-imported-character": "{name} importado correctamente.",
+			"item-transfer-content": "Selecciona las etiquetas que quieres transferir a tu mochila.",
+			"item-transfer-success": "Transferido {items} a tu mochila.",
+			"item-transfer-title": "Transferir etiquetas de mochila",
 			"manage-tags": "Gestionar Etiquetas y Estados",
+			"moderate-roll-gm": "Moderar Tirada",
+			"moderate-roll-gm-hint": "quiere tirar con un",
+			"moderate-roll-player": "¡Espera!",
+			"moderate-roll-player-hint": "El GM está moderando la tirada. Por favor, espera a su decisión.",
+			"modifier": "Modificador",
+			"name-category": "Dale un tipo",
+			"name-consequence": "Nombra tu Consecuencia usando [etiqueta] para indicar etiquetas y [etiqueta 0] para indicar estados.",
 			"name-motivation": "Escribe tu motivación.",
 			"name-note": "Dale a tu Tema una descripción.",
 			"name-power": "Nombra tu Poder",
-			"name-category": "Dale un tipo",
 			"name-tag": "Nombra tu etiqueta",
 			"name-weakness": "Nombra tu Debilidad",
-			"name-consequence": "Nombra tu Consecuencia usando [etiqueta] para indicar etiquetas y [etiqueta 0] para indicar estados.",
-			"remove-tag": "Eliminar etiqueta",
+			"player-skipped-moderation": "{name} ha omitido la moderación de la tirada.",
+			"reject": "Rechazar",
+			"remove": "Eliminar",
 			"remove-actors": "Eliminar actores",
 			"remove-story-tags": "Eliminar Etiquetas de Historia",
+			"remove-tag": "Eliminar etiqueta",
 			"rename": "Renombrar",
 			"rename-challenge": "Renombrar Desafío",
-			"remove": "Eliminar",
 			"roll": "¡Tirar!",
 			"roll-consequence": "La acción tiene éxito, pero hay consecuencias.",
 			"roll-failure": "La acción falla. Hay consecuencias.",
 			"roll-gm-moderate": "Has recibido una tirada de {name}. Haz los ajustes necesarios y haz click en 'Tirar'.",
+			"roll-mitigate": "Mitigar",
 			"roll-moderated": "El GM está moderando la tirada. Espera a su decisión.",
 			"roll-quick": "Resultado rápido",
+			"roll-rejected": "{name} ha rechazado la tirada. Por favor, haz los ajustes necesarios o cierra el diálogo si no tenías intención de tirar.",
 			"roll-success": "La acción tiene éxito. No hay consecuencias.",
-			"roll-tracked-hint": "<span class='reference'>Click derecho</span> para publicar los Efectos en el chat.",
-			"roll-tracked-success": "Puedes forzar la tirada aceptando consecuencias para obtener 1 más de Poder para gastar en efectos.",
 			"roll-title": "Tirar los dados",
 			"roll-tracked": "Resultado monitorizado",
+			"roll-tracked-hint": "<span class='reference'>Click derecho</span> para publicar los Efectos en el chat.",
+			"roll-tracked-success": "Puedes forzar la tirada aceptando consecuencias para obtener 1 más de Poder para gastar en efectos.",
 			"selected": "Seleccionado",
 			"show-tag-window-on-load": "Mostrar gestor de etiquetas al cargar",
 			"show-tag-window-on-load-hint": "Al activarlo el gestor de etiquetas será automáticamente mostrado cuando cargue el juego. Siempre puedes hacer click en el icono de etiqueta para mostrarlo manualmente.",
+			"skip-moderation": "Omitir moderación del GM",
 			"special-features": "Rasgos especiales",
 			"status": "Modificadores finales de estado",
 			"tags-statuses": "Etiquetas y Estados",
+			"threats-consequences": "> Amenazas / >> Consecuencias",
 			"toggle-burnt": "<span class='reference'>OPCIÓN + Click</span> para quemar/restablecer etiqueta.",
 			"toggle-roll": "<span class='reference'>Click</span> para añadir/quitar a la tirada. <br /> <span class='reference'>MAYUS + Click</span> para quemar una etiqueta para la tirada. <br /> <span class='reference'>OPCIÓN + Click</span> para quemar/restablecer una etiqueta.",
 			"toggle-weakness-roll": "<span class='reference'>Click</span> para añadir/quitar de la tirada.",
 			"total-power": "Poder total",
+			"user-manual": "Abrir manual de usuario",
 			"warn-incompatible-data": "Los datos que estás tratando de importar no son compatibles con este sistema.",
-			"threats-consequences": "> Amenazas / >> Consecuencias",
-			"warn-no-effect-found": "El juego no está bien configurado. El efecto seleccionado no existe.",
 			"warn-no-character": "Asigna un personaje a tu usuario en el menú de configuración de jugadores en la esquina inferior izquierda.",
+			"warn-no-effect-found": "El juego no está bien configurado. El efecto seleccionado no existe.",
 			"warn-not-owner": "No eres el propietario de este actor. No puedes editarlo.",
+			"warn-not-supported": "No soportado por el actor actual",
 			"warn-theme-limit": "Has llegado al número máximo de temas. Por favor, elimina un tema antes de añadir otro."
 		}
 	},
-	"TYPES.Actor.challenge": "Desafío",
-	"TYPES.Actor.character": "Personaje",
-	"TYPES.Item.backpack": "Mochila",
-	"TYPES.Item.theme": "Tema",
-	"TYPES.Item.threat": "Amenaza",
-	"failure": "Fallo",
-	"consequence": "Éxito parcial",
-	"success": "Éxito completo",
+	"Notes": "Notas",
 	"origin": "Origen",
-	"adventure": "Aventura",
-	"greatness": "Grandeza",
-	"Notes": "Notas"
+	"success": "Éxito completo",
+	"TYPES": {
+		"Actor": {
+			"challenge": "Desafío",
+			"character": "Personaje"
+		},
+		"Item": {
+			"backpack": "Mochila",
+			"theme": "Tema",
+			"threat": "Amenaza"
+		}
+	}
 }

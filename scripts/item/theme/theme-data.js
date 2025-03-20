@@ -23,31 +23,29 @@ export class ThemeData extends foundry.abstract.TypeDataModel {
 				new fields.EmbeddedDataField(abstract.TagData),
 				{
 					initial: () =>
-						Array(5)
+						Array(10)
 							.fill()
-							.map((_, i) => ({
+							.map(() => ({
 								id: foundry.utils.randomID(),
-								name: `${i < 2 ? `${t("Litm.ui.name-power")}` : ""}`,
+								name: "",
 								type: "powerTag",
-								isActive: i < 2,
+								isActive: false,
 								isBurnt: false,
 							})),
-					validate: (tags) => tags.length === 5,
+					validate: (tags) => tags.length === 10,
 				},
 			),
 			weaknessTags: new fields.ArrayField(
 				new fields.EmbeddedDataField(abstract.TagData),
 				{
-					initial: () => [
-						{
-							id: foundry.utils.randomID(),
-							name: t("Litm.ui.name-weakness"),
-							isActive: true,
-							isBurnt: false,
-							type: "weaknessTag",
-						},
-					],
-					validate: (tags) => tags.length === 1,
+					initial: () => Array(2).fill().map(() => ({
+						id: foundry.utils.randomID(),
+						name: t("Litm.ui.name-weakness"),
+						isActive: true,
+						isBurnt: false,
+						type: "weaknessTag",
+					})),
+					validate: (tags) => tags.length === 2,
 				},
 			),
 			experience: new fields.NumberField({
@@ -72,12 +70,44 @@ export class ThemeData extends foundry.abstract.TypeDataModel {
 	}
 
 	static migrateData(source) {
-		if (!("level" in source)) return super.migrateData(source);
+		const numPowerTags = source.powerTags.length;
+		if (numPowerTags < 10) {
+			source.powerTags = [
+				...source.powerTags,
+				...Array(10 - numPowerTags)
+					.fill()
+					.map((_, i) => ({
+						id: foundry.utils.randomID(),
+						name: `${i < 2 ? `${t("Litm.ui.name-power")}` : ""}`,
+						type: "powerTag",
+						isActive: i < 2,
+						isBurnt: false,
+					})),
+			];
+		}
+		if (numPowerTags > 10) {
+			source.powerTags = source.powerTags.slice(0, 10);
+		}
 
-		const lowerCaseLevel = source.level.toLowerCase();
-		const configLevels = Object.keys(CONFIG.litm.theme_levels);
-		if (!configLevels.includes(lowerCaseLevel)) source.level = configLevels[0];
-		else source.level = lowerCaseLevel;
+		const numWeaknessTags = source.weaknessTags.length;
+		if (numWeaknessTags < 2) {
+			source.weaknessTags = [
+				...source.weaknessTags,
+				...Array(2 - numWeaknessTags)
+					.fill()
+					.map(() => ({
+						id: foundry.utils.randomID(),
+						name: t("Litm.ui.name-weakness"),
+						isActive: true,
+						isBurnt: false,
+						type: "weaknessTag",
+					})),
+			];
+		}
+		if (numWeaknessTags > 2) {
+			source.weaknessTags = source.weaknessTags.slice(0, 2);
+		}
+
 		return super.migrateData(source);
 	}
 
@@ -107,7 +137,7 @@ export class ThemeData extends foundry.abstract.TypeDataModel {
 	}
 
 	get weakness() {
-		return this.weaknessTags[0];
+		return this.weaknessTags;
 	}
 
 	get allTags() {

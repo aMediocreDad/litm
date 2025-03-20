@@ -30,7 +30,7 @@ import { LitmSettings } from "./scripts/system/settings.js";
 import { Sockets } from "./scripts/system/sockets.js";
 
 // Set the logo to the LitM logo
-$("#logo")[0].src = "systems/litm/assets/media/logo.webp";
+$("#logo").attr("src", "systems/litm/assets/media/logo.webp");
 
 // Register Custom Elements
 ToggledInput.Register();

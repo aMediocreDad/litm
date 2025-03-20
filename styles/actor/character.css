@@ -378,8 +378,7 @@
 		}
 
 		& .litm--theme-background {
-			overflow: hidden;
-			overflow: clip;
+			overflow: visible;
 		}
 
 		& .litm--theme-top {
@@ -584,11 +583,12 @@
 		content: "";
 		position: absolute;
 		width: 80%;
-		height: calc(10px + 100%);
+		height: calc(5px + 100%);
 		background: url(../../assets/media/brush.svg) no-repeat center;
 		background-blend-mode: color;
 		background-size: contain;
 		opacity: 0.8;
+		top: -5px;
 		left: 50%;
 		transform: translateX(-50%);
 	}

@@ -1,4 +1,8 @@
 {
+	"adventure": "Eventyr",
+	"consequence": "Blandet Suksess",
+	"failure": "Feilet",
+	"greatness": "Storhet",
 	"Litm": {
 		"challenges": {
 			"attacker": "Angriper",
@@ -12,89 +16,89 @@
 			"watcher": "Vokter"
 		},
 		"effects": {
-			"category-target": "Mot en motstander eller et mål",
-			"category-ally": "For deg selv eller en alliert",
-			"category-process": "Ifm. en prosess",
-			"category-other": "Annen effekt",
-			"category-consequence": "Konsekvens",
-			"effect": "Effekt",
+			"advance": {
+				"action": "Eskaler en prosess eller en status.",
+				"cost": "1 Styrke per nivå.",
+				"description": "Øk, forsterk, forbedre, utvikle.",
+				"key": "Eskalere"
+			},
 			"attack": {
-				"key": "Angrep",
-				"description": "Kutt ned, slå, forbanne, skyt.",
 				"action": "Gi en harmful status til et mål.",
-				"cost": "1 Styrke per nivå."
-			},
-			"disrupt": {
-				"key": "Hindre",
-				"description": "Forblinde, forvirre, sjokkere, spenne bein, forstyrre.",
-				"action": "Gi en hindrende status til et mål.",
-				"cost": "1 Styrke per nivå, 2 Styrke per merke."
-			},
-			"influence": {
-				"key": "Påvirke",
-				"description": "Overbevise, true, provokere, hjernevaske.",
-				"action": "Gi en manipulerende status til et mål.",
-				"cost": "1 Styrke per nivå."
-			},
-			"weaken": {
-				"key": "Svekke",
-				"description": "Bryt i stykker, ødelegg, nøytralisere, dempe.",
-				"action": "Fjerne en gunstig status fra et mål.",
-				"cost": "1 Styrke per nivå, 2 Styrke per merke."
+				"cost": "1 Styrke per nivå.",
+				"description": "Kutt ned, slå, forbanne, skyt.",
+				"key": "Angrep"
 			},
 			"bestow": {
-				"key": "Begave",
-				"description": "Lære bort, gi, velsigne, forsterke.",
 				"action": "Gi deg selv eller en alliert en nye evner ved hjelp av merker.",
-				"cost": "2 Styrke per merke."
+				"cost": "2 Styrke per merke.",
+				"description": "Lære bort, gi, velsigne, forsterke.",
+				"key": "Begave"
 			},
-			"enhance": {
-				"key": "Styrke",
-				"description": "Asssister, ta sikte, støtte, ta dekning.",
-				"action": "Gi deg selv eller en alliert en hjelpsom status.",
-				"cost": "1 Styrke per nivå."
-			},
+			"category-ally": "For deg selv eller en alliert",
+			"category-consequence": "Konsekvens",
+			"category-other": "Annen effekt",
+			"category-process": "Ifm. en prosess",
+			"category-target": "Mot en motstander eller et mål",
 			"create": {
-				"key": "Skape",
-				"description": "Lag, finn, kjøp, tilkall, samle.",
 				"action": "Skap et nytt objekt eller en skapning som et merke.",
-				"cost": "2 Styrke per merke."
-			},
-			"restore": {
-				"key": "Restaurere",
-				"description": "Hel, reparer, gjenopplive, gjenopprette.",
-				"action": "Gjenopprett en harmende status, eller gjenopprett et brent merke.",
-				"cost": "1 Styrke per nivå, 2 Styrke per merke."
-			},
-			"advance": {
-				"key": "Eskalere",
-				"description": "Øk, forsterk, forbedre, utvikle.",
-				"action": "Eskaler en prosess eller en status.",
-				"cost": "1 Styrke per nivå."
-			},
-			"set_back": {
-				"key": "Reversere",
-				"description": "Forsink, stopp, reverser, forhindre.",
-				"action": "Reduser nivå for en status.",
-				"cost": "1 Styrke per nivå."
-			},
-			"mitigate": {
-				"key": "Beskytte",
-				"description": "Skjerm, blokker, avverge, absorber, dukke.",
-				"action": "Reduser eller annuller en inkommende effekt eller status.",
-				"cost": "1 Styrke per nivå, 2 Styrke per merke."
+				"cost": "2 Styrke per merke.",
+				"description": "Lag, finn, kjøp, tilkall, samle.",
+				"key": "Skape"
 			},
 			"discover": {
-				"key": "Oppdage",
-				"description": "Oppfatte, huske, søke, konversere.",
 				"action": "Få informasjon eller en ledetråd.",
-				"cost": "1 Styrke per stykke informasjon."
+				"cost": "1 Styrke per stykke informasjon.",
+				"description": "Oppfatte, huske, søke, konversere.",
+				"key": "Oppdage"
+			},
+			"disrupt": {
+				"action": "Gi en hindrende status til et mål.",
+				"cost": "1 Styrke per nivå, 2 Styrke per merke.",
+				"description": "Forblinde, forvirre, sjokkere, spenne bein, forstyrre.",
+				"key": "Hindre"
+			},
+			"effect": "Effekt",
+			"enhance": {
+				"action": "Gi deg selv eller en alliert en hjelpsom status.",
+				"cost": "1 Styrke per nivå.",
+				"description": "Asssister, ta sikte, støtte, ta dekning.",
+				"key": "Styrke"
 			},
 			"extra_feat": {
-				"key": "Ekstra dåd",
-				"description": "Utvid effekten med noe ekstra, eller en mindre prestasjon.",
 				"action": "",
-				"cost": "1 Styrke for hver ekstra aktivitet eller prestasjon."
+				"cost": "1 Styrke for hver ekstra aktivitet eller prestasjon.",
+				"description": "Utvid effekten med noe ekstra, eller en mindre prestasjon.",
+				"key": "Ekstra dåd"
+			},
+			"influence": {
+				"action": "Gi en manipulerende status til et mål.",
+				"cost": "1 Styrke per nivå.",
+				"description": "Overbevise, true, provokere, hjernevaske.",
+				"key": "Påvirke"
+			},
+			"mitigate": {
+				"action": "Reduser eller annuller en inkommende effekt eller status.",
+				"cost": "1 Styrke per nivå, 2 Styrke per merke.",
+				"description": "Skjerm, blokker, avverge, absorber, dukke.",
+				"key": "Beskytte"
+			},
+			"restore": {
+				"action": "Gjenopprett en harmende status, eller gjenopprett et brent merke.",
+				"cost": "1 Styrke per nivå, 2 Styrke per merke.",
+				"description": "Hel, reparer, gjenopplive, gjenopprette.",
+				"key": "Restaurere"
+			},
+			"set_back": {
+				"action": "Reduser nivå for en status.",
+				"cost": "1 Styrke per nivå.",
+				"description": "Forsink, stopp, reverser, forhindre.",
+				"key": "Reversere"
+			},
+			"weaken": {
+				"action": "Fjerne en gunstig status fra et mål.",
+				"cost": "1 Styrke per nivå, 2 Styrke per merke.",
+				"description": "Bryt i stykker, ødelegg, nøytralisere, dempe.",
+				"key": "Svekke"
 			}
 		},
 		"name": "Legend in the Mist",
@@ -109,8 +113,8 @@
 			"description": "Beskrivelse",
 			"experience": "Erfaring",
 			"level": "Nivå",
-			"limits": "Grenser",
 			"limit": "Grense",
+			"limits": "Grenser",
 			"outcome": "Resultat",
 			"rating": "Rangering",
 			"roll": "Kast",
@@ -119,15 +123,20 @@
 			"tags": "Merker",
 			"themebook": "Temabok",
 			"threat": "Trussel",
+			"transfer": "Overføre",
 			"unnamed": "Uten navn"
+		},
+		"settings": {
+			"skip-roll-moderation": "Kast uten SL-moderering",
+			"skip-roll-moderation-hint": "Hvis aktivert, vil terningene bli kastet uten moderering av spilleder."
 		},
 		"tags": {
 			"activate": "Aktiver",
 			"burn": "Brenn",
 			"decay": "Opphør",
 			"isActive": "Aktiv",
-			"isInactive": "Inaktiv",
 			"isBurnt": "Brent",
+			"isInactive": "Inaktiv",
 			"item-tags": "Gjenstandsmerker",
 			"power": "Styrke",
 			"story": "Narrative",
@@ -135,30 +144,30 @@
 		},
 		"themes": {
 			"circumstance": "Omstendighet",
-			"past": "Fortid",
-			"devotion": "Hovedfokus",
-			"mystery": "Mysterie",
-			"people": "Folk",
-			"possessions": "Eiendeler",
-			"personality": "Personlighet",
-			"trade-or-skill": "Arbeid eller ferdighet",
-			"trait": "Egenskap",
-			"hedge-magic": "Heksemagi",
-			"prodigious-skill": "Ferdighet",
-			"duty": "Plikt",
-			"relic": "Forunderlighet",
-			"uncanny-being": "Uhyre",
-			"thaumaturgy": "Taumaturgi",
-			"rulership": "Hersker",
 			"destiny": "Skjebne",
+			"devotion": "Hovedfokus",
+			"duty": "Plikt",
+			"grand-thaumaturgy": "Storslått taumaturgi",
+			"hedge-magic": "Heksemagi",
 			"mastery": "Mestring",
 			"monstrosity": "Monstrositet",
-			"grand-thaumaturgy": "Storslått taumaturgi"
+			"mystery": "Mysterie",
+			"past": "Fortid",
+			"people": "Folk",
+			"personality": "Personlighet",
+			"possessions": "Eiendeler",
+			"prodigious-skill": "Ferdighet",
+			"relic": "Forunderlighet",
+			"rulership": "Hersker",
+			"thaumaturgy": "Taumaturgi",
+			"trade-or-skill": "Arbeid eller ferdighet",
+			"trait": "Egenskap",
+			"uncanny-being": "Uhyre"
 		},
 		"ui": {
 			"add-consequence": "Legg til Konsekvens",
-			"add-tag": "Legg til Merke",
 			"add-limit": "Legg til Grense",
+			"add-tag": "Legg til Merke",
 			"add-theme": "Legg til Tema",
 			"add-threat": "Legg til Trussel",
 			"approve": "Godkjenn",
@@ -169,6 +178,7 @@
 			"confirm-delete-content": "Er du sikker på at du vil slette {thing}?",
 			"confirm-delete-title": "Bekreft Sletting",
 			"context-edit": "<span class='reference'>Høyreklikk</span> for å redigere",
+			"context-remove-all-tags": "<span class=\"reference\">Høyreklikk</span> for å fjerne alle narrative merker",
 			"dblclick-open": "<span class='reference'>Dobbelklikk</span> for å åpne",
 			"dice-roller": "Terningkast",
 			"dice-roller-hint": "Åpner terningkast-vinduet for denne karakteren.",
@@ -176,40 +186,45 @@
 			"drop-actors": "Dra aktører hit",
 			"edit": "Rediger",
 			"error-burning-tag": "Det oppstod en feil under brenning av merket. Se konsollen for mer informasjon.",
-			"error-no-actor": "Det er ingen aktør valgt. Vennligst velg en aktør før du prøver å rulle.",
 			"error-conducting-roll": "Det oppstod en feil under utføring av kastet. Se konsollen for mer informasjon.",
+			"error-no-actor": "Det er ingen aktør valgt. Vennligst velg en aktør før du prøver å rulle.",
+			"error-no-backpack": "Ingen skreppe funnet. Prøv å kopiere aktøren for å løse dette problemet.",
 			"error-validating-actor": "Det oppstod en feil under validering av aktøren. Se konsollen for mer informasjon.",
 			"error-validating-item": "Det oppstod en feil under validering av gjenstanden. Se konsollen for mer informasjon.",
 			"gain-exp": "Marker Erfaring",
-			"info-imported-character": "{name} ble importert.",
 			"import-actor": "Importer Karakter fra JSON",
 			"import-adventure": "Importer Tinderbox Eventyret",
 			"inc-dec": "<span class='reference'>Klikk</span> for å øke<br /><span class='reference'>Høyreklikke</span> for å senke",
+			"info-imported-character": "{name} ble importert.",
+			"item-transfer-content": "Velg merkene du vil overføre til skreppa di.",
+			"item-transfer-success": "Overført {items} til skreppa di.",
+			"item-transfer-title": "Overfør skreppemerker",
 			"manage-tags": "Merker & Statuser",
 			"moderate-roll-gm": "Moderer Kast",
-			"moderate-roll-player": "Vent litt!",
 			"moderate-roll-gm-hint": "vil kaste med et",
+			"moderate-roll-player": "Vent litt!",
 			"moderate-roll-player-hint": "SL modererer kastet, vennligst vent.",
+			"modifier": "Modifikator",
+			"name-category": "Gi det en kategori",
+			"name-consequence": "Skriv [tag] for å lage et Merke, og [tag 1] for a lage en Status.",
 			"name-motivation": "Skriv ned en motivasjon.",
 			"name-note": "Gi det en kort beskrivelse.",
 			"name-power": "Gi det et navn",
-			"name-category": "Gi det en kategori",
 			"name-tag": "Gi Evnemerket et navn",
 			"name-weakness": "Gi Svakheten et navn",
-			"name-consequence": "Skriv [tag] for å lage et Merke, og [tag 1] for a lage en Status.",
 			"player-skipped-moderation": "{name} har ignorert SL-modereringen.",
+			"reject": "Avvis",
 			"remove": "Fjern",
-			"remove-tag": "Fjern Merke",
 			"remove-actors": "Fjern aktører",
 			"remove-story-tags": "Fjern Narrativmerker",
-			"reject": "Avvis",
+			"remove-tag": "Fjern Merke",
 			"rename": "Gi nytt navn",
 			"rename-challenge": "Gi Utfordringen et nytt navn",
 			"roll": "Kast!",
 			"roll-consequence": "Handlingen lykkes, <br /> men ikke uten Konsekvenser.",
 			"roll-failure": "Handlingen feilet. <br /> Det blir konsekvenser.",
-			"roll-mitigate": "Beskyttende",
 			"roll-gm-moderate": "Du har mottatt en kast-forespørsel fra {name}. Gjør nødvendige endringer og trykk 'Kast' for å godkjenne.",
+			"roll-mitigate": "Beskyttende",
 			"roll-moderated": "Spilleder moderer kastet. Venligst vent.",
 			"roll-quick": "Enkelt",
 			"roll-rejected": "{name} har avvist kastet. Vennligst gjør endringer, eller lukk dialogen hvis du har ombestemt deg.",
@@ -225,24 +240,23 @@
 			"special-features": "Unike Egenskaper",
 			"status": "Narrative Merker og Statuser",
 			"tags-statuses": "Merker og Statuser",
+			"threats-consequences": "> Trussel / >> Konsekvens",
 			"toggle-burnt": "<span class='reference'>ALT/OPTION + Klikk</span> for a brenne/gjenopprette merket.",
 			"toggle-roll": "<span class='reference'>Klikk</span> for å legge til/fjerne fra kastet. <br /> <span class='reference'>SHIFT + klikk</span> for å brenne en merket i et kast. <br /> <span class='reference'>ALT/OPTION + klikk</span> for å brenne merket.",
 			"toggle-weakness-roll": "<span class='reference'>Klikk</span> for å legge til/fjerne fra kastet.",
 			"total-power": "Styrketotal",
 			"user-manual": "Åpne brukermanual",
-			"threats-consequences": "> Trussel / >> Konsekvens",
 			"warn-incompatible-data": "Dataene er ikke kompatible med Legend in the Mist. Vennligst sjekk at du har laget en Legend in the Mist karakter.",
-			"warn-no-effect-found": "Ingen effekt funnet. Systemet er miskonfigurert.",
 			"warn-no-character": "Ingen karakter valgt. Vennligst velg en karakter i spiller-menyen nederst til venstre.",
+			"warn-no-effect-found": "Ingen effekt funnet. Systemet er miskonfigurert.",
 			"warn-not-owner": "Du er ikke eieren av denne karakteren. Du kan ikke rulle for en karakter du ikke eier.",
 			"warn-not-supported": "Denne funksjonen støttes ikke av denne typen aktør.",
 			"warn-theme-limit": "Du har nådd grensen for antall temaer."
-		},
-		"settings": {
-			"skip-roll-moderation": "Kast uten SL-moderering",
-			"skip-roll-moderation-hint": "Hvis aktivert, vil terningene bli kastet uten moderering av spilleder."
 		}
 	},
+	"Notes": "Beskrivelse",
+	"origin": "Opprinnelse",
+	"success": "Sterk Suksess",
 	"TYPES": {
 		"Actor": {
 			"challenge": "Utfordring",
@@ -253,12 +267,5 @@
 			"theme": "Tema",
 			"threat": "Trussel"
 		}
-	},
-	"failure": "Feilet",
-	"consequence": "Blandet Suksess",
-	"success": "Sterk Suksess",
-	"origin": "Opprinnelse",
-	"adventure": "Eventyr",
-	"greatness": "Storhet",
-	"Notes": "Beskrivelse"
+	}
 }

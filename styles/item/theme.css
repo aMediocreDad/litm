@@ -152,6 +152,8 @@
 		& .litm--theme-tags {
 			display: flex;
 			flex-direction: column;
+			height: 100%;
+			overflow-y: auto;
 			list-style: none;
 			margin: 0px 10px 0px;
 			padding: 0px;
@@ -208,10 +210,12 @@
 		}
 
 		& .litm--weakness {
-			margin-inline: var(--litm-space-2);
+			margin: 0px var(--litm-space-2);
 			padding: 0px;
 			display: flex;
+			flex-direction: column;
 			align-items: center;
+			list-style: none;
 			background-image: radial-gradient(
 				ellipse at top,
 				var(--litm-color-weakness-bg) 30%,

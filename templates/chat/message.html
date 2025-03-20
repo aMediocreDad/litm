@@ -1,17 +1,16 @@
-<div class="litm dice-roll" data-type="{{type}}"
-	data-result="{{outcome.label}}">
+<div class="litm dice-roll" data-type="{{type}}" data-result="{{outcome.label}}" data-action="expandRoll">
 	<div class="dice-flavor">{{flavor}}</div>
 	{{#if effect}}
-		<div class="dice-effect">
-			<p><em>{{localize effect.description}}</em></p>
-			<p>{{localize effect.action}}</p>
-			<p><strong>{{localize 'Litm.other.cost'}}:
-				</strong>{{localize effect.cost}}</p>
-		</div>
+	<div class="dice-effect">
+		<p><em>{{localize effect.description}}</em></p>
+		<p>{{localize effect.action}}</p>
+		<p><strong>{{localize 'Litm.other.cost'}}:
+			</strong>{{localize effect.cost}}</p>
+	</div>
 	{{else}}
-		<div class="dice-effect">
-			<p><em>{{{localize outcome.description}}}</em></p>
-		</div>
+	<div class="dice-effect">
+		<p><em>{{{localize outcome.description}}}</em></p>
+	</div>
 	{{/if}}
 	<div class="dice-result">
 		<div class="dice-formula dice-total">
@@ -21,27 +20,25 @@
 		<h4 class="dice-total {{outcome.label}}">
 			{{#unless (eq type 'mitigate')}}<span>{{localize outcome.label}}</span>{{/unless}}
 			{{#unless (eq type 'quick')}}<span>{{power}}
-					{{localize 'Litm.tags.power'}}</span>{{/unless}}
+				{{localize 'Litm.tags.power'}}</span>{{/unless}}
 		</h4>
 		{{#if (eq type 'tracked')}}
-			{{#if (eq outcome.label 'consequence')}}
-				<p class="litm--dice-roll-subtle">
-					{{{localize "Litm.ui.roll-tracked-hint"}}}
-				</p>
-			{{/if}}
-			{{#if (eq outcome.label 'success')}}
-				<p class="litm--dice-roll-subtle">
-					{{localize 'Litm.ui.roll-tracked-success'}}
-				</p>
-			{{/if}}
+		{{#if (eq outcome.label 'consequence')}}
+		<p class="litm--dice-roll-subtle">
+			{{{localize "Litm.ui.roll-tracked-hint"}}}
+		</p>
+		{{/if}}
+		{{#if (eq outcome.label 'success')}}
+		<p class="litm--dice-roll-subtle">
+			{{localize 'Litm.ui.roll-tracked-success'}}
+		</p>
+		{{/if}}
 		{{/if}}
 		{{#if (and isOwner hasBurnedTags)}}
-			<button class="litm--roll-burn-button"
-				data-click="burn-tags">{{localize 'Litm.ui.burn-tags'}}</button>
+		<button class="litm--roll-burn-button" data-click="burn-tags">{{localize 'Litm.ui.burn-tags'}}</button>
 		{{/if}}
 		{{#if (and isOwner hasWeaknessTags)}}
-			<button class="litm--roll-gain-exp-button"
-				data-click="gain-experience">{{localize 'Litm.ui.gain-exp'}}</button>
+		<button class="litm--roll-gain-exp-button" data-click="gain-experience">{{localize 'Litm.ui.gain-exp'}}</button>
 		{{/if}}
 	</div>
 </div>

@@ -1,4 +1,8 @@
 {
+	"adventure": "Erlebnis",
+	"consequence": "Teilweiser Erfolg",
+	"failure": "Fehlschlag",
+	"greatness": "Großartigkeit",
 	"Litm": {
 		"challenges": {
 			"attacker": "Angreifer",
@@ -12,89 +16,89 @@
 			"watcher": "Beobachter"
 		},
 		"effects": {
-			"category-target": "Gegen einen Gegner oder Ziel",
-			"category-ally": "Für einen selbst oder einen Verbündeten",
-			"category-process": "Auf einen Vorgang",
-			"category-other": "Anderer Effekt",
-			"category-consequence": "Gegen eine Konsequenz",
-			"effect": "Effekt",
+			"advance": {
+				"action": "Increase a progress status 1 Power per tier.",
+				"cost": "1 Kraft pro Rang",
+				"description": "Make progress, come closer, advance.",
+				"key": "Voranbringen"
+			},
 			"attack": {
-				"key": "Angriff",
-				"description": "Aufschlitzen, schlagen, verfluchen, schießen.",
 				"action": "Deinem Ziel einen schädlichen Status verleihen.",
-				"cost": "1 Kraft pro Rang"
-			},
-			"disrupt": {
-				"key": "Unterbrechen",
-				"description": "Blenden, verwirren, schockieren, stolpern, unterbrechen.",
-				"action": "Deinem Ziel einen hinderlichen Status verleihen.",
-				"cost": "1 Kraft pro Rang, 2 Kraft pro Merkmal."
-			},
-			"influence": {
-				"key": "Beeinflussen",
-				"description": "Überzeugen, drohen, provozieren, Gedankenkontrolle.",
-				"action": "Deinem Ziel einen zwingenden Status verleihen.",
-				"cost": "1 Kraft pro Rang"
-			},
-			"weaken": {
-				"key": "Schwächen",
-				"description": "Brechen, zerreißen, neutralisieren, zum Schweigen bringen.",
-				"action": "Ein nützliches Merkmal oder Status entfernen.",
-				"cost": "1 Kraft pro Rang, 2 Kraft pro Merkmal."
+				"cost": "1 Kraft pro Rang",
+				"description": "Aufschlitzen, schlagen, verfluchen, schießen.",
+				"key": "Angriff"
 			},
 			"bestow": {
-				"key": "Verleihen",
-				"description": "Lehren, befähigen, verzaubern, ausrüsten.",
 				"action": "Dir selbst oder einem Verbündenden neue Fähigkeiten durch ein Merkmal verleihen.",
-				"cost": "2 Kraft pro Merkmal."
+				"cost": "2 Kraft pro Merkmal.",
+				"description": "Lehren, befähigen, verzaubern, ausrüsten.",
+				"key": "Verleihen"
 			},
-			"enhance": {
-				"key": "Verbessern",
-				"description": "Assistieren, zielen, boosten, in Deckung gehen.",
-				"action": "Dir selbst oder einem Verbündenden einen hilfreichen Status geben.",
-				"cost": "1 Power per tier."
-			},
+			"category-ally": "Für einen selbst oder einen Verbündeten",
+			"category-consequence": "Gegen eine Konsequenz",
+			"category-other": "Anderer Effekt",
+			"category-process": "Auf einen Vorgang",
+			"category-target": "Gegen einen Gegner oder Ziel",
 			"create": {
-				"key": "Hervorbringen",
-				"description": "Basteln, finden, kaufen, beschwören, versammeln.",
 				"action": "Ein neues Opjekt oder Wesen durch ein Merkmal erschaffen.",
-				"cost": "2 Kraft pro Merkmal."
-			},
-			"restore": {
-				"key": "Wiederherstellen",
-				"description": "Heilen, reparieren, verjüngen, rückgängig machen.",
-				"action": "Einen schädlichen Status verringern oder ausgebranntes Merkmal wiederstellen.",
-				"cost": "1 Kraft pro Rang, 2 Kraft pro Merkmal."
-			},
-			"advance": {
-				"key": "Voranbringen",
-				"description": "Make progress, come closer, advance.",
-				"action": "Increase a progress status 1 Power per tier.",
-				"cost": "1 Kraft pro Rang"
-			},
-			"set_back": {
-				"key": "Zurücksetzen",
-				"description": "Verzögern, ruinieren, sabotieren, umkehren.",
-				"action": "Einen Fortschrittsstatus verringern.",
-				"cost": "1 Kraft pro Rang"
-			},
-			"mitigate": {
-				"key": "Abwenden",
-				"description": "Blocken, ausweichen, abschirmen, absorbieren.",
-				"action": "Anzuwendende Effekte reduzieren oder negieren.",
-				"cost": "1 Kraft pro Rang, 2 Kraft pro Merkmal."
+				"cost": "2 Kraft pro Merkmal.",
+				"description": "Basteln, finden, kaufen, beschwören, versammeln.",
+				"key": "Hervorbringen"
 			},
 			"discover": {
-				"key": "Entdecken",
-				"description": "Wahrnehmen, abrufen, recherchieren, sprechen.",
 				"action": "Ein wertvolles Detail erkennen.",
-				"cost": "1 Kraft pro Detail."
+				"cost": "1 Kraft pro Detail.",
+				"description": "Wahrnehmen, abrufen, recherchieren, sprechen.",
+				"key": "Entdecken"
+			},
+			"disrupt": {
+				"action": "Deinem Ziel einen hinderlichen Status verleihen.",
+				"cost": "1 Kraft pro Rang, 2 Kraft pro Merkmal.",
+				"description": "Blenden, verwirren, schockieren, stolpern, unterbrechen.",
+				"key": "Unterbrechen"
+			},
+			"effect": "Effekt",
+			"enhance": {
+				"action": "Dir selbst oder einem Verbündenden einen hilfreichen Status geben.",
+				"cost": "1 Power per tier.",
+				"description": "Assistieren, zielen, boosten, in Deckung gehen.",
+				"key": "Verbessern"
 			},
 			"extra_feat": {
-				"key": "Besondere Leistung",
-				"description": "Fügen Sie einer Aktion ein Merkmal oder eine kleine Leistung hinzu.",
 				"action": "",
-				"cost": "1 Kraft für jede zusätzliche Wirkung oder kleine Errungenschaft die Teil der Aktion ist."
+				"cost": "1 Kraft für jede zusätzliche Wirkung oder kleine Errungenschaft die Teil der Aktion ist.",
+				"description": "Fügen Sie einer Aktion ein Merkmal oder eine kleine Leistung hinzu.",
+				"key": "Besondere Leistung"
+			},
+			"influence": {
+				"action": "Deinem Ziel einen zwingenden Status verleihen.",
+				"cost": "1 Kraft pro Rang",
+				"description": "Überzeugen, drohen, provozieren, Gedankenkontrolle.",
+				"key": "Beeinflussen"
+			},
+			"mitigate": {
+				"action": "Anzuwendende Effekte reduzieren oder negieren.",
+				"cost": "1 Kraft pro Rang, 2 Kraft pro Merkmal.",
+				"description": "Blocken, ausweichen, abschirmen, absorbieren.",
+				"key": "Abwenden"
+			},
+			"restore": {
+				"action": "Einen schädlichen Status verringern oder ausgebranntes Merkmal wiederstellen.",
+				"cost": "1 Kraft pro Rang, 2 Kraft pro Merkmal.",
+				"description": "Heilen, reparieren, verjüngen, rückgängig machen.",
+				"key": "Wiederherstellen"
+			},
+			"set_back": {
+				"action": "Einen Fortschrittsstatus verringern.",
+				"cost": "1 Kraft pro Rang",
+				"description": "Verzögern, ruinieren, sabotieren, umkehren.",
+				"key": "Zurücksetzen"
+			},
+			"weaken": {
+				"action": "Ein nützliches Merkmal oder Status entfernen.",
+				"cost": "1 Kraft pro Rang, 2 Kraft pro Merkmal.",
+				"description": "Brechen, zerreißen, neutralisieren, zum Schweigen bringen.",
+				"key": "Schwächen"
 			}
 		},
 		"name": "Legend in the Mist",
@@ -109,8 +113,8 @@
 			"description": "Beschreibung",
 			"experience": "Erfahrung",
 			"level": "Stufe",
-			"limits": "Grenzen",
 			"limit": "Grenze",
+			"limits": "Grenzen",
 			"outcome": "Ergebnis",
 			"rating": "Rating",
 			"roll": "Wurf",
@@ -119,15 +123,20 @@
 			"tags": "Merkmale",
 			"themebook": "Themenbuch",
 			"threat": "Gefahr",
+			"transfer": "Übertragen",
 			"unnamed": "Unbenannt"
+		},
+		"settings": {
+			"skip-roll-moderation": "Überspringe Wurf Moderation",
+			"skip-roll-moderation-hint": "Wenn markiert, können Spielende Würfelwürfe ausführen, ohne das eine Moderation durch den MC erfolgt."
 		},
 		"tags": {
 			"activate": "Activate",
 			"burn": "ausbrennen",
 			"decay": "Verfall",
 			"isActive": "aktiv sein",
-			"isInactive": "nicht aktiv sein",
 			"isBurnt": "augebrannt",
+			"isInactive": "nicht aktiv sein",
 			"item-tags": "Gegenstandsmerkmal",
 			"power": "Kraft",
 			"story": "Erzählung",
@@ -135,30 +144,30 @@
 		},
 		"themes": {
 			"circumstance": "Umstand",
-			"past": "Vergangenheit",
-			"devotion": "Hingabe",
-			"mystery": "Geheimnis",
-			"people": "Leute",
-			"possessions": "Besitztümer",
-			"personality": "Persönlichkeit",
-			"trade-or-skill": "Handwerk oder Begabung",
-			"trait": "Eigenheit",
-			"hedge-magic": "Hecken-Magie",
-			"prodigious-skill": "Erstaunliche Fähigkeit",
-			"duty": "Pflicht",
-			"relic": "Relikt",
-			"uncanny-being": "Unheimliches Wesen",
-			"thaumaturgy": "Thaumaturgie",
-			"rulership": "Regentschaft",
 			"destiny": "Bestimmung",
+			"devotion": "Hingabe",
+			"duty": "Pflicht",
+			"grand-thaumaturgy": "Hohe Thaumatirgie",
+			"hedge-magic": "Hecken-Magie",
 			"mastery": "Meisterschaft",
 			"monstrosity": "Monströsität",
-			"grand-thaumaturgy": "Hohe Thaumatirgie"
+			"mystery": "Geheimnis",
+			"past": "Vergangenheit",
+			"people": "Leute",
+			"personality": "Persönlichkeit",
+			"possessions": "Besitztümer",
+			"prodigious-skill": "Erstaunliche Fähigkeit",
+			"relic": "Relikt",
+			"rulership": "Regentschaft",
+			"thaumaturgy": "Thaumaturgie",
+			"trade-or-skill": "Handwerk oder Begabung",
+			"trait": "Eigenheit",
+			"uncanny-being": "Unheimliches Wesen"
 		},
 		"ui": {
 			"add-consequence": "Konsequenz hinzufügen",
-			"add-tag": "Merkmal hinzufügen",
 			"add-limit": "Grenze hinzufügen",
+			"add-tag": "Merkmal hinzufügen",
 			"add-theme": "Thema hinzufügen",
 			"add-threat": "Gefahr hinzufügen",
 			"approve": "Genehmigen",
@@ -169,39 +178,46 @@
 			"confirm-delete-content": "Sind sie sicher, dass Sie das entfernen wollen {thing}?",
 			"confirm-delete-title": "Entfernen bestätigen",
 			"context-edit": "<span class='reference'>Rechtsklick</span> zum Bearbeiten",
+			"context-remove-all-tags": "<span class='reference'>Rechtsklick</span> um alle Geschichtsmerkmale zu entfernen",
 			"dblclick-open": "<span class='reference'>Doppelklick</span> zum Bearbeiten",
 			"dice-roller": "Würfelwurf Generator",
 			"dice-roller-hint": "Öffnet den Würfelwurf Dialog, wenn ein Charakter dem Spielenden zugeordnet wurde.",
+			"drag-apply": "Auf Akteure oder Geschichten-Fenster ziehen, um anzuwenden",
 			"drop-actors": "Akteure hier hinziehen",
 			"edit": "Bearbeiten",
 			"error-burning-tag": "Es hat einen Fehler gegeben, als dein Merkmal ausgebrannt werden sollte. Schaue in die Console des Browser (oft F12) für mehr information.",
-			"error-no-actor": "Es wurde kein Akteur gefunden. Bitte stelle sicher, dass der Akteur existiert und richtig konfiguriert ist.",
 			"error-conducting-roll": "Es hat einen Fehler gegeben als der Würfelwurf ausgeführt werden sollte. Schaue in die Console des Browser (oft F12) für mehr information.",
+			"error-no-actor": "Es wurde kein Akteur gefunden. Bitte stelle sicher, dass der Akteur existiert und richtig konfiguriert ist.",
+			"error-no-backpack": "Kein Rucksack gefunden. Versuchen Sie, den Akteur zu duplizieren, um dieses Problem zu lösen.",
 			"error-validating-actor": "Es hat einen Fehler gegeben als der Akteur validiert werden sollte. Schaue in die Console des Browser (oft F12) für mehr information.",
 			"error-validating-item": "Es hat einen Fehler gegeben als das Item validdiert werden sollte. Schaue in die Console des Browser (oft F12) für mehr information.",
 			"gain-exp": "Erfahrung erhalten",
-			"info-imported-character": "{name} erfolgreich importiert.",
 			"import-actor": "Akteur von JSON importieren",
 			"import-adventure": "Den Inhalt der Tinderbox DEMO (engl.) importieren",
 			"inc-dec": "<span class='reference'>Linksklick</span> zum Erhöhen<br /> <span class='reference'>Rechtsklick</span> zum Verringern",
+			"info-imported-character": "{name} erfolgreich importiert.",
+			"item-transfer-content": "Wählen Sie die Merkmale aus, die Sie in Ihren Rucksack übertragen möchten.",
+			"item-transfer-success": "{items} in Ihren Rucksack übertragen.",
+			"item-transfer-title": "Rucksack-Merkmale übertragen",
 			"manage-tags": "Merkamle & Status verwalten",
 			"moderate-roll-gm": "Würfelwurf moderieren",
-			"moderate-roll-player": "Bitte Warten!",
 			"moderate-roll-gm-hint": "will einen Würfelwurf ausführen mit",
+			"moderate-roll-player": "Bitte Warten!",
 			"moderate-roll-player-hint": "Der MC moderiert den Würfelwurf. Bitte warten Sie die Entscheidung ab.",
+			"modifier": "Modifikator",
+			"name-category": "Wähle einen Typ aus",
+			"name-consequence": "Benenne die Konsequenz in dem du die Schreibweise [Merkmal] ohne Zahl benutzt um es als Merkmal zu werten und die Schreibweise [Status 0] mit Zahl um es als Status zu werten.",
 			"name-motivation": "Schreib deine Motivation nieder.",
 			"name-note": "Gib deinem Thema eine Beschreibung.",
 			"name-power": "Benenne deine Stärke",
-			"name-category": "Wähle einen Typ aus",
 			"name-tag": "Benenne dein Merkmal",
 			"name-weakness": "Benenne deine Schwäche",
-			"name-consequence": "Benenne die Konsequenz in dem du die Schreibweise [Merkmal] ohne Zahl benutzt um es als Merkmal zu werten und die Schreibweise [Status 0] mit Zahl um es als Status zu werten.",
 			"player-skipped-moderation": "{name} hat die Wurf Moderation übersprungen.",
+			"reject": "Ablehnen",
 			"remove": "Entfernen",
-			"remove-tag": "Merkmal entfernen",
 			"remove-actors": "Akteur entfernen",
 			"remove-story-tags": "Geschichtsmerkmal entfernen",
-			"reject": "Ablehnen",
+			"remove-tag": "Merkmal entfernen",
 			"rename": "Umbennennen",
 			"rename-challenge": "Herausforderung umbennnen",
 			"roll": "Würfeln!",
@@ -224,23 +240,23 @@
 			"special-features": "Besondere Eigenschaften",
 			"status": "Geschichtsmerkmale und Status",
 			"tags-statuses": "Merkmale & Status",
+			"threats-consequences": "> Drohung / >> Konsequenzen",
 			"toggle-burnt": "<span class='reference'>ALT/OPTION + Linksklick</span> um Merkmal auszubrennen/wiederzuerlangen.",
 			"toggle-roll": "<span class='reference'>Linksklick</span> um vom Würfelwurf abzuziehen oder hinzuzufügen. <br /> <span class='reference'>SHIFT + Linksklick</span> um das Merkmal beim Wurf anzubrennen. <br /> <span class='reference'>ALT/OPTION + Linksklick</span> um Merkmal auszubrennen/wiederherzustellen.",
 			"toggle-weakness-roll": "<span class='reference'>Linksklick</span> um vom Würfelwurf abzuziehen oder hinzuzufügen.",
 			"total-power": "Gesammte Kraft",
-			"threats-consequences": "> Drohung / >> Konsequenzen",
+			"user-manual": "Benutzerhandbuch öffnen",
 			"warn-incompatible-data": "Die Daten die Sie zu importieren versuchen sind nicht mit diesem System kompatibel.",
-			"warn-no-effect-found": "Das Spiel ist falsch konfiguriert. Der gewählte Effekt wurde nicht gefunden.",
 			"warn-no-character": "Bitte ordnen Sie dem Spieler einen Charakter aus dem Spielerkonfigurationsmenü links unten zu.",
+			"warn-no-effect-found": "Das Spiel ist falsch konfiguriert. Der gewählte Effekt wurde nicht gefunden.",
 			"warn-not-owner": "Sie sind kein Besitzer dieses Akteurs. Sie können ihn nicht bearbeiten.",
 			"warn-not-supported": "Das wird vom actuellen Akteur nicht unterstützt.",
 			"warn-theme-limit": "Sie haben die maximale Anzahl an Themen erreicht. Bitte entfernen Sie ein Thema bevor Sie ein neues hinzufügen."
-		},
-		"settings": {
-			"skip-roll-moderation": "Überspringe Wurf Moderation",
-			"skip-roll-moderation-hint": "Wenn markiert, können Spielende Würfelwürfe ausführen, ohne das eine Moderation durch den MC erfolgt."
 		}
 	},
+	"Notes": "Notizen",
+	"origin": "Ursprung",
+	"success": "Voller Erfolg",
 	"TYPES": {
 		"Actor": {
 			"challenge": "Herausforderung",
@@ -251,12 +267,5 @@
 			"theme": "Thema",
 			"threat": "Gefahr"
 		}
-	},
-	"failure": "Fehlschlag",
-	"consequence": "Teilweiser Erfolg",
-	"success": "Voller Erfolg",
-	"origin": "Ursprung",
-	"adventure": "Erlebnis",
-	"greatness": "Großartigkeit",
-	"Notes": "Notizen"
+	}
 }

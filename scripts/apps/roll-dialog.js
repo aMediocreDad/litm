@@ -7,7 +7,7 @@ export class LitmRollDialog extends FormApplication {
 			template: "systems/litm/templates/apps/roll-dialog.html",
 			classes: ["litm", "litm--roll"],
 			width: 500,
-			height: 540,
+			height: 'auto',
 			resizable: true,
 			title: game.i18n.localize("Litm.ui.roll-title"),
 		});
@@ -33,7 +33,7 @@ export class LitmRollDialog extends FormApplication {
 		});
 	}
 
-	static roll({ actorId, tags, title, type, speaker }) {
+	static roll({ actorId, tags, title, type, speaker, modifier = 0 }) {
 		// Separate tags
 		const {
 			burnedTags,
@@ -57,6 +57,7 @@ export class LitmRollDialog extends FormApplication {
 			weaknessTags,
 			positiveStatuses,
 			negativeStatuses,
+			modifier: Number(modifier) || 0,
 		});
 
 		const formula =
@@ -76,9 +77,10 @@ export class LitmRollDialog extends FormApplication {
 						actorId,
 						type,
 						title,
+						modifier,
 					})
 				: CONFIG.litm.roll.formula ||
-					"2d6 + (@burnedValue + @powerValue + @positiveStatusValue - @weaknessValue - @negativeStatusValue)";
+					"2d6 + (@burnedValue + @powerValue + @positiveStatusValue - @weaknessValue - @negativeStatusValue + @modifier)";
 
 		// Roll
 		const roll = new game.litm.LitmRoll(
@@ -89,6 +91,7 @@ export class LitmRollDialog extends FormApplication {
 				positiveStatusValue,
 				weaknessValue,
 				negativeStatusValue,
+				modifier: Number(modifier) || 0,
 			},
 			{
 				actorId,
@@ -101,6 +104,7 @@ export class LitmRollDialog extends FormApplication {
 				negativeStatuses,
 				speaker,
 				totalPower,
+				modifier,
 			},
 		);
 
@@ -134,12 +138,15 @@ export class LitmRollDialog extends FormApplication {
 			0,
 		);
 
+		const modifier = Number(tags.modifier) || 0;
+
 		const totalPower =
 			burnedValue +
 			powerValue +
 			positiveStatusValue -
 			weaknessValue -
-			negativeStatusValue;
+			negativeStatusValue +
+			modifier;
 
 		return {
 			burnedValue,
@@ -148,6 +155,7 @@ export class LitmRollDialog extends FormApplication {
 			positiveStatusValue,
 			negativeStatusValue,
 			totalPower,
+			modifier,
 		};
 	}
 
@@ -177,12 +185,14 @@ export class LitmRollDialog extends FormApplication {
 
 	#tagState = [];
 	#shouldRoll = () => false;
+	#modifier = 0;
 
 	constructor(actorId, characterTags = [], options = {}) {
 		super({}, options);
 
 		this.#tagState = options.tagState || [];
 		this.#shouldRoll = options.shouldRoll || (() => false);
+		this.#modifier = options.modifier || 0;
 
 		this.actorId = actorId;
 		this.characterTags = characterTags;
@@ -219,6 +229,8 @@ export class LitmRollDialog extends FormApplication {
 	}
 
 	get gmTags() {
+		if (!game.user.isGM) return [];
+
 		const { actors } = game.litm.storyTags;
 		const tags = actors
 			.filter((actor) => actor.id !== this.actorId)
@@ -232,13 +244,16 @@ export class LitmRollDialog extends FormApplication {
 						? ",negative,positive,burned"
 						: ",negative,positive",
 			}))
-			.filter((tag) => game.user.isGM || tag.state !== "");
+			.filter((tag) => tag.state !== "");
 	}
 
 	get totalPower() {
 		const state = [...this.#tagState, ...this.characterTags];
 		const tags = LitmRollDialog.#filterTags(state);
-		const { totalPower } = LitmRollDialog.calculatePower(tags);
+		const { totalPower } = LitmRollDialog.calculatePower({
+			...tags,
+			modifier: this.#modifier
+		});
 		return totalPower;
 	}
 
@@ -262,6 +277,7 @@ export class LitmRollDialog extends FormApplication {
 			title: this.rollName,
 			type: this.type,
 			totalPower: this.totalPower,
+			modifier: this.#modifier,
 		};
 	}
 
@@ -279,6 +295,10 @@ export class LitmRollDialog extends FormApplication {
 		html
 			.find("litm-super-checkbox")
 			.on("change", this.#handleCheckboxChange.bind(this));
+
+		html
+			.find("[data-update='modifier']")
+			.on("change", this.#handleModifierChange.bind(this));
 	}
 
 	addTag(tag, toBurn) {
@@ -307,6 +327,7 @@ export class LitmRollDialog extends FormApplication {
 	reset() {
 		this.characterTags = [];
 		this.#tagState = [];
+		this.#modifier = 0;
 		this.#shouldRoll = () => game.settings.get("litm", "skip_roll_moderation");
 		if (this.actor.sheet.rendered) this.actor.sheet.render(true);
 	}
@@ -317,7 +338,7 @@ export class LitmRollDialog extends FormApplication {
 	 * @param {Object} formData - The form data
 	 */
 	async _updateObject(_event, formData) {
-		const { actorId, title, type, shouldRoll, ...rest } = formData;
+		const { actorId, title, type, shouldRoll, modifier, ...rest } = formData;
 		const tags = this.getFilteredArrayFromFormData(rest);
 
 		const data = {
@@ -326,6 +347,7 @@ export class LitmRollDialog extends FormApplication {
 			tags,
 			title,
 			speaker: this.speaker,
+			modifier,
 		};
 
 		this.#shouldRoll = () => shouldRoll;
@@ -383,11 +405,18 @@ export class LitmRollDialog extends FormApplication {
 		this.#dispatchUpdate();
 	}
 
+	#handleModifierChange(event) {
+		const input = event.currentTarget;
+		this.#modifier = Number(input.value) || 0;
+		this.element.find("[data-update='totalPower']").text(this.totalPower);
+		this.#dispatchUpdate();
+	}
+
 	async #createModerationRequest(data) {
 		const id = foundry.utils.randomID();
 		const userId = game.user.id;
 		const tags = LitmRollDialog.#filterTags(data.tags);
-		const { totalPower } = game.litm.methods.calculatePower(tags);
+		const { totalPower } = game.litm.methods.calculatePower({...tags, modifier: data.modifier});
 		const recipients = Object.entries(this.actor.ownership)
 			.filter((u) => u[1] === 3 && u[0] !== "default")
 			.map((u) => u[0]);
@@ -401,7 +430,10 @@ export class LitmRollDialog extends FormApplication {
 					rollId: id,
 					type: data.type,
 					name: this.actor.name,
-					tags,
+					tooltipData: {
+						...tags,
+						modifier: data.modifier,
+					},
 					totalPower,
 				},
 			),
@@ -415,14 +447,16 @@ export class LitmRollDialog extends FormApplication {
 			actorId: this.actorId,
 			characterTags: this.characterTags,
 			tagState: this.#tagState,
+			modifier: this.#modifier,
 		});
 	}
 
-	async receiveUpdate({ characterTags, tagState, actorId }) {
+	async receiveUpdate({ characterTags, tagState, actorId, modifier }) {
 		if (actorId !== this.actorId) return;
 
 		if (characterTags) this.characterTags = characterTags;
 		if (tagState) this.#tagState = tagState;
+		if (modifier !== undefined) this.#modifier = modifier;
 
 		if (this.actor.sheet.rendered) this.actor.sheet.render();
 		if (this.rendered) this.render();

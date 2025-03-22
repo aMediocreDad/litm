@@ -5,6 +5,7 @@ import { Sockets } from "./sockets.js";
 export class LitmHooks {
 	static register() {
 		info("Registering Hooks...");
+		LitmHooks.#addLinkPreloadsToHead();
 		LitmHooks.#addImportToActorSidebar();
 		LitmHooks.#iconOnlyHeaderButtons();
 		LitmHooks.#safeUpdateItemSheet();
@@ -18,9 +19,84 @@ export class LitmHooks {
 		LitmHooks.#listenToTagDragTransfer();
 		LitmHooks.#customizeDiceSoNice();
 		LitmHooks.#renderStoryTagApp();
-		LitmHooks.#repositionStoryTagApp();
+		LitmHooks.#addStoryTagsToControls();
 		LitmHooks.#popOutCompatiblity();
 		LitmHooks.#rendeWelcomeScreen();
+	}
+
+	static #addLinkPreloadsToHead() {
+		const assets = [
+			"systems/litm/assets/media/adventure-theme-alt-bg-top.webp",
+			"systems/litm/assets/media/adventure-theme-bg-bottom.webp",
+			"systems/litm/assets/media/adventure-theme-border-bottom.webp",
+			"systems/litm/assets/media/adventure-theme-border-top.webp",
+			"systems/litm/assets/media/background-frame.webp",
+			"systems/litm/assets/media/background.webp",
+			"systems/litm/assets/media/backpack-top-bg.webp",
+			"systems/litm/assets/media/backpack.webp",
+			"systems/litm/assets/media/bg-alt.webp",
+			"systems/litm/assets/media/birb.webp",
+			"systems/litm/assets/media/bottom-branch.webp",
+			"systems/litm/assets/media/bottom-frame-branches.webp",
+			"systems/litm/assets/media/button-bg.webp",
+			"systems/litm/assets/media/button-border.webp",
+			"systems/litm/assets/media/challenge-bg.webp",
+			"systems/litm/assets/media/challenge-border.webp",
+			"systems/litm/assets/media/character-bg.webp",
+			"systems/litm/assets/media/connector.webp",
+			"systems/litm/assets/media/dice.webp",
+			"systems/litm/assets/media/effects.webp",
+			"systems/litm/assets/media/feather.webp",
+			"systems/litm/assets/media/flowers-top.webp",
+			"systems/litm/assets/media/greatness-theme-alt-bg-top.webp",
+			"systems/litm/assets/media/greatness-theme-bg-bottom.webp",
+			"systems/litm/assets/media/greatness-theme-border-bottom.webp",
+			"systems/litm/assets/media/greatness-theme-border-top.webp",
+			"systems/litm/assets/media/green-leaf.webp",
+			"systems/litm/assets/media/header-bg.webp",
+			"systems/litm/assets/media/item-divider.webp",
+			"systems/litm/assets/media/left-div.webp",
+			"systems/litm/assets/media/limit-bg.webp",
+			"systems/litm/assets/media/limit-label.webp",
+			"systems/litm/assets/media/limit-value.webp",
+			"systems/litm/assets/media/litm_splash.webp",
+			"systems/litm/assets/media/logo-b.webp",
+			"systems/litm/assets/media/logo.webp",
+			"systems/litm/assets/media/marshal-crest.webp",
+			"systems/litm/assets/media/middle-branches.webp",
+			"systems/litm/assets/media/necklace.webp",
+			"systems/litm/assets/media/note.webp",
+			"systems/litm/assets/media/origin-theme-alt-bg-top.webp",
+			"systems/litm/assets/media/origin-theme-bg-bottom.webp",
+			"systems/litm/assets/media/origin-theme-border-bottom.webp",
+			"systems/litm/assets/media/origin-theme-border-top.webp",
+			"systems/litm/assets/media/progress-bg.webp",
+			"systems/litm/assets/media/raven.webp",
+			"systems/litm/assets/media/right-div.webp",
+			"systems/litm/assets/media/scroll-background.webp",
+			"systems/litm/assets/media/scroll-border.webp",
+			"systems/litm/assets/media/section-bg.webp",
+			"systems/litm/assets/media/separator.webp",
+			"systems/litm/assets/media/single-flower.webp",
+			"systems/litm/assets/media/skull.webp",
+			"systems/litm/assets/media/story-tag-bg.webp",
+			"systems/litm/assets/media/tabs-bg.webp",
+			"systems/litm/assets/media/tabs-collapse.webp",
+			"systems/litm/assets/media/tag-divider.webp",
+			"systems/litm/assets/media/theme-bg-top.webp",
+			"systems/litm/assets/media/top-frame-branches.webp",
+			"systems/litm/assets/media/yellow-leaf.webp",
+		];
+
+		for (const asset of assets) {
+			const link = Object.assign(document.createElement("link"), {
+				rel: "preload",
+				href: asset,
+				as: "image",
+				type: "image/webp",
+			});
+			document.head.appendChild(link);
+		}
 	}
 
 	static #iconOnlyHeaderButtons() {
@@ -132,6 +208,12 @@ export class LitmHooks {
 				.attr("src", "systems/litm/assets/media/marshal-crest.webp")
 				.removeAttr("class");
 		});
+		Hooks.on("renderGamePause", (_, html) => {
+			const img = html.querySelector("img");
+			if (!img) return;
+			img.src = "systems/litm/assets/media/marshal-crest.webp";
+			img.classList.remove("fa-spin");
+		});
 	}
 
 	static #attachChatMessageListeners() {
@@ -226,24 +308,30 @@ export class LitmHooks {
 	}
 
 	static #attachContextMenuToRollMessage() {
-		Hooks.on("getChatLogEntryContext", (_, options) => {
+		const callback = (_, options) => {
 			// Add context menu options to tracked rolls
 			const createEffect = ([key, effect], category) => ({
 				name: `${t(category)}: ${t(`Litm.effects.${key}.key`)}`,
 				icon: `<i class="${effect.icon}"></i>`,
-				condition: (li) =>
-					li.find("[data-type='tracked']:not([data-result='failure'])").length,
+				condition: (li) => {
+					if (typeof li.find === "function")
+						return li.find("[data-type='tracked']:not([data-result='failure'])")
+							.length;
+					return !!li.querySelector(
+						"[data-type='tracked']:not([data-result='failure'])",
+					);
+				},
 				callback: () => {
 					ChatMessage.create({
 						content: `<div class="litm dice-roll">
-						<div class="dice-flavor">${t(`Litm.effects.${key}.key`)}</div>
-						<div class="dice-effect">
-							<p><em>${t(effect.description)}</em></p>
-							<p>${t(effect.action)}</p>
-							<p><strong>${t("Litm.other.cost")}:</strong> ${t(effect.cost)}</p>
+							<div class="dice-flavor">${t(`Litm.effects.${key}.key`)}</div>
+							<div class="dice-effect">
+								<p><em>${t(effect.description)}</em></p>
+								<p>${t(effect.action)}</p>
+								<p><strong>${t("Litm.other.cost")}:</strong> ${t(effect.cost)}</p>
+							</div>
 						</div>
-					</div>
-					`,
+						`,
 					});
 				},
 			});
@@ -255,11 +343,23 @@ export class LitmHooks {
 			const createTypeChange = (type) => ({
 				name: `${t("Litm.ui.change-roll-type")}: ${t(`Litm.ui.roll-${type}`)}`,
 				icon: '<i class="fas fa-dice"></i>',
-				condition: (li) =>
-					li.find(".litm.dice-roll[data-type]").length &&
-					!li.find(`[data-type='${type}']`).length,
+				condition: (li) => {
+					if (typeof li.find === "function")
+						return (
+							li.find(".litm.dice-roll[data-type]").length &&
+							!li.find(`[data-type='${type}']`).length
+						);
+					return (
+						!!li.querySelector(".litm.dice-roll[data-type]") &&
+						!li.querySelector(`[data-type='${type}']`)
+					);
+				},
 				callback: (li) => {
-					const message = game.messages.get(li.data("message-id"));
+					const data =
+						typeof li.data === "function"
+							? li.data("message-id")
+							: li.dataset.messageId;
+					const message = game.messages.get(data);
 					const roll = message.rolls[0];
 					roll.options.type = type;
 					message.update({ rolls: [roll] });
@@ -272,7 +372,9 @@ export class LitmHooks {
 					createGroup(category, Object.entries(effects)),
 				),
 			);
-		});
+		};
+		Hooks.on("getChatLogEntryContext", callback);
+		Hooks.on("getChatMessageContextOptions", callback);
 	}
 
 	static #prepareCharacterOnCreate() {
@@ -365,72 +467,10 @@ export class LitmHooks {
 		const app = new game.litm.StoryTagApp();
 		game.litm.storyTags = app;
 
-		Hooks.on("renderSidebar", (_app, html) => {
-			const buttonSection = $(/*html*/ `
-				<menu class="litm--sidebar-buttons-container">
-					<li>
-						<button type="button" data-click="toggle-rendered"
-							aria-label="${t("Litm.tags.story", "Litm.other.tags")}"
-							data-tooltip="${t("Litm.tags.story", "Litm.other.tags")}">
-							<i class="fas fa-tags"></i>
-						</button>
-					</li>
-					<li>
-						<button type="button" data-click="render-character"
-							data-tooltip="${
-								game.user.character
-									? game.user.character.name
-									: t("USER.FIELDS.character.label")
-							}">
-							<i class="fas fa-user"></i>
-						</button>
-					</li>
-					<li>
-						<button type="button" data-click="render-roll" aria-label="${t(
-							"Litm.ui.roll-title",
-						)}"
-							data-tooltip="${t("Litm.ui.roll-title")}">
-							<i class="fas fa-dice"></i>
-						</button>
-					</li>
-				</menu>
-			`).on("click", "[data-click]", (event) => {
-				const { click } = event.currentTarget.dataset;
-				switch (click) {
-					case "toggle-rendered":
-						if (!app.rendered) app.render(true);
-						else app.close();
-						break;
-					case "render-character":
-						if (!game.user.character)
-							return ui.notifications.warn(t("Litm.ui.warn-no-character"));
-						if (!game.user.character.sheet.rendered)
-							game.user.character.sheet.render(true);
-						else game.user.character.sheet.close();
-						break;
-					case "render-roll":
-						if (!game.user.character)
-							return ui.notifications.warn(t("Litm.ui.warn-no-character"));
-						game.user.character.sheet.renderRollDialog({ toggle: true });
-						break;
-				}
-			});
-
-			html.before(buttonSection);
-		});
-
 		Hooks.once("ready", async (_app, html) => {
 			if (game.settings.get("litm", "show_tag_window_on_load")) {
 				app.render(true);
 			}
-		});
-	}
-
-	static #repositionStoryTagApp() {
-		Hooks.on("collapseSidebar", (_app, collapsed) => {
-			if (collapsed)
-				game.litm.storyTags.setPosition({ left: window.innerWidth - 337 });
-			else game.litm.storyTags.setPosition({ left: window.innerWidth - 605 });
 		});
 	}
 
@@ -504,6 +544,46 @@ export class LitmHooks {
 				},
 				"preferred",
 			);
+		});
+	}
+
+	static #addStoryTagsToControls() {
+		Hooks.on("getSceneControlButtons", (controls) => {
+			const tokenControls = Array.isArray(controls)
+				? controls.find((c) => c.name === "token")
+				: controls.tokens;
+
+			if (!tokenControls) return;
+
+			if (Array.isArray(tokenControls.tools)) {
+				if (tokenControls.tools.find((t) => t.name === "story-tags")) return;
+				tokenControls.tools.push({
+					name: "story-tags",
+					title: t("Litm.tags.story", "Litm.other.tags"),
+					icon: "fas fa-tags",
+					button: true,
+					onClick: () => {
+						if (game.litm.storyTags) {
+							if (!game.litm.storyTags.rendered)
+								game.litm.storyTags.render(true);
+							else game.litm.storyTags.close();
+						}
+					},
+				});
+			} else if (!tokenControls.tools["story-tags"])
+				tokenControls.tools["story-tags"] = {
+					name: "story-tags",
+					title: t("Litm.tags.story", "Litm.other.tags"),
+					icon: "fas fa-tags",
+					button: true,
+					onClick: () => {
+						if (game.litm.storyTags) {
+							if (!game.litm.storyTags.rendered)
+								game.litm.storyTags.render(true);
+							else game.litm.storyTags.close();
+						}
+					},
+				};
 		});
 	}
 

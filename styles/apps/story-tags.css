@@ -29,8 +29,8 @@
 		position: relative;
 		overflow: hidden;
 		overflow: clip;
-		display: grid;
-		grid-template-rows: auto 1fr auto;
+		display: flex;
+		flex-direction: column;
 		height: 100%;
 	}
 
@@ -45,6 +45,7 @@
 		flex-direction: column;
 		margin-block-start: var(--litm-space-2);
 		overflow-y: auto;
+		flex: 1;
 
 		&:last-of-type {
 			height: 100%;
@@ -80,6 +81,7 @@
 				background-position: left;
 				background-size: cover;
 				color: var(--litm-color-primary-bg);
+				font-family: var(--litm-font-primary);
 				font-size: var(--font-size-16);
 				line-height: var(--font-size-16);
 

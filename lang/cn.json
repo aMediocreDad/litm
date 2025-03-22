@@ -1,4 +1,8 @@
 {
+	"adventure": "历练",
+	"consequence": "Mixed Hit",
+	"failure": "Miss",
+	"greatness": "伟业",
 	"Litm": {
 		"challenges": {
 			"attacker": "袭击者",
@@ -12,89 +16,89 @@
 			"watcher": "监视"
 		},
 		"effects": {
-			"category-target": "对目标或敌人",
-			"category-ally": "对自身或盟友",
-			"category-process": "对进程",
-			"category-other": "其他效果",
-			"category-consequence": "对后果",
-			"effect": "效果",
+			"advance": {
+				"action": "增加进程状态的等级",
+				"cost": "1点效力每等级",
+				"description": "逼近，进步，推动",
+				"key": "进展"
+			},
 			"attack": {
-				"key": "攻击",
-				"description": "劈砍，捶打，诅咒，射击",
 				"action": "给予目标一个有害的状态",
-				"cost": "1点效力每等级"
-			},
-			"disrupt": {
-				"key": "干扰",
-				"description": "致盲，迷惑，震悚，绊倒，中断",
-				"action": "给予目标一个妨碍的标签或状态",
-				"cost": "1点效力每等级，2点效力每标签"
-			},
-			"influence": {
-				"key": "影响",
-				"description": "说服，胁迫，挑衅，精神控制",
-				"action": "给予目标一个动摇的状态",
-				"cost": "1点效力每等级"
-			},
-			"weaken": {
-				"key": "削弱",
-				"description": "打破，隔断，中和，压制",
-				"action": "移除目标的一个有益标签或状态",
-				"cost": "1点效力每等级，2点效力每标签"
+				"cost": "1点效力每等级",
+				"description": "劈砍，捶打，诅咒，射击",
+				"key": "攻击"
 			},
 			"bestow": {
-				"key": "赋予",
-				"description": "教导，增强，附魔，装配",
 				"action": "用标签给予自身或一位盟友新的能力",
-				"cost": "2点效力每标签"
+				"cost": "2点效力每标签",
+				"description": "教导，增强，附魔，装配",
+				"key": "赋予"
 			},
-			"enhance": {
-				"key": "提升",
-				"description": "协助，瞄准，促进，掩护",
-				"action": "给予自身或盟友一个有益的状态",
-				"cost": "1点效力每等级"
-			},
+			"category-ally": "对自身或盟友",
+			"category-consequence": "对后果",
+			"category-other": "其他效果",
+			"category-process": "对进程",
+			"category-target": "对目标或敌人",
 			"create": {
-				"key": "创造",
-				"description": "制造，寻获，购买，召唤，复原",
 				"action": "用标签创造新的物品或存在",
-				"cost": "2点效力每标签"
-			},
-			"restore": {
-				"key": "恢复",
-				"description": "治疗，修理，再生，撤销",
-				"action": "降低有害状态等级或恢复燃尽的标签",
-				"cost": "1点效力每等级，2点效力每标签"
-			},
-			"advance": {
-				"key": "进展",
-				"description": "逼近，进步，推动",
-				"action": "增加进程状态的等级",
-				"cost": "1点效力每等级"
-			},
-			"set_back": {
-				"key": "挫败",
-				"description": "延误，毁坏，捣乱，逆转",
-				"action": "降低进程状态的等级",
-				"cost": "1点效力每等级"
-			},
-			"mitigate": {
-				"key": "缓解",
-				"description": "格挡，闪避，保护，吸收",
-				"action": "降低或消除即将施加的效果",
-				"cost": "1点效力每等级，2点效力每标签"
+				"cost": "2点效力每标签",
+				"description": "制造，寻获，购买，召唤，复原",
+				"key": "创造"
 			},
 			"discover": {
-				"key": "发现",
-				"description": "感知，回想，调查，交涉",
 				"action": "发现一个有用的细节",
-				"cost": "1点效力每一个细节"
+				"cost": "1点效力每一个细节",
+				"description": "感知，回想，调查，交涉",
+				"key": "发现"
+			},
+			"disrupt": {
+				"action": "给予目标一个妨碍的标签或状态",
+				"cost": "1点效力每等级，2点效力每标签",
+				"description": "致盲，迷惑，震悚，绊倒，中断",
+				"key": "干扰"
+			},
+			"effect": "效果",
+			"enhance": {
+				"action": "给予自身或盟友一个有益的状态",
+				"cost": "1点效力每等级",
+				"description": "协助，瞄准，促进，掩护",
+				"key": "提升"
 			},
 			"extra_feat": {
-				"key": "额外举措",
-				"description": "增强或丰富你描述的动作",
 				"action": "",
-				"cost": "1 点效力每包含一个额外功能或举动"
+				"cost": "1 点效力每包含一个额外功能或举动",
+				"description": "增强或丰富你描述的动作",
+				"key": "额外举措"
+			},
+			"influence": {
+				"action": "给予目标一个动摇的状态",
+				"cost": "1点效力每等级",
+				"description": "说服，胁迫，挑衅，精神控制",
+				"key": "影响"
+			},
+			"mitigate": {
+				"action": "降低或消除即将施加的效果",
+				"cost": "1点效力每等级，2点效力每标签",
+				"description": "格挡，闪避，保护，吸收",
+				"key": "缓解"
+			},
+			"restore": {
+				"action": "降低有害状态等级或恢复燃尽的标签",
+				"cost": "1点效力每等级，2点效力每标签",
+				"description": "治疗，修理，再生，撤销",
+				"key": "恢复"
+			},
+			"set_back": {
+				"action": "降低进程状态的等级",
+				"cost": "1点效力每等级",
+				"description": "延误，毁坏，捣乱，逆转",
+				"key": "挫败"
+			},
+			"weaken": {
+				"action": "移除目标的一个有益标签或状态",
+				"cost": "1点效力每等级，2点效力每标签",
+				"description": "打破，隔断，中和，压制",
+				"key": "削弱"
 			}
 		},
 		"name": "《雾中奇谈》",
@@ -109,8 +113,8 @@
 			"description": "描述",
 			"experience": "经验",
 			"level": "等级",
-			"limits": "极限",
 			"limit": "极限",
+			"limits": "极限",
 			"outcome": "结果",
 			"rating": "定级",
 			"roll": "掷骰",
@@ -122,13 +126,17 @@
 			"transfer": "转化",
 			"unnamed": "未命名"
 		},
+		"settings": {
+			"skip-roll-moderation": "跳过掷骰许可",
+			"skip-roll-moderation-hint": "勾选时，玩家可以不经MC许可就掷骰。"
+		},
 		"tags": {
 			"activate": "激活",
 			"burn": "燃尽",
 			"decay": "衰退",
 			"isActive": "被激活",
-			"isInactive": "未激活",
 			"isBurnt": "已燃尽",
+			"isInactive": "未激活",
 			"item-tags": "物品标签",
 			"power": "力量",
 			"story": "故事",
@@ -136,30 +144,30 @@
 		},
 		"themes": {
 			"circumstance": "家世",
-			"past": "过去",
-			"devotion": " 奉献",
-			"mystery": "谜团",
-			"people": "族群",
-			"possessions": "财产",
-			"personality": "个性",
-			"trade-or-skill": "手段&技能",
-			"trait": "特质",
-			"hedge-magic": "原始魔法",
-			"prodigious-skill": "高超技艺",
-			"duty": "责任",
-			"relic": "遗器",
-			"uncanny-being": "离奇存在",
-			"thaumaturgy": "奇术",
-			"rulership": "统治",
 			"destiny": "宿命",
+			"devotion": " 奉献",
+			"duty": "责任",
+			"grand-thaumaturgy": "宏伟奇术",
+			"hedge-magic": "原始魔法",
 			"mastery": "精通",
 			"monstrosity": "异化",
-			"grand-thaumaturgy": "宏伟奇术"
+			"mystery": "谜团",
+			"past": "过去",
+			"people": "族群",
+			"personality": "个性",
+			"possessions": "财产",
+			"prodigious-skill": "高超技艺",
+			"relic": "遗器",
+			"rulership": "统治",
+			"thaumaturgy": "奇术",
+			"trade-or-skill": "手段&技能",
+			"trait": "特质",
+			"uncanny-being": "离奇存在"
 		},
 		"ui": {
 			"add-consequence": "添加后果",
-			"add-tag": "添加标签",
 			"add-limit": "添加极限",
+			"add-tag": "添加标签",
 			"add-theme": "添加主题",
 			"add-threat": "添加威胁",
 			"approve": "允许",
@@ -170,6 +178,7 @@
 			"confirm-delete-content": "确定要删除{thing}吗?",
 			"confirm-delete-title": "确认删除",
 			"context-edit": "<span class='reference'>单击右键</span>以编辑",
+			"context-remove-all-tags": "<span class='reference'>右键单击</span>以移除所有故事标签",
 			"dblclick-open": "<span class='reference'>双击左键</span>以编辑",
 			"dice-roller": "骰盘",
 			"dice-roller-hint": "如果角色已关联到用户，则可以打开骰盘",
@@ -179,31 +188,36 @@
 			"error-burning-tag": "尝试燃尽标签时出错，更多信息请参阅控制台。",
 			"error-conducting-roll": "进行掷骰时出错，更多信息请参阅控制台。",
 			"error-no-actor": "未找到实体，请确认实体存在且已被正确配置。",
+			"error-no-backpack": "未找到行囊。尝试复制角色以解决此问题。",
 			"error-validating-actor": "验证实体时出错。有关更多信息，请参阅控制台。",
 			"error-validating-item": "验证物品时出错。有关更多信息，请参阅控制台。",
 			"gain-exp": "获得经验",
-			"info-imported-character": "{name}导入成功。",
 			"import-actor": "从JSON中导入实体",
 			"import-adventure": "导入火绒盒冒险内容",
 			"inc-dec": "<span class='reference'>左键单击</span>以增加<br /> <span class='reference'>右键单击</span>以降低",
+			"info-imported-character": "{name}导入成功。",
+			"item-transfer-content": "选择你想转移到行囊的标签。",
+			"item-transfer-success": "已将{items}转移到你的行囊。",
+			"item-transfer-title": "转移行囊标签",
 			"manage-tags": "管理状态与标签",
 			"moderate-roll-gm": "掷骰许可",
-			"moderate-roll-player": "请稍候！",
 			"moderate-roll-gm-hint": "希望掷骰时使用",
+			"moderate-roll-player": "请稍候！",
 			"moderate-roll-player-hint": "MC正在处理结果，请稍候。",
+			"modifier": "修饰符",
+			"name-category": "选择分类",
+			"name-consequence": "使用[tag]的格式指向标签，并使用[tag 0]指向状态来命名您的后果。",
 			"name-motivation": "动机",
 			"name-note": "描述",
 			"name-power": "力量标签",
-			"name-category": "选择分类",
 			"name-tag": "标签",
 			"name-weakness": "弱点标签",
-			"name-consequence": "使用[tag]的格式指向标签，并使用[tag 0]指向状态来命名您的后果。",
 			"player-skipped-moderation": "{name}跳过了掷骰.",
+			"reject": "拒绝",
 			"remove": "删除",
-			"remove-tag": "删除标签",
 			"remove-actors": "删除实体",
 			"remove-story-tags": "删除故事标签",
-			"reject": "拒绝",
+			"remove-tag": "删除标签",
 			"rename": "重命名",
 			"rename-challenge": "重命名挑战",
 			"roll": "掷骰！",
@@ -226,24 +240,23 @@
 			"special-features": "特性",
 			"status": "故事标签与状态",
 			"tags-statuses": "标签&状态",
+			"threats-consequences": "> 威胁 / >> 效力",
 			"toggle-burnt": "<span class='reference'>ALT/OPTION +单击</span>以燃尽一个标签。",
 			"toggle-roll": "<span class='reference'>单击</span>以在掷骰中加入或删去. <br /> <span class='reference'>SHIFT + 单击</span>以在掷骰中燃尽标签， <br /> <span class='reference'>ALT/OPTION + 单击</span>以燃尽或取消燃尽一个标签.",
 			"toggle-weakness-roll": "<span class='reference'>单击</span>以在掷骰中加入或删去。",
 			"total-power": "总效力",
-			"threats-consequences": "> 威胁 / >> 效力",
 			"user-manual": "打开用户手册",
 			"warn-incompatible-data": "尝试导入的数据与这个系统不匹配。",
-			"warn-no-effect-found": "游戏配置错误。没有找到选定的效果。",
 			"warn-no-character": "请在左下角的玩家配置菜单中为你的用户分配一个角色。",
+			"warn-no-effect-found": "游戏配置错误。没有找到选定的效果。",
 			"warn-not-owner": "你不是这个实体的所有者，无法进行编辑。",
 			"warn-not-supported": "没有任何现有实体提供支持",
 			"warn-theme-limit": "你的主题数量已达到上限，请在添加前移除一个已有的主题。"
-		},
-		"settings": {
-			"skip-roll-moderation": "跳过掷骰许可",
-			"skip-roll-moderation-hint": "勾选时，玩家可以不经MC许可就掷骰。"
 		}
 	},
+	"Notes": "笔记",
+	"origin": "起源",
+	"success": "Strong Hit",
 	"TYPES": {
 		"Actor": {
 			"challenge": "挑战",
@@ -254,12 +267,5 @@
 			"theme": "主题",
 			"threat": "威胁"
 		}
-	},
-	"failure": "Miss",
-	"consequence": "Mixed Hit",
-	"success": "Strong Hit",
-	"origin": "起源",
-	"adventure": "历练",
-	"greatness": "伟业",
-	"Notes": "笔记"
+	}
 }

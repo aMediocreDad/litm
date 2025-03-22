@@ -1,48 +1,54 @@
 {{#*inline "section" name value flavor flavorClass}}
-	<section class="tooltip-part">
-		<header class="part-header flexrow">
-			<span class="part-formula">{{name}}</span>
-			{{#if flavor}}<span
-					class="part-flavor {{flavorClass}}">{{flavor}}</span>{{/if}}
-			<span class="part-total">{{value}}</span>
-		</header>
-	</section>
+<section class="tooltip-part">
+	<header class="part-header flexrow">
+		<span class="part-formula">{{name}}</span>
+		{{#if flavor}}<span class="part-flavor {{flavorClass}}">{{flavor}}</span>{{/if}}
+		<span class="part-total">{{value}}</span>
+	</header>
+</section>
 {{/inline}}
 
-<div class="dice-tooltip{{#if expanded}} expanded{{/if}}">
-	{{#each parts}}
-		<section class=" tooltip-part">
+<div class="dice-tooltip">
+	<div class="wrapper">
+		{{#each parts}}
+		<section class="tooltip-part">
 			<div class="dice">
 				<header class="part-header flexrow">
 					<span class="part-formula">{{this.formula}}</span>
-					{{#if this.flavor}}<span
-							class="part-flavor">{{this.flavor}}</span>{{/if}}
+					{{#if this.flavor}}<span class="part-flavor">{{this.flavor}}</span>{{/if}}
 					<span class="part-total">{{this.total}}</span>
 				</header>
 				<ol class="dice-rolls">
 					{{#each this.rolls}}
-						<li class="roll {{this.classes}}">{{{this.result}}}</li>
+					<li class="roll {{this.classes}}">{{{this.result}}}</li>
 					{{/each}}
 				</ol>
 			</div>
 		</section>
-	{{/each}}
-	{{#each data.burnedTags as |tag|}}
+		{{/each}}
+		{{#each data.burnedTags as |tag|}}
 		{{> section name=tag.name value=3 flavor=(localize 'Litm.tags.isBurnt') flavorClass="burned"}}
-	{{/each}}
-	{{#each data.powerTags as |tag|}}
-		{{> section name=tag.name value=1 flavor=(ifThen (eq tag.type 'storyTag') (localize "Litm.other.tag") "") flavorClass=(ifThen (eq tag.type "storyTag") "warning" "")}}
-	{{/each}}
-	{{#if data.mitigate}}
+		{{/each}}
+		{{#each data.powerTags as |tag|}}
+		{{> section name=tag.name value=1 flavor=(ifThen (eq tag.type 'storyTag') (localize "Litm.other.tag") "")
+		flavorClass=(ifThen (eq tag.type "storyTag") "warning" "")}}
+		{{/each}}
+		{{#if data.mitigate}}
 		{{> section name=(localize 'Litm.effects.mitigate.key') value=1}}
-	{{/if}}
-	{{#each data.weaknessTags as |tag|}}
-		{{> section name=tag.name value=-1 flavor=(ifThen (eq tag.type 'weaknessTag') (localize 'Litm.tags.weakness') (localize 'Litm.other.tag')) flavorClass=(ifThen (eq tag.type 'weaknessTag') "negative" "warning")}}
-	{{/each}}
-	{{#each data.positiveStatuses as |tag|}}
+		{{/if}}
+		{{#each data.weaknessTags as |tag|}}
+		{{> section name=tag.name value=-1 flavor=(ifThen (eq tag.type 'weaknessTag') (localize 'Litm.tags.weakness')
+		(localize 'Litm.other.tag')) flavorClass=(ifThen (eq tag.type 'weaknessTag') "negative" "warning")}}
+		{{/each}}
+		{{#each data.positiveStatuses as |tag|}}
 		{{> section name=tag.name value=tag.value flavor=(localize 'Litm.other.status') flavorClass="positive"}}
-	{{/each}}
-	{{#each data.negativeStatuses as |tag|}}
-		{{> section name=tag.name value=(concat "-" tag.value) flavor=(localize 'Litm.other.status') flavorClass="positive"}}
-	{{/each}}
+		{{/each}}
+		{{#each data.negativeStatuses as |tag|}}
+		{{> section name=tag.name value=(concat "-" tag.value) flavor=(localize 'Litm.other.status')
+		flavorClass="positive"}}
+		{{/each}}
+		{{#if data.modifier}}
+		{{> section name=(localize 'Litm.ui.modifier') value=data.modifier flavor="" flavorClass=""}}
+		{{/if}}
+	</div>
 </div>

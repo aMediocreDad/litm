@@ -5,7 +5,7 @@ export class ThemeSheet extends SheetMixin(ItemSheet) {
 	static defaultOptions = foundry.utils.mergeObject(ItemSheet.defaultOptions, {
 		classes: ["litm", "litm--theme"],
 		width: 330,
-		height: 660,
+		height: 700,
 	});
 
 	get system() {

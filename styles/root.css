@@ -47,157 +47,26 @@ body {
 	--litm-space-4: 2rem;
 	--litm-space-5: 4rem;
 
-	/* Foundry Overrides */
-	--font-size-26: 1.625rem;
-	--font-primary: Fraunces, BespokeSans, Lato, "PackardAntique", "Open Sans",
-		sans-serif;
-	--color-text-light-1: var(--litm-color-accent);
-	--color-shadow-primary: var(--litm-color-primary);
-	--color-shadow-highlight: var(--litm-color-accent-bg);
-	--color-border-highlight: var(--litm-color-accent-bg);
-	--color-border-highlight-alt: var(--litm-color-accent-2);
-	--color-text-hyperlink: var(--litm-color-accent-3);
-	--color-level-success: rgba(26, 107, 34, 0.8);
-	--color-level-error: rgba(105, 0, 8, 0.8);
-	--color-level-warning: rgba(214, 150, 0, 0.8);
-}
-
-/* DANGER AREA */
-/* TODO: Find a better way to override styles like this */
-
-/* Background-colors not implemented using css variables  */
-button,
-.directory .directory-header .header-search input {
-	background-color: var(--litm-color-alt-bg);
-}
-
-/* A border-color that was not implemented using css variables */
-#navigation #scene-list .scene.gm {
-	border-color: var(--litm-color-accent-bg);
-}
-
-/* Add more color to sidebar */
-#sidebar {
-	border: 2px solid var(--litm-color);
-}
-
-/* Custom dice roll chat messages */
-.chat-message:has(.litm.dice-roll) {
-	background-color: var(--litm-color-weakness);
-	background-blend-mode: color-burn;
-	color: var(--litm-color-primary-bg);
-	font-family: var(--litm-font-text);
-	font-size: var(--font-size-12);
-
-	&.whisper {
-		background-color: var(--color-border-dark-primary);
-	}
-
-	&.blind {
-		border-color: var(--color-level-warning);
-	}
-
-	&.self {
-		border-color: var(--color-level-error);
-	}
-
-	& .message-header {
-		color: color-mix(in hsl, var(--litm-color-accent) 70%, transparent);
+	&.game,
+	&.game .app {
+		/* Foundry Overrides */
+		--font-size-26: 1.625rem;
+		--font-primary: Fraunces, BespokeSans, Lato, "PackardAntique", "Open Sans",
+			sans-serif;
+		--color-text-light-1: var(--litm-color-accent);
+		--color-shadow-primary: var(--litm-color-primary);
+		--color-shadow-highlight: var(--litm-color-accent-bg);
+		--color-border-highlight: var(--litm-color-accent-bg);
+		--color-border-highlight-alt: var(--litm-color-accent-2);
+		--color-text-hyperlink: var(--litm-color-accent-3);
+		--color-level-success: rgba(26, 107, 34, 0.8);
+		--color-level-error: rgba(105, 0, 8, 0.8);
+		--color-level-warning: rgba(214, 150, 0, 0.8);
 	}
 }
 
-/* Custom content links */
-a.content-link {
-	border: none;
-	border-radius: 0px;
-	background: none;
-	color: var(--litm-color-weakness);
-	outline: 1px solid;
-	outline-offset: -1px;
-	outline-style: dashed;
-
-	& i {
-		color: var(--litm-color-weakness);
-	}
-}
-
-/* Journal Entries background color */
-.window-app .window-content,
-.sheet.journal-entry .journal-entry-content {
-	background-color: var(--litm-color-alt-bg);
-	background-blend-mode: luminosity;
-}
-
-/* Fix the logo */
-#logo {
-	object-fit: contain;
-	object-position: top;
-	filter: drop-shadow(
-		0px 0px 3px color-mix(in hsl, var(--litm-color-bg) 60%, transparent)
-	);
-	margin-inline: 16px;
-	image-rendering: -webkit-optimize-contrast;
-}
-
-/* Fix the pause button */
-#pause {
-	background: none;
-	animation: pulse 3s infinite ease-in-out;
-	will-change: filter;
-
-	img {
-		opacity: 80%;
-		object-fit: contain;
-		object-position: center;
-		width: 220px;
-		height: 220px;
-		top: -55px;
-		left: calc(50% - 110px);
-		transform-origin: center;
-		rotate: 39deg;
-	}
-
-	figcaption {
-		color: var(--litm-color-accent);
-		text-shadow: 2px 2px 2px var(--litm-color);
-		font-family: var(--litm-font-heading);
-		font-weight: 800;
-		letter-spacing: 2.5px;
-		padding: 0;
-		margin: 0;
-	}
-}
-
-@media (prefers-reduced-motion) {
-	#pause {
-		animation: none;
-	}
-}
-
-/* Reduce size of tooltips */
-#tooltip,
-aside[role="tooltip"] {
-	font-size: var(--font-size-14);
-
-	& a.content-link {
-		color: var(--litm-color-accent);
-
-		& i {
-			color: var(--litm-color-accent);
-		}
-	}
-}
-
-/* Draggable should have grap-cursor */
-[draggable="true"] {
-	cursor: grab;
-}
-
-/* END DANGER AREA */
-
-/* App core style overrides */
-
-.app.litm {
+.app.litm,
+.application.litm {
 	background: url("../assets/media/background.webp") no-repeat left / cover;
 	box-shadow: none;
 	filter: drop-shadow(rgb(0, 0, 0, 0.6) 2px 4px 8px);
@@ -250,9 +119,11 @@ aside[role="tooltip"] {
 		}
 
 		& .litm--sheet-scale-button {
-			rotate: 45deg;
-
 			cursor: nwse-resize;
+
+			& > i {
+				rotate: 45deg;
+			}
 		}
 	}
 

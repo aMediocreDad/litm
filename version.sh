@@ -2,7 +2,7 @@
 
 VERSION=$(jq '.version + 1' system.json)
 
-npx -y @biomejs/biome check . --write
+npx -y @biomejs/biome check . --write || exit 1
 
 jq --tab --arg version "$VERSION" '.version = ($version | tonumber) | .download |= gsub("v[0-9]+"; "v" + $version)' system.json > temp.json
 mv temp.json system.json

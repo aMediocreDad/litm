@@ -7,7 +7,7 @@ export class LitmRollDialog extends FormApplication {
 			template: "systems/litm/templates/apps/roll-dialog.html",
 			classes: ["litm", "litm--roll"],
 			width: 500,
-			height: 'auto',
+			height: "auto",
 			resizable: true,
 			title: game.i18n.localize("Litm.ui.roll-title"),
 		});
@@ -252,7 +252,7 @@ export class LitmRollDialog extends FormApplication {
 		const tags = LitmRollDialog.#filterTags(state);
 		const { totalPower } = LitmRollDialog.calculatePower({
 			...tags,
-			modifier: this.#modifier
+			modifier: this.#modifier,
 		});
 		return totalPower;
 	}
@@ -416,7 +416,10 @@ export class LitmRollDialog extends FormApplication {
 		const id = foundry.utils.randomID();
 		const userId = game.user.id;
 		const tags = LitmRollDialog.#filterTags(data.tags);
-		const { totalPower } = game.litm.methods.calculatePower({...tags, modifier: data.modifier});
+		const { totalPower } = game.litm.methods.calculatePower({
+			...tags,
+			modifier: data.modifier,
+		});
 		const recipients = Object.entries(this.actor.ownership)
 			.filter((u) => u[1] === 3 && u[0] !== "default")
 			.map((u) => u[0]);

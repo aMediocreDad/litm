@@ -38,13 +38,16 @@ export class ThemeData extends foundry.abstract.TypeDataModel {
 			weaknessTags: new fields.ArrayField(
 				new fields.EmbeddedDataField(abstract.TagData),
 				{
-					initial: () => Array(2).fill().map(() => ({
-						id: foundry.utils.randomID(),
-						name: t("Litm.ui.name-weakness"),
-						isActive: true,
-						isBurnt: false,
-						type: "weaknessTag",
-					})),
+					initial: () =>
+						Array(2)
+							.fill()
+							.map(() => ({
+								id: foundry.utils.randomID(),
+								name: t("Litm.ui.name-weakness"),
+								isActive: true,
+								isBurnt: false,
+								type: "weaknessTag",
+							})),
 					validate: (tags) => tags.length === 2,
 				},
 			),

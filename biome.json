@@ -13,6 +13,6 @@
 		"ignore": ["diff.js"]
 	},
 	"files": {
-		"ignore": ["packs", "foundry.js", "challenge.css", "threat.css"]
+		"ignore": ["packs", "fvtt", "challenge.css", "threat.css"]
 	}
 }

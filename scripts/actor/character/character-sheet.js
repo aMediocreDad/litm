@@ -205,6 +205,14 @@ export class CharacterSheet extends SheetMixin(ActorSheet) {
 				fixed: true,
 			},
 		);
+
+		if (Number.parseFloat(game.version) < 13)
+			this.#contextmenu._setPosition = function (html, target) {
+				this._expandUp = true;
+				html.toggleClass("expand-up", this._expandUp);
+				target.append(html);
+				target.addClass("context");
+			};
 	}
 
 	// Hack to allow updating the embedded items

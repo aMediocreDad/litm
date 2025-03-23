@@ -25,11 +25,11 @@ export class ThemeData extends foundry.abstract.TypeDataModel {
 					initial: () =>
 						Array(10)
 							.fill()
-							.map(() => ({
+							.map((_, i) => ({
 								id: foundry.utils.randomID(),
-								name: "",
+								name: `${i < 2 ? `${t("Litm.ui.name-power")}` : ""}`,
 								type: "powerTag",
-								isActive: false,
+								isActive: i < 2,
 								isBurnt: false,
 							})),
 					validate: (tags) => tags.length === 10,
@@ -79,11 +79,11 @@ export class ThemeData extends foundry.abstract.TypeDataModel {
 				...source.powerTags,
 				...Array(10 - numPowerTags)
 					.fill()
-					.map((_, i) => ({
+					.map(() => ({
 						id: foundry.utils.randomID(),
-						name: `${i < 2 ? `${t("Litm.ui.name-power")}` : ""}`,
+						name: "",
 						type: "powerTag",
-						isActive: i < 2,
+						isActive: false,
 						isBurnt: false,
 					})),
 			];
